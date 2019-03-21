@@ -18,7 +18,9 @@
     "lint:js": "eslint .",
     "start": "ember serve",
     "test": "ember test",
-    "test:all": "ember try:each"
+    "test:all": "ember try:each",
+    "dist": "ember build -prod",
+    "deploy": "npm run dist && firebase deploy --only hosting"
   },
   "dependencies": {
     "ember-cli-babel": "^7.1.2",
