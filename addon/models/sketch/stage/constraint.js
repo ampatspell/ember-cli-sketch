@@ -14,17 +14,27 @@ export default Base.extend({
   max: null,
 
   isInRange: computed('min', 'max', 'frame', function() {
-    let { min, max, frame, opts: { size } } = this;
-    if(min && frame[size] <= min) {
-      return false;
-    }
-    if(max && frame[size] >= max) {
-      return false;
-    }
-    return true;
+    return this.isSizeValid(this.frame[this.opts.size]);
   }).readOnly(),
 
   isResizable: and('resize', 'isInRange'),
   isNotResizable: not('isResizable'),
+
+  isSizeValid(value) {
+    let { min, max } = this;
+    if((!min || value >= min) && (!max || value <= max)) {
+      return true;
+    }
+    return false;
+  },
+
+  isDeltaValid(delta) {
+    if(!this.resize) {
+      return false;
+    }
+    let size = this.frame[this.opts.size];
+    let value = size + delta;
+    return this.isSizeValid(value);
+  }
 
 });

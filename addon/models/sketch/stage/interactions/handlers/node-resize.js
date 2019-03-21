@@ -39,27 +39,28 @@ export default Handler.extend({
     delta.y = delta.y / zoom;
 
     let frame = {};
+    let constraints = node.constraints;
 
     if(edge.vertical === 'bottom') {
-      frame.height = delta.y;
+      if(constraints.height.isDeltaValid(delta.y)) {
+        frame.height = delta.y;
+      }
     } else if(edge.vertical === 'top') {
-      frame.y = delta.y;
-      frame.height = -delta.y;
-    } else if(edge.vertical === 'middle') {
-    } else {
-      frame.y = delta.y;
-      frame.height = -delta.y * 2;
+      if(constraints.height.isDeltaValid(-delta.y)) {
+        frame.y = delta.y;
+        frame.height = -delta.y;
+      }
     }
 
     if(edge.horizontal === 'right') {
-      frame.width = delta.x;
+      if(constraints.width.isDeltaValid(delta.x)) {
+        frame.width = delta.x;
+      }
     } else if(edge.horizontal === 'left') {
-      frame.x = delta.x;
-      frame.width = -delta.x;
-    } else if(edge.horizontal === 'middle') {
-    } else {
-      frame.x = delta.x;
-      frame.width = -delta.x * 2;
+      if(constraints.width.isDeltaValid(-delta.x)) {
+        frame.x = delta.x;
+        frame.width = -delta.x;
+      }
     }
 
     let next = node.frame.deltaToFrame(frame);
