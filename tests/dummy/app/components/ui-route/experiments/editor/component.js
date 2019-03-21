@@ -14,7 +14,7 @@ export default Component.extend({
     let stage = factory.stage.create();
     stage.position.setProperties({ x: 100, y: 50 });
     {
-      let area = factory.area({ frame: { x: 20, y: 20, width: 560, height: 360 } });
+      let area = factory.area({ frame: { x: 70, y: 0, width: 560, height: 360 } });
       {
         let group = factory.node('group');
         area.setGroup(group);
@@ -34,7 +34,7 @@ export default Component.extend({
       stage.areas.add(area);
     }
     {
-      let area = factory.area({ frame: { x: 20, y: 420, width: 560, height: 200 } });
+      let area = factory.area({ frame: { x: 0, y: 430, width: 560, height: 200 } });
       {
         let group = factory.node('group');
         area.setGroup(group);
