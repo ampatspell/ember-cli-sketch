@@ -1,4 +1,5 @@
-import EmberObject, { computed } from '@ember/object';
+import Base from '../-base';
+import { computed } from '@ember/object';
 import { bool } from '@ember/object/computed';
 import { sketches } from '../../../services/sketches';
 
@@ -6,17 +7,13 @@ export const resizing = () => computed(function() {
   return sketches(this).factory.stage.resizing(this);
 }).readOnly();
 
-export default EmberObject.extend({
+export default Base.extend({
 
   owner: null,
   node: null,
   edge: null,
   active: false,
   bound: bool('node'),
-
-  prepare(props) {
-    this.setProperties(props);
-  },
 
   _deselectNodes() {
     let { owner: { selection }, node } = this;

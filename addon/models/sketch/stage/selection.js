@@ -1,4 +1,5 @@
-import EmberObject, { computed } from '@ember/object';
+import Base from '../-base';
+import { computed } from '@ember/object';
 import { array } from '../../../util/computed';
 import { sketches } from '../../../services/sketches';
 
@@ -6,14 +7,10 @@ export const selection = () => computed(function() {
   return sketches(this).factory.stage.selection(this);
 }).readOnly();
 
-export default EmberObject.extend({
+export default Base.extend({
 
   owner: null,
   nodes: array(),
-
-  prepare(props) {
-    this.setProperties(props);
-  },
 
   copy() {
     return this.nodes.slice();

@@ -1,4 +1,5 @@
-import EmberObject, { computed } from '@ember/object';
+import Base from './-base';
+import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { sketches } from '../../services/sketches';
 import { assign } from '@ember/polyfills';
@@ -10,7 +11,7 @@ export const frame = (type='node') => computed(function() {
 
 const sizeKeys = Object.freeze([ 'width', 'height' ]);
 
-export default EmberObject.extend({
+export default Base.extend({
 
   owner: null,
 
@@ -45,10 +46,6 @@ export default EmberObject.extend({
       rotation
     };
   }).readOnly(),
-
-  prepare(props) {
-    this.setProperties(props);
-  },
 
   update(props, opts) {
     let { delta } = assign({ delta: false }, opts);

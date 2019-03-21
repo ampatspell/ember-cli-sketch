@@ -1,10 +1,10 @@
-import EmberObject from '@ember/object';
+import Base from '../../../-base';
 import { equal } from '@ember/object/computed';
 
 const keyCode = value => equal('keyCode', value).readOnly();
 const key = value => equal('key', value).readOnly();
 
-export default EmberObject.extend({
+export default Base.extend({
 
   owner: null,
 
@@ -14,10 +14,6 @@ export default EmberObject.extend({
 
   isShift: key('Shift'),
   isSpace: keyCode(32),
-
-  prepare(props) {
-    this.setProperties(props);
-  },
 
   onKeyDown({ key, keyCode }) {
     this.setProperties({ state: 'down', key, keyCode });

@@ -1,4 +1,5 @@
-import EmberObject from '@ember/object';
+import Base from './-base';
+
 import { omit } from '../../util/object';
 
 const split = opts => {
@@ -10,14 +11,14 @@ const split = opts => {
   return { frame, props };
 };
 
-export default EmberObject.extend({
+export default Base.extend({
 
   prepare(opts) {
     let { frame, props } = split(opts);
     if(frame) {
       this.frame.prepare(frame);
     }
-    this.setProperties(props);
+    this._super(props);
   }
 
 });

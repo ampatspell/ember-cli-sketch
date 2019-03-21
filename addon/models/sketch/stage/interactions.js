@@ -1,4 +1,5 @@
-import EmberObject, { computed } from '@ember/object';
+import Base from '../-base';
+import { computed } from '@ember/object';
 import { sketches } from '../../../services/sketches';
 
 export const interactions = () => computed(function() {
@@ -16,7 +17,7 @@ const handlers = () => computed(function() {
   return sketches(this).factory.stage.interactions.handlers(this);
 }).readOnly();
 
-export default EmberObject.extend({
+export default Base.extend({
 
   owner: null,
 
@@ -24,10 +25,6 @@ export default EmberObject.extend({
   keyboard: keyboard(),
 
   handlers: handlers(),
-
-  prepare() {
-    this.setProperties(...arguments);
-  },
 
   invokeHandlers() {
     this.handlers.onEvent(...arguments);

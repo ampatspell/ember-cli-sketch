@@ -1,13 +1,9 @@
-import EmberObject from '@ember/object';
+import Base from './-base';
 import { factory } from './factory/-base';
 
-export default EmberObject.extend({
+export default Base.extend({
 
   owner: null,
-
-  prepare(props) {
-    this.setProperties(props);
-  },
 
   model() {
     return this.owner.model(...arguments);

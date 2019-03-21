@@ -1,4 +1,5 @@
-import EmberObject, { computed } from '@ember/object';
+import Base from '../-base';
+import { computed } from '@ember/object';
 import { sketches } from '../../../services/sketches';
 import { assign } from '@ember/polyfills';
 
@@ -6,14 +7,10 @@ export const position = () => computed(function() {
   return sketches(this).factory.stage.position();
 }).readOnly();
 
-export default EmberObject.extend({
+export default Base.extend({
 
   x: 0,
   y: 0,
-
-  prepare(props) {
-    this.setProperties(props);
-  },
 
   update(props, opts) {
     let { delta } = assign({ delta: false }, opts);

@@ -1,4 +1,5 @@
-import EmberObject, { computed } from '@ember/object';
+import Base from '../-base';
+import { computed } from '@ember/object';
 import { array } from '../../../util/computed';
 import { sketches } from '../../../services/sketches';
 import { readOnly, gt, filterBy } from '@ember/object/computed';
@@ -7,7 +8,7 @@ export const hover = () => computed(function() {
   return sketches(this).factory.stage.hover(this);
 }).readOnly();
 
-export default EmberObject.extend({
+export default Base.extend({
 
   owner: null,
   nodes: array(),
@@ -16,10 +17,6 @@ export default EmberObject.extend({
   lastNode: readOnly('nodes.lastObject'),
 
   any: gt('nodes.length', 0),
-
-  prepare(props) {
-    this.setProperties(props);
-  },
 
   replace(next) {
     let { nodes } = this;

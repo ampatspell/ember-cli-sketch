@@ -1,4 +1,5 @@
-import EmberObject, { defineProperty, computed } from '@ember/object';
+import Base from '../../-base';
+import { defineProperty, computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { sketches } from '../../../../services/sketches';
 import { A } from '@ember/array';
@@ -13,7 +14,7 @@ const property = type => computed('all.@each.type', function() {
   return this.all.findBy('type', type);
 }).readOnly();
 
-export default EmberObject.extend({
+export default Base.extend({
 
   owner: null,
   types: null,
@@ -25,7 +26,7 @@ export default EmberObject.extend({
   all: all(),
 
   prepare(props) {
-    this.setProperties(props);
+    this._super(...arguments);
     props.types.forEach(type => defineProperty(this, camelize(type), property(type)));
   },
 

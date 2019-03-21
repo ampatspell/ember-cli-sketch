@@ -1,4 +1,4 @@
-import Base from './base';
+import Base from './-with-frame';
 import { frame } from './frame';
 import { readOnly } from '@ember/object/computed';
 

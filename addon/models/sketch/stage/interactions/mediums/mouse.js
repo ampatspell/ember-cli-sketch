@@ -1,11 +1,11 @@
-import EmberObject from '@ember/object';
+import Base from '../../../-base';
 import { equal, and } from '@ember/object/computed';
 
 const button = value => equal('button', value).readOnly();
 const over = value => equal('over', value).readOnly();
 const state = value => equal('state', value).readOnly();
 
-export default EmberObject.extend({
+export default Base.extend({
 
   owner: null,
 
@@ -19,10 +19,6 @@ export default EmberObject.extend({
   isLeftButtonOverStage: and('isLeftButton', 'isOverStage'),
 
   isDown: state('down'),
-
-  prepare(props) {
-    this.setProperties(props);
-  },
 
   onMouseOver({ over }) {
     this.setProperties({ over });

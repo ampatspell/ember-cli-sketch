@@ -1,7 +1,7 @@
-import EmberObject from '@ember/object';
+import Base from '../../../-base';
 import { readOnly } from '@ember/object/computed';
 
-export default EmberObject.extend({
+export default Base.extend({
 
   owner: null,
   type: null,
@@ -9,10 +9,6 @@ export default EmberObject.extend({
   stage: readOnly('owner.stage'),
   mouse: readOnly('owner.mouse'),
   keyboard: readOnly('owner.keyboard'),
-
-  prepare(props) {
-    this.setProperties(props);
-  },
 
   onMouseOver() {
   },
