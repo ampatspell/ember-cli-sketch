@@ -7,9 +7,9 @@ export default Component.extend({
   layout,
   classNameBindings: [ ':ui-block-sketch-node-impl-rect' ],
 
-  style: computed('node.fill', function() {
-    let { node: { fill } } = this;
-    return htmlSafe(`background: ${fill}`);
+  style: computed('node.{fill,opacity}', function() {
+    let { node: { fill, opacity } } = this;
+    return htmlSafe(`background: ${fill}; opacity: ${opacity}`);
   }).readOnly()
 
 });

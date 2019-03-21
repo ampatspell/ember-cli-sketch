@@ -100,6 +100,20 @@
         </div>
       </div>
     {{/unless}}
+    {{#if (eq node.type 'rect')}}
+      <div class="row">
+        <div class="label">Fill</div>
+        <div class="value">
+          {{ui-block/input value=node.fill update=(action "updateNodeProperty" node "fill" null)}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">Opacity</div>
+        <div class="value">
+          {{ui-block/input value=node.opacity update=(action "updateNodeProperty" node "opacity" "toFloat")}}
+        </div>
+      </div>
+    {{/if}}
     <div class="row">
       <div class="value">
         {{ui-block/button value='Remove' action=(action 'remove' node)}}

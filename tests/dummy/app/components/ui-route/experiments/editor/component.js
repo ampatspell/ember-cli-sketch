@@ -3,6 +3,10 @@ import layout from './template';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 
+const transforms = {
+  'toFloat': value => parseFloat(value)
+};
+
 export default Component.extend({
   classNameBindings: [ ':ui-route-experiments-editor' ],
   layout,
@@ -19,15 +23,15 @@ export default Component.extend({
         let group = factory.node('group');
         area.setGroup(group);
         {
-          let node = factory.node('rect', { frame: { x: 300, y: 100, width: 50, height: 50 }, fill: 'red' });
+          let node = factory.node('rect', { frame: { x: 300, y: 100, width: 50, height: 50, rotation: 10 }, fill: 'red', opacity: 0.5 });
           group.addNode(node);
         }
         {
-          let node = factory.node('rect', { frame: { x: 100, y: 80, width: 50, height: 50 }, fill: 'red' });
+          let node = factory.node('rect', { frame: { x: 100, y: 80, width: 50, height: 50, rotation: 8 }, fill: 'green', opacity: 0.3 });
           group.addNode(node);
         }
         {
-          let node = factory.node('rect', { frame: { x: 200, y: 150, width: 50, height: 50 }, fill: 'red' });
+          let node = factory.node('rect', { frame: { x: 200, y: 150, width: 50, height: 50, rotation: -24 }, fill: 'blue', opacity: 0.2 });
           group.addNode(node);
         }
       }
@@ -39,7 +43,7 @@ export default Component.extend({
         let group = factory.node('group');
         area.setGroup(group);
         {
-          let node = factory.node('rect', { frame: { x: 150, y: 80, width: 50, height: 50 }, fill: 'red' });
+          let node = factory.node('rect', { frame: { x: 150, y: 80, width: 50, height: 50, rotation: 23 }, fill: '#990099', opacity: 0.5 });
           group.addNode(node);
         }
       }
@@ -78,6 +82,12 @@ export default Component.extend({
     },
     updateNodePosition(node, key, value) {
       node.frame.setProperties({ [key]: value });
+    },
+    updateNodeProperty(node, key, transform, value) {
+      if(transform) {
+        value = transforms[transform](value);
+      }
+      node.setProperties({ [key]: value });
     },
     select(node) {
       node.select();

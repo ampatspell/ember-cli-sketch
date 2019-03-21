@@ -2,10 +2,14 @@ import Handler from './-handler';
 
 export default Handler.extend({
 
-  onKeyUp({ key }) {
+  onKeyUp({ key, body }) {
+    if(!body) {
+      return;
+    }
     if(![ 'Backspace', 'Delete' ].includes(key)) {
       return;
     }
+
     let nodes = this.stage.selection.copy();
     if(!nodes.length) {
       return;

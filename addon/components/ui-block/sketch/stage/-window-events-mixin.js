@@ -143,7 +143,9 @@ export default Mixin.create({
 
   keysHashFromKeyboardEvent(e) {
     let { keyCode, key } = e;
-    return { keyCode, key};
+    // TODO: figure out focus & blur
+    let body = document.activeElement === document.body;
+    return { keyCode, key, body };
   },
 
   onKeyDown(e) {

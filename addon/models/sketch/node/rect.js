@@ -6,6 +6,7 @@ export default Node.extend({
   type: 'rect',
   frame: frame(),
 
-  fill: null
+  fill: 'red',
+  opacity: 1
 
 });
