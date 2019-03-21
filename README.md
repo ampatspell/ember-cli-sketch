@@ -2,6 +2,8 @@
 
 work in progress
 
+[Live demo](https://quatsch-e12c5.firebaseapp.com/experiments/editor)
+
 ![screenshot](https://raw.githubusercontent.com/ampatspell/ember-cli-sketch/master/screenshot.png)
 
 ### Install
