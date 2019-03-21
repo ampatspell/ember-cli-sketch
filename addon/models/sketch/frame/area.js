@@ -4,8 +4,8 @@ import { readOnly } from '@ember/object/computed';
 
 export default Frame.extend({
 
-  normalized: computed('zoomed', 'stage.position.{x,y}', function() {
-    let { stage, zoomed } = this;
+  normalized: computed('zoomed', 'owner.stage.position.{x,y}', function() {
+    let { owner: { stage }, zoomed } = this;
     if(!stage) {
       return;
     }

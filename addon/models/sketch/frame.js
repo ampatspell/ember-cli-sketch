@@ -21,20 +21,19 @@ export default Base.extend({
   height: 0,
   rotation: 0,
 
-  stage: readOnly('owner.stage'),
+  zoom: readOnly('owner.stage.zoom'),
 
   serialized: computed('x', 'y', 'width', 'height', 'rotation', function() {
     let { x, y, width, height, rotation } = this;
     return { x, y, width, height, rotation };
   }),
 
-  zoomed: computed('serialized', 'stage.zoom', function() {
-    let { stage, serialized, serialized: { rotation } } = this;
-    if(!stage) {
+  zoomed: computed('serialized', 'zoom', function() {
+    let { zoom, serialized, serialized: { rotation } } = this;
+
+    if(!zoom) {
       return;
     }
-
-    let { zoom } = stage;
 
     let z = key => serialized[key] * zoom;
 
