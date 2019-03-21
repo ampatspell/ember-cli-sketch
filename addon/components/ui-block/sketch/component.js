@@ -29,6 +29,11 @@ export default Component.extend({
     }
   }),
 
+  didInsertElement() {
+    this._super(...arguments);
+    this.ready && this.ready();
+  },
+
   didInsertStageElement(stageComponent) {
     this.setProperties({ stageComponent });
   },

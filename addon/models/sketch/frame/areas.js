@@ -4,7 +4,7 @@ import bounding from './-bounding';
 const {
   position,
   size
-} = bounding('all', '_absoluteFrame');
+} = bounding('all', '_serializedFrame');
 
 export default Frame.extend({
 

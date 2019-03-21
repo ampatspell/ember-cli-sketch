@@ -53,12 +53,18 @@ export default Component.extend({
   }),
 
   actions: {
+    ready() {
+      this.stage.position.center({ y: 100 });
+    },
     toggle() {
       if(this.attachedStage) {
         this.set('attachedStage', null);
       } else {
         this.set('attachedStage', this.stage);
       }
+    },
+    center() {
+      this.stage.position.center();
     },
     updateZoom(zoom) {
       this.stage.setProperties({ zoom });

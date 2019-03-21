@@ -11,6 +11,7 @@ export default Base.extend({
 
   frame: frame('area'),
 
+  _serializedFrame: readOnly('frame.serialized'),
   _absoluteFrame: readOnly('frame.absolute'),
 
   setGroup(group) {
