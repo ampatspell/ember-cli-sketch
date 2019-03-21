@@ -31,7 +31,7 @@ export default Component.extend({
           group.addNode(node);
         }
       }
-      stage.addArea(area);
+      stage.areas.add(area);
     }
     {
       let area = factory.area({ frame: { x: 20, y: 420, width: 560, height: 200 } });
@@ -43,7 +43,7 @@ export default Component.extend({
           group.addNode(node);
         }
       }
-      stage.addArea(area);
+      stage.areas.add(area);
     }
     return stage;
   }).readOnly(),

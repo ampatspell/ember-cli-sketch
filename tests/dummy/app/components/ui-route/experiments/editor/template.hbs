@@ -109,7 +109,7 @@
   </div>
 
   <div class="row">
-    {{#each stage.areas as |area|}}
+    {{#each stage.areas.nodes as |area|}}
       {{#each area.group.nodes as |node|}}
         <div class="value {{if node.isSelected "strong"}}" role="button" {{action "select" node}}>
           {{node.type}} {{node.frame.serialized.x}}×{{node.frame.serialized.y}}

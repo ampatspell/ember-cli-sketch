@@ -12,7 +12,7 @@ export default Handler.extend({
 
   update() {
     let stage = this.mouse.stage;
-    let nodes = this.stage.nodesForAbsolutePosition(stage);
+    let nodes = this.stage.areas.nodesForAbsolutePosition(stage);
     this.stage.hover.replace(nodes);
   }
 

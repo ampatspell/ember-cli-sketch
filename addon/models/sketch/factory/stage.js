@@ -12,8 +12,8 @@ export default Base.extend({
     return this.model(`frame/${type}`, { owner });
   },
 
-  position() {
-    return this.model('stage/position');
+  position(owner) {
+    return this.model('stage/position', { owner });
   },
 
   resizing(owner) {
@@ -34,6 +34,10 @@ export default Base.extend({
 
   renderer(owner) {
     return this.model('stage/renderer', { owner });
+  },
+
+  areas(owner) {
+    return this.model('stage/areas', { owner });
   }
 
 });

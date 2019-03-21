@@ -7,6 +7,7 @@ import { selection } from './stage/selection';
 import { dragging } from './stage/dragging';
 import { hover } from './stage/hover';
 import { renderer } from './stage/renderer';
+import { areas } from './stage/areas';
 
 export default Base.extend({
 
@@ -22,12 +23,7 @@ export default Base.extend({
   resizing: resizing(),
   renderer: renderer(),
 
-  areas: array(),
-
-  addArea(area) {
-    this.areas.addObject(area);
-    area.didAddToStage(this);
-  },
+  areas: areas(),
 
   reset() {
     this.setProperties({
@@ -37,12 +33,7 @@ export default Base.extend({
     });
   },
 
-  nodesForAbsolutePosition(position) {
-    return this.areas.reduce((array, area) => {
-      array.push(...area.nodesForAbsolutePosition(position));
-      return array;
-    }, []);
-  },
+  //
 
   attach() {
     this.renderer.attach(...arguments);
