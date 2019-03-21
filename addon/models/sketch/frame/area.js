@@ -1,5 +1,6 @@
 import Frame from '../frame';
 import { computed } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
 
 export default Frame.extend({
 
@@ -25,6 +26,8 @@ export default Frame.extend({
       rotation
     };
   }).readOnly(),
+
+  stageZoomedBounding: readOnly('stageZoomed'),
 
   convertPointFromStage({ x, y }) {
     let { serialized } = this;

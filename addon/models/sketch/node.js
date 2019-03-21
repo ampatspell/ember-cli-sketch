@@ -1,9 +1,7 @@
-import Base from './-with-frame';
+import Selectable from './-selectable';
 import { readOnly } from '@ember/object/computed';
-import { computed } from '@ember/object';
-import { not } from '@ember/object/computed';
 
-export default Base.extend({
+export default Selectable.extend({
 
   isNode: true,
   group: null,
@@ -11,19 +9,10 @@ export default Base.extend({
   area: readOnly('group.area'),
   stage: readOnly('area.stage'),
 
-  isSelected: computed('stage.selection.nodes.[]', function() {
-    return this.stage.selection.find(node => node === this);
-  }).readOnly(),
-
-  notSelected: not('isSelected'),
-
-  isHovered: computed('stage.hover.nodes.[]', function() {
-    return this.stage.hover.find(node => node === this);
-  }).readOnly(),
-
   _boundingFrame: readOnly('frame.bounding'),
 
   didAddToGroup(group) {
+    window.node= this;
     this.setProperties({ group });
   },
 
