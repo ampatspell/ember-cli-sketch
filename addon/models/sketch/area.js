@@ -34,12 +34,31 @@ export default Selectable.extend({
     return nodes;
   },
 
+  _moveNode(node) {
+    let frame = this.frame.convertPointFromStage(node.frame.stage);
+    node.remove();
+    this.group.addNode(node);
+    node.frame.update(frame);
+  },
+
+  moveNode(node) {
+    if(node.isGroup && !node.group) {
+      node.deselect();
+      node.nodes.slice().forEach(node => {
+        this._moveNode(node);
+        node.select({ replace: false });
+      });
+    } else {
+      node.deselect();
+      this._moveNode(node);
+      node.select({ replace: false });
+    }
+  },
+
   moveNodeIfContained(node) {
     if(this.frame.includesFrame(node.frame.stageBounding)) {
-      let frame = this.frame.convertPointFromStage(node.frame.stage);
-      node.remove();
-      this.group.addNode(node);
-      node.frame.update(frame);
+      this.moveNode(node);
+      return true;
     }
   }
 

@@ -1,5 +1,6 @@
 import Selectable from './-selectable';
 import { readOnly } from '@ember/object/computed';
+import { assign } from '@ember/polyfills';
 
 export default Selectable.extend({
 
@@ -38,8 +39,18 @@ export default Selectable.extend({
     return group.hasParentNode(node);
   },
 
-  select() {
-    this.stage.selection.replace([ this ]);
+  select(opts) {
+    let { replace } = assign({ replace: true }, opts);
+    let { selection } = this.stage;
+    if(replace) {
+      selection.replace([ this ]);
+    } else {
+      selection.addNode(this);
+    }
+  },
+
+  deselect() {
+    this.stage.selection.removeNode(this);
   },
 
   remove() {
