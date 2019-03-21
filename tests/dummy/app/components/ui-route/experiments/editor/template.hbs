@@ -24,7 +24,10 @@
     <div class="value">{{ui-block/button value="Toggle" action=(action "toggle")}}</div>
   </div>
   <div class="row">
-    <div class="value">{{ui-block/button value="Center" action=(action "center")}}</div>
+    <div class="value">
+      {{ui-block/button value="Center" action=(action "center")}}
+      {{ui-block/button value="Fit" action=(action "fit")}}
+    </div>
   </div>
   <div class="row">
     <div class="label" role="button" {{action "updateZoom" 1}}>Zoom ({{stage.zoom}})</div>

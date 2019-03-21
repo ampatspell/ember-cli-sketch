@@ -2,6 +2,7 @@ import Base from '../-base';
 import { computed } from '@ember/object';
 import { sketches } from '../../../services/sketches';
 import { assign } from '@ember/polyfills';
+import { round } from '../../../util/math';
 
 export const position = () => computed(function() {
   return sketches(this).factory.stage.position(this);
@@ -26,7 +27,7 @@ export default Base.extend({
   },
 
   center(opts={}) {
-    let { renderer: { size }, areas: { frame: { serialized: frame } } } = this.owner;
+    let { renderer: { size }, zoom, areas: { frame: { serialized: frame } } } = this.owner;
 
     if(!size) {
       return;
@@ -37,7 +38,7 @@ export default Base.extend({
       if(value) {
         return value;
       }
-      return (size[sizeKey] / 2) - (frame[sizeKey] / 2) - frame[dimensionKey];
+      return round((size[sizeKey] / 2) - ((frame[sizeKey] * zoom) / 2) - (frame[dimensionKey] * zoom), 0);
     }
 
     let position = {
@@ -47,5 +48,21 @@ export default Base.extend({
 
     this.setProperties(position);
   },
+
+  fit(opts={}) {
+    let { offset } = assign({ offset: 10 }, opts);
+    let { renderer: { size }, areas: { frame: { serialized: frame } } } = this.owner;
+
+    if(!size) {
+      return;
+    }
+
+    let value = dimension => round((size[dimension]) / (frame[dimension] + (offset * 2)), 2);
+
+    let zoom = Math.min(value('width'), value('height'));
+    this.owner.setProperties({ zoom });
+
+    this.center();
+  }
 
 });
