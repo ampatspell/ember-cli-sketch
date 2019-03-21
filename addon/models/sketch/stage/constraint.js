@@ -1,6 +1,5 @@
 import Base from '../-base';
-import { computed } from '@ember/object';
-import { readOnly, not, and } from '@ember/object/computed';
+import { readOnly, not } from '@ember/object/computed';
 
 export default Base.extend({
 
@@ -13,11 +12,7 @@ export default Base.extend({
   min: null,
   max: null,
 
-  isInRange: computed('min', 'max', 'frame', function() {
-    return this.isSizeValid(this.frame[this.opts.size]);
-  }).readOnly(),
-
-  isResizable: and('resize', 'isInRange'),
+  isResizable: readOnly('resize'),
   isNotResizable: not('isResizable'),
 
   isSizeValid(value) {
