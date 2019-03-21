@@ -10,11 +10,17 @@ export default Base.extend({
   frame: readOnly('owner.owner.frame.serialized'),
 
   resize: true,
+  move: true,
   min: null,
   max: null,
 
+  isMovable: readOnly('move'),
   isResizable: readOnly('resize'),
   isNotResizable: not('isResizable'),
+
+  position: computed('frame', function() {
+    return this.frame[this.opts.dimension];
+  }).readOnly(),
 
   size: computed('frame', function() {
     return this.frame[this.opts.size];
@@ -33,26 +39,41 @@ export default Base.extend({
     return { valid: false, value };
   },
 
-  validateDelta(delta) {
+  validateSizeDelta(delta) {
     let size = this.size;
     let { valid, value: abs } = this.validateSize(size + delta);
     let value = abs - size;
     return { valid, value };
   },
 
-  isDeltaValid(delta) {
+  isSizeDeltaValid(delta) {
     if(!this.resize) {
       return false;
     }
-    let { valid } = this.validateDelta(delta);
+    let { valid } = this.validateSizeDelta(delta);
     return valid;
   },
 
-  clampDelta(delta) {
+  clampSizeDelta(delta) {
     if(!this.resize) {
       return 0;
     }
-    let { value } = this.validateDelta(delta);
+    let { value } = this.validateSizeDelta(delta);
+    return value;
+  },
+
+  clampPosition(value) {
+    if(!this.isMovable && this.position !== undefined) {
+      return this.position;
+    }
+    return value;
+  },
+
+  clampSize(size) {
+    if(!this.resize) {
+      return this.size;
+    }
+    let { value } = this.validateSize(size);
     return value;
   }
 

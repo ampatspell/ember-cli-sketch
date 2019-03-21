@@ -1,6 +1,7 @@
 import Frame from '../frame';
 import { readOnly } from '@ember/object/computed';
 import { computed } from '@ember/object';
+import ConstraintsMixin from './-constraints';
 
 const stageZoomed = key => computed(key, '_area.frame.stageZoomed', function() {
   let { [key]: frame, _area: { frame: { stageZoomed: area } } } = this;
@@ -13,7 +14,7 @@ const stageZoomed = key => computed(key, '_area.frame.stageZoomed', function() {
   };
 }).readOnly();
 
-export default Frame.extend({
+export default Frame.extend(ConstraintsMixin, {
 
   _area: readOnly('owner.area'),
 

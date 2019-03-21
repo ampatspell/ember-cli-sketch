@@ -1,8 +1,9 @@
 import Frame from '../frame';
 import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
+import ConstraintsMixin from './-constraints';
 
-export default Frame.extend({
+export default Frame.extend(ConstraintsMixin, {
 
   stageZoomed: computed('zoomed', 'owner.stage.position.{x,y}', function() {
     let { owner: { stage }, zoomed } = this;

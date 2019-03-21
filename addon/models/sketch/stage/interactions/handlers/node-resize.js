@@ -41,19 +41,19 @@ export default Handler.extend({
     let frame = {};
 
     if(edge.vertical === 'bottom') {
-      let value = constraints.height.clampDelta(delta.y);
+      let value = constraints.height.clampSizeDelta(delta.y);
       frame.height = value;
     } else if(edge.vertical === 'top') {
-      let value = constraints.height.clampDelta(-delta.y);
+      let value = constraints.height.clampSizeDelta(-delta.y);
       frame.y = -value;
       frame.height = value;
     }
 
     if(edge.horizontal === 'right') {
-      let value = constraints.width.clampDelta(delta.x);
+      let value = constraints.width.clampSizeDelta(delta.x);
       frame.width = value;
     } else if(edge.horizontal === 'left') {
-      let value = constraints.width.clampDelta(-delta.x);
+      let value = constraints.width.clampSizeDelta(-delta.x);
       frame.x = -value;
       frame.width = value
     }
