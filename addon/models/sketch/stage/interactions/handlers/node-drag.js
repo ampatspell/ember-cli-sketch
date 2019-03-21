@@ -7,7 +7,7 @@ export default Handler.extend({
     if(!isLeftButtonOverStage) {
       return;
     }
-    dragging.replace(selection.copy());
+    dragging.replace();
   },
 
   onMouseUp() {
@@ -16,14 +16,22 @@ export default Handler.extend({
   },
 
   onMouseMove({ delta }) {
-    let { mouse: { isLeftButton }, stage: { dragging, zoom } } = this;
+    let { mouse: { isLeftButton }, stage: { dragging, selection, zoom } } = this;
 
     if(!isLeftButton) {
       return;
     }
 
     if(!dragging.any) {
-      return;
+      if(!selection.any) {
+        return;
+      }
+      let nodes = selection.nodes.filter(node => !node.isArea);
+      if(nodes.length) {
+        let areas = selection.nodes.filter(node => node.isArea);
+        selection.removeNodes(areas);
+      }
+      dragging.replace(selection.nodes);
     }
 
     delta.x = delta.x / zoom;

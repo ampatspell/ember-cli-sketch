@@ -1,5 +1,6 @@
 import Base from '../-base';
 import { computed } from '@ember/object';
+import { gt } from '@ember/object/computed';
 import { array } from '../../../util/computed';
 import { sketches } from '../../../services/sketches';
 
@@ -11,6 +12,8 @@ export default Base.extend({
 
   owner: null,
   nodes: array(),
+
+  any: gt('nodes.length', 0),
 
   copy() {
     return this.nodes.slice();
