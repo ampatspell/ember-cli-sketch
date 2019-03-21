@@ -2,6 +2,8 @@
 
 work in progress
 
+![screenshot](https://raw.githubusercontent.com/ampatspell/ember-cli-sketch/master/screenshot.png)
+
 ### Install
 
 ```
