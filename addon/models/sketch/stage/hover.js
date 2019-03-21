@@ -25,6 +25,10 @@ export default Base.extend({
 
   find() {
     return this.nodes.find(...arguments);
+  },
+
+  reset() {
+    this.replace([]);
   }
 
 });

@@ -48,7 +48,18 @@ export default Component.extend({
     return stage;
   }).readOnly(),
 
+  attachedStage: computed(function() {
+    return this.stage;
+  }),
+
   actions: {
+    toggle() {
+      if(this.attachedStage) {
+        this.set('attachedStage', null);
+      } else {
+        this.set('attachedStage', this.stage);
+      }
+    },
     updateZoom(zoom) {
       this.stage.setProperties({ zoom });
     },

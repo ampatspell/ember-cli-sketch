@@ -40,6 +40,15 @@ export default Base.extend({
   },
 
   onMouseWheel(/* { direction, value } */) {
+  },
+
+  reset() {
+    this.setProperties({
+      state: 'up',
+      button: null,
+      over: null,
+      stage: null
+    });
   }
 
 });

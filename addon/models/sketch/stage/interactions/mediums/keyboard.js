@@ -24,6 +24,14 @@ export default Base.extend({
 
   onKeyUp() {
     this.setProperties({ state: 'up', key: null, keyCode: null });
+  },
+
+  reset() {
+    this.setProperties({
+      state: 'up',
+      key: null,
+      keyCode: null
+    });
   }
 
 });

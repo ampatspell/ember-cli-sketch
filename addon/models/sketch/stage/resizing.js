@@ -45,6 +45,10 @@ export default Base.extend({
 
   end() {
     this.setProperties({ active: false, node: null, edge: null });
+  },
+
+  reset() {
+    this.end();
   }
 
 });

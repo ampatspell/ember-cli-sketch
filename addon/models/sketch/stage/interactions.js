@@ -73,6 +73,12 @@ export default Base.extend({
   onKeyUp() {
     this.keyboard.onKeyUp();
     this.invokeHandlers('onKeyUp', ...arguments);
-  }
+  },
+
+  reset() {
+    this.mouse.reset(),
+    this.keyboard.reset();
+    this.invokeHandlers('reset');
+  },
 
 });

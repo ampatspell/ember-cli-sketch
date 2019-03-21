@@ -26,6 +26,10 @@ export default Base.extend({
 
   withNodes() {
     return this.nodes.forEach(...arguments);
+  },
+
+  reset() {
+    this.clear();
   }
 
 });

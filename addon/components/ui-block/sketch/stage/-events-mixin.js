@@ -9,8 +9,14 @@ export default Mixin.create({
   _withEvents(cb) {
     let events = this._handlers;
     if(!events) {
-      let wrap = fn => e => run(() => fn(e));
+      let wrap = fn => e => run(() => {
+        if(!this.interactions || this.isDestroying) {
+          return;
+        }
+        return fn(e);
+      });
       events = {
+        resize:    wrap(e => this.onWindowResize(e)),
         mouseover: wrap(e => this.onMouseOver(e)),
         mouseout:  wrap(e => this.onMouseOut(e)),
         mousemove: wrap(e => this.onMouseMove(e)),
@@ -31,6 +37,7 @@ export default Mixin.create({
 
   didInsertElement() {
     this._super(...arguments);
+    this.elementSizeDidChange();
     this._withEvents((window, key, fn) => window.addEventListener(key, fn));
   },
 
@@ -51,6 +58,19 @@ export default Mixin.create({
   keysHashFromMouseEvent(e) {
     let { altKey: alt, ctrlKey: ctrl, metaKey: meta } = e;
     return { alt, ctrl, meta };
+  },
+
+  elementSizeDidChange() {
+    let { element } = this;
+    if(!element) {
+      return;
+    }
+    let { width, height } = element.getBoundingClientRect();
+    this.set('size', { width, height });
+  },
+
+  onWindowResize() {
+    this.elementSizeDidChange();
   },
 
   onMouseDown(e) {

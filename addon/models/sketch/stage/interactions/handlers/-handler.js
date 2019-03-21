@@ -35,6 +35,9 @@ export default Base.extend({
   },
 
   onKeyUp() {
+  },
+
+  reset() {
   }
 
 });

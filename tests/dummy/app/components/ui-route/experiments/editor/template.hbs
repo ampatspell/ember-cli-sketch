@@ -1,9 +1,27 @@
-{{ui-block/sketch stage=stage class="editor"}}
+{{ui-block/sketch stage=attachedStage class="editor"}}
 
 <div class="info">
 
   <div class="section">
     <div class="title">Stage</div>
+  </div>
+
+  <div class="row">
+    <div class="label">
+      {{#if stage.renderer.isAttached}}
+        Attached
+      {{else}}
+        Detached
+      {{/if}}
+    </div>
+    {{#if stage.renderer.isAttached}}
+      <div class="value">{{stage.renderer.size.width}}×{{stage.renderer.size.width}}</div>
+    {{/if}}
+  </div>
+
+  <div class="row">
+    <div class="label">{{attachedStage}}</div>
+    <div class="value">{{ui-block/button value='Toggle' action=(action 'toggle')}}</div>
   </div>
 
   <div class="row">

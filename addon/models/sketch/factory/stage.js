@@ -30,6 +30,10 @@ export default Base.extend({
 
   hover(owner) {
     return this.model('stage/hover', { owner });
+  },
+
+  renderer(owner) {
+    return this.model('stage/renderer', { owner });
   }
 
 });

@@ -47,6 +47,10 @@ export default Base.extend({
 
   filter() {
     return this.nodes.filter(...arguments);
+  },
+
+  reset() {
+    this.replace([]);
   }
 
 });

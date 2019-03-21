@@ -6,6 +6,16 @@ export default Component.extend(EventsMixin, {
   layout,
   classNameBindings: [ ':ui-block-sketch-stage' ],
 
-  stage: null
+  stage: null,
+
+  didInsertElement() {
+    this._super(...arguments);
+    this.parent.didInsertStageElement(this);
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+    this.parent.willDestroyStageElement(this);
+  },
 
 });
