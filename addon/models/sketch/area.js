@@ -1,8 +1,8 @@
-import Base from './-with-frame';
+import Selectable from './-selectable';
 import { frame } from './frame';
 import { readOnly } from '@ember/object/computed';
 
-export default Base.extend({
+export default Selectable.extend({
 
   isArea: true,
 
@@ -23,8 +23,15 @@ export default Base.extend({
   },
 
   nodesForStagePosition(position) {
-    let area = this.frame.convertPointFromStage(position);
-    return this.group.nodesForPosition(area);
+    let { frame } = this;
+    let nodes = [];
+    if(frame.includesPosition(position)) {
+      nodes.push(this);
+    }
+    let area = frame.convertPointFromStage(position);
+    let group = this.group.nodesForPosition(area);
+    nodes.push(...group);
+    return nodes;
   }
 
 });

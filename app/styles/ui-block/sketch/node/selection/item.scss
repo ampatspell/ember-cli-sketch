@@ -8,6 +8,9 @@
     box-shadow: 0 1px 2px fade-out(#000, 0.7);
     width: 10px;
     height: 10px;
+    &.disabled {
+      opacity: 0.2;
+    }
   }
   > .top {
     top: -5px;
@@ -20,5 +23,19 @@
   }
   > .right {
     right: -5px;
+  }
+  > .top,
+  > .bottom {
+    &.middle {
+      left: 50%;
+      transform: translateX(-5px);
+    }
+  }
+  > .left,
+  > .right {
+    &.middle {
+      top: 50%;
+      transform: translateY(-5px);
+    }
   }
 }

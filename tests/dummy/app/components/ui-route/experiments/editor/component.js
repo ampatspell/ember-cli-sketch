@@ -18,7 +18,8 @@ export default Component.extend({
     let stage = factory.stage.create();
     stage.position.setProperties({ x: 100, y: 50 });
     {
-      let area = factory.area({ frame: { x: 70, y: 0, width: 560, height: 360 } });
+      let area = factory.area({ frame: { x: 70, y: 0, width: 560, height: 360 }, constraints: { width: { resize: false }, height: { resize: true, min: 100, max: 300 } } });
+      window.area = area;
       {
         let group = factory.node('group');
         area.setGroup(group);

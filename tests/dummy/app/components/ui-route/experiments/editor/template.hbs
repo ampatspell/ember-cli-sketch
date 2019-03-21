@@ -93,12 +93,14 @@
       </div>
     </div>
     {{#unless node.isGroup}}
-      <div class="row">
-        <div class="label">Rotation ({{node.frame.rotation}})</div>
-        <div class="value">
-          {{ui-block/slider min=-360 max=360 step=1 value=node.frame.rotation update=(action "updateNodePosition" node "rotation")}}
+      {{#unless node.isArea}}
+        <div class="row">
+          <div class="label">Rotation ({{node.frame.rotation}})</div>
+          <div class="value">
+            {{ui-block/slider min=-360 max=360 step=1 value=node.frame.rotation update=(action "updateNodePosition" node "rotation")}}
+          </div>
         </div>
-      </div>
+      {{/unless}}
     {{/unless}}
     {{#if (eq node.type 'rect')}}
       <div class="row">
@@ -163,8 +165,6 @@
       <div><span class="strong">Command + shift + wheel</span>: zoom</div>
       <div><span class="strong">Click</span>: replace selection</div>
       <div><span class="strong">Shift + click</span>: toggle selection</div>
-      <div><span class="strong">Resize: shift</span>: equal width, height</div>
-      <div><span class="strong">Resize: command</span>: keep in center</div>
       <div><span class="strong">Backspace, Delete</span>: Remove selected nodes</div>
     </div>
   </div>

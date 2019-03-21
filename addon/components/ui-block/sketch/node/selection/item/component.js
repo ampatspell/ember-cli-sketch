@@ -1,7 +1,9 @@
 import Component from '@ember/component';
 import layout from './template';
 import { frame } from '../../../-computed';
-import { readOnly } from '@ember/object/computed';
+import { readOnly, or } from '@ember/object/computed';
+
+const disabled = key => readOnly(`constraints.${key}.isNotResizable`);
 
 export default Component.extend({
   layout,
@@ -9,6 +11,21 @@ export default Component.extend({
   attributeBindings: [ 'style' ],
 
   stage: readOnly('node.stage'),
+  constraints: readOnly('node.constraints'),
+
+  width:  disabled('width'),
+  height: disabled('height'),
+
+  isTopLeftDisabled:      or('height', 'width'),
+  isTopRightDisabled:     or('height', 'width'),
+  isBottomLeftDisabled:   or('height', 'width'),
+  isBotomRightDisabled:   or('height', 'width'),
+
+  isTopMiddleDisabled:    or('height'),
+  isBottomMiddleDisabled: or('height'),
+  isMiddleLeftDisabled:   or('width'),
+  isMiddleRightDisabled:  or('width'),
+
 
   style: frame('node', 'stageZoomedBounding', { inset: -1 }),
 
