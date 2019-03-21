@@ -1,8 +1,8 @@
-{{ui-block/sketch/node/selection/item/marker vertical='top'    horizontal='left'   enter=(action 'enter') leave=(action 'leave')}}
-{{ui-block/sketch/node/selection/item/marker vertical='top'    horizontal='right'  enter=(action 'enter') leave=(action 'leave')}}
-{{ui-block/sketch/node/selection/item/marker vertical='bottom' horizontal='left'   enter=(action 'enter') leave=(action 'leave')}}
-{{ui-block/sketch/node/selection/item/marker vertical='bottom' horizontal='right'  enter=(action 'enter') leave=(action 'leave')}}
-{{ui-block/sketch/node/selection/item/marker vertical='top'    horizontal='middle' enter=(action 'enter') leave=(action 'leave')}}
-{{ui-block/sketch/node/selection/item/marker vertical='bottom' horizontal='middle' enter=(action 'enter') leave=(action 'leave')}}
-{{ui-block/sketch/node/selection/item/marker vertical='middle' horizontal='left'   enter=(action 'enter') leave=(action 'leave')}}
-{{ui-block/sketch/node/selection/item/marker vertical='middle' horizontal='right'  enter=(action 'enter') leave=(action 'leave')}}
+{{ui-block/sketch/node/selection/item/marker vertical='top'    horizontal='left'   disabled=isTopLeftDisabled      enter=(action 'enter') leave=(action 'leave')}}
+{{ui-block/sketch/node/selection/item/marker vertical='top'    horizontal='right'  disabled=isTopRightDisabled     enter=(action 'enter') leave=(action 'leave')}}
+{{ui-block/sketch/node/selection/item/marker vertical='bottom' horizontal='left'   disabled=isBottomLeftDisabled   enter=(action 'enter') leave=(action 'leave')}}
+{{ui-block/sketch/node/selection/item/marker vertical='bottom' horizontal='right'  disabled=isBotomRightDisabled   enter=(action 'enter') leave=(action 'leave')}}
+{{ui-block/sketch/node/selection/item/marker vertical='top'    horizontal='middle' disabled=isTopMiddleDisabled    enter=(action 'enter') leave=(action 'leave')}}
+{{ui-block/sketch/node/selection/item/marker vertical='bottom' horizontal='middle' disabled=isBottomMiddleDisabled enter=(action 'enter') leave=(action 'leave')}}
+{{ui-block/sketch/node/selection/item/marker vertical='middle' horizontal='left'   disabled=isMiddleLeftDisabled   enter=(action 'enter') leave=(action 'leave')}}
+{{ui-block/sketch/node/selection/item/marker vertical='middle' horizontal='right'  disabled=isMiddleRightDisabled  enter=(action 'enter') leave=(action 'leave')}}

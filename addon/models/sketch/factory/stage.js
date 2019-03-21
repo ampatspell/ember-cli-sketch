@@ -38,6 +38,14 @@ export default Base.extend({
 
   areas(owner) {
     return this.model('stage/areas', { owner });
+  },
+
+  constraints(owner) {
+    return this.model('stage/constraints', { owner });
+  },
+
+  constraint(owner) {
+    return this.model('stage/constraint', { owner });
   }
 
 });
