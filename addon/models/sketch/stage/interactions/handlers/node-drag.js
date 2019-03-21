@@ -40,9 +40,7 @@ export default Handler.extend({
 
     let { x, y } = delta;
 
-    dragging.withNodes(node => {
-      node.frame.update({ x, y }, { delta: true });
-    });
+    dragging.withNodes(node => node.frame.update({ x, y }, { delta: true }));
   }
 
 });

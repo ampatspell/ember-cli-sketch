@@ -51,11 +51,6 @@ export default Node.extend({
 
   containsNode(node) {
     return this.nodes.find(child => child === node || child.containsNode(node));
-  },
-
-  willRemove() {
-    this.nodes.slice().forEach(node => node.remove());
-    this._super(...arguments);
   }
 
 });
