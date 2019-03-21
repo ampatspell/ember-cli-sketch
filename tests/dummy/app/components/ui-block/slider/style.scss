@@ -1,0 +1,22 @@
+.ui-block-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  outline: none;
+  margin: 0;
+  $height: 20px;
+  &::-webkit-slider-runnable-track {
+    cursor: pointer;
+    width: 100%;
+    height: $height;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 1px;
+  }
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: $height - 4px;
+    width: $height * 1.5;
+    border-radius: 4px;
+    background: #333;
+  }
+}

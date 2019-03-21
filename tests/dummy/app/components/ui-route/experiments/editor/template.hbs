@@ -1,0 +1,118 @@
+{{ui-block/sketch stage=stage class="editor"}}
+
+<div class="info">
+
+  <div class="section">
+    <div class="title">Stage</div>
+  </div>
+
+  <div class="row">
+    <div class="label" role="button" {{action "updateZoom" 1}}>Zoom ({{stage.zoom}})</div>
+    <div class="value">{{ui-block/slider min=0 max=10 step=0.01 value=stage.zoom update=(action "updateZoom")}}</div>
+  </div>
+  <div class="row">
+    <div class="label" role="button" {{action "updatePosition" "x" 0}}>Position X ({{stage.position.x}})</div>
+    <div class="value">{{ui-block/slider min=-500 max=500 step=1 value=stage.position.x update=(action "updatePosition" "x")}}</div>
+  </div>
+  <div class="row">
+    <div class="label" role="button" {{action "updatePosition" "y" 0}}>Position Y ({{stage.position.y}})</div>
+    <div class="value">{{ui-block/slider min=-500 max=500 step=1 value=stage.position.y update=(action "updatePosition" "y")}}</div>
+  </div>
+  <div class="row">
+    <div class="value">{{ui-block/button value="Reset" action=(action "reset")}}</div>
+  </div>
+
+  <div class="section">
+    <div class="title">Hover</div>
+  </div>
+
+  <div class="row">
+    <div class="value small">
+      {{#each stage.hover.nodes as |node|}}
+        <div>{{node}}</div>
+      {{else}}
+        <div>None</div>
+      {{/each}}
+    </div>
+  </div>
+
+  {{#each stage.selection.nodes as |node|}}
+    <div class="section">
+      <div class="title">Selection</div>
+    </div>
+    <div class="row">
+      <div class="value small">
+        <div>{{node}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="label">Position X ({{node.frame.x}})</div>
+      <div class="value">
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.frame.x update=(action "updateNodePosition" node "x")}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="label">Position Y ({{node.frame.y}})</div>
+      <div class="value">
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.frame.y update=(action "updateNodePosition" node "y")}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="label">Width ({{node.frame.width}})</div>
+      <div class="value">
+        {{ui-block/slider min=0 max=500 step=1 value=node.frame.width update=(action "updateNodePosition" node "width")}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="label">Height ({{node.frame.height}})</div>
+      <div class="value">
+        {{ui-block/slider min=0 max=500 step=1 value=node.frame.height update=(action "updateNodePosition" node "height")}}
+      </div>
+    </div>
+    {{#unless node.isGroup}}
+      <div class="row">
+        <div class="label">Rotation ({{node.frame.rotation}})</div>
+        <div class="value">
+          {{ui-block/slider min=-360 max=360 step=1 value=node.frame.rotation update=(action "updateNodePosition" node "rotation")}}
+        </div>
+      </div>
+    {{/unless}}
+  {{else}}
+    <div class="section">
+      <div class="title">Selection</div>
+    </div>
+    <div class="row">
+      <div class="label">None</div>
+    </div>
+  {{/each}}
+
+  <div class="section">
+    <div class="title">Nodes</div>
+  </div>
+
+  <div class="row">
+    {{#each stage.areas as |area|}}
+      {{#each area.group.nodes as |node|}}
+        <div class="value {{if node.isSelected "strong"}}" role="button" {{action "select" node}}>
+          {{node.type}} {{node.frame.serialized.x}}×{{node.frame.serialized.y}}
+        </div>
+      {{/each}}
+    {{/each}}
+  </div>
+
+  <div class="section">
+    <div class="title">Shotcuts</div>
+  </div>
+
+  <div class="row">
+    <div class="value small">
+      <div><span class="strong">Space + drag</span>: moves content around</div>
+      <div><span class="strong">Wheel</span>: moves content around</div>
+      <div><span class="strong">Command + shift + wheel</span>: zoom</div>
+      <div><span class="strong">Click</span>: replace selection</div>
+      <div><span class="strong">Shift + click</span>: toggle selection</div>
+      <div><span class="strong">Resize: shift</span>: equal width, height</div>
+      <div><span class="strong">Resize: command</span>: keep in center</div>
+    </div>
+  </div>
+</div>

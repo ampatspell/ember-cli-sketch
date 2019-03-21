@@ -1,0 +1,10 @@
+.ui-route-experiments-index {
+  margin: 25px;
+  > .header {
+    margin-bottom: 25px;
+  }
+  > .links {
+    display: flex;
+    flex-direction: column;
+  }
+}

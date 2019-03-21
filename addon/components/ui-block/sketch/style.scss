@@ -1,0 +1,10 @@
+@import "stage/style";
+@import "node/style";
+
+.ui-block-sketch {
+  display: flex;
+  user-select: none;
+  > .stage {
+    flex: 1;
+  }
+}

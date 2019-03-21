@@ -1,0 +1,5 @@
+{{#each stage.hover.notSelectedNodes as |node|}}
+  {{#unless node.isSelected}}
+    {{ui-block/sketch/node/hover/item node=node}}
+  {{/unless}}
+{{/each}}
