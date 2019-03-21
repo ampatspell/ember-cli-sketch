@@ -67,7 +67,7 @@ export default Component.extend({
       this.stage.position.center();
     },
     fit() {
-      this.stage.position.fit();
+      this.stage.position.fit({ offset: 25 });
     },
     updateZoom(zoom) {
       this.stage.setProperties({ zoom });

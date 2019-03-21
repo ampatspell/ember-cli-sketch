@@ -57,7 +57,7 @@ export default Base.extend({
       return;
     }
 
-    let value = dimension => round((size[dimension]) / (frame[dimension] + (offset * 2)), 2);
+    let value = dimension => round((size[dimension] - (offset * 2)) / frame[dimension], 2);
 
     let zoom = Math.min(value('width'), value('height'));
     this.owner.setProperties({ zoom });
