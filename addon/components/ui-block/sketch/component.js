@@ -31,7 +31,7 @@ export default Component.extend({
 
   didInsertElement() {
     this._super(...arguments);
-    this.ready && this.ready();
+    this.notifyReady(this.stage);
   },
 
   didInsertStageElement(stageComponent) {
@@ -42,12 +42,23 @@ export default Component.extend({
     this.setProperties({ stageComponent: null });
   },
 
+  notifyReady(stage) {
+    let { ready } = this;
+    if(!stage || !ready) {
+      return;
+    }
+    ready(stage);
+  },
+
   detachStage(stage) {
     stage.detach();
   },
 
   attachStage(stage) {
     stage.attach(this);
+    if(this.element) {
+      this.notifyReady(stage);
+    }
   },
 
   recalculateSize() {

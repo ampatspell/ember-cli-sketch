@@ -53,8 +53,8 @@ export default Component.extend({
   }),
 
   actions: {
-    ready() {
-      this.stage.position.center({ y: 100 });
+    ready(stage) {
+      stage.position.center({ y: 100 });
     },
     toggle() {
       if(this.attachedStage) {
