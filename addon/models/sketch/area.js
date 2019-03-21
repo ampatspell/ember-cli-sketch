@@ -32,6 +32,15 @@ export default Selectable.extend({
     let group = this.group.nodesForPosition(area);
     nodes.push(...group);
     return nodes;
+  },
+
+  moveNodeIfContained(node) {
+    if(this.frame.includesFrame(node.frame.stageBounding)) {
+      let frame = this.frame.convertPointFromStage(node.frame.stage);
+      node.remove();
+      this.group.addNode(node);
+      node.frame.update(frame);
+    }
   }
 
 });

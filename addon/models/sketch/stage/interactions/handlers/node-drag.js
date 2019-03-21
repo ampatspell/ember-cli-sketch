@@ -3,7 +3,7 @@ import Handler from './-handler';
 export default Handler.extend({
 
   onMouseDown() {
-    let { mouse: { isLeftButtonOverStage }, stage: { selection, dragging } } = this;
+    let { mouse: { isLeftButtonOverStage }, stage: { dragging } } = this;
     if(!isLeftButtonOverStage) {
       return;
     }
@@ -11,12 +11,13 @@ export default Handler.extend({
   },
 
   onMouseUp() {
-    let { stage: { dragging } } = this;
+    let { stage: { dragging, areas } } = this;
+    dragging.nodes.slice().forEach(node => areas.moveNodeIfContained(node));
     dragging.clear();
   },
 
   onMouseMove({ delta }) {
-    let { mouse: { isLeftButton }, stage: { dragging, selection, zoom } } = this;
+    let { mouse: { isLeftButton }, stage: { areas, dragging, selection, zoom } } = this;
 
     if(!isLeftButton) {
       return;
@@ -38,7 +39,10 @@ export default Handler.extend({
     delta.y = delta.y / zoom;
 
     let { x, y } = delta;
-    dragging.withNodes(node => node.frame.update({ x, y }, { delta: true }));
+
+    dragging.withNodes(node => {
+      node.frame.update({ x, y }, { delta: true });
+    });
   }
 
 });

@@ -33,6 +33,18 @@ export default Base.extend({
 
   nodesForScreenPosition(position) {
     return this.nodesForPosition(this.owner.convertPointFromScreen(position));
+  },
+
+  moveNodeIfContained(node) {
+    if(!node.isNode) {
+      return;
+    }
+    this.all.find(area => {
+      if(area === node.area) {
+        return;
+      }
+      return area.moveNodeIfContained(node);
+    });
   }
 
 });
