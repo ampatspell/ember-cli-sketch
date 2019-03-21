@@ -62,7 +62,8 @@ export default Handler.extend({
       frame.width = -delta.x * 2;
     }
 
-    node.frame.update(frame, { delta: true });
+    let next = node.frame.deltaToFrame(frame);
+    node.frame.update(next);
 
     return false;
   }

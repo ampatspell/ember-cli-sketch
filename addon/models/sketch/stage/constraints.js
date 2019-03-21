@@ -16,17 +16,19 @@ export const constraints = () => computed(function() {
   return sketches(this).factory.stage.constraints(this);
 }).readOnly();
 
-const constraint = () => computed(function() {
-  return sketches(this).factory.stage.constraint(this);
+const constraint = (dimension, size) => computed(function() {
+  return sketches(this).factory.stage.constraint(this, { dimension, size });
 }).readOnly();
 
 export default Base.extend({
 
-  width: constraint(),
-  height: constraint(),
+  owner: null,
+
+  width:  constraint('x', 'width'),
+  height: constraint('y', 'height'),
 
   prepare(opts) {
-    let { width, height, props } = opts;
+    let { width, height, props } = split(opts);
     this._super(props);
     if(width) {
       this.width.setProperties(width);
@@ -34,6 +36,12 @@ export default Base.extend({
     if(height) {
       this.height.setProperties(height);
     }
+  },
+
+  apply(current, next) {
+    this.width.apply(current, next);
+    this.height.apply(current, next);
+    return next;
   }
 
 });

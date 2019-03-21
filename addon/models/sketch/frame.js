@@ -10,6 +10,7 @@ export const frame = (type='node') => computed(function() {
 }).readOnly();
 
 const sizeKeys = Object.freeze([ 'width', 'height' ]);
+const keys = Object.freeze([ 'x', 'y', 'width', 'height', 'rotation' ]);
 
 const zoomed = key => computed(key, '_stage.zoom', function() {
   let { _stage } = this;
@@ -110,16 +111,26 @@ export default Base.extend({
   zoomed: zoomed('serialized'),
   zoomedBounding: zoomed('bounding'),
 
-  update(props, opts) {
-    let { delta } = assign({ delta: false }, opts);
-    if(delta) {
-      let values = {};
-      for(let key in props) {
+  deltaToFrame(props) {
+    let values = {};
+    keys.forEach(key => {
+      let value = props[key];
+      if(value !== undefined) {
         values[key] = round(this[key] + props[key], 2);
         if(sizeKeys.includes(key)) {
           values[key] = Math.max(values[key], 0);
         }
+      } else {
+        values[key] = this[key];
       }
+    });
+    return values;
+  },
+
+  update(props, opts) {
+    let { delta } = assign({ delta: false }, opts);
+    if(delta) {
+      let values = this.deltaToFrame(props);
       this.setProperties(values);
     } else {
       this.setProperties(props);
