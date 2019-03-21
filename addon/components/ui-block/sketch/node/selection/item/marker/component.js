@@ -6,7 +6,7 @@ export default Component.extend({
   classNameBindings: [ ':marker', 'vertical', 'horizontal', 'disabled:disabled' ],
 
   mouseEnter() {
-    let { disabled, vertical, horizontal } = this;
+    let { vertical, horizontal } = this;
     this.enter({ vertical, horizontal });
   },
 
