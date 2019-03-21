@@ -23,7 +23,7 @@ export default Base.extend({
   },
 
   nodesForStagePosition(position) {
-    let area = this.frame.convertStageToAreaPosition(position);
+    let area = this.frame.convertPointFromStage(position);
     return this.group.nodesForPosition(area);
   }
 

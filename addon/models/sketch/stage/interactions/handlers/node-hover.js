@@ -11,8 +11,7 @@ export default Handler.extend({
   },
 
   update() {
-    let stage = this.mouse.stage;
-    let nodes = this.stage.areas.nodesForStagePosition(stage);
+    let nodes = this.stage.areas.nodesForScreenPosition(this.mouse.stage);
     this.stage.hover.replace(nodes);
   }
 

@@ -2,8 +2,8 @@ import Frame from '../frame';
 import { readOnly } from '@ember/object/computed';
 import { computed } from '@ember/object';
 
-const stage = key => computed(key, '_area.frame.stage', function() {
-  let { [key]: frame, _area: { frame: { stage: area } } } = this;
+const stageZoomed = key => computed(key, '_area.frame.stageZoomed', function() {
+  let { [key]: frame, _area: { frame: { stageZoomed: area } } } = this;
   return {
     x:        frame.x + area.x,
     y:        frame.y + area.y,
@@ -17,6 +17,6 @@ export default Frame.extend({
 
   _area: readOnly('owner.area'),
 
-  stageZoomedBounding: stage('zoomedBounding')
+  stageZoomedBounding: stageZoomed('zoomedBounding')
 
 });
