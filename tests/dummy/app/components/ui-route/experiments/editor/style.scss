@@ -11,6 +11,9 @@
     width: 300px;
     padding: 25px;
     overflow-x: hidden;
+    > .section {
+      margin-bottom: 10px;
+    }
     > .row {
       margin-bottom: 10px;
       > .label {

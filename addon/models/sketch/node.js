@@ -34,7 +34,7 @@ export default Base.extend({
     return [];
   },
 
-  includesNode() {
+  containsNode() {
     return false;
   },
 
@@ -51,6 +51,22 @@ export default Base.extend({
 
   select() {
     this.stage.selection.replace([ this ]);
+  },
+
+  remove() {
+    let { group } = this;
+    if(!group) {
+      return;
+    }
+    group._removeNode(this);
+  },
+
+  willRemove() {
+    this.stage.willRemoveNode(this);
+  },
+
+  didRemove() {
+    this.stage.didRemoveNode(this);
   },
 
   toStringExtension() {

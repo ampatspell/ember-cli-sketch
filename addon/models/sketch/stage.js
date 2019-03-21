@@ -51,6 +51,20 @@ export default Base.extend({
 
   //
 
+  willRemoveNode(node) {
+    let { hover, selection, dragging, resizing } = this;
+    hover.willRemoveNode(node);
+    selection.willRemoveNode(node);
+    dragging.willRemoveNode(node);
+    resizing.willRemoveNode(node);
+  },
+
+  didRemoveNode() {
+
+  },
+
+  //
+
   convertPointFromScreen({ x, y }) {
     let { zoom, position } = this;
     return {

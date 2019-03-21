@@ -45,6 +45,7 @@ export default Component.extend({
       }
       stage.areas.add(area);
     }
+    window.stage = stage;
     return stage;
   }).readOnly(),
 
@@ -83,6 +84,14 @@ export default Component.extend({
     },
     reset() {
       this.stage.reset();
+    },
+    add(type) {
+      let group = stage.areas.all.firstObject.group;
+      let node = this.sketches.factory.node(type, { frame: { x: 100, y: 100, width: 50, height: 50 }, fill: '#990000' });
+      group.addNode(node, { select: true });
+    },
+    remove(node) {
+      node.remove();
     }
   }
 

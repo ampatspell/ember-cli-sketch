@@ -1,6 +1,7 @@
 import Node from '../node';
 import { array } from '../../../util/computed';
 import { frame } from '../frame';
+import { assign } from '@ember/polyfills';
 
 export default Node.extend({
 
@@ -16,9 +17,24 @@ export default Node.extend({
     this.setProperties({ area });
   },
 
-  addNode(node) {
+  addNode(node, opts) {
+    let { select } = assign({ select: false }, opts);
+
     this.nodes.addObject(node);
     node.didAddToGroup(this);
+
+    if(select) {
+      node.select();
+    }
+  },
+
+  _removeNode(node) {
+    if(!this.nodes.includes(node)) {
+      return;
+    }
+    node.willRemove();
+    this.nodes.removeObject(node);
+    node.didRemove();
   },
 
   nodesForPosition(position) {
@@ -33,8 +49,13 @@ export default Node.extend({
     return nodes;
   },
 
-  includesNode(node) {
-    return this.nodes.find(child => child === node || child.includesNode(node));
+  containsNode(node) {
+    return this.nodes.find(child => child === node || child.containsNode(node));
+  },
+
+  willRemove() {
+    this.nodes.slice().forEach(node => node.remove());
+    this._super(...arguments);
   }
 
 });

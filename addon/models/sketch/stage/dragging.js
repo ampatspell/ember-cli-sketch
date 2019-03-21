@@ -30,6 +30,10 @@ export default Base.extend({
 
   reset() {
     this.clear();
+  },
+
+  willRemoveNode(node) {
+    this.nodes.removeObject(node);
   }
 
 });
