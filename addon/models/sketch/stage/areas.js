@@ -10,19 +10,19 @@ export const areas = () => computed(function() {
 export default Base.extend({
 
   owner: null,
-  nodes: array(),
+  all: array(),
 
   add(area) {
-    this.nodes.addObject(area);
+    this.all.addObject(area);
     area.didAddToStage(this.owner);
   },
 
   reduce() {
-    return this.nodes.reduce(...arguments);
+    return this.all.reduce(...arguments);
   },
 
   nodesForAbsolutePosition(position) {
-    return this.nodes.reduce((array, area) => {
+    return this.all.reduce((array, area) => {
       array.push(...area.nodesForAbsolutePosition(position));
       return array;
     }, []);
