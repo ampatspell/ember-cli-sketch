@@ -7,41 +7,31 @@ const split = opts => {
   if(!opts) {
     return {};
   }
-  let { width, height } = opts;
-  let props = omit(opts, [ 'width', 'height' ]);
-  return { width, height, props };
+  let { horizontal, vertical } = opts;
+  let props = omit(opts, [ 'horizontal', 'vertical' ]);
+  return { horizontal, vertical, props };
 };
 
 export const constraints = () => computed(function() {
   return sketches(this).factory.stage.constraints(this);
 }).readOnly();
 
-const constraint = (dimension, size) => computed(function() {
-  return sketches(this).factory.stage.constraint(this, { dimension, size });
+const constraint = (position, size) => computed(function() {
+  return sketches(this).factory.stage.constraint(this, { position, size });
 }).readOnly();
 
 export default Base.extend({
 
   owner: null,
 
-  width:  constraint('x', 'width'),
-  height: constraint('y', 'height'),
+  horizontal: constraint('x', 'width'),
+  vertical:   constraint('y', 'height'),
 
   prepare(opts) {
-    let { width, height, props } = split(opts);
+    let { horizontal, vertical, props } = split(opts);
     this._super(props);
-    if(width) {
-      this.width.setProperties(width);
-    }
-    if(height) {
-      this.height.setProperties(height);
-    }
-  },
-
-  apply(current, next) {
-    this.width.apply(current, next);
-    this.height.apply(current, next);
-    return next;
+    horizontal && this.horizontal.setProperties(horizontal);
+    vertical && this.vertical.setProperties(vertical);
   }
 
 });

@@ -18,7 +18,7 @@ export default Component.extend({
     let stage = factory.stage.create();
     stage.position.setProperties({ x: 100, y: 50 });
     {
-      let area = factory.area({ frame: { x: 70, y: 0, width: 560, height: 360 }, constraints: { width: { resize: false, move: false }, height: { resize: true, min: 100, max: 400 } } });
+      let area = factory.area({ frame: { x: 70, y: 0, width: 560, height: 360 }, constraints: { horizontal: { resize: false, move: false }, vertical: { resize: true, min: 100, max: 400 } } });
       window.area = area;
       {
         let group = factory.node('group');
@@ -26,7 +26,7 @@ export default Component.extend({
         {
           let node = factory.node('rect', {
             frame: { x: 300, y: 100, width: 50, height: 50, rotation: 10 },
-            constraints: { width: { min: 20, max: 100 }, height: { min: 20, max: 100 } },
+            constraints: { horizontal: { min: 20, max: 100 }, vertical: { min: 20, max: 100 } },
             fill: 'red', opacity: 0.5
           });
           group.addNode(node);
@@ -45,7 +45,7 @@ export default Component.extend({
     {
       let area = factory.area({
         frame: { x: 0, y: 430, width: 560, height: 200 },
-        constraints: { width: { min: 100, max: 600 }, height: { min: 100, max: 200 } }
+        constraints: { horizontal: { min: 100, max: 600 }, vertical: { min: 100, max: 200 } }
       });
       {
         let group = factory.node('group');

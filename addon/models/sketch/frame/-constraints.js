@@ -25,9 +25,9 @@ const resizable = constraint => computed({
 
 export default Mixin.create({
 
-  x: movable('width'),
-  y: movable('height'),
-  width:  resizable('width'),
-  height: resizable('height')
+  x:      movable('horizontal'),
+  y:      movable('vertical'),
+  width:  resizable('horizontal'),
+  height: resizable('vertical')
 
 });

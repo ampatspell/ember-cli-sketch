@@ -2,6 +2,10 @@ import Base from '../-base';
 import { computed } from '@ember/object';
 import { readOnly, not } from '@ember/object/computed';
 
+const frame = key => computed('frame', function() {
+  return this.frame[this.opts[key]];
+}).readOnly();
+
 export default Base.extend({
 
   owner: null,
@@ -14,17 +18,13 @@ export default Base.extend({
   min: null,
   max: null,
 
-  isMovable: readOnly('move'),
-  isResizable: readOnly('resize'),
+  isMovable:      readOnly('move'),
+  isNotMovable:   not('move'),
+  isResizable:    readOnly('resize'),
   isNotResizable: not('isResizable'),
 
-  position: computed('frame', function() {
-    return this.frame[this.opts.dimension];
-  }).readOnly(),
-
-  size: computed('frame', function() {
-    return this.frame[this.opts.size];
-  }).readOnly(),
+  position: frame('position'),
+  size:     frame('size'),
 
   validateSize(value) {
     let { min, max } = this;
