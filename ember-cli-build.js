@@ -6,8 +6,6 @@ module.exports = function(defaults) {
   let app = new EmberAddon(defaults, {
     sassOptions: {
       includePaths: [
-        'app',
-        'addon',
         'tests/dummy/app'
       ],
       onlyIncluded: true

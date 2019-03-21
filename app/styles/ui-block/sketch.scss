@@ -1,7 +1,8 @@
-@import "stage/style";
-@import "node/style";
+@import "sketch/stage";
+@import "sketch/node";
 
 .ui-block-sketch {
+  cursor: default;
   display: flex;
   user-select: none;
   > .stage {

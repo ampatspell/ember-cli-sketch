@@ -1,5 +1,5 @@
-@import "areas/style";
-@import "crop-marks/style";
+@import "stage/crop-marks";
+@import "stage/areas";
 
 .ui-block-sketch-stage {
   position: relative;

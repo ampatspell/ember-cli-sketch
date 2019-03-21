@@ -5,7 +5,7 @@ $font-family: 'Ubuntu Mono', monospace;
 $font-size: 16px;
 
 @import "body";
-@import "components/ui-block/sketch/style";
+@import "ember-cli-sketch";
 
 @import "components/ui-block/input/style";
 @import "components/ui-block/slider/style";
