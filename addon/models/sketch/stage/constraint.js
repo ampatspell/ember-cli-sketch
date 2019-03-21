@@ -1,4 +1,5 @@
 import Base from '../-base';
+import { computed } from '@ember/object';
 import { readOnly, not } from '@ember/object/computed';
 
 export default Base.extend({
@@ -15,21 +16,44 @@ export default Base.extend({
   isResizable: readOnly('resize'),
   isNotResizable: not('isResizable'),
 
-  isSizeValid(value) {
+  size: computed('frame', function() {
+    return this.frame[this.opts.size];
+  }).readOnly(),
+
+  validateSize(value) {
     let { min, max } = this;
     if((!min || value >= min) && (!max || value <= max)) {
-      return true;
+      return { valid: true, value };
     }
-    return false;
+    if(value < min) {
+      value = min;
+    } else if(value > max) {
+      value = max;
+    }
+    return { valid: false, value };
+  },
+
+  validateDelta(delta) {
+    let size = this.size;
+    let { valid, value: abs } = this.validateSize(size + delta);
+    let value = abs - size;
+    return { valid, value };
   },
 
   isDeltaValid(delta) {
     if(!this.resize) {
       return false;
     }
-    let size = this.frame[this.opts.size];
-    let value = size + delta;
-    return this.isSizeValid(value);
+    let { valid } = this.validateDelta(delta);
+    return valid;
+  },
+
+  clampDelta(delta) {
+    if(!this.resize) {
+      return 0;
+    }
+    let { value } = this.validateDelta(delta);
+    return value;
   }
 
 });

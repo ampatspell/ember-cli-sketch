@@ -33,38 +33,32 @@ export default Handler.extend({
       return;
     }
 
-    let { node, edge } = resizing;
+    let { node, node: { constraints }, edge } = resizing;
 
     delta.x = delta.x / zoom;
     delta.y = delta.y / zoom;
 
     let frame = {};
-    let constraints = node.constraints;
 
     if(edge.vertical === 'bottom') {
-      if(constraints.height.isDeltaValid(delta.y)) {
-        frame.height = delta.y;
-      }
+      let value = constraints.height.clampDelta(delta.y);
+      frame.height = value;
     } else if(edge.vertical === 'top') {
-      if(constraints.height.isDeltaValid(-delta.y)) {
-        frame.y = delta.y;
-        frame.height = -delta.y;
-      }
+      let value = constraints.height.clampDelta(-delta.y);
+      frame.y = -value;
+      frame.height = value;
     }
 
     if(edge.horizontal === 'right') {
-      if(constraints.width.isDeltaValid(delta.x)) {
-        frame.width = delta.x;
-      }
+      let value = constraints.width.clampDelta(delta.x);
+      frame.width = value;
     } else if(edge.horizontal === 'left') {
-      if(constraints.width.isDeltaValid(-delta.x)) {
-        frame.x = delta.x;
-        frame.width = -delta.x;
-      }
+      let value = constraints.width.clampDelta(-delta.x);
+      frame.x = -value;
+      frame.width = value
     }
 
-    let next = node.frame.deltaToFrame(frame);
-    node.frame.update(next);
+    node.frame.update(frame, { delta: true });
 
     return false;
   }
