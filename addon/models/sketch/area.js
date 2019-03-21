@@ -44,10 +44,16 @@ export default Selectable.extend({
   moveNode(node) {
     if(node.isGroup && !node.group) {
       node.deselect();
+      let group = this.group.nodes.length === 0;
       node.nodes.slice().forEach(node => {
         this._moveNode(node);
-        node.select({ replace: false });
+        if(!group) {
+          node.select({ replace: false });
+        }
       });
+      if(group) {
+        this.group.select();
+      }
     } else {
       node.deselect();
       this._moveNode(node);
