@@ -10,7 +10,7 @@ export default Component.extend({
 
   stage: readOnly('node.stage'),
 
-  style: frame('node', 'absolute', { inset: -1 }),
+  style: frame('node', 'stageZoomedBounding', { inset: -1 }),
 
   actions: {
     enter(edge) {

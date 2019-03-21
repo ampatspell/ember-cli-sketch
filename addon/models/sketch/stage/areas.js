@@ -24,11 +24,15 @@ export default Base.extend({
     return this.all.reduce(...arguments);
   },
 
-  nodesForAbsolutePosition(position) {
+  nodesForPosition(position) {
     return this.all.reduce((array, area) => {
-      array.push(...area.nodesForAbsolutePosition(position));
+      array.push(...area.nodesForStagePosition(position));
       return array;
     }, []);
+  },
+
+  nodesForScreenPosition(position) {
+    return this.nodesForPosition(this.owner.convertPointFromScreen(position));
   }
 
 });

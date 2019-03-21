@@ -7,6 +7,7 @@ import { dragging } from './stage/dragging';
 import { hover } from './stage/hover';
 import { renderer } from './stage/renderer';
 import { areas } from './stage/areas';
+import { round } from '../../util/math';
 
 export default Base.extend({
 
@@ -46,6 +47,16 @@ export default Base.extend({
     selection.reset();
     dragging.reset();
     resizing.reset();
+  },
+
+  //
+
+  convertPointFromScreen({ x, y }) {
+    let { zoom, position } = this;
+    return {
+      x: round((x - position.x) / zoom, 2),
+      y: round((y - position.y) / zoom, 2)
+    };
   }
 
 });

@@ -1,10 +1,9 @@
 import Frame from '../frame';
 import { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
 
 export default Frame.extend({
 
-  normalized: computed('zoomed', 'owner.stage.position.{x,y}', function() {
+  stageZoomed: computed('zoomed', 'owner.stage.position.{x,y}', function() {
     let { owner: { stage }, zoomed } = this;
     if(!stage) {
       return;
@@ -27,7 +26,12 @@ export default Frame.extend({
     };
   }).readOnly(),
 
-  absolute: readOnly('normalized'),
-  bounding: readOnly('normalized'),
+  convertPointFromStage({ x, y }) {
+    let { serialized } = this;
+    return {
+      x: x - serialized.x,
+      y: y - serialized.y
+    };
+  }
 
 });

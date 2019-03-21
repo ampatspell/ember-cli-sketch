@@ -11,6 +11,6 @@ export default Component.extend({
   area: null,
   group: readOnly('area.group'),
 
-  style: frame('area', 'normalized')
+  style: frame('area', 'stageZoomed')
 
 });
