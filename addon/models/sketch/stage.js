@@ -1,5 +1,4 @@
 import Base from './-base';
-import { array } from '../../util/computed';
 import { position } from './stage/position';
 import { interactions } from './stage/interactions';
 import { resizing } from './stage/resizing';
