@@ -6,7 +6,8 @@ const types = Object.freeze([
   'node-resize',
   'node-hover',
   'node-selection',
-  'node-drag'
+  'node-drag',
+  'node-remove'
 ]);
 
 export default Base.extend({

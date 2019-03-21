@@ -141,18 +141,21 @@ export default Mixin.create({
     this.interactions.onMouseWheel({ direction, value, keys });
   },
 
-  onKeyDown(e) {
+  keysHashFromKeyboardEvent(e) {
     let { keyCode, key } = e;
-    this.interactions.onKeyDown({ keyCode, key });
+    return { keyCode, key};
+  },
+
+  onKeyDown(e) {
+    this.interactions.onKeyDown(this.keysHashFromKeyboardEvent(e));
   },
 
   onKeyPress(e) {
-    let { keyCode, key } = e;
-    this.interactions.onKeyPress({ keyCode, key });
+    this.interactions.onKeyPress(this.keysHashFromKeyboardEvent(e));
   },
 
-  onKeyUp() {
-    this.interactions.onKeyUp();
+  onKeyUp(e) {
+    this.interactions.onKeyUp(this.keysHashFromKeyboardEvent(e));
   },
 
 });

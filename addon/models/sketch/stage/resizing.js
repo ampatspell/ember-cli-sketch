@@ -49,6 +49,12 @@ export default Base.extend({
 
   reset() {
     this.end();
+  },
+
+  willRemoveNode(node) {
+    if(this.node === node) {
+      this.end();
+    }
   }
 
 });

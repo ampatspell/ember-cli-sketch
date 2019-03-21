@@ -19,7 +19,7 @@ export default Handler.extend({
           selection.addNode(node);
         }
         if(node.isGroup) {
-          let remove = selection.filter(sel => node.includesNode(sel));
+          let remove = selection.filter(sel => node.containsNode(sel));
           selection.removeNodes(remove);
         } else {
           let remove = selection.filter(sel => node.hasParentNode(sel));

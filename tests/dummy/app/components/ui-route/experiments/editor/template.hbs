@@ -100,6 +100,11 @@
         </div>
       </div>
     {{/unless}}
+    <div class="row">
+      <div class="value">
+        {{ui-block/button value='Remove' action=(action 'remove' node)}}
+      </div>
+    </div>
   {{else}}
     <div class="section">
       <div class="title">Selection</div>
@@ -121,6 +126,16 @@
         </div>
       {{/each}}
     {{/each}}
+  </div>
+
+  <div class="section">
+    <div class="title">Mutations</div>
+  </div>
+
+  <div class="row">
+    <div class="value">
+      {{ui-block/button value="Add Rect" action=(action "add" "rect")}}
+    </div>
   </div>
 
   <div class="section">

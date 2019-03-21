@@ -51,6 +51,10 @@ export default Base.extend({
 
   reset() {
     this.replace([]);
+  },
+
+  willRemoveNode(node) {
+    this.nodes.removeObject(node);
   }
 
 });
