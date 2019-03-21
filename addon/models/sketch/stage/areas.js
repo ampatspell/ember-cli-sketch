@@ -24,9 +24,9 @@ export default Base.extend({
     return this.all.reduce(...arguments);
   },
 
-  nodesForAbsolutePosition(position) {
+  nodesForStagePosition(position) {
     return this.all.reduce((array, area) => {
-      array.push(...area.nodesForAbsolutePosition(position));
+      array.push(...area.nodesForStagePosition(position));
       return array;
     }, []);
   }

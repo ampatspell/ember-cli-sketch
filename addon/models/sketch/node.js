@@ -28,7 +28,7 @@ export default Base.extend({
   },
 
   nodesForPosition(position) {
-    if(this.frame.includesAbsolutePosition(position)) {
+    if(this.frame.includesPosition(position)) {
       return [ this ];
     }
     return [];

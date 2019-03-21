@@ -9,6 +9,6 @@ export default Component.extend({
 
   area: null,
 
-  style: frame('area', 'absolute')
+  style: frame('area', 'stage')
 
 });

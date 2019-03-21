@@ -12,7 +12,6 @@ export default Base.extend({
   frame: frame('area'),
 
   _serializedFrame: readOnly('frame.serialized'),
-  _absoluteFrame: readOnly('frame.absolute'),
 
   setGroup(group) {
     this.setProperties({ group });
@@ -23,9 +22,9 @@ export default Base.extend({
     this.setProperties({ stage });
   },
 
-  nodesForAbsolutePosition(position) {
-    let local = this.frame.convertToLocalPosition(position);
-    return this.group.nodesForPosition(local);
+  nodesForStagePosition(position) {
+    let area = this.frame.convertStageToAreaPosition(position);
+    return this.group.nodesForPosition(area);
   }
 
 });

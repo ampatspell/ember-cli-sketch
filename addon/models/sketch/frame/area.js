@@ -4,7 +4,7 @@ import { readOnly } from '@ember/object/computed';
 
 export default Frame.extend({
 
-  normalized: computed('zoomed', 'owner.stage.position.{x,y}', function() {
+  stage: computed('zoomed', 'owner.stage.position.{x,y}', function() {
     let { owner: { stage }, zoomed } = this;
     if(!stage) {
       return;
@@ -27,7 +27,12 @@ export default Frame.extend({
     };
   }).readOnly(),
 
-  absolute: readOnly('normalized'),
-  bounding: readOnly('normalized'),
+  convertStageToAreaPosition({ x, y }) {
+    let { stage } = this;
+    return {
+      x: x - stage.x,
+      y: y - stage.y
+    };
+  }
 
 });

@@ -9,7 +9,7 @@ export default Component.extend({
   classNameBindings: [ ':ui-block-sketch-node' ],
   attributeBindings: [ 'style' ],
 
-  frame: frame('node', 'normalized'),
+  frame: frame('node', 'zoomed'),
   isGroup: readOnly('node.isGroup'),
 
   style: computed('frame', 'isGroup', function() {

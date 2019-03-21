@@ -25,7 +25,7 @@ export default Node.extend({
     let nodes = this._super(...arguments);
     if(nodes.length) {
       this.nodes.forEach(node => {
-        if(node.frame.includesAbsolutePosition(position)) {
+        if(node.frame.includesPosition(position)) {
           nodes.push(node);
         }
       });
