@@ -60,7 +60,6 @@ export default Base.extend({
   },
 
   didRemoveNode() {
-
   },
 
   //
@@ -71,6 +70,12 @@ export default Base.extend({
       x: round((x - position.x) / zoom, 2),
       y: round((y - position.y) / zoom, 2)
     };
+  },
+
+  //
+
+  handle(action) {
+    action.perform();
   }
 
 });

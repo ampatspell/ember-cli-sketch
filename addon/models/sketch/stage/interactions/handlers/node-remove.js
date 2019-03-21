@@ -7,7 +7,15 @@ export default Handler.extend({
       return;
     }
     let nodes = this.stage.selection.copy();
-    nodes.forEach(node => node.remove());
+    if(!nodes.length) {
+      return;
+    }
+    let perform = () => nodes.forEach(node => node.remove());
+    this.stage.handle({
+      type: 'remove-nodes',
+      nodes,
+      perform
+    });
   }
 
 });
