@@ -140,6 +140,11 @@ export default Base.extend({
   includesPosition({ x, y }) {
     let { serialized: frame } = this;
     return frame.x <= x && frame.y <= y && frame.x + frame.width >= x && frame.y + frame.height >= y;
+  },
+
+  includesFrame({ x, y, width, height }) {
+    let { serialized: frame } = this;
+    return frame.x <= x && frame.y <= y && frame.x + frame.width >= x + width && frame.y + frame.height >= height;
   }
 
 });

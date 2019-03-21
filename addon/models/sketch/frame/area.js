@@ -29,6 +29,7 @@ export default Frame.extend(ConstraintsMixin, {
   }).readOnly(),
 
   stageZoomedBounding: readOnly('stageZoomed'),
+  stageBounding: readOnly('bounding'),
 
   convertPointFromStage({ x, y }) {
     let { serialized } = this;

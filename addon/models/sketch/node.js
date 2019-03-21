@@ -56,6 +56,7 @@ export default Selectable.extend({
 
   didRemove() {
     this.stage.didRemoveNode(this);
+    this.setProperties({ group: null });
   },
 
   toStringExtension() {
