@@ -12,10 +12,6 @@ export default Base.extend({
   notSelected: not('isSelected'),
 
   isHovered: find('hover'),
-  notHovered: not('isHovered'),
-
-  hasParentNode() {
-    return false;
-  }
+  notHovered: not('isHovered')
 
 });

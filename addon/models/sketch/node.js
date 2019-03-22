@@ -32,17 +32,6 @@ export default Selectable.extend({
     return [ this ];
   },
 
-  hasParentNode(node) {
-    let { group } = this;
-    if(!group) {
-      return false;
-    }
-    if(group === node) {
-      return true;
-    }
-    return group.hasParentNode(node);
-  },
-
   select(opts) {
     let { replace } = assign({ replace: true }, opts);
     let { selection } = this.stage;

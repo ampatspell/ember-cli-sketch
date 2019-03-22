@@ -16,14 +16,12 @@ export default Handler.extend({
         if(includes) {
           selection.removeNode(node);
         } else {
+          let remove = [
+            ...selection.filter(sel => node.containsNode(sel)),
+            ...selection.filter(sel => sel.containsNode(node)),
+          ];
+          selection.removeNodes(remove);
           selection.addNode(node);
-        }
-        if(node.isGroup || node.isArea) {
-          let remove = selection.filter(sel => node.containsNode(sel));
-          selection.removeNodes(remove);
-        } else {
-          let remove = selection.filter(sel => node.hasParentNode(sel));
-          selection.removeNodes(remove);
         }
       } else {
         if(!includes) {

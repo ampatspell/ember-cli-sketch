@@ -60,7 +60,8 @@ export default Selectable.extend({
   },
 
   containsNode(node) {
-    return this.group.containsNode(node);
+    let { group } = this;
+    return group === node || group.containsNode(node);
   },
 
   //
