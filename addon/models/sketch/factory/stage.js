@@ -46,6 +46,10 @@ export default Base.extend({
 
   constraint(owner, opts) {
     return this.model('stage/constraint', { owner, opts });
+  },
+
+  actions(owner) {
+    return this.model('stage/actions', { owner });
   }
 
 });

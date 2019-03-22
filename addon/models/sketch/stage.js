@@ -1,6 +1,7 @@
 import Base from './-base';
 import { position } from './stage/position';
 import { interactions } from './stage/interactions';
+import { actions } from './stage/actions';
 import { resizing } from './stage/resizing';
 import { selection } from './stage/selection';
 import { dragging } from './stage/dragging';
@@ -17,6 +18,7 @@ export default Base.extend({
   zoom: 1,
 
   interactions: interactions(),
+  actions: actions(),
   hover: hover(),
   selection: selection(),
   dragging: dragging(),
