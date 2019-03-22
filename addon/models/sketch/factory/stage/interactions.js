@@ -5,7 +5,7 @@ const types = Object.freeze([
   'stage-zoom',
   'node-resize',
   'node-hover',
-  'node-selection',
+  'node-select',
   'node-drag',
   'node-remove'
 ]);

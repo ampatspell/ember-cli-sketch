@@ -4,7 +4,8 @@ const node = type => model(`node/${type}`);
 
 export default Actions.extend({
 
-  drag: node('drag'),
+  select: node('select'),
+  drag:   node('drag'),
   resize: node('resize'),
   remove: node('remove'),
 
