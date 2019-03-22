@@ -11,7 +11,7 @@ export default Actions.extend({
 
   setDragging(isDragging) {
     this.setProperties({ isDragging });
-  }
+  },
 
   begin() {
     this.setDragging(true);
