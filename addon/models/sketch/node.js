@@ -13,7 +13,6 @@ export default Selectable.extend({
   _boundingFrame: readOnly('frame.bounding'),
 
   didAddToGroup(group) {
-    window.node= this;
     this.setProperties({ group });
   },
 
