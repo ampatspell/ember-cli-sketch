@@ -1,66 +1,39 @@
-import Handler from './-handler';
+import Handler, { action } from './-handler';
 import { readOnly } from '@ember/object/computed';
 
 export default Handler.extend({
 
-  resizing: readOnly('stage.resizing'),
+  action: action('node.resize'),
   zoom: readOnly('stage.zoom'),
 
   onMouseDown() {
-    let { mouse: { isLeftButton }, resizing } = this;
-    if(isLeftButton && resizing.bound) {
-      resizing.begin();
+    let { mouse: { isLeftButtonOverStage }, action } = this;
+    if(isLeftButtonOverStage && action.begin()) {
       return false;
     }
   },
 
   onMouseUp() {
-    let { resizing } = this;
-    if(resizing.bound) {
-      resizing.end();
+    if(this.action.end()) {
       return false;
     }
   },
 
   onMouseMove({ delta }) {
-    let { mouse: { isLeftButton }, resizing, zoom } = this;
+    let { mouse: { isLeftButton }, zoom, action } = this;
 
     if(!isLeftButton) {
       return;
     }
 
-    if(!resizing.bound || !resizing.active) {
-      return;
+    delta = {
+      x: delta.x / zoom,
+      y: delta.y / zoom
+    };
+
+    if(action.update(delta)) {
+      return false;
     }
-
-    let { node, node: { constraints }, edge } = resizing;
-
-    delta.x = delta.x / zoom;
-    delta.y = delta.y / zoom;
-
-    let frame = {};
-
-    if(edge.vertical === 'bottom') {
-      let value = constraints.vertical.clampSizeDelta(delta.y);
-      frame.height = value;
-    } else if(edge.vertical === 'top') {
-      let value = constraints.vertical.clampSizeDelta(-delta.y);
-      frame.y = -value;
-      frame.height = value;
-    }
-
-    if(edge.horizontal === 'right') {
-      let value = constraints.horizontal.clampSizeDelta(delta.x);
-      frame.width = value;
-    } else if(edge.horizontal === 'left') {
-      let value = constraints.horizontal.clampSizeDelta(-delta.x);
-      frame.x = -value;
-      frame.width = value
-    }
-
-    node.frame.update(frame, { delta: true });
-
-    return false;
   }
 
 });

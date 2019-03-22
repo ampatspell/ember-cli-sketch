@@ -1,7 +1,7 @@
 import Base from '../../../-base';
 import { readOnly } from '@ember/object/computed';
 
-export const action = type => readOnly(`actions/${type}`.replace(/\//g, '.'));
+export const action = type => readOnly(`actions.${type}`);
 
 export default Base.extend({
 

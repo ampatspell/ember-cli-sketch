@@ -7,28 +7,28 @@ export default Actions.extend({
   selection: readOnly('stage.selection'),
   areas: readOnly('stage.areas'),
 
-  isDragging: false,
+  isActive: false,
 
-  setDragging(isDragging) {
-    this.setProperties({ isDragging });
+  setActive(isActive) {
+    this.setProperties({ isActive });
   },
 
   begin() {
-    this.setDragging(true);
+    this.setActive(true);
     this.dragging.clear();
   },
 
   end() {
     let { dragging, areas } = this;
-    this.setDragging(false);
+    this.setActive(false);
     dragging.clear();
     dragging.copy().forEach(node => areas.moveNodeIfContained(node));
   },
 
   update({ x, y }) {
-    let { isDragging, dragging, selection } = this;
+    let { isActive, dragging, selection } = this;
 
-    if(!isDragging) {
+    if(!isActive) {
       return;
     }
 

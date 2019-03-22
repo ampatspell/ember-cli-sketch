@@ -2,13 +2,15 @@ import Handler, { action } from './-handler';
 
 export default Handler.extend({
 
-  action: action('node/drag'),
+  action: action('node.drag'),
 
   onMouseDown() {
     let { mouse: { isLeftButtonOverStage } } = this;
+
     if(!isLeftButtonOverStage) {
       return;
     }
+
     this.action.begin();
   },
 

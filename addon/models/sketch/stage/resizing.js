@@ -10,41 +10,39 @@ export const resizing = () => computed(function() {
 export default Base.extend({
 
   owner: null,
+
   node: null,
   edge: null,
-  active: false,
-  bound: bool('node'),
 
-  _deselectNodes() {
-    let { owner: { selection }, node } = this;
-    let nodes = selection.filter(selection => selection !== node);
-    selection.removeNodes(nodes);
-  },
+  isBound: bool('node'),
+  isActive: false,
 
   bind(node, edge) {
-    if(this.node === node && this.active) {
+    if(this.node === node && this.isActive) {
       return;
     }
     this.setProperties({ node, edge });
   },
 
   unbind() {
-    if(this.active) {
+    if(this.isActive) {
       return;
     }
-    this.setProperties({ node: null, edge: null });
+    this.setProperties({ isActive: false, node: null, edge: null });
   },
 
   begin() {
-    if(!this.bound) {
-      return;
+    if(!this.isBound) {
+      return false;
     }
-    this.setProperties({ active: true });
-    this._deselectNodes();
+    this.setProperties({ isActive: true });
+    return true;
   },
 
   end() {
-    this.setProperties({ active: false, node: null, edge: null });
+    let { node } = this;
+    this.setProperties({ isActive: false, node: null, edge: null });
+    return !!node;
   },
 
   reset() {
