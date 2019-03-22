@@ -15,8 +15,32 @@ export default Base.extend({
 
   any: gt('all.length', 0),
 
+  isDragging: null,
+
   slice() {
     return this.all.slice(...arguments);
+  },
+
+  start() {
+    this.setProperties({ isDragging: true });
+    this.replace();
+  },
+
+  update() {
+    if(!this.isDragging) {
+      return;
+    }
+
+    let { selection } = this.owner;
+
+    if(!this.any) {
+      if(!selection.any) {
+        return false;
+      }
+      this.replace(selection.all);
+    }
+
+    return true;
   },
 
   replace(next) {
@@ -25,6 +49,7 @@ export default Base.extend({
   },
 
   clear() {
+    this.setProperties({ isDragging: false });
     this.all.clear();
   },
 

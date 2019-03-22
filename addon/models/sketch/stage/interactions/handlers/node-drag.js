@@ -7,7 +7,7 @@ export default Handler.extend({
     if(!isLeftButtonOverStage) {
       return;
     }
-    dragging.replace();
+    dragging.start();
   },
 
   onMouseUp() {
@@ -17,17 +17,14 @@ export default Handler.extend({
   },
 
   onMouseMove({ delta }) {
-    let { mouse: { isLeftButton }, stage: { dragging, selection, zoom } } = this;
+    let { mouse: { isLeftButton }, stage: { dragging, zoom } } = this;
 
     if(!isLeftButton) {
       return;
     }
 
-    if(!dragging.any) {
-      if(!selection.any) {
-        return;
-      }
-      dragging.replace(selection.all);
+    if(!dragging.update()) {
+      return;
     }
 
     delta.x = delta.x / zoom;
