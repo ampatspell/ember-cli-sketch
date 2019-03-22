@@ -11,36 +11,16 @@ export const dragging = () => computed(function() {
 export default Base.extend({
 
   owner: null,
-  all: array(),
 
+  all: array(),
   any: gt('all.length', 0),
 
-  isDragging: null,
-
-  slice() {
-    return this.all.slice(...arguments);
+  copy() {
+    return this.all.slice();
   },
 
-  start() {
-    this.setProperties({ isDragging: true });
-    this.replace();
-  },
-
-  update() {
-    if(!this.isDragging) {
-      return;
-    }
-
-    let { selection } = this.owner;
-
-    if(!this.any) {
-      if(!selection.any) {
-        return false;
-      }
-      this.replace(selection.all);
-    }
-
-    return true;
+  clear() {
+    this.all.clear();
   },
 
   replace(next) {
@@ -48,17 +28,8 @@ export default Base.extend({
     all.replace(0, all.length, next);
   },
 
-  clear() {
-    this.setProperties({ isDragging: false });
-    this.all.clear();
-  },
-
-  withNodes() {
+  forEach() {
     return this.all.forEach(...arguments);
-  },
-
-  reset() {
-    this.clear();
   },
 
   willRemoveNodes(nodes) {

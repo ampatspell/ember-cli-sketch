@@ -7,22 +7,39 @@ export default Actions.extend({
   selection: readOnly('stage.selection'),
   areas: readOnly('stage.areas'),
 
+  isDragging: false,
+
+  setDragging(isDragging) {
+    this.setProperties({ isDragging });
+  }
+
   begin() {
-    this.dragging.start();
+    this.setDragging(true);
+    this.dragging.clear();
   },
 
   end() {
     let { dragging, areas } = this;
-    dragging.slice().forEach(node => areas.moveNodeIfContained(node));
+    this.setDragging(false);
     dragging.clear();
+    dragging.copy().forEach(node => areas.moveNodeIfContained(node));
   },
 
   update({ x, y }) {
-    let { dragging } = this;
-    if(!dragging.update()) {
+    let { isDragging, dragging, selection } = this;
+
+    if(!isDragging) {
       return;
     }
-    dragging.withNodes(node => node.frame.update({ x, y }, { delta: true }));
+
+    if(!dragging.any) {
+      if(!selection.any) {
+        return;
+      }
+      dragging.replace(selection.all);
+    }
+
+    dragging.forEach(node => node.frame.update({ x, y }, { delta: true }));
   }
 
 });
