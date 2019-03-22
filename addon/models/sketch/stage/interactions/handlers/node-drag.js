@@ -1,38 +1,32 @@
-import Handler from './-handler';
+import Handler, { action } from './-handler';
 
 export default Handler.extend({
 
+  action: action('node/drag'),
+
   onMouseDown() {
-    let { mouse: { isLeftButtonOverStage }, stage: { dragging } } = this;
+    let { mouse: { isLeftButtonOverStage } } = this;
     if(!isLeftButtonOverStage) {
       return;
     }
-    dragging.start();
+    this.action.begin();
   },
 
   onMouseUp() {
-    let { stage: { dragging, areas } } = this;
-    dragging.slice().forEach(node => areas.moveNodeIfContained(node));
-    dragging.clear();
+    this.action.end();
   },
 
   onMouseMove({ delta }) {
-    let { mouse: { isLeftButton }, stage: { dragging, zoom } } = this;
+    let { mouse: { isLeftButton }, stage: { zoom } } = this;
 
     if(!isLeftButton) {
       return;
     }
 
-    if(!dragging.update()) {
-      return;
-    }
-
-    delta.x = delta.x / zoom;
-    delta.y = delta.y / zoom;
-
-    let { x, y } = delta;
-
-    dragging.withNodes(node => node.frame.update({ x, y }, { delta: true }));
+    this.action.update({
+      x: delta.x / zoom,
+      y: delta.y / zoom
+    });
   }
 
 });

@@ -50,6 +50,10 @@ export default Base.extend({
 
   actions(owner) {
     return this.model('stage/actions', { owner });
+  },
+
+  action(type, owner) {
+    return this.model(`stage/actions/${type}`, { type, owner });
   }
 
 });
