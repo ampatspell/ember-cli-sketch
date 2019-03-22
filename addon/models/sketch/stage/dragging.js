@@ -11,21 +11,25 @@ export const dragging = () => computed(function() {
 export default Base.extend({
 
   owner: null,
-  nodes: array(),
+  all: array(),
 
-  any: gt('nodes.length', 0),
+  any: gt('all.length', 0),
+
+  slice() {
+    return this.all.slice(...arguments);
+  },
 
   replace(next) {
-    let { nodes } = this;
-    nodes.replace(0, nodes.length, next);
+    let { all } = this;
+    all.replace(0, all.length, next);
   },
 
   clear() {
-    this.nodes.clear();
+    this.all.clear();
   },
 
   withNodes() {
-    return this.nodes.forEach(...arguments);
+    return this.all.forEach(...arguments);
   },
 
   reset() {
@@ -33,7 +37,7 @@ export default Base.extend({
   },
 
   willRemoveNode(node) {
-    this.nodes.removeObject(node);
+    this.all.removeObject(node);
   }
 
 });

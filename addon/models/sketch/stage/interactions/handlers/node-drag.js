@@ -12,12 +12,12 @@ export default Handler.extend({
 
   onMouseUp() {
     let { stage: { dragging, areas } } = this;
-    dragging.nodes.slice().forEach(node => areas.moveNodeIfContained(node));
+    dragging.slice().forEach(node => areas.moveNodeIfContained(node));
     dragging.clear();
   },
 
   onMouseMove({ delta }) {
-    let { mouse: { isLeftButton }, stage: { areas, dragging, selection, zoom } } = this;
+    let { mouse: { isLeftButton }, stage: { dragging, selection, zoom } } = this;
 
     if(!isLeftButton) {
       return;
@@ -27,12 +27,12 @@ export default Handler.extend({
       if(!selection.any) {
         return;
       }
-      let nodes = selection.nodes.filter(node => !node.isArea);
+      let nodes = selection.filter(node => !node.isArea);
       if(nodes.length) {
-        let areas = selection.nodes.filter(node => node.isArea);
+        let areas = selection.filter(node => node.isArea);
         selection.removeNodes(areas);
       }
-      dragging.replace(selection.nodes);
+      dragging.replace(selection.all);
     }
 
     delta.x = delta.x / zoom;

@@ -51,7 +51,7 @@
 
   <div class="row">
     <div class="value small">
-      {{#each stage.hover.nodes as |node|}}
+      {{#each stage.hover.all as |node|}}
         <div>{{node}}</div>
       {{else}}
         <div>None</div>
@@ -59,7 +59,7 @@
     </div>
   </div>
 
-  {{#each stage.selection.nodes as |node|}}
+  {{#each stage.selection.all as |node|}}
     <div class="section">
       <div class="title">Selection</div>
     </div>

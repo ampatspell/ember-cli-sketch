@@ -11,45 +11,45 @@ export const selection = () => computed(function() {
 export default Base.extend({
 
   owner: null,
-  nodes: array(),
+  all: array(),
 
-  any: gt('nodes.length', 0),
+  any: gt('all.length', 0),
 
   copy() {
-    return this.nodes.slice();
+    return this.all.slice();
   },
 
   includes(node) {
-    return this.nodes.includes(node);
+    return this.all.includes(node);
   },
 
   addNode(node) {
-    this.nodes.addObject(node);
+    this.all.addObject(node);
   },
 
   addNodes(nodes) {
-    this.nodes.addObjects(nodes);
+    this.all.addObjects(nodes);
   },
 
   removeNode(node) {
-    this.nodes.removeObject(node);
+    this.all.removeObject(node);
   },
 
   removeNodes(nodes) {
-    this.nodes.removeObjects(nodes);
+    this.all.removeObjects(nodes);
   },
 
   replace(next) {
-    let { nodes } = this;
-    nodes.replace(0, nodes.length, next);
+    let { all } = this;
+    all.replace(0, all.length, next);
   },
 
   find() {
-    return this.nodes.find(...arguments);
+    return this.all.find(...arguments);
   },
 
   filter() {
-    return this.nodes.filter(...arguments);
+    return this.all.filter(...arguments);
   },
 
   reset() {
@@ -57,7 +57,7 @@ export default Base.extend({
   },
 
   willRemoveNode(node) {
-    this.nodes.removeObject(node);
+    this.all.removeObject(node);
   }
 
 });

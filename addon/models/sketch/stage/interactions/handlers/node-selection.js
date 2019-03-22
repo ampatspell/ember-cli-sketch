@@ -3,7 +3,7 @@ import Handler from './-handler';
 export default Handler.extend({
 
   onMouseDown() {
-    let { mouse: { isLeftButtonOverStage }, keyboard: { isShift: toggle }, stage: { selection, hover: { lastNode: node } } } = this;
+    let { mouse: { isLeftButtonOverStage }, keyboard: { isShift: toggle }, stage: { selection, hover: { last: node } } } = this;
 
     if(!isLeftButtonOverStage) {
       return;

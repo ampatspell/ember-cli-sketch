@@ -11,20 +11,20 @@ export const hover = () => computed(function() {
 export default Base.extend({
 
   owner: null,
-  nodes: array(),
 
-  notSelectedNodes: filterBy('nodes', 'notSelected', true),
-  lastNode: readOnly('nodes.lastObject'),
+  all: array(),
 
-  any: gt('nodes.length', 0),
+  deselected: filterBy('all', 'isSelected', false),
+  last: readOnly('all.lastObject'),
+  any: gt('all.length', 0),
 
   replace(next) {
-    let { nodes } = this;
-    nodes.replace(0, nodes.length, next);
+    let { all } = this;
+    all.replace(0, all.length, next);
   },
 
   find() {
-    return this.nodes.find(...arguments);
+    return this.all.find(...arguments);
   },
 
   reset() {
