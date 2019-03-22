@@ -18,7 +18,7 @@ export default Handler.extend({
         } else {
           selection.addNode(node);
         }
-        if(node.isGroup) {
+        if(node.isGroup || node.isArea) {
           let remove = selection.filter(sel => node.containsNode(sel));
           selection.removeNodes(remove);
         } else {

@@ -45,6 +45,17 @@ export default Base.extend({
       }
       return area.moveNodeIfContained(node);
     });
+  },
+
+  //
+
+  _removeArea(area) {
+    if(!this.all.includes(area)) {
+      return;
+    }
+    area.willRemove();
+    this.all.removeObject(area);
+    area.didRemove();
   }
 
 });

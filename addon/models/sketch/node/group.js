@@ -51,6 +51,14 @@ export default Node.extend({
 
   containsNode(node) {
     return this.nodes.find(child => child === node || child.containsNode(node));
-  }
+  },
+
+  allNodes() {
+    let nodes = [ this ];
+    this.nodes.forEach(node => {
+      nodes.push(...node.allNodes());
+    });
+    return nodes;
+  },
 
 });

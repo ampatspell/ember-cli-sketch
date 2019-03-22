@@ -51,12 +51,28 @@ export default Base.extend({
 
   //
 
-  willRemoveNode(node) {
+  _removeArea(area) {
+    this.areas._removeArea(area);
+  },
+
+  _willRemoveNode(node) {
     let { hover, selection, dragging, resizing } = this;
-    hover.willRemoveNode(node);
-    selection.willRemoveNode(node);
-    dragging.willRemoveNode(node);
-    resizing.willRemoveNode(node);
+    let nodes = node.allNodes();
+    hover.willRemoveNodes(nodes);
+    selection.willRemoveNodes(nodes);
+    dragging.willRemoveNodes(nodes);
+    resizing.willRemoveNodes(nodes);
+  },
+
+  willRemoveArea(area) {
+    this._willRemoveNode(area);
+  },
+
+  didRemoveArea() {
+  },
+
+  willRemoveNode(node) {
+    this._willRemoveNode(node);
   },
 
   didRemoveNode() {

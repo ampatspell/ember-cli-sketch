@@ -28,6 +28,10 @@ export default Selectable.extend({
     return false;
   },
 
+  allNodes() {
+    return [ this ];
+  },
+
   hasParentNode(node) {
     let { group } = this;
     if(!group) {

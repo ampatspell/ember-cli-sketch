@@ -36,8 +36,8 @@ export default Base.extend({
     this.clear();
   },
 
-  willRemoveNode(node) {
-    this.all.removeObject(node);
+  willRemoveNodes(nodes) {
+    this.all.removeObjects(nodes);
   }
 
 });

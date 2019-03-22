@@ -34,6 +34,37 @@ export default Selectable.extend({
     return nodes;
   },
 
+  //
+
+  remove() {
+    let { stage } = this;
+    if(!stage) {
+      return;
+    }
+    stage._removeArea(this);
+  },
+
+  willRemove() {
+    this.stage.willRemoveArea(this);
+  },
+
+  didRemove() {
+    this.stage.didRemoveArea(this);
+    this.setProperties({ stage: null });
+  },
+
+  //
+
+  allNodes() {
+    return [ this, ...this.group.allNodes() ];
+  },
+
+  containsNode(node) {
+    return this.group.containsNode(node);
+  },
+
+  //
+
   _moveNode(node) {
     let frame = this.frame.convertPointFromStage(node.frame.stage);
     node.remove();

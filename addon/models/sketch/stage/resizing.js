@@ -51,8 +51,8 @@ export default Base.extend({
     this.end();
   },
 
-  willRemoveNode(node) {
-    if(this.node === node) {
+  willRemoveNodes(nodes) {
+    if(nodes.find(node => this.node === node)) {
       this.end();
     }
   }
