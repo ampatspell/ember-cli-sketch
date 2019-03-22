@@ -27,11 +27,6 @@ export default Handler.extend({
       if(!selection.any) {
         return;
       }
-      let nodes = selection.filter(node => !node.isArea);
-      if(nodes.length) {
-        let areas = selection.filter(node => node.isArea);
-        selection.removeNodes(areas);
-      }
       dragging.replace(selection.all);
     }
 
