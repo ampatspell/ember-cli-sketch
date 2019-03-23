@@ -1,7 +1,7 @@
-import Actions from '../-actions';
+import Action from '../-action';
 import { readOnly } from '@ember/object/computed';
 
-export default Actions.extend({
+export default Action.extend({
 
   hover: readOnly('stage.hover'),
 

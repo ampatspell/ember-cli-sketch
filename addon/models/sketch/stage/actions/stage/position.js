@@ -1,6 +1,6 @@
-import Actions from '../-actions';
+import Action from '../-action';
 
-export default Actions.extend({
+export default Action.extend({
 
   perform({ delta }) {
     this.stage.position.update(delta, { delta: true });

@@ -1,5 +1,4 @@
 import Base, { factory } from './-base';
-import { assign } from '@ember/polyfills';
 
 export default Base.extend({
 
@@ -8,6 +7,7 @@ export default Base.extend({
   },
 
   interactions: factory('stage/interactions'),
+  actions: factory('stage/actions'),
 
   frame(type, owner) {
     return this.model(`frame/${type}`, { owner });
@@ -47,14 +47,6 @@ export default Base.extend({
 
   constraint(owner, opts) {
     return this.model('stage/constraint', { owner, opts });
-  },
-
-  actions(owner) {
-    return this.model('stage/actions', { owner });
-  },
-
-  action(type, props) {
-    return this.model(`stage/actions/${type}`, assign({ type }, props));
   }
 
 });

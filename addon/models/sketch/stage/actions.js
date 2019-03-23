@@ -3,15 +3,11 @@ import { computed } from '@ember/object';
 import { sketches } from '../../../services/sketches';
 
 export const actions = () => computed(function() {
-  return sketches(this).factory.stage.actions(this);
+  return sketches(this).factory.stage.actions.create(this);
 }).readOnly();
 
 export const model = (type) => computed(function() {
-  let stage = this.owner;
-  while(stage.owner) {
-    stage = stage.owner;
-  }
-  return sketches(this).factory.stage.action(type, { owner: this, stage });
+  return sketches(this).factory.stage.actions.actions(type, { owner: this, stage: this.owner });
 }).readOnly();
 
 export default Base.extend({

@@ -1,1 +1,1 @@
-export { default } from 'ember-cli-sketch/models/sketch/stage/actions/node/remove-selected';
+export { default } from 'ember-cli-sketch/models/sketch/stage/actions/node/remove';
