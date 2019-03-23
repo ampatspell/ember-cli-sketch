@@ -15,18 +15,18 @@ export default Component.extend({
 
   constraints: readOnly('node.constraints'),
 
-  width:  disabled('width'),
-  height: disabled('height'),
+  horizontal: disabled('horizontal'),
+  vertical:   disabled('vertical'),
 
-  isTopLeftDisabled:      or('height', 'width'),
-  isTopRightDisabled:     or('height', 'width'),
-  isBottomLeftDisabled:   or('height', 'width'),
-  isBotomRightDisabled:   or('height', 'width'),
+  isTopLeftDisabled:      or('vertical', 'horizontal'),
+  isTopRightDisabled:     or('vertical', 'horizontal'),
+  isBottomLeftDisabled:   or('vertical', 'horizontal'),
+  isBotomRightDisabled:   or('vertical', 'horizontal'),
 
-  isTopMiddleDisabled:    or('height'),
-  isBottomMiddleDisabled: or('height'),
-  isMiddleLeftDisabled:   or('width'),
-  isMiddleRightDisabled:  or('width'),
+  isTopMiddleDisabled:    or('vertical'),
+  isBottomMiddleDisabled: or('vertical'),
+  isMiddleLeftDisabled:   or('horizontal'),
+  isMiddleRightDisabled:  or('horizontal'),
 
   style: frame('node', 'stageZoomedBounding', { inset: -1 }),
 
