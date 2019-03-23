@@ -11,8 +11,8 @@ export default Base.extend({
 
   stage: factory('stage'),
 
-  area(props) {
-    return this.model('area', props);
+  area(type, props) {
+    return this.model(`area/${type}`, props);
   },
 
   node(name, props) {

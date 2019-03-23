@@ -1,6 +1,4 @@
 import Selectable from './-selectable';
-import { frame } from './frame';
-import { readOnly } from '@ember/object/computed';
 
 export default Selectable.extend({
 
@@ -8,10 +6,6 @@ export default Selectable.extend({
 
   stage: null,
   group: null,
-
-  frame: frame('area'),
-
-  _serializedFrame: readOnly('frame.serialized'),
 
   setGroup(group) {
     this.setProperties({ group });
@@ -62,36 +56,6 @@ export default Selectable.extend({
   containsNode(node) {
     let { group } = this;
     return group === node || group.containsNode(node);
-  },
-
-  //
-
-  _moveNode(node) {
-    let frame = this.frame.convertPointFromStage(node.frame.stage);
-    node.remove();
-    this.group.addNode(node);
-    node.frame.update(frame);
-  },
-
-  moveNode(node) {
-    if(node.isGroup && !node.group) {
-      node.deselect();
-      node.nodes.slice().forEach(node => {
-        this._moveNode(node);
-        node.select({ replace: false });
-      });
-    } else {
-      node.deselect();
-      this._moveNode(node);
-      node.select({ replace: false });
-    }
-  },
-
-  moveNodeIfContained(node) {
-    if(this.frame.includesFrame(node.frame.stageBounding)) {
-      this.moveNode(node);
-      return true;
-    }
   }
 
 });

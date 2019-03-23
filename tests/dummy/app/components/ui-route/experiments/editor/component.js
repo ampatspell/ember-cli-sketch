@@ -18,7 +18,7 @@ export default Component.extend({
     let stage = factory.stage.create();
     stage.position.setProperties({ x: 100, y: 50 });
     {
-      let area = factory.area({ frame: { x: 70, y: 0, width: 560, height: 360 }, constraints: { horizontal: { resize: false, move: false }, vertical: { resize: true, min: 100, max: 400 } } });
+      let area = factory.area('artboard', { frame: { x: 70, y: 0, width: 560, height: 360 }, constraints: { horizontal: { resize: false, move: false }, vertical: { resize: true, min: 100, max: 400 } } });
       {
         let group = factory.node('group');
         area.setGroup(group);
@@ -42,7 +42,7 @@ export default Component.extend({
       stage.areas.add(area);
     }
     {
-      let area = factory.area({
+      let area = factory.area('artboard', {
         frame: { x: 0, y: 430, width: 560, height: 200 },
         constraints: { horizontal: { min: 100, max: 600 }, vertical: { min: 100, max: 200 } }
       });
