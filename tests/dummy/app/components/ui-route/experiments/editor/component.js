@@ -56,6 +56,7 @@ export default Component.extend({
       }
       stage.areas.add(area);
     }
+    setGlobal({ stage });
     return stage;
   }).readOnly(),
 

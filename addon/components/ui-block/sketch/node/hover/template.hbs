@@ -1,5 +1,3 @@
 {{#each stage.hover.deselected as |node|}}
-  {{#unless node.isSelected}}
-    {{ui-block/sketch/node/hover/item node=node}}
-  {{/unless}}
+  {{ui-block/sketch/node/hover/item node=node}}
 {{/each}}

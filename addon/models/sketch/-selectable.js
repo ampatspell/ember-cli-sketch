@@ -2,7 +2,7 @@ import Base from './-with-frame';
 import { computed } from '@ember/object';
 import { not } from '@ember/object/computed';
 
-const find = key => computed(`stage.${key}.nodes.[]`, function() {
+const find = key => computed(`stage.${key}.all.[]`, function() {
   return !!this.stage[key].find(node => node === this);
 }).readOnly();
 
