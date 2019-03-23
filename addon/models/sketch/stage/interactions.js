@@ -71,7 +71,7 @@ export default Base.extend({
   },
 
   onKeyUp() {
-    this.keyboard.onKeyUp();
+    this.keyboard.onKeyUp(...arguments);
     this.invokeHandlers('onKeyUp', ...arguments);
   },
 

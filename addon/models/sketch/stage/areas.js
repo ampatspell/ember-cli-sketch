@@ -32,7 +32,7 @@ export default Base.extend({
   },
 
   moveNodeIfContained(node) {
-    if(!node.isNode) {
+    if(!node.isNode || node.isGroup) {
       return;
     }
     this.all.find(area => {

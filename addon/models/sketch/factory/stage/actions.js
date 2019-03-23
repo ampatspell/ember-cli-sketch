@@ -8,6 +8,7 @@ const types = Object.freeze({
   ],
   node: [
     'drag',
+    'move',
     'hover',
     'remove',
     'resize',

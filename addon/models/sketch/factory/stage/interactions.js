@@ -7,6 +7,7 @@ const types = Object.freeze([
   'node/hover',
   'node/select',
   'node/drag',
+  'node/move',
   'node/remove'
 ]);
 

@@ -40,6 +40,7 @@ export default Action.extend({
     }
 
     dragging.forEach(node => node.frame.update({ x, y }, { delta: true }));
+    dragging.copy().forEach(node => this.areas.moveNodeIfContained(node));
   }
 
 });
