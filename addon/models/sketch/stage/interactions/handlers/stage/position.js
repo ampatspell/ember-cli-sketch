@@ -1,6 +1,8 @@
-import Handler from './-handler';
+import Handler, { action } from '../-handler';
 
 export default Handler.extend({
+
+  action: action('stage.position'),
 
   onMouseDown() {
     if(this.mouse.isLeftButton && this.keyboard.isSpace) {
@@ -8,21 +10,18 @@ export default Handler.extend({
     }
   },
 
-  onMouseMove({ delta: { x, y } }) {
+  onMouseMove({ delta }) {
     if(this.mouse.isLeftButton && this.keyboard.isSpace) {
-      this.updatePositionDelta({ x, y });
+      this.action.perform({ delta });
       return false;
     }
   },
 
   onMouseWheel({ direction, value, keys: { meta } }) {
-    if(!meta) {
-      this.updatePositionDelta({ [direction]: -value * 25 });
+    if(meta) {
+      return;
     }
-  },
-
-  updatePositionDelta(props) {
-    this.stage.position.update(props, { delta: true });
+    this.action.perform({ delta: { [direction]: -value * 25 } });
   }
 
 });

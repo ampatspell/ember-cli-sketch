@@ -31,10 +31,6 @@ export default Base.extend({
     }, []);
   },
 
-  nodesForScreenPosition(position) {
-    return this.nodesForPosition(this.owner.convertPointFromScreen(position));
-  },
-
   moveNodeIfContained(node) {
     if(!node.isNode) {
       return;

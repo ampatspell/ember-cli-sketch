@@ -1,4 +1,4 @@
-import Handler, { action } from './-handler';
+import Handler, { action } from '../-handler';
 
 export default Handler.extend({
 

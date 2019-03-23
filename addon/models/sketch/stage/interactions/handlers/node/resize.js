@@ -1,4 +1,4 @@
-import Handler, { action } from './-handler';
+import Handler, { action } from '../-handler';
 import { readOnly } from '@ember/object/computed';
 
 export default Handler.extend({

@@ -1,9 +1,8 @@
 import Base from '../../-base';
-import { defineProperty, computed } from '@ember/object';
+import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { sketches } from '../../../../services/sketches';
 import { A } from '@ember/array';
-import { camelize } from '@ember/string';
 
 const all = () => computed(function() {
   let service = sketches(this);
@@ -24,11 +23,6 @@ export default Base.extend({
   keyboard: readOnly('owner.keyboard'),
 
   all: all(),
-
-  prepare(props) {
-    this._super(...arguments);
-    props.types.forEach(type => defineProperty(this, camelize(type), property(type)));
-  },
 
   onEvent(event, ...args) {
     this.all.find(handler => {
