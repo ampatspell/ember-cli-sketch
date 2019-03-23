@@ -28,6 +28,10 @@ export default Base.extend({
     all.replace(0, all.length, next);
   },
 
+  addNodes(nodes) {
+    this.all.pushObjects(nodes);
+  },
+
   forEach() {
     return this.all.forEach(...arguments);
   },

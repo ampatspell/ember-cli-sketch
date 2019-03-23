@@ -19,10 +19,8 @@ export default Action.extend({
   },
 
   end() {
-    let { dragging, areas } = this;
     this.setActive(false);
-    dragging.copy().forEach(node => areas.moveNodeIfContained(node));
-    dragging.clear();
+    this.dragging.clear();
   },
 
   update({ x, y }) {
@@ -40,7 +38,7 @@ export default Action.extend({
     }
 
     dragging.forEach(node => node.frame.update({ x, y }, { delta: true }));
-    dragging.copy().forEach(node => this.areas.moveNodeIfContained(node));
+    dragging.addNodes(this.areas.moveNodesIfContained(dragging.all));
   }
 
 });

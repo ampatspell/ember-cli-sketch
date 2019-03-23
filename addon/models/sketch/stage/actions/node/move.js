@@ -7,10 +7,10 @@ export default Action.extend({
   areas: readOnly('stage.areas'),
 
   perform({ delta }) {
-    let { selection, areas } = this;
+    let { selection } = this;
     let nodes = selection.all;
     nodes.forEach(node => node.frame.update(delta, { delta: true }));
-    nodes.forEach(node => areas.moveNodeIfContained(node));
+    this.areas.moveNodesIfContained(nodes);
   }
 
 });

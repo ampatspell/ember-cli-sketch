@@ -35,12 +35,16 @@ export default Base.extend({
     if(!node.isNode || node.isGroup) {
       return;
     }
-    this.all.find(area => {
+    return !!this.all.find(area => {
       if(area === node.area) {
         return;
       }
       return area.moveNodeIfContained(node);
     });
+  },
+
+  moveNodesIfContained(nodes) {
+    return nodes.filter(node => this.moveNodeIfContained(node));
   },
 
   //
