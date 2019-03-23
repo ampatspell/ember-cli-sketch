@@ -22,19 +22,18 @@ export default Base.extend({
   isSpace: false,
   isMeta: false,
 
-  updateKeys({ key }, value) {
+  _updateKeys({ key }, value) {
     let prop = mapping[key];
     if(!prop) {
       return;
     }
-    console.log(prop, value);
     this.set(prop, value);
   },
 
   onKeyDown(opts) {
     let { key, keyCode } = opts;
     this.setProperties({ state: 'down', key, keyCode });
-    this.updateKeys(opts, true);
+    this._updateKeys(opts, true);
   },
 
   onKeyPress(/* { key, keyCode } */) {
@@ -43,7 +42,7 @@ export default Base.extend({
   onKeyUp(opts) {
     let { key, keyCode } = opts;
     this.setProperties({ state: 'up', key: null, keyCode: null });
-    this.updateKeys(opts, false);
+    this._updateKeys(opts, false);
   },
 
   reset() {
