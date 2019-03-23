@@ -4,6 +4,7 @@ const stage = type => model(`stage/${type}`);
 
 export default Actions.extend({
 
-  zoom: stage('zoom')
+  zoom: stage('zoom'),
+  position: stage('position')
 
 });

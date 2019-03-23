@@ -8,7 +8,7 @@ export default Actions.extend({
   perform({ delta }) {
     let { zoom } = this;
     zoom += delta;
-    stage.setProperties({ zoom });
+    this.stage.setProperties({ zoom });
   }
 
 });
