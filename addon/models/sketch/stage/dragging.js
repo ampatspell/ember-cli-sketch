@@ -32,6 +32,10 @@ export default Base.extend({
     return this.all.forEach(...arguments);
   },
 
+  reset() {
+    this.clear();
+  },
+
   willRemoveNodes(nodes) {
     this.all.removeObjects(nodes);
   }

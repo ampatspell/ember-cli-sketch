@@ -8,12 +8,10 @@ export const position = () => computed(function() {
   return sketches(this).factory.stage.position(this);
 }).readOnly();
 
-let opts = {
+const prop = () => constrainedNumber({
   initial: 0,
   decimals: 2
-};
-
-const prop = () => constrainedNumber(opts);
+});
 
 export default Base.extend({
 
