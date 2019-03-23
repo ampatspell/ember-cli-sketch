@@ -1,4 +1,5 @@
 import Base, { factory } from './-base';
+import { assign } from '@ember/polyfills';
 
 export default Base.extend({
 
@@ -52,8 +53,8 @@ export default Base.extend({
     return this.model('stage/actions', { owner });
   },
 
-  action(type, owner) {
-    return this.model(`stage/actions/${type}`, { type, owner });
+  action(type, props) {
+    return this.model(`stage/actions/${type}`, assign({ type }, props));
   }
 
 });

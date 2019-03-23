@@ -1,16 +1,17 @@
-import Handler from './-handler';
-import { round } from '../../../../../util/math';
+import Handler, { action } from './-handler';
 
 export default Handler.extend({
 
+  action: action('stage.zoom'),
+
   onMouseWheel({ direction, value, keys: { meta } }) {
-    if(direction === 'x' && meta) {
-      let { stage, stage: { zoom } } = this;
-      zoom += value / 10;
-      zoom = round(zoom, 2);
-      zoom = Math.max(zoom, 0);
-      stage.setProperties({ zoom });
+    if(direction !== 'x' && !meta) {
+      return;
     }
+
+    let delta = value / 10;
+
+    this.action.perform({ delta });
   }
 
 });

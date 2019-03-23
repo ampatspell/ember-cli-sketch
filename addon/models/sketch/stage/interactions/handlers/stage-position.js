@@ -15,8 +15,10 @@ export default Handler.extend({
     }
   },
 
-  onMouseWheel({ direction, value }) {
-    this.updatePositionDelta({ [direction]: -value * 25 });
+  onMouseWheel({ direction, value, keys: { meta } }) {
+    if(!meta) {
+      this.updatePositionDelta({ [direction]: -value * 25 });
+    }
   },
 
   updatePositionDelta(props) {

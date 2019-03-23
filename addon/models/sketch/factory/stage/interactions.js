@@ -1,8 +1,8 @@
 import Base from '../-base';
 
 const types = Object.freeze([
-  'stage-position',
   'stage-zoom',
+  'stage-position',
   'node-resize',
   'node-hover',
   'node-select',
