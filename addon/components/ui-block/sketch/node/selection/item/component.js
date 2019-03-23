@@ -11,6 +11,8 @@ export default Component.extend({
   attributeBindings: [ 'style' ],
 
   stage: readOnly('node.stage'),
+  resizing: readOnly('stage.resizing'),
+
   constraints: readOnly('node.constraints'),
 
   width:  disabled('width'),
@@ -26,17 +28,21 @@ export default Component.extend({
   isMiddleLeftDisabled:   or('width'),
   isMiddleRightDisabled:  or('width'),
 
-
   style: frame('node', 'stageZoomedBounding', { inset: -1 }),
 
   actions: {
     enter(edge) {
-      let { stage: { resizing }, node } = this;
+      let { resizing, node } = this;
       resizing.bind(node, edge);
     },
     leave() {
-      this.stage.resizing.unbind();
+      this.resizing.unbind();
     }
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+    this.resizing.unbind();
   }
 
 });

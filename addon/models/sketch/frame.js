@@ -4,12 +4,12 @@ import { readOnly } from '@ember/object/computed';
 import { sketches } from '../../services/sketches';
 import { assign } from '@ember/polyfills';
 import { round } from '../../util/math';
+import { constrainedNumber } from '../../util/computed';
 
 export const frame = (type='node') => computed(function() {
   return sketches(this).factory.stage.frame(type, this);
 }).readOnly();
 
-const sizeKeys = Object.freeze([ 'width', 'height' ]);
 const keys = Object.freeze([ 'x', 'y', 'width', 'height', 'rotation' ]);
 
 const zoomed = key => computed(key, '_stage.zoom', function() {
@@ -34,15 +34,35 @@ const zoomed = key => computed(key, '_stage.zoom', function() {
   };
 }).readOnly();
 
+const constrained = opts => constrainedNumber(opts);
+
+export const constraints = {
+  position: {
+    initial: 0,
+    decimals: 2
+  },
+  size: {
+    initial: 0,
+    min: 0,
+    decimals: 2
+  },
+  rotation: {
+    initial: 0,
+    min: -360,
+    max: 360,
+    decimals: 2
+  }
+};
+
 export default Base.extend({
 
   owner: null,
 
-  x: 0,
-  y: 0,
-  width: 0,
-  height: 0,
-  rotation: 0,
+  x:        constrained(constraints.position),
+  y:        constrained(constraints.position),
+  width:    constrained(constraints.size),
+  height:   constrained(constraints.size),
+  rotation: constrained(constraints.rotation),
 
   _stage: readOnly('owner.stage'),
 
@@ -116,10 +136,7 @@ export default Base.extend({
     keys.forEach(key => {
       let value = props[key];
       if(value !== undefined) {
-        values[key] = round(this[key] + props[key], 2);
-        if(sizeKeys.includes(key)) {
-          values[key] = Math.max(values[key], 0);
-        }
+        values[key] = this[key] + props[key];
       } else {
         values[key] = this[key];
       }

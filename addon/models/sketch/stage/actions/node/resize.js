@@ -1,42 +1,47 @@
-import Handler from './-handler';
+import Action from '../-action';
 import { readOnly } from '@ember/object/computed';
 
-export default Handler.extend({
+export default Action.extend({
 
   resizing: readOnly('stage.resizing'),
-  zoom: readOnly('stage.zoom'),
+  selection: readOnly('stage.selection'),
 
-  onMouseDown() {
-    let { mouse: { isLeftButton }, resizing } = this;
-    if(isLeftButton && resizing.bound) {
-      resizing.begin();
-      return false;
-    }
-  },
+  node: readOnly('resizing.node'),
+  edge: readOnly('resizing.edge'),
+  isActive: readOnly('resizing.isActive'),
 
-  onMouseUp() {
+  begin() {
     let { resizing } = this;
-    if(resizing.bound) {
-      resizing.end();
-      return false;
+
+    if(!resizing.begin()) {
+      return;
     }
+
+    let { selection, node } = this;
+    let nodes = selection.filter(selection => selection !== node);
+    selection.removeNodes(nodes);
+
+    return true;
   },
 
-  onMouseMove({ delta }) {
-    let { mouse: { isLeftButton }, resizing, zoom } = this;
+  end() {
+    let { resizing } = this;
 
-    if(!isLeftButton) {
+    if(!resizing.end()) {
       return;
     }
 
-    if(!resizing.bound || !resizing.active) {
+    return true;
+},
+
+  update(delta) {
+    let { isActive } = this;
+
+    if(!isActive) {
       return;
     }
 
-    let { node, node: { constraints }, edge } = resizing;
-
-    delta.x = delta.x / zoom;
-    delta.y = delta.y / zoom;
+    let { node, node: { constraints }, edge } = this;
 
     let frame = {};
 
@@ -55,12 +60,10 @@ export default Handler.extend({
     } else if(edge.horizontal === 'left') {
       let value = constraints.horizontal.clampSizeDelta(-delta.x);
       frame.x = -value;
-      frame.width = value
+      frame.width = value;
     }
 
     node.frame.update(frame, { delta: true });
-
-    return false;
   }
 
 });

@@ -19,6 +19,10 @@ export default Base.extend({
     return this.all.slice();
   },
 
+  clear() {
+    this.all.clear();
+  },
+
   includes(node) {
     return this.all.includes(node);
   },
@@ -53,7 +57,7 @@ export default Base.extend({
   },
 
   reset() {
-    this.replace([]);
+    this.clear();
   },
 
   willRemoveNodes(nodes) {

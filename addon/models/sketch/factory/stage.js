@@ -7,6 +7,7 @@ export default Base.extend({
   },
 
   interactions: factory('stage/interactions'),
+  actions: factory('stage/actions'),
 
   frame(type, owner) {
     return this.model(`frame/${type}`, { owner });
