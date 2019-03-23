@@ -4,11 +4,11 @@ const types = Object.freeze([
   'stage/zoom',
   'stage/position',
   'node/resize',
-  'node/hover',
   'node/select',
   'node/drag',
   'node/move',
-  'node/remove'
+  'node/remove',
+  'node/hover'
 ]);
 
 export default Base.extend({
