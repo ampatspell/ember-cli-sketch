@@ -18,9 +18,9 @@ export default Base.extend({
   last: readOnly('all.lastObject'),
   any: gt('all.length', 0),
 
-  replace(next) {
+  replace(nodes) {
     let { all } = this;
-    all.replace(0, all.length, next);
+    all.replace(0, all.length, nodes);
   },
 
   find() {
@@ -28,7 +28,7 @@ export default Base.extend({
   },
 
   reset() {
-    this.replace([]);
+    this.replace();
   },
 
   willRemoveNodes() {
