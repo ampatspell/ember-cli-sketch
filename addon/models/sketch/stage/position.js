@@ -2,16 +2,23 @@ import Base from '../-base';
 import { computed } from '@ember/object';
 import { sketches } from '../../../services/sketches';
 import { assign } from '@ember/polyfills';
-import { round } from '../../../util/math';
+import { constrainedNumber } from '../../../util/computed';
 
 export const position = () => computed(function() {
   return sketches(this).factory.stage.position(this);
 }).readOnly();
 
+let opts = {
+  initial: 0,
+  decimals: 2
+};
+
+const prop = () => constrainedNumber(opts);
+
 export default Base.extend({
 
-  x: 0,
-  y: 0,
+  x: prop(),
+  y: prop(),
 
   update(props, opts) {
     let { delta } = assign({ delta: false }, opts);
@@ -38,7 +45,7 @@ export default Base.extend({
       if(value) {
         return value;
       }
-      return round((size[sizeKey] / 2) - ((frame[sizeKey] * zoom) / 2) - (frame[dimensionKey] * zoom), 0);
+      return (size[sizeKey] / 2) - ((frame[sizeKey] * zoom) / 2) - (frame[dimensionKey] * zoom);
     }
 
     let position = {
@@ -57,7 +64,7 @@ export default Base.extend({
       return;
     }
 
-    let value = dimension => round((size[dimension] - (offset * 2)) / frame[dimension], 2);
+    let value = dimension => (size[dimension] - (offset * 2)) / frame[dimension];
 
     let zoom = Math.min(value('width'), value('height'));
     this.owner.setProperties({ zoom });

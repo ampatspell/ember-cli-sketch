@@ -9,13 +9,21 @@ import { hover } from './stage/hover';
 import { renderer } from './stage/renderer';
 import { areas } from './stage/areas';
 import { round } from '../../util/math';
+import { constrainedNumber } from '../../util/computed';
+
+const zoom = () => constrainedNumber({
+  initial: 1,
+  min: 0,
+  max: 10,
+  decimals: 2
+});
 
 export default Base.extend({
 
   isStage: true,
 
   position: position(),
-  zoom: 1,
+  zoom: zoom(),
 
   interactions: interactions(),
   actions: actions(),
