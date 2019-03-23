@@ -21,8 +21,8 @@ export default Action.extend({
   end() {
     let { dragging, areas } = this;
     this.setActive(false);
-    dragging.clear();
     dragging.copy().forEach(node => areas.moveNodeIfContained(node));
+    dragging.clear();
   },
 
   update({ x, y }) {

@@ -1,4 +1,9 @@
 import { computed } from '@ember/object';
+import { constraints } from '../frame';
+import { numberContraints } from '../../../util/math';
+
+const positionConstraints = numberContraints(constraints.position);
+const sizeConstraints = numberContraints(constraints.size);
 
 const calculatePosition = (sender, dimensionKey, arrayKey, nestedKey, useCache) => {
   let cacheKey = `_${dimensionKey}_cache`;
@@ -18,7 +23,7 @@ const calculatePosition = (sender, dimensionKey, arrayKey, nestedKey, useCache) 
     }
   });
 
-  value = value || 0;
+  value = positionConstraints(value);
 
   sender[cacheKey] = value;
   return value;
@@ -63,6 +68,8 @@ const calculateSize = (sender, dimensionKey, sizeKey, arrayKey, nestedKey, useCa
   });
 
   let value = (max - min) || 0;
+
+  value = sizeConstraints(value);
 
   sender[cacheKey] = value;
   return value;

@@ -12,11 +12,11 @@ export const numberContraints = opts => value => {
 
   value = round(value, opts.decimals);
 
-  if(opts.min) {
+  if(opts.min !== undefined) {
     value = max(value, opts.min);
   }
 
-  if(opts.max) {
+  if(opts.max !== undefined) {
     value = min(value, opts.max);
   }
 

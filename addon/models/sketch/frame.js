@@ -161,7 +161,7 @@ export default Base.extend({
 
   includesFrame({ x, y, width, height }) {
     let { serialized: frame } = this;
-    return frame.x <= x && frame.y <= y && frame.x + frame.width >= x + width && frame.y + frame.height >= height;
+    return x >= frame.x && y >= frame.y && x + width <= frame.x + frame.width && y + height <= frame.y + frame.height;
   }
 
 });
