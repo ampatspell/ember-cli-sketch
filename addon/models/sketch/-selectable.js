@@ -1,6 +1,5 @@
 import Base from './-with-frame';
 import { computed } from '@ember/object';
-import { not } from '@ember/object/computed';
 
 const find = key => computed(`stage.${key}.all.[]`, function() {
   return !!this.stage[key].find(node => node === this);
@@ -9,9 +8,6 @@ const find = key => computed(`stage.${key}.all.[]`, function() {
 export default Base.extend({
 
   isSelected: find('selection'),
-  notSelected: not('isSelected'),
-
-  isHovered: find('hover'),
-  notHovered: not('isHovered')
+  isHovered:  find('hover')
 
 });
