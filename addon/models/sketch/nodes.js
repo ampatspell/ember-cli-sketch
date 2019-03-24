@@ -11,6 +11,16 @@ export default Base.extend({
 
   all: array(),
 
+  _removeNode(node) {
+    let { all } = this;
+    if(!all.includes(node)) {
+      return;
+    }
+    node.willRemove();
+    all.removeObject(node);
+    node.didRemove();
+  },
+
   addNode(node) {
     let { all, owner } = this;
     if(all.includes(node)) {
@@ -28,5 +38,9 @@ export default Base.extend({
     });
     return nodes;
   },
+
+  containsNode(node) {
+    return this.all.find(child => child === node || child.containsNode(node));
+  }
 
 });

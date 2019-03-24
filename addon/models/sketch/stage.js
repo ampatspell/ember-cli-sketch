@@ -68,6 +68,20 @@ export default Base.extend(FrameMixin, {
 
   //
 
+  willRemoveNode(node) {
+    let { hover, selection, dragging, resizing } = this;
+    let nodes = node.allNodes();
+    hover.willRemoveNodes(nodes);
+    selection.willRemoveNodes(nodes);
+    dragging.willRemoveNodes(nodes);
+    resizing.willRemoveNodes(nodes);
+  },
+
+  didRemoveNode() {
+  },
+
+  //
+
   handle(action) {
     action.perform();
   },

@@ -21,6 +21,25 @@ export default Base.extend(FrameMixin, {
     this.setProperties({ parent });
   },
 
+  deselect() {
+    this.stage.selection.removeNode(this);
+  },
+
+  remove() {
+    this.parent && this.parent.nodes._removeNode(this);
+  },
+
+  willRemove() {
+    this.stage.willRemoveNode(this);
+  },
+
+  didRemove() {
+    this.stage.didRemoveNode(this);
+    this.setProperties({ parent: null });
+  },
+
+  //
+
   nodesForPosition(position, type) {
     if(this.frame.includesPosition(position, type)) {
       let { nodes } = this;
@@ -31,6 +50,22 @@ export default Base.extend(FrameMixin, {
       }
     }
     return [];
-  }
+  },
+
+  containsNode(node) {
+    let { nodes } = this;
+    if(nodes) {
+      return nodes.containsNode(node);
+    }
+  },
+
+  allNodes() {
+    let { nodes } = this;
+    let array = [ this ];
+    nodes && nodes.all.forEach(node => {
+      array.push(...node.allNodes());
+    });
+    return array;
+  },
 
 });

@@ -9,10 +9,6 @@ const all = () => computed(function() {
   return A(this.types.map(type => service.factory.stage.interactions.handler(type, this)));
 }).readOnly();
 
-const property = type => computed('all.@each.type', function() {
-  return this.all.findBy('type', type);
-}).readOnly();
-
 export default Base.extend({
 
   owner: null,

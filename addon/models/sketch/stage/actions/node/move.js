@@ -10,7 +10,7 @@ export default Action.extend({
     let { selection } = this;
     let nodes = selection.all;
     nodes.forEach(node => node.frame.update(delta, { delta: true }));
-    this.areas.moveNodesIfContained(nodes);
+    // this.areas.moveNodesIfContained(nodes);
   }
 
 });
