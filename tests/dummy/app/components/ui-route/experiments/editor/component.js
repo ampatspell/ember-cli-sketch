@@ -39,6 +39,7 @@ export default Component.extend({
         }
       }
       stage.nodes.addNode(area);
+      setGlobal({ area });
     }
     {
       let area = factory.stage.node('area', {
@@ -65,7 +66,7 @@ export default Component.extend({
 
   actions: {
     ready(stage) {
-      // stage.position.center({ y: 100 });
+      stage.center();
     },
     toggle() {
       if(this.attachedStage) {

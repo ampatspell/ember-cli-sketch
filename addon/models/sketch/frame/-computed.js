@@ -92,7 +92,7 @@ export const rotated = key => computed(key, function() {
 }).readOnly();
 
 export const absolute = (frameKey, props) => {
-  let parentKey = `owner.parent.frame.absoluteZoomed`;
+  let parentKey = 'owner.parent.frame.absoluteZoomed';
   return computed(frameKey, parentKey, function() {
     let frame = this.get(frameKey);
     let parent = this.get(parentKey);
@@ -111,8 +111,8 @@ export const absolute = (frameKey, props) => {
   }).readOnly();
 };
 
-export const bounds = key => computed(`owner.nodes.all.@each.${key}`, function() {
-  let nodes = this.get('owner.nodes.all');
+export const bounds = (targetKey, frameKey) => computed(`${targetKey}.@each.${frameKey}`, function() {
+  let nodes = this.get(targetKey);
 
   let box = {
     min: {
@@ -126,7 +126,7 @@ export const bounds = key => computed(`owner.nodes.all.@each.${key}`, function()
   };
 
   nodes.forEach(node => {
-    let frame = node[key];
+    let frame = node[frameKey];
     box.min.x = Math.min(box.min.x, frame.x);
     box.min.y = Math.min(box.min.y, frame.y);
     box.max.x = Math.max(box.max.x, frame.x + frame.width);

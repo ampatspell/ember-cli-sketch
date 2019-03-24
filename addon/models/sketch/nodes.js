@@ -1,13 +1,19 @@
 import Base from './-base';
+import { readOnly } from '@ember/object/computed';
 import { array } from '../../util/computed';
 import { sketches } from '../../services/sketches';
 import { computed } from '@ember/object';
+import { frame } from './frame/-base';
 
 export const nodes = () => computed(function() {
   return sketches(this).factory.stage.nodes(this);
 }).readOnly();
 
 export default Base.extend({
+
+  parent: readOnly('owner'),
+
+  frame: frame('nodes'),
 
   all: array(),
 

@@ -51,42 +51,42 @@ export default Base.extend(FrameMixin, {
   },
 
   center(opts={}) {
-    // let { renderer: { size }, zoom, areas: { frame: { serialized: frame } } } = this.owner;
+    let { renderer: { size }, zoom, nodes: { frame: { zoomedBounds: bounds } } } = this;
 
-    // if(!size) {
-    //   return;
-    // }
+    if(!size) {
+      return;
+    }
 
-    // let dimension = (sizeKey, dimensionKey) => {
-    //   let value = opts[dimensionKey];
-    //   if(value) {
-    //     return value;
-    //   }
-    //   return (size[sizeKey] / 2) - ((frame[sizeKey] * zoom) / 2) - (frame[dimensionKey] * zoom);
-    // }
+    let dimension = (dimensionKey, sizeKey) => {
+      let value = opts[dimensionKey];
+      if(value) {
+        return value;
+      }
+      return ((size[sizeKey] / 2) - (bounds[sizeKey] / 2)) / zoom;
+    }
 
-    // let position = {
-    //   x: dimension('width', 'x'),
-    //   y: dimension('height', 'y')
-    // };
+    let position = {
+      x: dimension('x', 'width'),
+      y: dimension('y',  'height')
+    };
 
-    // this.setProperties(position);
+    this.frame.update(position);
   },
 
   fit(opts={}) {
-    // let { offset } = assign({ offset: 10 }, opts);
-    // let { renderer: { size }, areas: { frame: { serialized: frame } } } = this.owner;
+    let { offset } = assign({ offset: 10 }, opts);
+    let { renderer: { size }, nodes: { frame: { bounds } } } = this;
 
-    // if(!size) {
-    //   return;
-    // }
+    if(!size) {
+      return;
+    }
 
-    // let value = dimension => (size[dimension] - (offset * 2)) / frame[dimension];
+    let value = dimension => (size[dimension] - (offset * 2)) / bounds[dimension];
 
-    // let zoom = Math.min(value('width'), value('height'));
-    // this.owner.setProperties({ zoom });
+    let zoom = Math.min(value('width'), value('height'));
+    this.setProperties({ zoom });
 
-    // this.center();
+    this.center();
   },
 
   //

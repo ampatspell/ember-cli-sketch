@@ -1,10 +1,10 @@
-import Frame from '../-base';
+import Frame from './-base';
 import { readOnly } from '@ember/object/computed';
-import { zoomed as _zoomed, absolute, bounds } from '../-computed';
+import { zoomed as _zoomed, absolute, bounds } from './-computed';
 
 const props = [ 'x', 'y', 'width', 'height' ];
-const zoomed = frame => _zoomed('owner.stage.zoom', frame);
 const prop = key => readOnly(`serialized.${key}`);
+const zoomed = frameKey => _zoomed('owner.parent.stage.zoom', frameKey);
 
 export default Frame.extend({
 
@@ -15,12 +15,10 @@ export default Frame.extend({
   width:  prop('width'),
   height: prop('height'),
 
-  serialized: bounds('owner.nodes.all', '_serializedFrame'),
-
+  serialized: bounds('owner.all', '_serializedFrame'),
   zoomed: zoomed('serialized'),
-  bounds: bounds('owner.nodes.all', '_boundsFrame'),
-  zoomedBounds: zoomed('bounds', props),
-  absoluteZoomed: readOnly('owner.parent.frame.absoluteZoomed'),
+  bounds: bounds('owner.all', '_boundsFrame'),
+  zoomedBounds: zoomed('bounds'),
   absoluteZoomedBounds: absolute('zoomedBounds', props)
 
 });
