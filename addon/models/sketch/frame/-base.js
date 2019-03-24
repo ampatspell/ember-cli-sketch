@@ -48,12 +48,7 @@ export default Base.extend({
   deltaToFrame(props) {
     let values = {};
     keys(props).forEach(key => {
-      let value = props[key];
-      if(value !== undefined) {
-        values[key] = this[key] + props[key];
-      } else {
-        values[key] = this[key];
-      }
+      values[key] = this[key] + props[key];
     });
     return values;
   },
@@ -61,8 +56,7 @@ export default Base.extend({
   update(props, opts) {
     let { delta } = assign({ delta: false }, opts);
     if(delta) {
-      let values = this.deltaToFrame(props);
-      this.setProperties(values);
+      this.setProperties(this.deltaToFrame(props));
     } else {
       this.setProperties(props);
     }
