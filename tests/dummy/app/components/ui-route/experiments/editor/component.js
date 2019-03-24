@@ -17,59 +17,45 @@ export default Component.extend({
     let { sketches: { factory } } = this;
     let stage = factory.stage.create({ frame: { x: 100, y: 50 } });
     {
-      let area = factory.stage.node('area', { frame: { x: 50, y: 50, width: 400, height: 300 } });
+      let area = factory.stage.node('area', { frame: { x: 70, y: 0, width: 560, height: 360 }, constraints: { horizontal: { resize: false, move: false }, vertical: { resize: true, min: 100, max: 400 } } });
       {
         let group = factory.stage.node('group');
-        group.nodes.addNode(factory.stage.node('rect', { frame: { x: -5, y: 25, width: 70, height: 70, rotation: 10 }, fill: 'red', opacity: 0.5 }));
-        group.nodes.addNode(factory.stage.node('rect', { frame: { x: 100, y: 60, width: 70, height: 70, rotation: -10 }, fill: 'red', opacity: 0.5 }));
         area.nodes.addNode(group);
-        setGlobal({ group });
+        {
+          let node = factory.stage.node('rect', {
+            frame: { x: 300, y: 100, width: 50, height: 50, rotation: 10 },
+            constraints: { horizontal: { min: 20, max: 100 }, vertical: { min: 20, max: 100 } },
+            fill: 'red', opacity: 0.5
+          });
+          group.nodes.addNode(node);
+        }
+        {
+          let node = factory.stage.node('rect', { frame: { x: 100, y: 80, width: 50, height: 50, rotation: 8 }, fill: 'green', opacity: 0.3 });
+          group.nodes.addNode(node);
+        }
+        {
+          let node = factory.stage.node('rect', { frame: { x: 200, y: 150, width: 50, height: 50, rotation: -24 }, fill: 'blue', opacity: 0.2 });
+          group.nodes.addNode(node);
+        }
       }
-      setGlobal({ area });
       stage.nodes.addNode(area);
     }
-    stage.nodes.addNode(factory.stage.node('rect', { frame: { x: 50, y: 400, width: 70, height: 70, rotation: -13 }, fill: 'red', opacity: 0.3 }));
-    // stage.position.setProperties({ x: 100, y: 50 });
-    // {
-    //   let area = factory.area({ frame: { x: 70, y: 0, width: 560, height: 360 }, constraints: { horizontal: { resize: false, move: false }, vertical: { resize: true, min: 100, max: 400 } } });
-    //   {
-    //     let group = factory.node('group');
-    //     area.setGroup(group);
-    //     {
-    //       let node = factory.node('rect', {
-    //         frame: { x: 300, y: 100, width: 50, height: 50, rotation: 10 },
-    //         constraints: { horizontal: { min: 20, max: 100 }, vertical: { min: 20, max: 100 } },
-    //         fill: 'red', opacity: 0.5
-    //       });
-    //       group.addNode(node);
-    //     }
-    //     {
-    //       let node = factory.node('rect', { frame: { x: 100, y: 80, width: 50, height: 50, rotation: 8 }, fill: 'green', opacity: 0.3 });
-    //       group.addNode(node);
-    //     }
-    //     {
-    //       let node = factory.node('rect', { frame: { x: 200, y: 150, width: 50, height: 50, rotation: -24 }, fill: 'blue', opacity: 0.2 });
-    //       group.addNode(node);
-    //     }
-    //   }
-    //   stage.areas.add(area);
-    // }
-    // {
-    //   let area = factory.area({
-    //     frame: { x: 0, y: 430, width: 560, height: 200 },
-    //     constraints: { horizontal: { min: 100, max: 600 }, vertical: { min: 100, max: 200 } }
-    //   });
-    //   {
-    //     let group = factory.node('group');
-    //     area.setGroup(group);
-    //     {
-    //       let node = factory.node('rect', { frame: { x: 150, y: 80, width: 50, height: 50, rotation: 23 }, fill: '#990099', opacity: 0.5 });
-    //       group.addNode(node);
-    //     }
-    //   }
-    //   stage.areas.add(area);
-    // }
-    setGlobal({ stage });
+    {
+      let area = factory.stage.node('area', {
+        frame: { x: 0, y: 430, width: 560, height: 200 },
+        constraints: { horizontal: { min: 100, max: 600 }, vertical: { min: 100, max: 200 } }
+      });
+      {
+        let group = factory.stage.node('group');
+        area.nodes.addNode(group);
+        {
+          let node = factory.stage.node('rect', { frame: { x: 150, y: 80, width: 50, height: 50, rotation: 23 }, fill: '#990099', opacity: 0.5 });
+          group.nodes.addNode(node);
+        }
+      }
+      stage.nodes.addNode(area);
+    }
+    stage.nodes.addNode(factory.stage.node('rect', { frame: { x: 330, y: 700, width: 50, height: 50, rotation: -9 }, fill: '#999900', opacity: 0.3 }));
     return stage;
   }).readOnly(),
 
@@ -89,10 +75,10 @@ export default Component.extend({
       }
     },
     center() {
-      // this.stage.position.center();
+      this.stage.center();
     },
     fit() {
-      // this.stage.position.fit({ offset: 25 });
+      this.stage.fit({ offset: 25 });
     },
     updateZoom(zoom) {
       this.stage.setProperties({ zoom });

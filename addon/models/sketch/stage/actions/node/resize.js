@@ -43,15 +43,6 @@ export default Action.extend({
 
     let { node, node: { constraints }, edge } = this;
 
-    constraints = {
-      vertical: {
-        clampSizeDelta: value => value
-      },
-      horizontal: {
-        clampSizeDelta: value => value
-      }
-    };
-
     let frame = {};
 
     if(edge.vertical === 'bottom') {

@@ -5,6 +5,7 @@ import { sketches } from '../../../services/sketches';
 import { omit } from '../../../util/object';
 import { assign } from '@ember/polyfills';
 import { assert } from '@ember/debug';
+import { constraints } from '../stage/constraints';
 
 const {
   keys
@@ -19,17 +20,22 @@ const split = opts => {
     return {};
   }
   let { frame, constraints } = opts;
-  let props = omit(opts, [ 'frame' ]);
+  let props = omit(opts, [ 'frame', 'constraints' ]);
   return { frame, constraints, props };
 };
 
 export const FrameMixin = Mixin.create({
 
+  constraints: constraints(),
+
   prepare(opts) {
-    let { frame, props } = split(opts);
+    let { frame, props, constraints } = split(opts);
     this._super(props);
-    if(this.frame) {
+    if(frame) {
       this.frame.prepare(frame);
+    }
+    if(constraints) {
+      this.constraints.prepare(assign({ owner: this }, constraints));
     }
   }
 

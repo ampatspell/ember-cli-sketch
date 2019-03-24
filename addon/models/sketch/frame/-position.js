@@ -1,14 +1,14 @@
 import Mixin from '@ember/object/mixin';
-import { constrainedNumber } from '../../../util/computed';
+import { position } from './-constraints';
 
-const property = () => constrainedNumber({
+const property = position({
   initial: 0,
   round: 2
 });
 
 export default Mixin.create({
 
-  x: property(),
-  y: property()
+  x: property('horizontal'),
+  y: property('vertical')
 
 });

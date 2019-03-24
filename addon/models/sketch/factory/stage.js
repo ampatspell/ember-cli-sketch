@@ -46,12 +46,12 @@ export default Base.extend({
     return this.model('stage/renderer', { owner });
   },
 
-  // constraints(owner) {
-  //   return this.model('stage/constraints', { owner });
-  // },
+  constraints(owner) {
+    return this.model('stage/constraints', { owner });
+  },
 
-  // constraint(owner, opts) {
-  //   return this.model('stage/constraint', { owner, opts });
-  // }
+  constraint(owner, opts) {
+    return this.model('stage/constraint', { owner, opts });
+  }
 
 });
