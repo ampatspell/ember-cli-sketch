@@ -1,13 +1,1 @@
-<div class="info" role="button" {{action 'debug'}}>
-  {{node.type}}:
-  {{#let node.frame.zoomed as |frame|}}
-    {{#if frame}}
-      {{frame.x}}×{{frame.y}}
-      {{#if frame.width}}
-        @ {{frame.width}}×{{frame.height}}
-      {{/if}}
-    {{/if}}
-  {{/let}}
-</div>
-
 {{component (concat 'ui-block/sketch/stage/node/' node.type) node=node}}

@@ -7,13 +7,6 @@ export default Component.extend({
   classNameBindings: [ ':ui-block-sketch-stage-node', 'node.type' ],
   attributeBindings: [ 'style' ],
 
-  style: frame('node', 'zoomed'),
-
-  actions: {
-    debug() {
-      let { node } = this;
-      setGlobal({ node });
-    }
-  }
+  style: frame('node', 'zoomed')
 
 });
