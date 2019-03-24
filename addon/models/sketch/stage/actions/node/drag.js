@@ -38,7 +38,7 @@ export default Action.extend({
     }
 
     dragging.forEach(node => node.frame.update({ x, y }, { delta: true }));
-    dragging.addNodes(this.areas.moveNodesIfContained(dragging.all));
+    dragging.addNodes(this.stage.moveNodesToContainedAreas(dragging.all));
   }
 
 });

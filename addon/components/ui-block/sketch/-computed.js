@@ -31,19 +31,29 @@ export const frameToString = (frame, opts={}) => {
   let { x, y, width, height, rotation } = frame;
 
   let r = value => round(value, 0);
-  x      = r(x);
-  y      = r(y);
-  width  = r(width);
-  height = r(height);
 
-  return htmlSafe(`width: ${width}px; height: ${height}px; transform: translate(${x}px, ${y}px) rotate(${rotation}deg)`);
+  let string =  `transform: translate(${r(x)}px, ${r(y)}px)`;
+
+  if(rotation !== undefined) {
+    let rotate = `rotate(${rotation}deg)`;
+    string = `${string} ${rotate}`;
+  }
+
+  if(width !== undefined && height !== undefined) {
+    let size = `width: ${r(width)}px; height: ${r(height)}px`;
+    string = `${string}; ${size}`;
+  }
+
+  return htmlSafe(string);
 }
 
-export const frame = (nodeKey, frameKey, opts={}) => computed(`${nodeKey}.frame.${frameKey}.{x,y,width,height}`, function() {
-  let node = this.get(nodeKey);
-  if(!node) {
+export const frame = (nodeKey, frameKey, opts={}) => computed(`${nodeKey}.frame.${frameKey}`, function() {
+  let frame = this.get(`${nodeKey}.frame`);
+  if(!frame) {
     return;
   }
-  let frame = node.get(`frame.${frameKey}`);
-  return frameToString(frame, opts);
+  if(!frame.exists && !opts.virtual) {
+    return;
+  }
+  return frameToString(frame.get(frameKey), opts);
 }).readOnly();

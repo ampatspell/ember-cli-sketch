@@ -1,21 +1,12 @@
 import Component from '@ember/component';
 import layout from './template';
-import WindowEventsMixin from './-window-events-mixin';
+import { frame } from '../-computed';
 
-export default Component.extend(WindowEventsMixin, {
+export default Component.extend({
   layout,
   classNameBindings: [ ':ui-block-sketch-stage' ],
+  attributeBindings: [ 'style' ],
 
-  stage: null,
-
-  didInsertElement() {
-    this._super(...arguments);
-    this.parent.didInsertStageElement(this);
-  },
-
-  willDestroyElement() {
-    this._super(...arguments);
-    this.parent.willDestroyStageElement(this);
-  },
+  style: frame('stage', 'zoomed'),
 
 });

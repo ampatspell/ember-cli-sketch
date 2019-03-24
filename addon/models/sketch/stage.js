@@ -1,15 +1,17 @@
 import Base from './-base';
-import { position } from './stage/position';
+import { computed } from '@ember/object';
+import { assign } from '@ember/polyfills';
+import { frame, FrameMixin } from './frame/-base';
+import { constrainedNumber } from '../../util/computed';
+import { nodes } from './nodes';
 import { interactions } from './stage/interactions';
 import { actions } from './stage/actions';
-import { resizing } from './stage/resizing';
+import { hover } from './stage/hover';
 import { selection } from './stage/selection';
 import { dragging } from './stage/dragging';
-import { hover } from './stage/hover';
+import { resizing } from './stage/resizing';
 import { renderer } from './stage/renderer';
-import { areas } from './stage/areas';
 import { round } from '../../util/math';
-import { constrainedNumber } from '../../util/computed';
 
 const zoom = () => constrainedNumber({
   initial: 1,
@@ -18,12 +20,19 @@ const zoom = () => constrainedNumber({
   decimals: 2
 });
 
-export default Base.extend({
+const stage = () => computed(function() {
+  return this;
+}).readOnly();
+
+export default Base.extend(FrameMixin, {
 
   isStage: true,
+  stage: stage(),
 
-  position: position(),
+  frame: frame('stage'),
   zoom: zoom(),
+
+  nodes: nodes(),
 
   interactions: interactions(),
   actions: actions(),
@@ -33,14 +42,51 @@ export default Base.extend({
   resizing: resizing(),
   renderer: renderer(),
 
-  areas: areas(),
-
   reset() {
     this.setProperties({
       'zoom': 1,
-      'position.x': 0,
-      'position.y': 0
+      'frame.x': 0,
+      'frame.y': 0
     });
+  },
+
+  center(opts={}) {
+    let { renderer: { size }, zoom, nodes: { frame: { zoomedBounds: bounds } } } = this;
+
+    if(!size) {
+      return;
+    }
+
+    let dimension = (dimensionKey, sizeKey) => {
+      let value = opts[dimensionKey];
+      if(value) {
+        return value;
+      }
+      return ((size[sizeKey] / 2) - (bounds[sizeKey] / 2)) / zoom;
+    }
+
+    let position = {
+      x: dimension('x', 'width'),
+      y: dimension('y',  'height')
+    };
+
+    this.frame.update(position);
+  },
+
+  fit(opts={}) {
+    let { offset } = assign({ offset: 10 }, opts);
+    let { renderer: { size }, nodes: { frame: { bounds } } } = this;
+
+    if(!size) {
+      return;
+    }
+
+    let value = dimension => (size[dimension] - (offset * 2)) / bounds[dimension];
+
+    let zoom = Math.min(value('width'), value('height'));
+    this.setProperties({ zoom });
+
+    this.center();
   },
 
   //
@@ -61,11 +107,7 @@ export default Base.extend({
 
   //
 
-  _removeArea(area) {
-    this.areas._removeArea(area);
-  },
-
-  _willRemoveNode(node) {
+  willRemoveNode(node) {
     let { hover, selection, dragging, resizing } = this;
     let nodes = node.allNodes();
     hover.willRemoveNodes(nodes);
@@ -74,34 +116,75 @@ export default Base.extend({
     resizing.willRemoveNodes(nodes);
   },
 
-  willRemoveArea(area) {
-    this._willRemoveNode(area);
-  },
-
-  didRemoveArea() {
-  },
-
-  willRemoveNode(node) {
-    this._willRemoveNode(node);
-  },
-
   didRemoveNode() {
-  },
-
-  //
-
-  convertPointFromScreen({ x, y }) {
-    let { zoom, position } = this;
-    return {
-      x: round((x - position.x) / zoom, 2),
-      y: round((y - position.y) / zoom, 2)
-    };
   },
 
   //
 
   handle(action) {
     action.perform();
+  },
+
+  //
+
+  containsNode(node) {
+    let { nodes } = this;
+    if(nodes) {
+      return nodes.containsNode(node);
+    }
+  },
+
+  nodesForPosition(position, type) {
+    return this.nodes.nodesForPosition(position, type);
+  },
+
+  convertPointFromScreen(point) {
+    let { zoom, frame } = this;
+    let value = key => round(point[key] / zoom - frame[key], 2);
+    return {
+      x: value('x'),
+      y: value('y')
+    }
+  },
+
+  //
+
+  moveNodeToContainedArea(node) {
+    if(node.isStage || node.isArea) {
+      return;
+    }
+
+    let target = this.nodes.areas.find(area => area !== node && area.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds'));
+    if(target) {
+      if(node.area === target) {
+        return;
+      }
+    } else if(node.parent === this) {
+      return;
+    } else if(!target) {
+      target = this;
+    }
+
+    let frame = target.frame.convertFrameFromAbsolute(node.frame.absolute);
+    let selected = node.isSelected;
+
+    if(selected) {
+      node.deselect();
+    }
+
+    node.remove();
+    node.frame.update(frame);
+    target.nodes.addNode(node);
+
+    if(selected) {
+      node.select({ replace: false });
+    }
+
+    return true;
+  },
+
+  moveNodesToContainedAreas(nodes) {
+    return nodes.filter(node => this.moveNodeToContainedArea(node));
   }
 
 });

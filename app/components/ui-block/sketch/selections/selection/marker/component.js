@@ -1,0 +1,1 @@
+export { default } from 'ember-cli-sketch/components/ui-block/sketch/selections/selection/marker/component';
