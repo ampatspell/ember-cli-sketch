@@ -12,6 +12,8 @@ export default Handler.extend({
     let delta = value / 10;
 
     this.action.perform({ delta });
+
+    return false;
   }
 
 });
