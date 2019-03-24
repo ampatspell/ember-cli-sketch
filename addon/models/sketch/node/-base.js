@@ -1,4 +1,5 @@
 import Base from '../-base';
+import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { FrameMixin } from '../frame/-base';
 
@@ -10,6 +11,14 @@ export default Base.extend(FrameMixin, {
 
   parent: null,
   stage: readOnly('parent.stage'),
+
+  isSelected: computed('stage.selection.all.[]', function() {
+    let selection = this.get('stage.selection.all');
+    if(!selection) {
+      return;
+    }
+    return selection.includes(this);
+  }).readOnly(),
 
   _serializedFrame: frame('serialized'),
   _boundsFrame:     frame('bounds'),

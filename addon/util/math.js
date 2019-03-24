@@ -1,4 +1,9 @@
-export const round = (value, decimals=0) => Number(Math.round(`${value}e${decimals}`) + `e-${decimals}`);
+export const round = (value, decimals=0) => {
+  if(!value) {
+    return value;
+  }
+  return Number(Math.round(`${value}e${decimals}`) + `e-${decimals}`);
+};
 
 let {
   min,

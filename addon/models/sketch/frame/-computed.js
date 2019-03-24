@@ -1,6 +1,8 @@
 import { computed } from '@ember/object';
 import { round } from '../../../util/math';
 
+let r = value => round(value, 2);
+
 export const serialized = keys => computed(...keys, function() {
   return this.getProperties(keys);
 }).readOnly();
@@ -81,8 +83,6 @@ export const rotated = key => computed(key, function() {
     box.max.y = Math.max(box.max.y, rotated.y);
   });
 
-  let r = value => round(value, 2);
-
   return {
     x:      r(box.min.x),
     y:      r(box.min.y),
@@ -102,9 +102,9 @@ export const absolute = (frameKey, props) => {
     let result = {};
     props.forEach(key => {
       if([ 'x', 'y' ].includes(key)) {
-        result[key] = frame[key] + parent[key];
+        result[key] = r(frame[key] + parent[key]);
       } else {
-        result[key] = frame[key];
+        result[key] = r(frame[key]);
       }
     });
     return result;
