@@ -7,8 +7,8 @@ export const array = () => computed(function() {
 }).readOnly();
 
 export const validated = (fn) => {
-  let _get = (owner, key) => owner[`__validated__${key}`];
-  let _set = (owner, key, value) => owner[`__validated__${key}`] = value;
+  let _get = (owner, key) => owner[`_${key}`];
+  let _set = (owner, key, value) => owner[`_${key}`] = value;
   return computed({
     get(key) {
       return fn(_get(this, key));

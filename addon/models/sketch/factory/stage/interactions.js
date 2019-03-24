@@ -3,11 +3,11 @@ import Base from '../-base';
 const types = Object.freeze([
   'stage/zoom',
   'stage/position',
-  'node/resize',
-  'node/select',
-  'node/drag',
-  'node/move',
-  'node/remove',
+  // 'node/resize',
+  // 'node/select',
+  // 'node/drag',
+  // 'node/move',
+  // 'node/remove',
   'node/hover'
 ]);
 

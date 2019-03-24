@@ -3,7 +3,7 @@ import Action from '../-action';
 export default Action.extend({
 
   perform({ delta }) {
-    this.stage.position.update(delta, { delta: true });
+    this.stage.frame.update(delta, { delta: true });
   }
 
 });

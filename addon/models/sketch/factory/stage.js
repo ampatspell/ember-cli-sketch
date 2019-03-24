@@ -1,4 +1,5 @@
 import Base, { factory } from './-base';
+import { assign } from '@ember/polyfills';
 
 export default Base.extend({
 
@@ -11,6 +12,14 @@ export default Base.extend({
 
   frame(type, owner) {
     return this.model(`frame/${type}`, { owner });
+  },
+
+  nodes(owner) {
+    return this.model(`nodes`, { owner });
+  },
+
+  node(type, props) {
+    return this.model(`node/${type}`, assign({ type }, props));
   },
 
   position(owner) {
@@ -37,16 +46,12 @@ export default Base.extend({
     return this.model('stage/renderer', { owner });
   },
 
-  areas(owner) {
-    return this.model('stage/areas', { owner });
-  },
+  // constraints(owner) {
+  //   return this.model('stage/constraints', { owner });
+  // },
 
-  constraints(owner) {
-    return this.model('stage/constraints', { owner });
-  },
-
-  constraint(owner, opts) {
-    return this.model('stage/constraint', { owner, opts });
-  }
+  // constraint(owner, opts) {
+  //   return this.model('stage/constraint', { owner, opts });
+  // }
 
 });

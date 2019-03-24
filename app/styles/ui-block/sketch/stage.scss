@@ -1,7 +1,7 @@
-@import "stage/crop-marks";
-@import "stage/areas";
-
 .ui-block-sketch-stage {
-  position: relative;
-  overflow: hidden;
+  position: absolute;
 }
+
+@import "stage/nodes";
+@import "stage/node";
+@import "stage/accessories";

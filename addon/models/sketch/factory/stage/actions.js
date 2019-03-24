@@ -7,12 +7,12 @@ const types = Object.freeze({
     'zoom'
   ],
   node: [
-    'drag',
-    'move',
+    // 'drag',
+    // 'move',
     'hover',
-    'remove',
-    'resize',
-    'select'
+    // 'remove',
+    // 'resize',
+    // 'select'
   ]
 });
 

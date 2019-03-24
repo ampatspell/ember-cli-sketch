@@ -1,20 +1,19 @@
 import Component from '@ember/component';
 import layout from './template';
 import { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
+import EventsMixin from './-events-mixin';
 
-export default Component.extend({
-  layout,
+export default Component.extend(EventsMixin, {
   classNameBindings: [ ':ui-block-sketch' ],
+  layout,
 
-  stageComponent: null,
-  size: readOnly('stageComponent.size'),
+  size: null,
 
   stage: computed({
     get() {
       return this._stage;
     },
-    set(key, value) {
+    set(_, value) {
       let current = this._stage;
       if(current !== value) {
         if(current) {
@@ -32,14 +31,6 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
     this.notifyReady(this.stage);
-  },
-
-  didInsertStageElement(stageComponent) {
-    this.setProperties({ stageComponent });
-  },
-
-  willDestroyStageElement() {
-    this.setProperties({ stageComponent: null });
   },
 
   notifyReady(stage) {
@@ -60,13 +51,5 @@ export default Component.extend({
       this.notifyReady(stage);
     }
   },
-
-  recalculateSize() {
-    let { stageComponent } = this;
-    if(!stageComponent) {
-      return;
-    }
-    stageComponent.elementSizeDidChange();
-  }
 
 });

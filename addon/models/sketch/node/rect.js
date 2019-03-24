@@ -1,12 +1,11 @@
-import Node from '../node';
-import { frame } from '../frame';
+import Node from './-base';
+import { frame } from '../frame/-base';
 
 export default Node.extend({
 
-  type: 'rect',
-  frame: frame(),
+  frame: frame('node/sized'),
 
-  fill: 'red',
+  fill: '#000000',
   opacity: 1
 
 });
