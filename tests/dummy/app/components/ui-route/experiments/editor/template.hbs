@@ -65,7 +65,7 @@
     </div>
     <div class="row">
       <div class="value small">
-        <div>{{node}}</div>
+        <div role="button" {{action 'setGlobal' node}}>{{node}}</div>
       </div>
     </div>
     <div class="row">
@@ -97,7 +97,7 @@
         <div class="row">
           <div class="label">Rotation ({{node.frame.rotation}})</div>
           <div class="value">
-            {{ui-block/slider min=-360 max=360 step=1 value=node.frame.rotation update=(action "updateNodePosition" node "rotation")}}
+            {{ui-block/slider min=-360 max=360 step=0.1 value=node.frame.rotation update=(action "updateNodePosition" node "rotation")}}
           </div>
         </div>
       {{/unless}}

@@ -20,7 +20,7 @@ export const zoomed = (zoomKey, frameKey) => computed(zoomKey, frameKey, functio
     if(key === 'rotation') {
       hash[key] = frame[key];
     } else {
-      hash[key] = round(frame[key] * zoom, 2);
+      hash[key] = r(frame[key] * zoom);
     }
   }
 

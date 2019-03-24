@@ -5,7 +5,7 @@ const property = () => constrainedNumber({
   initial: 0,
   min: -360,
   max: 360,
-  round: 2
+  decimals: 2
 });
 
 export default Mixin.create({
