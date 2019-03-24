@@ -1,12 +1,16 @@
 import Base from './-base';
+import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { array } from '../../util/computed';
 import { sketches } from '../../services/sketches';
-import { computed } from '@ember/object';
 import { frame } from './frame/-base';
 
 export const nodes = () => computed(function() {
   return sketches(this).factory.stage.nodes(this);
+}).readOnly();
+
+const is = key => computed(`all.@each.${key}`, function() {
+  return this.all.filterBy(key, true);
 }).readOnly();
 
 export default Base.extend({
@@ -16,6 +20,7 @@ export default Base.extend({
   frame: frame('nodes'),
 
   all: array(),
+  areas: is('isArea'),
 
   _removeNode(node) {
     let { all } = this;
@@ -47,22 +52,6 @@ export default Base.extend({
 
   containsNode(node) {
     return this.all.find(child => child === node || child.containsNode(node));
-  },
-
-  moveNodeIfContained(node) {
-    let target = this.all.find(parent => {
-      if(parent.nodes && parent.frame.exists && parent.frame.includesFrame(node.frame.absoluteBounds, 'absoluteBounds')) {
-        return true;
-      }
-    });
-    if(!target || node.hasParent(target)) {
-      return false;
-    }
-    console.log('to', target+'');
-  },
-
-  moveNodesIfContained(nodes) {
-    nodes.forEach(node => this.moveNodeIfContained(node));
-  },
+  }
 
 });

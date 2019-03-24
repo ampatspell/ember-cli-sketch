@@ -127,6 +127,13 @@ export default Base.extend(FrameMixin, {
 
   //
 
+  containsNode(node) {
+    let { nodes } = this;
+    if(nodes) {
+      return nodes.containsNode(node);
+    }
+  },
+
   nodesForPosition(position, type) {
     return this.nodes.nodesForPosition(position, type);
   },
@@ -140,12 +147,44 @@ export default Base.extend(FrameMixin, {
     }
   },
 
-  moveNodesIfContained(nodes) {
-    this.nodes.moveNodesIfContained(nodes);
+  //
+
+  moveNodeToContainedArea(node) {
+    if(node === this) {
+      return;
+    }
+
+    let target = this.nodes.areas.find(area => area !== node && area.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds'));
+    if(target) {
+      if(node.area === target) {
+        return;
+      }
+    } else if(node.parent === this) {
+      return;
+    } else if(!target) {
+      target = this;
+    }
+
+    let frame = target.frame.convertFrameFromAbsolute(node.frame.absolute);
+    let selected = node.isSelected;
+
+    if(selected) {
+      node.deselect();
+    }
+
+    node.remove();
+    node.frame.update(frame);
+    target.nodes.addNode(node);
+
+    if(selected) {
+      node.select({ replace: false });
+    }
+
+    return true;
   },
 
-  hasParent() {
-    return false;
+  moveNodesToContainedAreas(nodes) {
+    return nodes.filter(node => this.moveNodeToContainedArea(node));
   }
 
 });

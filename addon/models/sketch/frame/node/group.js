@@ -21,6 +21,7 @@ export default Frame.extend({
   bounds: bounds('owner.nodes.all', '_boundsFrame'),
   zoomedBounds: zoomed('bounds', props),
   absoluteZoomed: readOnly('owner.parent.frame.absoluteZoomed'),
-  absoluteZoomedBounds: absolute('zoomedBounds', props)
+  absoluteZoomedBounds: absolute('zoomedBounds', 'absoluteZoomed', props),
+  absolute: readOnly('owner.parent.frame.absolute'),
 
 });

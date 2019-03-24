@@ -1,6 +1,7 @@
 import Base from '../-base';
 import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
+import { assign } from '@ember/polyfills';
 import { FrameMixin } from '../frame/-base';
 
 const frame = key => readOnly(`frame.${key}`);
@@ -11,6 +12,7 @@ export default Base.extend(FrameMixin, {
 
   parent: null,
   stage: readOnly('parent.stage'),
+  area: readOnly('parent.area'),
 
   isSelected: computed('stage.selection.all.[]', function() {
     let selection = this.get('stage.selection.all');
@@ -32,6 +34,16 @@ export default Base.extend(FrameMixin, {
 
   deselect() {
     this.stage.selection.removeNode(this);
+  },
+
+  select(opts) {
+    let { replace } = assign({ replace: true }, opts);
+    let { selection } = this.stage;
+    if(replace) {
+      selection.replace([ this ]);
+    } else {
+      selection.addNode(this);
+    }
   },
 
   remove() {
@@ -75,16 +87,6 @@ export default Base.extend(FrameMixin, {
       array.push(...node.allNodes());
     });
     return array;
-  },
-
-  hasParent(parent) {
-    if(this.parent === parent) {
-      return true;
-    }
-    if(!this.parent) {
-      return false;
-    }
-    return this.parent.hasParent(parent);
   }
 
 });

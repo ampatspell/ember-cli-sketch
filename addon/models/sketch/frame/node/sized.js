@@ -16,8 +16,9 @@ export default Frame.extend(Position, Size, Rotation, {
   bounds: rotated('serialized'),
   zoomedBounds: zoomed('bounds'),
 
-  absoluteZoomed: absolute('zoomed', props),
-  absoluteZoomedBounds: absolute('zoomedBounds', props),
-  absoluteBounds: absolute('bounds', props),
+  absoluteZoomed: absolute('zoomed', 'absoluteZoomed', props),
+  absoluteZoomedBounds: absolute('zoomedBounds', 'absoluteZoomed', props),
+  absoluteBounds: absolute('bounds', 'absolute', props),
+  absolute: absolute('serialized', 'absolute', props)
 
 });

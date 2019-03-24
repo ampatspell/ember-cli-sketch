@@ -103,7 +103,7 @@ export default Component.extend({
       this.stage.reset();
     },
     add(type) {
-      let group = stage.areas.all.firstObject.group;
+      let group = this.stage.areas.all.firstObject.group;
       let node = this.sketches.factory.node(type, { frame: { x: 100, y: 100, width: 50, height: 50 }, fill: '#990000' });
       group.addNode(node, { select: true });
     },

@@ -1,8 +1,4 @@
 import Base from '../../../-base';
-import { equal } from '@ember/object/computed';
-
-const keyCode = value => equal('keyCode', value).readOnly();
-const key = value => equal('key', value).readOnly();
 
 let mapping = {
   ' ':     'isSpace',
@@ -40,7 +36,6 @@ export default Base.extend({
   },
 
   onKeyUp(opts) {
-    let { key, keyCode } = opts;
     this.setProperties({ state: 'up', key: null, keyCode: null });
     this._updateKeys(opts, false);
   },

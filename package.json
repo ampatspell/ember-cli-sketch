@@ -29,13 +29,13 @@
     "ember-cli-babel": "^7.1.2",
     "ember-cli-htmlbars": "^3.0.0",
     "ember-cli-sass": "^10.0.0",
-    "sass": "^1.17.3"
+    "sass": "^1.17.3",
+    "broccoli-file-creator": "^2.1.1",
+    "broccoli-merge-trees": "^3.0.2"
   },
   "devDependencies": {
     "@ember/optional-features": "^0.6.3",
     "broccoli-asset-rev": "^2.7.0",
-    "broccoli-file-creator": "^2.1.1",
-    "broccoli-merge-trees": "^3.0.2",
     "ember-cli": "~3.7.1",
     "ember-cli-dependency-checker": "^3.0.0",
     "ember-cli-eslint": "^4.2.3",

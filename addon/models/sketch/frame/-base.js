@@ -75,6 +75,18 @@ export default Base.extend({
     };
   },
 
+  convertPointFromAbsolute(point) {
+    let { absolute } = this;
+    return {
+      x: point.x - absolute.x,
+      y: point.y - absolute.y,
+    };
+  },
+
+  convertFrameFromAbsolute(frame) {
+    return assign({}, frame, this.convertPointFromAbsolute(frame));
+  },
+
   includesPosition({ x, y }, frameKey='serialized') {
     let frame = this[frameKey];
     assert(`frame ${frameKey} not declared`, !!frame);
@@ -85,6 +97,12 @@ export default Base.extend({
     let frame = this[frameKey];
     assert(`frame ${frameKey} not declared`, !!frame);
     return x >= frame.x && y >= frame.y && x + width <= frame.x + frame.width && y + height <= frame.y + frame.height;
+  },
+
+  overlapsFrame({ x, y, width, height }, frameKey='serialized') {
+    let frame = this[frameKey];
+    assert(`frame ${frameKey} not declared`, !!frame);
+    return x < frame.x + frame.width && x + width > frame.x && y < frame.y + frame.height && y + height > frame.y;
   }
 
 });

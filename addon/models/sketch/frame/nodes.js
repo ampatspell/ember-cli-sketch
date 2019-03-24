@@ -19,6 +19,6 @@ export default Frame.extend({
   zoomed: zoomed('serialized'),
   bounds: bounds('owner.all', '_boundsFrame'),
   zoomedBounds: zoomed('bounds'),
-  absoluteZoomedBounds: absolute('zoomedBounds', props)
+  absoluteZoomedBounds: absolute('zoomedBounds', 'absoluteZoomed', props)
 
 });

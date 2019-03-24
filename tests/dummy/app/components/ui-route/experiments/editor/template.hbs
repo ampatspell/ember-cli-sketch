@@ -1,4 +1,4 @@
-{{ui-block/sketch stage=attachedStage ready=(action 'ready') class="editor"}}
+{{ui-block/sketch stage=attachedStage ready=(action "ready") class="editor"}}
 
 <div class="info">
 
@@ -102,7 +102,7 @@
         </div>
       {{/unless}}
     {{/unless}}
-    {{#if (eq node.type 'rect')}}
+    {{#if (eq node.type "rect")}}
       <div class="row">
         <div class="label">Fill</div>
         <div class="value">
@@ -118,7 +118,7 @@
     {{/if}}
     <div class="row">
       <div class="value">
-        {{ui-block/button value='Remove' action=(action 'remove' node)}}
+        {{ui-block/button value="Remove" action=(action "remove" node)}}
       </div>
     </div>
   {{else}}

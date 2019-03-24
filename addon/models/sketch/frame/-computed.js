@@ -92,11 +92,11 @@ export const rotated = key => computed(key, function() {
   };
 }).readOnly();
 
-export const absolute = (frameKey, props) => {
-  let parentKey = 'owner.parent.frame.absoluteZoomed';
-  return computed(frameKey, parentKey, function() {
+export const absolute = (frameKey, parentKey, props) => {
+  let fullParentKey = `owner.parent.frame.${parentKey}`;
+  return computed(frameKey, fullParentKey, function() {
     let frame = this.get(frameKey);
-    let parent = this.get(parentKey);
+    let parent = this.get(fullParentKey);
     if(!parent) {
       return frame;
     }

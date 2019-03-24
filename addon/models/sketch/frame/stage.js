@@ -10,6 +10,7 @@ export default Frame.extend(Position, {
   serialized: serialized(props),
 
   zoomed: zoomed('owner.zoom', 'serialized', props),
-  absoluteZoomed: readOnly('zoomed')
+  absoluteZoomed: readOnly('zoomed'),
+  absolute: readOnly('serialized')
 
 });
