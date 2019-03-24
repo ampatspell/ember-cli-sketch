@@ -62,15 +62,18 @@ export default Base.extend(FrameMixin, {
   //
 
   nodesForPosition(position, type) {
-    if(this.frame.includesPosition(position, type)) {
-      let { nodes } = this;
-      if(nodes) {
-        return [ this, ...nodes.nodesForPosition(this.frame.convertPointFromParent(position), type) ];
-      } else {
+    if(this.nodes) {
+      let nodes = this.nodes.nodesForPosition(this.frame.convertPointFromParent(position), type);
+      if(nodes.length) {
+        return [ this, ...nodes ];
+      }
+      return nodes;
+    } else {
+      if(this.frame.includesPosition(position, type)) {
         return [ this ];
       }
+      return [];
     }
-    return [];
   },
 
   containsNode(node) {
