@@ -77,4 +77,14 @@ export default Base.extend(FrameMixin, {
     return array;
   },
 
+  hasParent(parent) {
+    if(this.parent === parent) {
+      return true;
+    }
+    if(!this.parent) {
+      return false;
+    }
+    return this.parent.hasParent(parent);
+  }
+
 });

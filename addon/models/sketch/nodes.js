@@ -47,6 +47,22 @@ export default Base.extend({
 
   containsNode(node) {
     return this.all.find(child => child === node || child.containsNode(node));
-  }
+  },
+
+  moveNodeIfContained(node) {
+    let target = this.all.find(parent => {
+      if(parent.nodes && parent.frame.exists && parent.frame.includesFrame(node.frame.absoluteBounds, 'absoluteBounds')) {
+        return true;
+      }
+    });
+    if(!target || node.hasParent(target)) {
+      return false;
+    }
+    console.log('to', target+'');
+  },
+
+  moveNodesIfContained(nodes) {
+    nodes.forEach(node => this.moveNodeIfContained(node));
+  },
 
 });

@@ -12,10 +12,12 @@ export default Frame.extend(Position, Size, Rotation, {
   serialized: serialized(props),
 
   zoomed: zoomed('serialized'),
+
   bounds: rotated('serialized'),
   zoomedBounds: zoomed('bounds'),
 
   absoluteZoomed: absolute('zoomed', props),
   absoluteZoomedBounds: absolute('zoomedBounds', props),
+  absoluteBounds: absolute('bounds', props),
 
 });

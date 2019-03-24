@@ -138,6 +138,14 @@ export default Base.extend(FrameMixin, {
       x: value('x'),
       y: value('y')
     }
+  },
+
+  moveNodesIfContained(nodes) {
+    this.nodes.moveNodesIfContained(nodes);
+  },
+
+  hasParent() {
+    return false;
   }
 
 });
