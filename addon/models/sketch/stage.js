@@ -150,7 +150,7 @@ export default Base.extend(FrameMixin, {
   //
 
   moveNodeToContainedArea(node) {
-    if(node === this) {
+    if(node.isStage || node.isArea) {
       return;
     }
 
