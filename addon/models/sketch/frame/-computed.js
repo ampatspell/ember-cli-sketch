@@ -87,7 +87,8 @@ export const rotated = key => computed(key, function() {
     x:      r(box.min.x),
     y:      r(box.min.y),
     width:  r(box.max.x - box.min.x),
-    height: r(box.max.y - box.min.y)
+    height: r(box.max.y - box.min.y),
+    rotation: 0
   };
 }).readOnly();
 
