@@ -35,7 +35,10 @@ export const zoomed = frameKey => computed(zoomKey, frameKey, function() {
 export const absolute = () => computed('owner.parent.frame.absolute', 'serialized', function() {
   let parent = this.get('owner.parent.frame.absolute');
   if(!parent) {
-    return;
+    parent = {
+      x: 0,
+      y: 0
+    };
   }
   let { x, y, width, height, rotation } = this.get('serialized');
 

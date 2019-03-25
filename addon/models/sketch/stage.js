@@ -44,7 +44,7 @@ export default Base.extend(FrameMixin, {
   },
 
   center(opts={}) {
-    let { renderer: { size }, zoom, nodes: { frame: { zoomedBounds: bounds } } } = this;
+    let { renderer: { size }, zoom, nodes: { frame: { hover: bounds } } } = this;
 
     if(!size) {
       return;
@@ -55,7 +55,7 @@ export default Base.extend(FrameMixin, {
       if(value) {
         return value;
       }
-      return ((size[sizeKey] / 2) - (bounds[sizeKey] / 2)) / zoom;
+      return ((size[sizeKey] / 2) - (bounds[sizeKey]  / 2) - bounds[dimensionKey]) / zoom;
     }
 
     let position = {
@@ -68,7 +68,7 @@ export default Base.extend(FrameMixin, {
 
   fit(opts={}) {
     let { offset } = assign({ offset: 10 }, opts);
-    let { renderer: { size }, nodes: { frame: { bounds } } } = this;
+    let { renderer: { size }, nodes: { frame: { absoluteBounds: bounds } } } = this;
 
     if(!size) {
       return;

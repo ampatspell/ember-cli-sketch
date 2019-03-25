@@ -15,6 +15,7 @@ const is = key => computed(`all.@each.${key}`, function() {
 
 export default Base.extend({
 
+  stage: readOnly('owner.stage'),
   parent: readOnly('owner.parent'),
   frame: frame('nodes'),
 
