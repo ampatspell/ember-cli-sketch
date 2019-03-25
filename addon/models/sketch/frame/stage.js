@@ -1,16 +1,23 @@
 import Frame from './-base';
 import Position from './-position';
 import { serialized, zoomed } from './-computed';
+import { round } from '../../../util/math';
 import { readOnly } from '@ember/object/computed';
-
-const props = [ 'x', 'y' ];
 
 export default Frame.extend(Position, {
 
-  serialized: serialized(props),
+  serialized: serialized(),
+  absolute: readOnly('serialized'),
 
-  zoomed: zoomed('owner.zoom', 'serialized', props),
-  absoluteZoomed: readOnly('zoomed'),
-  absolute: readOnly('serialized')
+  zoomed: zoomed('serialized'),
+
+  convertPointFromScreen(point) {
+    let { owner: { zoom } } = this;
+    let value = key => round(point[key] / zoom, 0);
+    return {
+      x: value('x'),
+      y: value('y')
+    };
+  }
 
 });

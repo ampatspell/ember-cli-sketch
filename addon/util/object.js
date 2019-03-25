@@ -15,3 +15,11 @@ export const omit = (hash, keys) => Object.keys(hash).reduce((ret, key) => {
   }
   return ret;
 }, {});
+
+export const compact = hash => Object.keys(hash).reduce((ret, key) => {
+  let value = hash[key];
+  if(value !== undefined) {
+    ret[key] = value;
+  }
+  return ret;
+}, {});

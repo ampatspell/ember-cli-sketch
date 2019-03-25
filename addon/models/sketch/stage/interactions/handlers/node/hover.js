@@ -13,7 +13,7 @@ export default Handler.extend({
   },
 
   perform() {
-    let point = this.stage.convertPointFromScreen(this.mouse.stage);
+    let point = this.stage.frame.convertPointFromScreen(this.mouse.stage);
     this.action.perform(point);
   }
 

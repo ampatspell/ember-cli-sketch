@@ -43,8 +43,6 @@ export const FrameMixin = Mixin.create({
 
 export default Base.extend({
 
-  exists: true,
-
   deltaToFrame(props) {
     let values = {};
     keys(props).forEach(key => {
@@ -62,13 +60,6 @@ export default Base.extend({
     }
   },
 
-  convertPointFromParent(point) {
-    return {
-      x: point.x - this.x,
-      y: point.y - this.y
-    };
-  },
-
   convertPointFromAbsolute(point) {
     let { absolute } = this;
     return {
@@ -81,21 +72,21 @@ export default Base.extend({
     return assign({}, frame, this.convertPointFromAbsolute(frame));
   },
 
-  includesPosition({ x, y }, frameKey='serialized') {
+  includesPosition({ x, y }, frameKey) {
     let frame = this[frameKey];
-    assert(`frame ${frameKey} not declared`, !!frame);
+    assert(`frame ${frameKey} not declared for ${this}`, !!frame);
     return frame.x <= x && frame.y <= y && frame.x + frame.width >= x && frame.y + frame.height >= y;
   },
 
-  includesFrame({ x, y, width, height }, frameKey='serialized') {
+  includesFrame({ x, y, width, height }, frameKey) {
     let frame = this[frameKey];
-    assert(`frame ${frameKey} not declared`, !!frame);
+    assert(`frame ${frameKey} not declared for ${this}`, !!frame);
     return x >= frame.x && y >= frame.y && x + width <= frame.x + frame.width && y + height <= frame.y + frame.height;
   },
 
-  overlapsFrame({ x, y, width, height }, frameKey='serialized') {
+  overlapsFrame({ x, y, width, height }, frameKey) {
     let frame = this[frameKey];
-    assert(`frame ${frameKey} not declared`, !!frame);
+    assert(`frame ${frameKey} not declared for ${this}`, !!frame);
     return x < frame.x + frame.width && x + width > frame.x && y < frame.y + frame.height && y + height > frame.y;
   }
 

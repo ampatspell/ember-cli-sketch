@@ -1,8 +1,7 @@
 import Base from './-base';
-import { computed } from '@ember/object';
 import { assign } from '@ember/polyfills';
 import { frame, FrameMixin } from './frame/-base';
-import { constrainedNumber } from '../../util/computed';
+import { self, constrainedNumber } from '../../util/computed';
 import { nodes } from './nodes';
 import { interactions } from './stage/interactions';
 import { actions } from './stage/actions';
@@ -11,7 +10,6 @@ import { selection } from './stage/selection';
 import { dragging } from './stage/dragging';
 import { resizing } from './stage/resizing';
 import { renderer } from './stage/renderer';
-import { round } from '../../util/math';
 
 const zoom = () => constrainedNumber({
   initial: 1,
@@ -20,18 +18,13 @@ const zoom = () => constrainedNumber({
   decimals: 2
 });
 
-const stage = () => computed(function() {
-  return this;
-}).readOnly();
-
 export default Base.extend(FrameMixin, {
 
   isStage: true,
-  stage: stage(),
+  stage: self(),
 
   frame: frame('stage'),
   zoom: zoom(),
-
   nodes: nodes(),
 
   interactions: interactions(),
@@ -134,19 +127,6 @@ export default Base.extend(FrameMixin, {
     }
   },
 
-  nodesForPosition(position, type) {
-    return this.nodes.nodesForPosition(position, type);
-  },
-
-  convertPointFromScreen(point) {
-    let { zoom, frame } = this;
-    let value = key => round(point[key] / zoom - frame[key], 2);
-    return {
-      x: value('x'),
-      y: value('y')
-    }
-  },
-
   //
 
   moveNodeToContainedArea(node) {
@@ -154,14 +134,23 @@ export default Base.extend(FrameMixin, {
       return;
     }
 
-    let target = this.nodes.areas.find(area => area !== node && area.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds'));
+    if(node.isGroup) {
+      // TODO: move group
+      // group.frame.absolute is parent absolute
+      return;
+    }
+
+    let target = this.nodes.areas.find(area => {
+      return area.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds');
+    });
+
     if(target) {
       if(node.area === target) {
         return;
       }
     } else if(node.parent === this) {
       return;
-    } else if(!target) {
+    } else {
       target = this;
     }
 

@@ -6,13 +6,26 @@ import { FrameMixin } from '../frame/-base';
 
 const frame = key => readOnly(`frame.${key}`);
 
+const parent = prop => computed(`parent.${prop}`, function(key) {
+  let { parent } = this;
+  if(!parent) {
+    return;
+  }
+  if(parent[prop]) {
+    return parent;
+  }
+  return parent[key];
+}).readOnly();
+
 export default Base.extend(FrameMixin, {
 
   isNode: true,
 
   parent: null,
   stage: readOnly('parent.stage'),
-  area: readOnly('parent.area'),
+
+  area: parent('isArea'),
+  group: parent('isGroup'),
 
   isSelected: computed('stage.selection.all.[]', function() {
     let selection = this.get('stage.selection.all');
@@ -23,7 +36,7 @@ export default Base.extend(FrameMixin, {
   }).readOnly(),
 
   _serializedFrame: frame('serialized'),
-  _boundsFrame:     frame('bounds'),
+  _rotatedFrame:    frame('rotated'),
 
   willAddToParent() {
   },

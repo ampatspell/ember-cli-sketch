@@ -28,7 +28,7 @@ export default Component.extend({
   isMiddleLeftDisabled:   or('horizontal'),
   isMiddleRightDisabled:  or('horizontal'),
 
-  style: frame('node', 'absoluteZoomedBounds', { inset: -1, virtual: true }),
+  style: frame('node', 'selection', { inset: -1 }),
 
   actions: {
     enter(edge) {

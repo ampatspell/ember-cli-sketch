@@ -4,15 +4,9 @@ import { nodes } from '../nodes';
 
 export default Node.extend({
 
-  frame: frame('node/group'),
-  nodes: nodes(),
+  isGroup: true,
 
-  nodesForPosition(position, type) {
-    if(this.frame.includesPosition(position, type)) {
-      let nodes = this.nodes.nodesForPosition(position, type);
-      return [ this, ...nodes ];
-    }
-    return [];
-  }
+  frame: frame('group'),
+  nodes: nodes()
 
 });
