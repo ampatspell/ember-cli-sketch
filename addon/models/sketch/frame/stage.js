@@ -7,6 +7,7 @@ import { readOnly } from '@ember/object/computed';
 export default Frame.extend(Position, {
 
   serialized: serialized(),
+  absolute: readOnly('serialized'),
 
   zoomed: zoomed('serialized'),
 

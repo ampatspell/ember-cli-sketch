@@ -43,9 +43,9 @@ const frame = sourceKey => computed(`${ownerNodesKey}.@each.${sourceKey}`, funct
   });
 
   return {
-    x: box.min.x,
-    y: box.min.y,
-    width: box.max.x - box.min.x,
+    x:      box.min.x,
+    y:      box.min.y,
+    width:  box.max.x - box.min.x,
     height: box.max.y - box.min.y,
     rotation: 0
   };

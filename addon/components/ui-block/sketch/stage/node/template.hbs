@@ -1,4 +1,4 @@
 {{component (concat "ui-block/sketch/stage/node/" node.type) node=node}}
-{{#let node.frame.hover as |frame|}}
+{{#let node.frame.absolute as |frame|}}
   <span style="font-size: 10px; font-weight: 600; position: absolute; top: 0; left: 0">{{frame.x}},{{frame.y}},{{frame.width}},{{frame.height}}</span>
 {{/let}}

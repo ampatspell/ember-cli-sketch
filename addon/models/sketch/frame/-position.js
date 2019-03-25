@@ -8,7 +8,7 @@ const property = position({
 
 export default Mixin.create({
 
-  // x: property('horizontal'),
-  // y: property('vertical')
+  x: property('horizontal'),
+  y: property('vertical')
 
 });

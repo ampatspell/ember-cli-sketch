@@ -5,6 +5,8 @@ export const round = (value, decimals=2) => {
   return Number(Math.round(`${value}e${decimals}`) + `e-${decimals}`);
 };
 
+window.r = round;
+
 let {
   min,
   max

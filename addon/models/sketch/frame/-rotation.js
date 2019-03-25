@@ -10,6 +10,6 @@ const property = () => constrainedNumber({
 
 export default Mixin.create({
 
-  // rotation: property()
+  rotation: property()
 
 });

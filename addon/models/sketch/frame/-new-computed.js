@@ -29,6 +29,22 @@ export const zoomed = frameKey => computed(zoomKey, frameKey, function() {
   }, {});
 }).readOnly();
 
+export const absolute = () => computed('owner.parent.frame.absolute', 'serialized', function() {
+  let parent = this.get('owner.parent.frame.absolute');
+  if(!parent) {
+    return;
+  }
+  let { x, y, width, height, rotation } = this.get('serialized');
+  let result ={
+    x: round(parent.x + x),
+    y: round(parent.y + y),
+    width,
+    height,
+    rotation
+  };
+  return result;
+}).readOnly();
+
 export const hover = () => computed('zoomed', function() {
   let frame = this.zoomed;
   return rotatedRectBounds(frame);
