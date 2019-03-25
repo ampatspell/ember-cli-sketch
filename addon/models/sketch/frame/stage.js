@@ -1,6 +1,6 @@
 import Frame from './-base';
 import Position from './-position';
-import { serialized, zoomed } from './-new-computed';
+import { serialized, zoomed } from './-computed';
 import { round } from '../../../util/math';
 import { readOnly } from '@ember/object/computed';
 

@@ -1,6 +1,6 @@
 import Frame from './-base';
 import makeBoundsMixin from './-bounds-mixin';
-import { absolute, rotated } from './-new-computed';
+import { absolute, rotated } from './-computed';
 
 const BoundsMixin = makeBoundsMixin('serialized', 'owner.all', '_rotatedFrame');
 
