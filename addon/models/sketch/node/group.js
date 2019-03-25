@@ -4,15 +4,15 @@ import { nodes } from '../nodes';
 
 export default Node.extend({
 
-  frame: frame('node/group'),
+  frame: frame('group'),
   nodes: nodes(),
 
-  nodesForPosition(position, type) {
-    if(this.frame.includesPosition(position, type)) {
-      let nodes = this.nodes.nodesForPosition(position, type);
-      return [ this, ...nodes ];
-    }
-    return [];
-  }
+  // nodesForPosition(position, type) {
+  //   if(this.frame.includesPosition(position, type)) {
+  //     let nodes = this.nodes.nodesForPosition(position, type);
+  //     return [ this, ...nodes ];
+  //   }
+  //   return [];
+  // }
 
 });

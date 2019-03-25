@@ -19,9 +19,9 @@ export default Component.extend({
     {
       let area = factory.stage.node('area', { frame: { x: 50, y: 50, width: 560, height: 360 }, constraints: { horizontal: { resize: false, move: false }, vertical: { resize: true, min: 100, max: 400 } } });
       {
-        // let group = factory.stage.node('group');
-        // area.nodes.addNode(group);
-        let group = area;
+        let group = factory.stage.node('group');
+        setGlobal({ group });
+        area.nodes.addNode(group);
         {
           let node = factory.stage.node('rect', {
             frame: { x: 50, y: 50, width: 50, height: 50, rotation: 2 },
