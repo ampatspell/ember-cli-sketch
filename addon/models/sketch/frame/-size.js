@@ -9,7 +9,7 @@ const property = size({
 
 export default Mixin.create({
 
-  width:  property('horizontal'),
-  height: property('vertical')
+  // width:  property('horizontal'),
+  // height: property('vertical')
 
 });

@@ -62,41 +62,41 @@ export default Base.extend({
     }
   },
 
-  convertPointFromParent(point) {
-    return {
-      x: point.x - this.x,
-      y: point.y - this.y
-    };
-  },
+  // convertPointFromParent(point) {
+  //   return {
+  //     x: point.x - this.x,
+  //     y: point.y - this.y
+  //   };
+  // },
 
-  convertPointFromAbsolute(point) {
-    let { absolute } = this;
-    return {
-      x: point.x - absolute.x,
-      y: point.y - absolute.y,
-    };
-  },
+  // convertPointFromAbsolute(point) {
+  //   let { absolute } = this;
+  //   return {
+  //     x: point.x - absolute.x,
+  //     y: point.y - absolute.y,
+  //   };
+  // },
 
-  convertFrameFromAbsolute(frame) {
-    return assign({}, frame, this.convertPointFromAbsolute(frame));
-  },
+  // convertFrameFromAbsolute(frame) {
+  //   return assign({}, frame, this.convertPointFromAbsolute(frame));
+  // },
 
-  includesPosition({ x, y }, frameKey='serialized') {
-    let frame = this[frameKey];
-    assert(`frame ${frameKey} not declared`, !!frame);
-    return frame.x <= x && frame.y <= y && frame.x + frame.width >= x && frame.y + frame.height >= y;
-  },
+  // includesPosition({ x, y }, frameKey='serialized') {
+  //   let frame = this[frameKey];
+  //   assert(`frame ${frameKey} not declared`, !!frame);
+  //   return frame.x <= x && frame.y <= y && frame.x + frame.width >= x && frame.y + frame.height >= y;
+  // },
 
-  includesFrame({ x, y, width, height }, frameKey='serialized') {
-    let frame = this[frameKey];
-    assert(`frame ${frameKey} not declared`, !!frame);
-    return x >= frame.x && y >= frame.y && x + width <= frame.x + frame.width && y + height <= frame.y + frame.height;
-  },
+  // includesFrame({ x, y, width, height }, frameKey='serialized') {
+  //   let frame = this[frameKey];
+  //   assert(`frame ${frameKey} not declared`, !!frame);
+  //   return x >= frame.x && y >= frame.y && x + width <= frame.x + frame.width && y + height <= frame.y + frame.height;
+  // },
 
-  overlapsFrame({ x, y, width, height }, frameKey='serialized') {
-    let frame = this[frameKey];
-    assert(`frame ${frameKey} not declared`, !!frame);
-    return x < frame.x + frame.width && x + width > frame.x && y < frame.y + frame.height && y + height > frame.y;
-  }
+  // overlapsFrame({ x, y, width, height }, frameKey='serialized') {
+  //   let frame = this[frameKey];
+  //   assert(`frame ${frameKey} not declared`, !!frame);
+  //   return x < frame.x + frame.width && x + width > frame.x && y < frame.y + frame.height && y + height > frame.y;
+  // }
 
 });

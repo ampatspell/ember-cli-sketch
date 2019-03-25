@@ -1,16 +1,15 @@
 import Frame from './-base';
 import Position from './-position';
-import { serialized, zoomed } from './-computed';
+import { serialized, zoomed } from './-new-computed';
 import { readOnly } from '@ember/object/computed';
-
-const props = [ 'x', 'y' ];
 
 export default Frame.extend(Position, {
 
-  serialized: serialized(props),
+  serialized: serialized(),
+  zoomed: zoomed('serialized'),
 
-  zoomed: zoomed('owner.zoom', 'serialized', props),
-  absoluteZoomed: readOnly('zoomed'),
-  absolute: readOnly('serialized')
+  // zoomed: zoomed('owner.zoom', 'serialized'),
+  // absoluteZoomed: readOnly('zoomed'),
+  // absolute: readOnly('serialized')
 
 });
