@@ -7,6 +7,6 @@ export default Component.extend({
   classNameBindings: [ ':ui-block-sketch-hovers-hover' ],
   attributeBindings: [ 'style' ],
 
-  style: frame('node', 'absoluteZoomedBounds', { inset: -2, virtual: true }),
+  style: frame('node', 'hover', { inset: -2 }),
 
 });
