@@ -2,13 +2,12 @@ import Frame from './-base';
 import Position from './-position';
 import Size from './-size';
 import Rotation from './-rotation';
-import { serialized } from './-new-computed';
+import { serialized, zoomed } from './-new-computed';
 
 export default Frame.extend(Position, Size, Rotation, {
 
   serialized: serialized(),
-
-  // zoomed: zoomed('serialized'),
+  zoomed: zoomed('serialized'),
 
   // bounds: rotated('serialized'),
   // zoomedBounds: zoomed('bounds'),
