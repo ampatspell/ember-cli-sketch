@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 import { sketches } from '../../../services/sketches';
 import { omit } from '../../../util/object';
 import { assign } from '@ember/polyfills';
-import { assert } from '@ember/debug';
+// import { assert } from '@ember/debug';
 import { constraints } from '../stage/constraints';
 
 const {
@@ -42,8 +42,6 @@ export const FrameMixin = Mixin.create({
 });
 
 export default Base.extend({
-
-  exists: true,
 
   deltaToFrame(props) {
     let values = {};

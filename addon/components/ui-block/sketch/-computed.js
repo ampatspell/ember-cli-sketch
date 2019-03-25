@@ -52,8 +52,5 @@ export const frame = (nodeKey, frameKey, opts={}) => computed(`${nodeKey}.frame.
   if(!frame) {
     return;
   }
-  if(!frame.exists && !opts.virtual) {
-    return;
-  }
   return frameToString(frame.get(frameKey), opts);
 }).readOnly();

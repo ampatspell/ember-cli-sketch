@@ -5,6 +5,16 @@ const BoundsMixin = makeBoundsMixin('serialized', '_serializedFrame');
 
 export default Frame.extend(BoundsMixin, {
 
+  // x
+  // y
+  // width
+  // height
+  // rotation
+
+  // serialized
+
+
+
   // zoomed: zoomed('serialized'),
   // bounds: bounds('owner.nodes.all', '_boundsFrame'),
   // zoomedBounds: zoomed('bounds', props),
