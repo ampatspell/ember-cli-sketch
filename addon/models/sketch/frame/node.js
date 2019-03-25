@@ -11,14 +11,8 @@ export default Frame.extend(Position, Size, Rotation, {
   zoomed: zoomed('serialized'),
 
   absolute: absolute(),
-  hover: rotated('absolute'),
+  absoluteBounds: rotated('absolute'),
 
-  // bounds: rotated('serialized'),
-  // zoomedBounds: zoomed('bounds'),
-
-  // absoluteZoomed: absolute('zoomed', 'absoluteZoomed', props),
-  // absoluteZoomedBounds: absolute('zoomedBounds', 'absoluteZoomed', props),
-  // absoluteBounds: absolute('bounds', 'absolute', props),
-  // absolute: absolute('serialized', 'absolute', props)
+  hover: zoomed('absoluteBounds'),
 
 });

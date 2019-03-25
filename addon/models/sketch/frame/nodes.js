@@ -15,6 +15,6 @@ export default Frame.extend(BoundsMixin, {
   // serialized
 
   absolute: absolute(),
-  hover: rotated('absolute')
+  absoluteBounds: rotated('absolute')
 
 });

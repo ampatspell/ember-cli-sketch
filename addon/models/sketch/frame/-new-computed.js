@@ -19,10 +19,13 @@ export const serialized = () => computed(...keys.all, function() {
 export const zoomed = frameKey => computed(zoomKey, frameKey, function() {
   let zoom = this.get(zoomKey);
   let frame = this.get(frameKey);
+  if(!frame) {
+    return;
+  }
   return Object.keys(frame).reduce((zoomed, key) => {
     let value = frame[key];
     if(keys.zoomable.includes(key)) {
-      value = round(value * zoom);
+      value = round(value * zoom, 2);
     }
     zoomed[key] = value;
     return zoomed;
@@ -35,11 +38,12 @@ export const absolute = () => computed('owner.parent.frame.absolute', 'serialize
     return;
   }
   let { x, y, width, height, rotation } = this.get('serialized');
-  let result ={
-    x: round(parent.x + x),
-    y: round(parent.y + y),
-    width,
-    height,
+
+  let result = {
+    x:      round(parent.x + x, 2),
+    y:      round(parent.y + y, 2),
+    width:  round(width, 2),
+    height: round(height, 2),
     rotation
   };
   return result;
