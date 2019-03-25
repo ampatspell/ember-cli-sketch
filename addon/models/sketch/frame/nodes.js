@@ -6,6 +6,14 @@ const BoundsMixin = makeBoundsMixin('serialized', 'owner.all', '_rotatedFrame');
 
 export default Frame.extend(BoundsMixin, {
 
+  // x
+  // y
+  // width
+  // height
+  // rotation
+
+  // serialized
+
   absolute: absolute(),
   hover: rotated('absolute')
 

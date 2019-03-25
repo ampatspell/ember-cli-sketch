@@ -45,7 +45,7 @@ export const absolute = () => computed('owner.parent.frame.absolute', 'serialize
   return result;
 }).readOnly();
 
-export const rotated = key => computed(key, function() {
-  let frame = this.get(key);
+export const rotated = frameKey => computed(frameKey, function() {
+  let frame = this.get(frameKey);
   return rotatedRectBounds(frame);
 }).readOnly();
