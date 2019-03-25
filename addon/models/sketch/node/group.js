@@ -7,14 +7,6 @@ export default Node.extend({
   isGroup: true,
 
   frame: frame('group'),
-  nodes: nodes(),
-
-  // nodesForPosition(position, type) {
-  //   if(this.frame.includesPosition(position, type)) {
-  //     let nodes = this.nodes.nodesForPosition(position, type);
-  //     return [ this, ...nodes ];
-  //   }
-  //   return [];
-  // }
+  nodes: nodes()
 
 });

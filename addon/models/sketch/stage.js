@@ -136,6 +136,7 @@ export default Base.extend(FrameMixin, {
 
     if(node.isGroup) {
       // TODO: move group
+      // group.frame.absolute is parent absolute
       return;
     }
 
