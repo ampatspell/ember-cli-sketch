@@ -2,14 +2,11 @@ import Frame from './-base';
 import Position from './-position';
 import Size from './-size';
 import Rotation from './-rotation';
-import { serialized, zoomed as _zoomed, rotated, absolute } from './-computed';
-
-const props = [ 'x', 'y', 'width', 'height', 'rotation' ];
-let zoomed = frame => _zoomed('owner.stage.zoom', frame);
+import { serialized } from './-new-computed';
 
 export default Frame.extend(Position, Size, Rotation, {
 
-  // serialized: serialized(props),
+  serialized: serialized(),
 
   // zoomed: zoomed('serialized'),
 

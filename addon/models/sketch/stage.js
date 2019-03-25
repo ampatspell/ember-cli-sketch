@@ -1,8 +1,7 @@
 import Base from './-base';
-import { computed } from '@ember/object';
 import { assign } from '@ember/polyfills';
 import { frame, FrameMixin } from './frame/-base';
-import { constrainedNumber } from '../../util/computed';
+import { self, constrainedNumber } from '../../util/computed';
 import { nodes } from './nodes';
 import { interactions } from './stage/interactions';
 import { actions } from './stage/actions';
@@ -20,18 +19,13 @@ const zoom = () => constrainedNumber({
   decimals: 2
 });
 
-const stage = () => computed(function() {
-  return this;
-}).readOnly();
-
 export default Base.extend(FrameMixin, {
 
   isStage: true,
-  stage: stage(),
+  stage: self(),
 
   frame: frame('stage'),
   zoom: zoom(),
-
   nodes: nodes(),
 
   interactions: interactions(),

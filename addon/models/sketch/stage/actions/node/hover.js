@@ -7,8 +7,8 @@ export default Action.extend({
 
   perform(point) {
     let { stage, hover } = this;
-    let nodes = stage.nodesForPosition(point, 'bounds');
-    hover.replace(nodes);
+    // let nodes = stage.nodesForPosition(point, 'bounds');
+    // hover.replace(nodes);
   }
 
 });

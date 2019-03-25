@@ -1,17 +1,14 @@
 import Node from './-base';
-import { computed } from '@ember/object';
+import { self } from '../../../util/computed';
 import { frame } from '../frame/-base';
 import { nodes } from '../nodes';
 
 export default Node.extend({
 
   isArea: true,
+  area: self(),
 
-  area: computed(function() {
-    return this;
-  }).readOnly(),
-
-  frame: frame('node/sized'),
+  frame: frame('node'),
   nodes: nodes()
 
 });

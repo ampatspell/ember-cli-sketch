@@ -25,3 +25,7 @@ export const constrainedNumber = opts => {
   let fn = numberContraints(opts);
   return validated(value => fn(value));
 };
+
+export const self = () => computed(function() {
+  return this;
+}).readOnly();
