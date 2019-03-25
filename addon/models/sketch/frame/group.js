@@ -19,6 +19,6 @@ export default Frame.extend(BoundsMixin, {
   absoluteBounds: readOnly('owner.nodes.frame.absoluteBounds'),
 
   hover: zoomed('absoluteBounds'),
-  selection: zoomed('owner.nodes.frame.absolute'),
+  selection: zoomed('owner.nodes.frame.absolute')
 
 });

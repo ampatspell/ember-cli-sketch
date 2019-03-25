@@ -53,45 +53,20 @@ export default Component.extend({
       }
     }
 
-    {
-      let area = factory.stage.node('area', { frame: { x: 50, y: 50, width: 560, height: 360 }, constraints: { horizontal: { resize: false, move: false }, vertical: { resize: true, min: 100, max: 400 } } });
-      {
-        {
-          let nested = factory.stage.node('area', {
-            frame: { x: 20, y: 20, width: 140, height: 140 }
-          });
-          area.nodes.addNode(nested);
-          createRects(nested, 20, 20);
-        }
-        createRects(area, 180, 40);
-        {
-          let group = factory.stage.node('group');
-          area.nodes.addNode(group);
-          createRects(group, 310, 40);
-        }
-      }
-      setGlobal({ area });
-      stage.nodes.addNode(area);
-      createRects(stage, 90, 450);
+    let createArea = (parent, ox, oy) => {
+      let area = factory.stage.node('area', {
+        frame: { x: ox, y: oy, width: 500, height: 200 },
+        constraints: { horizontal: { resize: false, move: false }, vertical: { resize: true, min: 100, max: 400 } }
+      });
+      createRects(area, 20, 20);
+      let group = area.nodes.addNode(factory.stage.node('group'));
+      createRects(group, 160, 20);
+      parent.nodes.addNode(area);
     }
-    // {
-    //   let area = factory.stage.node('area', {
-    //     frame: { x: 0, y: 430, width: 560, height: 200 },
-    //     constraints: { horizontal: { min: 100, max: 600 }, vertical: { min: 100, max: 200 } }
-    //   });
-    //   {
-    //     let group = factory.stage.node('group');
-    //     area.nodes.addNode(group);
-    //     // let group = area;
-    //     {
-    //       let node = factory.stage.node('rect', { frame: { x: 150, y: 80, width: 50, height: 50, rotation: 23 }, fill: '#990099', opacity: 0.5 });
-    //       group.nodes.addNode(node);
-    //     }
-    //   }
-    //   stage.nodes.addNode(area);
-    // }
-    // stage.nodes.addNode(factory.stage.node('rect', { frame: { x: 330, y: 700, width: 50, height: 50, rotation: -9 }, fill: '#999900', opacity: 0.3 }));
-    setGlobal({ stage });
+
+    createArea(stage, 10, 10);
+    createArea(stage, 10, 250);
+    createRects(stage, 20, 470);
     return stage;
   }).readOnly(),
 

@@ -127,48 +127,52 @@ export default Base.extend(FrameMixin, {
     }
   },
 
-  // nodesForPosition(position, type) {
-  //   return this.nodes.nodesForPosition(position, type);
-  // },
-
   //
 
   moveNodeToContainedArea(node) {
-    // if(node.isStage || node.isArea) {
-    //   return;
-    // }
+    if(node.isStage || node.isArea) {
+      return;
+    }
 
-    // let target = this.nodes.areas.find(area => area !== node && area.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds'));
-    // if(target) {
-    //   if(node.area === target) {
-    //     return;
-    //   }
-    // } else if(node.parent === this) {
-    //   return;
-    // } else if(!target) {
-    //   target = this;
-    // }
+    if(node.isGroup) {
+      // TODO: move group
+      return;
+    }
 
-    // let frame = target.frame.convertFrameFromAbsolute(node.frame.absolute);
-    // let selected = node.isSelected;
+    let target = this.nodes.areas.find(area => {
+      return area.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds');
+    });
 
-    // if(selected) {
-    //   node.deselect();
-    // }
+    if(target) {
+      if(node.area === target) {
+        return;
+      }
+    } else if(node.parent === this) {
+      return;
+    } else {
+      target = this;
+    }
 
-    // node.remove();
-    // node.frame.update(frame);
-    // target.nodes.addNode(node);
+    let frame = target.frame.convertFrameFromAbsolute(node.frame.absolute);
+    let selected = node.isSelected;
 
-    // if(selected) {
-    //   node.select({ replace: false });
-    // }
+    if(selected) {
+      node.deselect();
+    }
 
-    // return true;
+    node.remove();
+    node.frame.update(frame);
+    target.nodes.addNode(node);
+
+    if(selected) {
+      node.select({ replace: false });
+    }
+
+    return true;
   },
 
   moveNodesToContainedAreas(nodes) {
-    // return nodes.filter(node => this.moveNodeToContainedArea(node));
+    return nodes.filter(node => this.moveNodeToContainedArea(node));
   }
 
 });

@@ -4,6 +4,8 @@ import { nodes } from '../nodes';
 
 export default Node.extend({
 
+  isGroup: true,
+
   frame: frame('group'),
   nodes: nodes(),
 
