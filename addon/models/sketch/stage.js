@@ -161,9 +161,16 @@ export default Base.extend(FrameMixin, {
       node.deselect();
     }
 
+    let group = node.group;
+
     node.remove();
     node.frame.update(frame);
     target.nodes.addNode(node);
+
+    if(group && !group.nodes.any) {
+      console.log('remove group');
+      group.remove();
+    }
 
     if(selected) {
       node.select({ replace: false });

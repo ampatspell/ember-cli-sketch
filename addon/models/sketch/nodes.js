@@ -1,6 +1,6 @@
 import Base from './-base';
 import { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
+import { readOnly, gt } from '@ember/object/computed';
 import { array } from '../../util/computed';
 import { sketches } from '../../services/sketches';
 import { frame } from './frame/-base';
@@ -20,6 +20,8 @@ export default Base.extend({
   frame: frame('nodes'),
 
   all: array(),
+  any: gt('all.length', 0),
+
   areas: is('isArea'),
 
   _removeNode(node) {
