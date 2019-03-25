@@ -45,7 +45,7 @@ export const absolute = () => computed('owner.parent.frame.absolute', 'serialize
   return result;
 }).readOnly();
 
-export const hover = () => computed('zoomed', function() {
-  let frame = this.zoomed;
+export const rotated = key => computed(key, function() {
+  let frame = this.get(key);
   return rotatedRectBounds(frame);
 }).readOnly();

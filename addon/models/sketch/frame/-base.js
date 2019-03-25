@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 import { sketches } from '../../../services/sketches';
 import { omit } from '../../../util/object';
 import { assign } from '@ember/polyfills';
-// import { assert } from '@ember/debug';
+import { assert } from '@ember/debug';
 import { constraints } from '../stage/constraints';
 
 const {
@@ -79,11 +79,11 @@ export default Base.extend({
   //   return assign({}, frame, this.convertPointFromAbsolute(frame));
   // },
 
-  // includesPosition({ x, y }, frameKey='serialized') {
-  //   let frame = this[frameKey];
-  //   assert(`frame ${frameKey} not declared`, !!frame);
-  //   return frame.x <= x && frame.y <= y && frame.x + frame.width >= x && frame.y + frame.height >= y;
-  // },
+  includesPosition({ x, y }, frameKey) {
+    let frame = this[frameKey];
+    assert(`frame ${frameKey} not declared for ${this}`, !!frame);
+    return frame.x <= x && frame.y <= y && frame.x + frame.width >= x && frame.y + frame.height >= y;
+  },
 
   // includesFrame({ x, y, width, height }, frameKey='serialized') {
   //   let frame = this[frameKey];

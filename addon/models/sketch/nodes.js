@@ -15,8 +15,7 @@ const is = key => computed(`all.@each.${key}`, function() {
 
 export default Base.extend({
 
-  parent: readOnly('owner'),
-
+  parent: readOnly('owner.parent'),
   frame: frame('nodes'),
 
   all: array(),
@@ -43,13 +42,17 @@ export default Base.extend({
     return node;
   },
 
-  // nodesForPosition(position, type) {
-  //   let nodes = [];
-  //   this.all.forEach(node => {
-  //     nodes.push(...node.nodesForPosition(position, type));
-  //   });
-  //   return nodes;
-  // },
+  nodesForPosition(position, type) {
+    return this.all.reduce((nodes, node) => {
+      if(node.frame.includesPosition(position, type)) {
+        nodes.push(node);
+      }
+      if(node.nodes) {
+        nodes.push(...node.nodes.nodesForPosition(position, type));
+      }
+      return nodes;
+    }, []);
+  },
 
   containsNode(node) {
     return this.all.find(child => child === node || child.containsNode(node));

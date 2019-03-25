@@ -23,7 +23,7 @@ export default Base.extend(FrameMixin, {
   }).readOnly(),
 
   _serializedFrame: frame('serialized'),
-  _boundsFrame:     frame('bounds'),
+  _rotatedFrame:    frame('rotated'),
 
   willAddToParent() {
   },

@@ -15,6 +15,7 @@ export default Component.extend({
 
   stage: computed(function() {
     let { sketches: { factory } } = this;
+    let stage = factory.stage.create({ frame: { x: 50, y: 50 } });
 
     let createRects = (parent, ox, oy) => {
       {
@@ -52,7 +53,6 @@ export default Component.extend({
       }
     }
 
-    let stage = factory.stage.create({ frame: { x: 50, y: 50 } });
     {
       let area = factory.stage.node('area', { frame: { x: 50, y: 50, width: 560, height: 360 }, constraints: { horizontal: { resize: false, move: false }, vertical: { resize: true, min: 100, max: 400 } } });
       {

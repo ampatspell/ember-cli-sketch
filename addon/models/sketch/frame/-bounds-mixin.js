@@ -2,7 +2,6 @@ import Mixin from '@ember/object/mixin';
 import { computed } from '@ember/object';
 import { assign } from '@ember/polyfills';
 
-const ownerNodesKey = 'owner.nodes.all';
 const keys = [ 'x', 'y', 'width', 'height', 'rotation' ];
 
 const property = (frameKey, propertyKey) => computed(frameKey, {
@@ -20,7 +19,7 @@ const property = (frameKey, propertyKey) => computed(frameKey, {
   }
 });
 
-const frame = sourceKey => computed(`${ownerNodesKey}.@each.${sourceKey}`, function() {
+const frame = (ownerNodesKey, sourceKey) => computed(`${ownerNodesKey}.@each.${sourceKey}`, function() {
   let nodes = this.get(ownerNodesKey);
 
   let box = {
@@ -51,8 +50,8 @@ const frame = sourceKey => computed(`${ownerNodesKey}.@each.${sourceKey}`, funct
   };
 }).readOnly();
 
-export default (framePropertyKey, sourceKey) => Mixin.create(assign({
-  [framePropertyKey]: frame(sourceKey)
+export default (framePropertyKey, ownerNodesKey, sourceKey) => Mixin.create(assign({
+  [framePropertyKey]: frame(ownerNodesKey, sourceKey)
 }, keys.reduce((hash, key) => {
   hash[key] = property(framePropertyKey, key);
   return hash;

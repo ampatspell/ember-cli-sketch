@@ -11,20 +11,13 @@ export default Frame.extend(Position, {
 
   zoomed: zoomed('serialized'),
 
-  // zoomed: zoomed('owner.zoom', 'serialized'),
-  // absoluteZoomed: readOnly('zoomed'),
-  // absolute: readOnly('serialized')
-
-  zoom: readOnly('owner.zoom'),
-
   convertPointFromScreen(point) {
-    let { zoom } = this;
-    let value = key => round(point[key] / zoom - this[key], 0);
+    let { owner: { zoom } } = this;
+    let value = key => round(point[key] / zoom, 0);
     return {
       x: value('x'),
       y: value('y')
     };
-  },
-
+  }
 
 });
