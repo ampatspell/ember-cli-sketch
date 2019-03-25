@@ -15,36 +15,64 @@ export default Component.extend({
 
   stage: computed(function() {
     let { sketches: { factory } } = this;
+
+    let createRects = (parent, ox, oy) => {
+      {
+        let node = factory.stage.node('rect', {
+          frame: { x: ox, y: oy, width: 50, height: 50, rotation: 2 },
+          constraints: { horizontal: { min: 20, max: 100 }, vertical: { min: 20, max: 100 } },
+          fill: 'red',
+          opacity: 0.5
+        });
+        parent.nodes.addNode(node);
+      }
+      {
+        let node = factory.stage.node('rect', {
+          frame: { x: ox+50, y: oy, width: 50, height: 50, rotation: -2 },
+          fill: 'green',
+          opacity: 0.3
+        });
+        parent.nodes.addNode(node);
+      }
+      {
+        let node = factory.stage.node('rect', {
+          frame: { x: ox, y: oy+50, width: 50, height: 50, rotation: -2 },
+          fill: 'blue',
+          opacity: 0.2
+        });
+        parent.nodes.addNode(node);
+      }
+      {
+        let node = factory.stage.node('rect', {
+          frame: { x: ox+50, y: oy+50, width: 50, height: 50, rotation: 2 },
+          fill: 'red',
+          opacity: 0.2
+        });
+        parent.nodes.addNode(node);
+      }
+    }
+
     let stage = factory.stage.create({ frame: { x: 50, y: 50 } });
     {
       let area = factory.stage.node('area', { frame: { x: 50, y: 50, width: 560, height: 360 }, constraints: { horizontal: { resize: false, move: false }, vertical: { resize: true, min: 100, max: 400 } } });
       {
-        let group = factory.stage.node('group');
-        setGlobal({ group });
-        area.nodes.addNode(group);
         {
-          let node = factory.stage.node('rect', {
-            frame: { x: 50, y: 50, width: 50, height: 50, rotation: 2 },
-            constraints: { horizontal: { min: 20, max: 100 }, vertical: { min: 20, max: 100 } },
-            fill: 'red', opacity: 0.5
+          let nested = factory.stage.node('area', {
+            frame: { x: 20, y: 20, width: 140, height: 140 }
           });
-          group.nodes.addNode(node);
+          area.nodes.addNode(nested);
+          createRects(nested, 20, 20);
         }
+        createRects(area, 180, 40);
         {
-          let node = factory.stage.node('rect', { frame: { x: 100, y: 50, width: 50, height: 50, rotation: -2 }, fill: 'green', opacity: 0.3 });
-          group.nodes.addNode(node);
-        }
-        {
-          let node = factory.stage.node('rect', { frame: { x: 50, y: 100, width: 50, height: 50, rotation: -2 }, fill: 'blue', opacity: 0.2 });
-          group.nodes.addNode(node);
-        }
-        {
-          let node = factory.stage.node('rect', { frame: { x: 100, y: 100, width: 50, height: 50, rotation: 2 }, fill: 'red', opacity: 0.2 });
-          group.nodes.addNode(node);
+          let group = factory.stage.node('group');
+          area.nodes.addNode(group);
+          createRects(group, 310, 40);
         }
       }
       setGlobal({ area });
       stage.nodes.addNode(area);
+      createRects(stage, 90, 450);
     }
     // {
     //   let area = factory.stage.node('area', {
