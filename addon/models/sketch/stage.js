@@ -10,7 +10,6 @@ import { selection } from './stage/selection';
 import { dragging } from './stage/dragging';
 import { resizing } from './stage/resizing';
 import { renderer } from './stage/renderer';
-import { round } from '../../util/math';
 
 const zoom = () => constrainedNumber({
   initial: 1,
@@ -128,57 +127,48 @@ export default Base.extend(FrameMixin, {
     }
   },
 
-  nodesForPosition(position, type) {
-    return this.nodes.nodesForPosition(position, type);
-  },
-
-  convertPointFromScreen(point) {
-    let { zoom, frame } = this;
-    let value = key => round(point[key] / zoom - frame[key], 2);
-    return {
-      x: value('x'),
-      y: value('y')
-    }
-  },
+  // nodesForPosition(position, type) {
+  //   return this.nodes.nodesForPosition(position, type);
+  // },
 
   //
 
   moveNodeToContainedArea(node) {
-    if(node.isStage || node.isArea) {
-      return;
-    }
+    // if(node.isStage || node.isArea) {
+    //   return;
+    // }
 
-    let target = this.nodes.areas.find(area => area !== node && area.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds'));
-    if(target) {
-      if(node.area === target) {
-        return;
-      }
-    } else if(node.parent === this) {
-      return;
-    } else if(!target) {
-      target = this;
-    }
+    // let target = this.nodes.areas.find(area => area !== node && area.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds'));
+    // if(target) {
+    //   if(node.area === target) {
+    //     return;
+    //   }
+    // } else if(node.parent === this) {
+    //   return;
+    // } else if(!target) {
+    //   target = this;
+    // }
 
-    let frame = target.frame.convertFrameFromAbsolute(node.frame.absolute);
-    let selected = node.isSelected;
+    // let frame = target.frame.convertFrameFromAbsolute(node.frame.absolute);
+    // let selected = node.isSelected;
 
-    if(selected) {
-      node.deselect();
-    }
+    // if(selected) {
+    //   node.deselect();
+    // }
 
-    node.remove();
-    node.frame.update(frame);
-    target.nodes.addNode(node);
+    // node.remove();
+    // node.frame.update(frame);
+    // target.nodes.addNode(node);
 
-    if(selected) {
-      node.select({ replace: false });
-    }
+    // if(selected) {
+    //   node.select({ replace: false });
+    // }
 
-    return true;
+    // return true;
   },
 
   moveNodesToContainedAreas(nodes) {
-    return nodes.filter(node => this.moveNodeToContainedArea(node));
+    // return nodes.filter(node => this.moveNodeToContainedArea(node));
   }
 
 });

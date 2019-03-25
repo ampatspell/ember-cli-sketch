@@ -40,15 +40,16 @@ export default Base.extend({
     node.willAddToParent(owner);
     all.pushObject(node);
     node.didAddToParent(owner);
+    return node;
   },
 
-  nodesForPosition(position, type) {
-    let nodes = [];
-    this.all.forEach(node => {
-      nodes.push(...node.nodesForPosition(position, type));
-    });
-    return nodes;
-  },
+  // nodesForPosition(position, type) {
+  //   let nodes = [];
+  //   this.all.forEach(node => {
+  //     nodes.push(...node.nodesForPosition(position, type));
+  //   });
+  //   return nodes;
+  // },
 
   containsNode(node) {
     return this.all.find(child => child === node || child.containsNode(node));

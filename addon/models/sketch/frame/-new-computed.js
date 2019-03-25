@@ -1,5 +1,6 @@
 import { computed } from '@ember/object';
 import { compact } from '../../../util/object';
+import { round, rotatedRectBounds } from '../../../util/math';
 
 const keys = (() => {
   let zoomable = [ 'x', 'y', 'width', 'height' ];
@@ -21,9 +22,14 @@ export const zoomed = frameKey => computed(zoomKey, frameKey, function() {
   return Object.keys(frame).reduce((zoomed, key) => {
     let value = frame[key];
     if(keys.zoomable.includes(key)) {
-      value = value * zoom;
+      value = round(value * zoom);
     }
     zoomed[key] = value;
     return zoomed;
   }, {});
+}).readOnly();
+
+export const hover = () => computed('zoomed', function() {
+  let frame = this.zoomed;
+  return rotatedRectBounds(frame);
 }).readOnly();
