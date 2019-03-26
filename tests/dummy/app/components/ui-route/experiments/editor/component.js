@@ -22,32 +22,32 @@ export default Component.extend({
         let node = factory.stage.node('rect', {
           frame: { x: ox, y: oy, width: 50, height: 50, rotation: 2 },
           constraints: { horizontal: { min: 20, max: 100 }, vertical: { min: 20, max: 100 } },
-          fill: 'red',
-          opacity: 0.5
+          fill: '#ff9c66',
+          // opacity: 0.5
         });
         parent.nodes.addNode(node);
       }
       {
         let node = factory.stage.node('rect', {
           frame: { x: ox+50, y: oy, width: 50, height: 50, rotation: -2 },
-          fill: 'green',
-          opacity: 0.3
+          fill: '#80ff88',
+          // opacity: 0.3
         });
         parent.nodes.addNode(node);
       }
       {
         let node = factory.stage.node('rect', {
           frame: { x: ox, y: oy+50, width: 50, height: 50, rotation: -2 },
-          fill: 'blue',
-          opacity: 0.2
+          fill: '#668fff',
+          // opacity: 0.2
         });
         parent.nodes.addNode(node);
       }
       {
         let node = factory.stage.node('rect', {
           frame: { x: ox+50, y: oy+50, width: 50, height: 50, rotation: 2 },
-          fill: 'red',
-          opacity: 0.2
+          fill: '#ff7d66',
+          // opacity: 0.2
         });
         parent.nodes.addNode(node);
       }
