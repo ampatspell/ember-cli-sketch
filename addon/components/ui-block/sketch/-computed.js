@@ -1,4 +1,5 @@
 import { computed } from '@ember/object';
+import { typeOf } from '@ember/utils';
 import { htmlSafe } from '@ember/string';
 import { assign } from '@ember/polyfills';
 import { round } from '../../../util/math';
@@ -15,7 +16,7 @@ const normalizeInset = inset => {
   return inset;
 }
 
-export const frameToString = (frame, opts={}) => {
+export const frameToObject = (frame, opts={}) => {
   if(!frame) {
     return;
   }
@@ -32,19 +33,20 @@ export const frameToString = (frame, opts={}) => {
 
   let r = value => round(value, 0);
 
-  let string =  `transform: translate(${r(x)}px, ${r(y)}px)`;
+  let hash = {};
+
+  hash.transform = `translate(${r(x)}px, ${r(y)}px)`;
 
   if(rotation !== undefined) {
-    let rotate = `rotate(${rotation}deg)`;
-    string = `${string} ${rotate}`;
+    hash.transform += ` rotate(${rotation}deg)`;
   }
 
   if(width !== undefined && height !== undefined) {
-    let size = `width: ${r(width)}px; height: ${r(height)}px`;
-    string = `${string}; ${size}`;
+    hash.width = `${r(width)}px`;
+    hash.height = `${r(height)}px`;
   }
 
-  return htmlSafe(string);
+  return hash;
 }
 
 export const frame = (nodeKey, frameKey, opts={}) => computed(`${nodeKey}.frame.${frameKey}`, function() {
@@ -52,5 +54,29 @@ export const frame = (nodeKey, frameKey, opts={}) => computed(`${nodeKey}.frame.
   if(!frame) {
     return;
   }
-  return frameToString(frame.get(frameKey), opts);
+  return frameToObject(frame.get(frameKey), opts);
 }).readOnly();
+
+export const style = (...deps) => {
+  let fn = deps.pop();
+  return computed(...deps, function() {
+    let hash = fn.call(this, this);
+    if(!hash) {
+      return;
+    }
+    if(typeOf(hash) === 'array') {
+      hash = hash.reduce((result, hash) => {
+        result = assign(result, hash);
+        return result;
+      }, {});
+    }
+    let array = Object.keys(hash).reduce((array, key) => {
+      let value = hash[key];
+      if(value !== undefined) {
+        array.push(`${key}:${value}`);
+      }
+      return array;
+    }, []);
+    return htmlSafe(array.join(';'));
+  }).readOnly();
+};

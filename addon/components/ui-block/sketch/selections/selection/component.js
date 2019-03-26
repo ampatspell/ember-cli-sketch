@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import layout from './template';
 import { readOnly, or } from '@ember/object/computed';
-import { frame } from '../../-computed';
+import { frame, style } from '../../-computed';
 
 const disabled = key => readOnly(`constraints.${key}.isNotResizable`);
 
@@ -28,7 +28,8 @@ export default Component.extend({
   isMiddleLeftDisabled:   or('horizontal'),
   isMiddleRightDisabled:  or('horizontal'),
 
-  style: frame('node', 'selection', { inset: -1 }),
+  frame: frame('node', 'selection', { inset: -1 }),
+  style: style('frame', ({ frame }) => frame),
 
   actions: {
     enter(edge) {

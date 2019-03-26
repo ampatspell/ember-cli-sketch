@@ -1,12 +1,13 @@
 import Component from '@ember/component';
 import layout from './template';
-import { frame } from '../../-computed';
+import { frame, style } from '../../-computed';
 
 export default Component.extend({
   layout,
   classNameBindings: [ ':ui-block-sketch-hovers-hover' ],
   attributeBindings: [ 'style' ],
 
-  style: frame('node', 'hover', { inset: -2 }),
+  frame: frame('node', 'hover', { inset: -2 }),
+  style: style('frame', ({ frame }) => frame),
 
 });

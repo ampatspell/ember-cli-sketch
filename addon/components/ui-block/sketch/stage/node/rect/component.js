@@ -1,14 +1,16 @@
 import Component from '../-component';
 import layout from './template';
-import { computed } from '@ember/object';
-import { htmlSafe } from '@ember/string';
+import { style } from '../-computed';
 
 export default Component.extend({
   layout,
 
-  style: computed('node.{fill,opacity}', function() {
-    let { fill, opacity } = this.node;
-    return htmlSafe(`background: ${fill}; opacity: ${opacity}`);
-  }).readOnly(),
+  style: style('node.{fill,opacity}', function() {
+    let { node: { fill: background, opacity } } = this;
+    return {
+      background,
+      opacity
+    };
+  })
 
 });
