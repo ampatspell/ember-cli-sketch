@@ -1,8 +1,46 @@
-import Handler, { action } from '../-handler';
+import Handler from '../-handler';
 
 export default Handler.extend({
 
-  action: action('node.drag'),
+  isActive: false,
+
+  setActive(isActive) {
+    this.setProperties({ isActive });
+  },
+
+  begin() {
+    this.setActive(true);
+    this.dragging.clear();
+  },
+
+  end() {
+    this.setActive(false);
+    this.dragging.clear();
+  },
+
+  update({ delta }) {
+    let { isActive, dragging, selection, zoom } = this;
+
+    if(!isActive) {
+      return;
+    }
+
+    if(!dragging.any) {
+      if(!selection.any) {
+        return;
+      }
+      dragging.replace(selection.all);
+      dragging.forEach(node => node.isArea && node.moveToBottom());
+    }
+
+    let point = {
+      x: delta.x / zoom,
+      y: delta.y / zoom
+    }
+
+    dragging.forEach(node => node.frame.update(point, { delta: true }));
+    dragging.addNodes(this.stage.moveNodesToContainedAreas(dragging.all));
+  },
 
   onMouseDown() {
     let { mouse: { isLeftButtonOverStage } } = this;
@@ -11,24 +49,21 @@ export default Handler.extend({
       return;
     }
 
-    this.action.begin();
+    this.begin();
   },
 
   onMouseUp() {
-    this.action.end();
+    this.end();
   },
 
   onMouseMove({ delta }) {
-    let { mouse: { isLeftButton }, stage: { zoom } } = this;
+    let { mouse: { isLeftButton } } = this;
 
     if(!isLeftButton) {
       return;
     }
 
-    this.action.update({
-      x: delta.x / zoom,
-      y: delta.y / zoom
-    });
+    this.update({ delta });
   }
 
 });

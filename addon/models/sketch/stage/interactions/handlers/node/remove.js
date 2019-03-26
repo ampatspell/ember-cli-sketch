@@ -1,8 +1,23 @@
-import Handler, { action } from '../-handler';
+import Handler from '../-handler';
 
 export default Handler.extend({
 
-  action: action('node.remove'),
+  perform() {
+    let { stage, selection } = this;
+
+    let nodes = selection.copy();
+    if(!nodes.length) {
+      return;
+    }
+
+    let perform = () => nodes.forEach(node => node.remove());
+
+    stage.handle({
+      type: 'remove-nodes',
+      nodes,
+      perform
+    });
+  },
 
   onKeyUp({ key, body }) {
     if(!body) {
@@ -13,7 +28,7 @@ export default Handler.extend({
       return;
     }
 
-    this.action.perform();
+    this.perform();
   }
 
 });

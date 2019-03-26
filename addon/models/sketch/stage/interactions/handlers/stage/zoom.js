@@ -1,8 +1,11 @@
-import Handler, { action } from '../-handler';
+import Handler from '../-handler';
 
 export default Handler.extend({
 
-  action: action('stage.zoom'),
+  update({ delta }) {
+    let zoom = this.zoom + delta;
+    this.stage.setProperties({ zoom });
+  },
 
   onMouseWheel({ direction, value, keys: { meta } }) {
     if(direction !== 'x' && !meta) {
@@ -10,8 +13,7 @@ export default Handler.extend({
     }
 
     let delta = value / 10;
-
-    this.action.perform({ delta });
+    this.update({ delta });
 
     return false;
   }

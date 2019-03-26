@@ -1,10 +1,10 @@
-import Handler, { action } from '../-handler';
-import { readOnly } from '@ember/object/computed';
+import Handler from '../-handler';
 
 export default Handler.extend({
 
-  zoom: readOnly('stage.zoom'),
-  action: action('stage.position'),
+  update({ delta }) {
+    this.stage.frame.update(delta, { delta: true });
+  },
 
   onMouseDown() {
     if(this.mouse.isLeftButton && this.keyboard.isSpace) {
@@ -18,7 +18,7 @@ export default Handler.extend({
       let { zoom } = this;
       delta.x = delta.x / zoom;
       delta.y = delta.y / zoom;
-      this.action.perform({ delta });
+      this.update({ delta });
 
       return false;
     }
@@ -28,7 +28,8 @@ export default Handler.extend({
     if(meta) {
       return;
     }
-    this.action.perform({ delta: { [direction]: -value * 25 } });
+
+    this.update({ delta: { [direction]: -value * 25 } });
   }
 
 });

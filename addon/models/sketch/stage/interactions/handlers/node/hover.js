@@ -1,8 +1,13 @@
-import Handler, { action } from '../-handler';
+import Handler from '../-handler';
 
 export default Handler.extend({
 
-  action: action('node.hover'),
+  perform() {
+    let { stage, hover } = this;
+    let point = stage.frame.convertPointFromScreen(this.mouse.stage);
+    let nodes = stage.nodes.nodesForPosition(point, 'absoluteBounds');
+    hover.replace(nodes);
+  },
 
   onMouseMove() {
     this.perform();
@@ -10,11 +15,6 @@ export default Handler.extend({
 
   onMouseWheel() {
     this.perform();
-  },
-
-  perform() {
-    let point = this.stage.frame.convertPointFromScreen(this.mouse.stage);
-    this.action.perform(point);
   }
 
 });
