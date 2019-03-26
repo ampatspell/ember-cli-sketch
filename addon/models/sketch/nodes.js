@@ -24,6 +24,16 @@ export default Base.extend({
 
   areas: is('isArea'),
 
+  _moveToBottom(node) {
+    let { all } = this;
+    if(all.lastObject === node) {
+      return;
+    }
+    all.removeObject(node);
+    all.pushObject(node);
+    return true;
+  },
+
   _removeNode(node) {
     let { all } = this;
     if(!all.includes(node)) {

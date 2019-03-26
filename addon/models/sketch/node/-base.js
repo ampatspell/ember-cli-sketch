@@ -82,6 +82,13 @@ export default Base.extend(FrameMixin, {
 
   //
 
+  moveToBottom() {
+    let { parent } = this;
+    parent && parent.nodes._moveToBottom(this);
+  },
+
+  //
+
   nodesForPosition(position, type) {
     if(this.nodes) {
       let nodes = this.nodes.nodesForPosition(this.frame.convertPointFromParent(position), type);

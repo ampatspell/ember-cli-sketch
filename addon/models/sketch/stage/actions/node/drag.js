@@ -35,6 +35,7 @@ export default Action.extend({
         return;
       }
       dragging.replace(selection.all);
+      dragging.forEach(node => node.isArea && node.moveToBottom());
     }
 
     dragging.forEach(node => node.frame.update({ x, y }, { delta: true }));
