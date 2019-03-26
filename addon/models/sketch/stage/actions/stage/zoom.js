@@ -6,8 +6,7 @@ export default Action.extend({
   zoom: readOnly('stage.zoom'),
 
   perform({ delta }) {
-    let { zoom } = this;
-    zoom += delta;
+    let zoom = this.zoom + delta;
     this.stage.setProperties({ zoom });
   }
 
