@@ -23,6 +23,7 @@ export default Base.extend({
   any: gt('all.length', 0),
 
   areas: is('isArea'),
+  containers: is('isContainer'),
 
   _moveToBottom(node) {
     let { all } = this;

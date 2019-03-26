@@ -5,6 +5,7 @@ import { nodes } from '../nodes';
 export default Node.extend({
 
   isGroup: true,
+  isContainer: true,
 
   frame: frame('group'),
   nodes: nodes(),

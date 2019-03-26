@@ -21,6 +21,7 @@ const zoom = () => constrainedNumber({
 export default Base.extend(FrameMixin, {
 
   isStage: true,
+  isContainer: true,
   stage: self(),
 
   frame: frame('stage'),
