@@ -19,7 +19,7 @@ export default Component.extend({
 
     let createRects = (parent, ox, oy) => {
       {
-        let node = factory.stage.node('rect', {
+        let node = factory.node.create('rect', {
           frame: { x: ox, y: oy, width: 50, height: 50, rotation: 2 },
           constraints: { horizontal: { min: 20, max: 100 }, vertical: { min: 20, max: 100 } },
           fill: '#ff9c66',
@@ -28,7 +28,7 @@ export default Component.extend({
         parent.nodes.addNode(node);
       }
       {
-        let node = factory.stage.node('rect', {
+        let node = factory.node.create('rect', {
           frame: { x: ox+50, y: oy, width: 50, height: 50, rotation: -2 },
           fill: '#80ff88',
           // opacity: 0.3
@@ -36,7 +36,7 @@ export default Component.extend({
         parent.nodes.addNode(node);
       }
       {
-        let node = factory.stage.node('rect', {
+        let node = factory.node.create('rect', {
           frame: { x: ox, y: oy+50, width: 50, height: 50, rotation: -2 },
           fill: '#668fff',
           // opacity: 0.2
@@ -44,7 +44,7 @@ export default Component.extend({
         parent.nodes.addNode(node);
       }
       {
-        let node = factory.stage.node('rect', {
+        let node = factory.node.create('rect', {
           frame: { x: ox+50, y: oy+50, width: 50, height: 50, rotation: 2 },
           fill: '#ff7d66',
           // opacity: 0.2
@@ -54,12 +54,12 @@ export default Component.extend({
     }
 
     let createArea = (parent, ox, oy) => {
-      let area = factory.stage.node('area', {
+      let area = factory.node.area({
         frame: { x: ox, y: oy, width: 500, height: 200 },
         constraints: { horizontal: { resize: false, move: false }, vertical: { resize: true, min: 100, max: 400 } }
       });
       createRects(area, 20, 20);
-      let group = area.nodes.addNode(factory.stage.node('group'));
+      let group = area.nodes.addNode(factory.node.group());
       createRects(group, 160, 20);
       parent.nodes.addNode(area);
     }

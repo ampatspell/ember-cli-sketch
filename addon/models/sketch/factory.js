@@ -10,9 +10,6 @@ export default Base.extend({
   },
 
   stage: factory('stage'),
-
-  node(name, props) {
-    return this.model(`node/${name}`, props);
-  }
+  node: factory('node')
 
 });

@@ -1,14 +1,13 @@
 import Base, { factory } from './-base';
-import { assign } from '@ember/polyfills';
 
 export default Base.extend({
+
+  interactions: factory('stage/interactions'),
+  actions: factory('stage/actions'),
 
   create(props) {
     return this.model('stage', props);
   },
-
-  interactions: factory('stage/interactions'),
-  actions: factory('stage/actions'),
 
   frame(type, owner) {
     return this.model(`frame/${type}`, { owner });
@@ -16,10 +15,6 @@ export default Base.extend({
 
   nodes(owner) {
     return this.model(`nodes`, { owner });
-  },
-
-  node(type, props) {
-    return this.model(`node/${type}`, assign({ type }, props));
   },
 
   position(owner) {
