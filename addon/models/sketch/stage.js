@@ -4,7 +4,6 @@ import { frame, FrameMixin } from './frame/-base';
 import { self, constrainedNumber } from '../../util/computed';
 import { nodes } from './nodes';
 import { interactions } from './stage/interactions';
-import { actions } from './stage/actions';
 import { hover } from './stage/hover';
 import { selection } from './stage/selection';
 import { dragging } from './stage/dragging';
@@ -29,7 +28,6 @@ export default Base.extend(FrameMixin, {
   nodes: nodes(),
 
   interactions: interactions(),
-  actions: actions(),
   hover: hover(),
   selection: selection(),
   dragging: dragging(),

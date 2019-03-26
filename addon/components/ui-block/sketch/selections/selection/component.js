@@ -28,7 +28,7 @@ export default Component.extend({
   isMiddleLeftDisabled:   or('horizontal'),
   isMiddleRightDisabled:  or('horizontal'),
 
-  frame: frame('node', 'selection', { inset: -1 }),
+  frame: frame('node', 'selection', { inset: -1, index: false }),
   style: style('frame', ({ frame }) => frame),
 
   actions: {

@@ -1,5 +1,6 @@
 .ui-block-sketch-selections-selection {
   position: absolute;
+  z-index: 10002;
   border: 1px solid fade-out(#000, 0.3);
   > .marker {
     position: absolute;

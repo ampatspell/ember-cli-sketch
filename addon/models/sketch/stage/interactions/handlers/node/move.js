@@ -1,8 +1,14 @@
-import Handler, { action } from '../-handler';
+import Handler from '../-handler';
 
 export default Handler.extend({
 
-  action: action('node.move'),
+  perform({ delta }) {
+    let { selection, stage } = this;
+    let nodes = selection.all;
+    nodes.forEach(node => node.frame.update(delta, { delta: true }));
+    stage.moveNodesToContainedAreas(nodes);
+    nodes.forEach(node => node.isArea && node.moveToBottom());
+  },
 
   onKeyDown({ key, body }) {
     if(!body) {
@@ -28,7 +34,7 @@ export default Handler.extend({
       return;
     }
 
-    this.action.perform({ delta });
+    this.perform({ delta });
   }
 
 });

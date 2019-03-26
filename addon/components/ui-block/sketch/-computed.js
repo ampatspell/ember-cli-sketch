@@ -54,9 +54,10 @@ export const frame = (nodeKey, frameKey, opts={}) => computed(`${nodeKey}.{index
   if(!node) {
     return;
   }
-  let hash = {
-    'z-index': node.index
-  };
+  let hash = {};
+  if(opts.index !== false) {
+    hash['z-index'] = node.index;
+  }
   let frame = this.get(`${nodeKey}.frame`);
   if(frame) {
     hash = assign(hash, frameToObject(frame.get(frameKey), opts));
