@@ -107,22 +107,28 @@ export default Base.extend(FrameMixin, {
 
   //
 
-  moveToParent(parent) {
+  _beginMoveToParent(parent) {
     let selected = this.isSelected;
+    let frame = parent.frame.convertFrameFromAbsolute(this.frame.absolute);
 
     if(selected) {
       this.deselect();
     }
 
-    let frame = parent.frame.convertFrameFromAbsolute(this.frame.absolute);
+    return () => {
+      this.frame.update(frame);
+      if(selected) {
+        this.select({ replace: false });
+      }
+    };
+  },
+
+  moveToParent(parent) {
+    let commit = this._beginMoveToParent(parent);
 
     this.remove();
-    this.frame.update(frame);
     parent.nodes.addNode(this);
-
-    if(selected) {
-      this.select({ replace: false });
-    }
+    commit();
 
     return true;
   }

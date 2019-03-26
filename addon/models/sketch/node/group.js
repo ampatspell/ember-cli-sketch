@@ -10,21 +10,11 @@ export default Node.extend({
   nodes: nodes(),
 
   moveToParent(parent) {
-    let selected = this.isSelected;
-
-    if(selected) {
-      this.deselect();
-    }
-
-    let frames = this.nodes.all.map(node => parent.frame.convertFrameFromAbsolute(node.frame.absolute));
+    let commits = this.nodes.all.map(node => node._beginMoveToParent(parent));
 
     this.remove();
-    this.nodes.all.forEach((node, idx) => node.frame.update(frames[idx]));
     parent.nodes.addNode(this);
-
-    if(selected) {
-      this.select({ replace: false });
-    }
+    commits.forEach(commit => commit());
 
     return true;
   }
