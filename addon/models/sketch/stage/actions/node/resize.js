@@ -21,6 +21,8 @@ export default Action.extend({
     let nodes = selection.filter(selection => selection !== node);
     selection.removeNodes(nodes);
 
+    nodes.forEach(node => node.isArea && node.moveToBottom());
+
     return true;
   },
 

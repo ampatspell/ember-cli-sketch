@@ -49,12 +49,19 @@ export const frameToObject = (frame, opts={}) => {
   return hash;
 }
 
-export const frame = (nodeKey, frameKey, opts={}) => computed(`${nodeKey}.frame.${frameKey}`, function() {
-  let frame = this.get(`${nodeKey}.frame`);
-  if(!frame) {
+export const frame = (nodeKey, frameKey, opts={}) => computed(`${nodeKey}.{index,frame.${frameKey}}`, function() {
+  let node = this.get(nodeKey);
+  if(!node) {
     return;
   }
-  return frameToObject(frame.get(frameKey), opts);
+  let hash = {
+    'z-index': node.index
+  };
+  let frame = this.get(`${nodeKey}.frame`);
+  if(frame) {
+    hash = assign(hash, frameToObject(frame.get(frameKey), opts));
+  }
+  return hash;
 }).readOnly();
 
 export const style = (...deps) => {
@@ -73,10 +80,10 @@ export const style = (...deps) => {
     let array = Object.keys(hash).reduce((array, key) => {
       let value = hash[key];
       if(value !== undefined) {
-        array.push(`${key}:${value}`);
+        array.push(`${key}: ${value}`);
       }
       return array;
     }, []);
-    return htmlSafe(array.join(';'));
+    return htmlSafe(array.join('; '));
   }).readOnly();
 };

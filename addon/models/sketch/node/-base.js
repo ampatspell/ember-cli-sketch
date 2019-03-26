@@ -29,7 +29,7 @@ export default Base.extend(FrameMixin, {
     if(!nodes) {
       return;
     }
-    return nodes.indexOf(this);
+    return nodes.indexOf(this) + 1;
   }).readOnly(),
 
   area: parent('isArea'),
