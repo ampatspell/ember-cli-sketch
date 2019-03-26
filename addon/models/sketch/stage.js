@@ -134,12 +134,6 @@ export default Base.extend(FrameMixin, {
       return;
     }
 
-    if(node.isGroup) {
-      // TODO: move group
-      // group.frame.absolute is parent absolute
-      return;
-    }
-
     let target = this.nodes.areas.find(area => {
       return area.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds');
     });
@@ -154,29 +148,7 @@ export default Base.extend(FrameMixin, {
       target = this;
     }
 
-    let frame = target.frame.convertFrameFromAbsolute(node.frame.absolute);
-    let selected = node.isSelected;
-
-    if(selected) {
-      node.deselect();
-    }
-
-    let group = node.group;
-
-    node.remove();
-    node.frame.update(frame);
-    target.nodes.addNode(node);
-
-    if(group && !group.nodes.any) {
-      console.log('remove group');
-      group.remove();
-    }
-
-    if(selected) {
-      node.select({ replace: false });
-    }
-
-    return true;
+    return node.moveToParent(target);
   },
 
   moveNodesToContainedAreas(nodes) {

@@ -103,6 +103,27 @@ export default Base.extend(FrameMixin, {
       array.push(...node.allNodes());
     });
     return array;
+  },
+
+  //
+
+  moveToParent(parent) {
+    let frame = parent.frame.convertFrameFromAbsolute(this.frame.absolute);
+    let selected = this.isSelected;
+
+    if(selected) {
+      this.deselect();
+    }
+
+    this.remove();
+    this.frame.update(frame);
+    parent.nodes.addNode(this);
+
+    if(selected) {
+      this.select({ replace: false });
+    }
+
+    return true;
   }
 
 });
