@@ -10,11 +10,14 @@ export default Node.extend({
   nodes: nodes(),
 
   moveToParent(parent) {
+    let select = this._beginMoveSelection();
     let commits = this.nodes.all.map(node => node._beginMoveToParent(parent));
 
     this.remove();
     parent.nodes.addNode(this);
     commits.forEach(commit => commit());
+
+    select();
 
     return true;
   }
