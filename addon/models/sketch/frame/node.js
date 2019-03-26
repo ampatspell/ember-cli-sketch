@@ -14,6 +14,6 @@ export default Frame.extend(Position, Size, Rotation, {
   absoluteBounds: rotated('absolute'),
 
   hover: zoomed('absoluteBounds'),
-  selection: zoomed('absolute')
+  selection: zoomed('absoluteBounds')
 
 });
