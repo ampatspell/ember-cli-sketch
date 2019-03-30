@@ -38,11 +38,11 @@ export default Base.extend({
   },
 
   addKey(opts) {
-    if(this.existingKey(opts)) {
-      return;
+    let key = this.existingKey(opts);
+    if(!key) {
+      key = this.createKey(opts);
+      this.keys.pushObject(key);
     }
-    let key = this.createKey(opts);
-    this.keys.pushObject(key);
     return key;
   },
 

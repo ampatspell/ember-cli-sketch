@@ -62,14 +62,14 @@ export default Base.extend({
 
   onKeyDown(opts) {
     let key = this.keyboard.onKeyDown(opts);
-    if(opts.body) {
+    if(opts.body && key) {
       this.invokeHandlers('onKeyDown', key);
     }
   },
 
   onKeyUp(opts) {
     let key = this.keyboard.onKeyUp(opts);
-    if(opts.body) {
+    if(opts.body && key) {
       this.invokeHandlers('onKeyUp', key);
     }
   },
