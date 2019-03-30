@@ -2,7 +2,6 @@ import Base from '../../-base';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 import { array } from '../../../../util/computed';
-import { assign } from '@ember/polyfills';
 import { assert } from '@ember/debug';
 
 export default Base.extend({
@@ -24,9 +23,7 @@ export default Base.extend({
     return parent && parent.node;
   },
 
-  //
-
-  onModelAdded(model) {
+  _addNode(model) {
     let node = model.node;
     assert(`model.node must return node for '${model}'`, !!node);
 
@@ -37,6 +34,22 @@ export default Base.extend({
 
     parent.nodes.addNode(node);
     this.nodes.pushObject(node);
+  },
+
+  //
+
+  onModelUpdated(model) {
+    let node = this.nodeForModel(model);
+    if(node) {
+      node.remove();
+      model._unsetNode();
+      this.nodes.removeObject(node);
+    }
+    this._addNode(model);
+  },
+
+  onModelAdded(model) {
+    this._addNode(model);
   },
 
   onModelsAdded(models) {

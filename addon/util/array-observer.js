@@ -1,47 +1,70 @@
 import { A } from '@ember/array';
+import { startObservingObjects, stopObservingObjects } from './object-observer';
+
+const keys = [ 'type', 'parent' ];
 
 export default class ArrayObserver {
 
   constructor(array, delegate) {
     this.array = array;
     this.delegate = delegate;
-    this.start();
+    this.startObserving();
   }
 
-  _arrayWillChange(array, start, removeCount) {
+  //
+
+  objectValueForKeyDidChange(object, key) {
+    this.delegate.updated(object, key);
+  }
+
+  startObservingObjects(objects) {
+    startObservingObjects(objects, keys, this, this.objectValueForKeyDidChange);
+  }
+
+  stopObservingObjects(objects) {
+    stopObservingObjects(objects, keys, this, this.objectValueForKeyDidChange);
+  }
+
+  //
+
+  arrayWillChange(array, start, removeCount) {
     if(removeCount) {
       let removing = A(array.slice(start, start + removeCount));
       this.delegate.removed(removing, start, removeCount);
+      this.stopObservingObjects(removing);
     }
   }
 
-  _arrayDidChange(array, start, removeCount, addCount) {
+  arrayDidChange(array, start, removeCount, addCount) {
     if(addCount) {
       let adding = A(array.slice(start, start + addCount));
       this.delegate.added(adding, start, addCount);
+      this.startObservingObjects(adding);
     }
   }
 
-  get _arrayObserverOptions() {
+  get arrayObserverOptions() {
     return {
-      willChange: this._arrayWillChange,
-      didChange:  this._arrayDidChange
+      willChange: this.arrayWillChange,
+      didChange:  this.arrayDidChange
     };
   }
 
-  start() {
+  startObserving() {
     let { array } = this;
-    array.addArrayObserver(this, this._arrayObserverOptions);
+    array.addArrayObserver(this, this.arrayObserverOptions);
+    this.startObservingObjects(array);
     this.delegate.added(array, 0, array.length);
   }
 
-  stop() {
+  stopObserving() {
     let { array } = this;
-    array.removeArrayObserver(this, this._arrayObserverOptions);
+    array.removeArrayObserver(this, this.arrayObserverOptions);
+    this.stopObservingObjects(array);
   }
 
   destroy() {
-    this.stop();
+    this.stopObserving();
   }
 
 }

@@ -5,6 +5,8 @@ import { assign } from '@ember/polyfills';
 
 export default Mixin.create({
 
+  _node: null,
+
   node: computed(function() {
     let node = this._node;
     if(!node) {
@@ -17,6 +19,15 @@ export default Mixin.create({
   _createNode() {
     let { type, properties } = this.createNode();
     return sketches(this).factory.stage.node.create(type, assign({ model: this }, properties));
-  }
+  },
+
+  _unsetNode() {
+    let node = this._node;
+    if(!node) {
+      return;
+    }
+    this._node = null;
+    this.notifyPropertyChange('node');
+  },
 
 });

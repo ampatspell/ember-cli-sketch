@@ -13,11 +13,16 @@ export default Base.extend({
     assert(`array is required`, !!this.array);
     this._observer = new ArrayObserver(this.array, {
       added:   (objects, start, len) => this.onSourceObjectsAdded(objects, start, len),
-      removed: (objects, start, len) => this.onSourceObjectsRemoved(objects, start, len)
+      removed: (objects, start, len) => this.onSourceObjectsRemoved(objects, start, len),
+      updated: (object, key) => this.onSourceObjectUpdated(object, key)
     });
   },
 
   //
+
+  onSourceObjectUpdated(model) {
+    this.onModelUpdated(model);
+  },
 
   onSourceObjectsAdded(models, start) {
     this.models.replace(start, 0, models);

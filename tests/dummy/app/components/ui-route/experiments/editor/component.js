@@ -18,6 +18,7 @@ export default Component.extend({
     return getOwner(this).factoryFor('model:documents').create();
   }).readOnly(),
 
+  // TODO: leaks
   model: computed(function() {
     let { documents } = this;
     return this.sketches.factory.model.stage('document-array', { documents });
