@@ -7,8 +7,12 @@ export const array = () => computed(function() {
   return A();
 }).readOnly();
 
-export const serialized = keys => computed(...keys, function() {
-  return compact(this.getProperties(keys));
+export const serialized = (keys, fn) => computed(...keys, function() {
+  let props = this.getProperties(keys);
+  if(fn) {
+    props = fn.call(this, props);
+  }
+  return compact(props);
 }).readOnly();
 
 export const validated = (fn) => {
