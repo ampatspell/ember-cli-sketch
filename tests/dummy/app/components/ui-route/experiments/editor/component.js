@@ -14,34 +14,22 @@ export default Component.extend({
 
   sketches: service(),
 
+  documents: computed(function() {
+    return getOwner(this).factoryFor('model:documents').create();
+  }).readOnly(),
+
+  model: computed(function() {
+    let { documents } = this;
+    return this.sketches.factory.model.stage('document-array', { documents });
+  }).readOnly(),
+
   stage: computed(function() {
-    let { sketches: { factory }, documents } = this;
-    let stage = factory.stage.create({ frame: { x: 50, y: 50 } });
-
-    let nodes = {};
-    documents.all.forEach(doc => {
-
-      let { parentId, id, x, y, width, height, rotation, fill, opacity } = doc;
-      let node = factory.stage.node.create(doc.type, { frame: { x, y, width, height, rotation }, fill, opacity });
-      nodes[id] = node;
-
-      let parent = stage;
-      if(parentId) {
-        parent = nodes[parentId];
-      }
-
-      parent.nodes.addNode(node);
-    });
-    return stage;
+    return this.model.stage;
   }).readOnly(),
 
   attachedStage: computed(function() {
     return this.stage;
   }),
-
-  documents: computed(function() {
-    return getOwner(this).factoryFor('model:documents').create();
-  }).readOnly(),
 
   didInsertElement() {
     this._super(...arguments);

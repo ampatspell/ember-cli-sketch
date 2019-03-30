@@ -17,6 +17,8 @@ const parent = prop => computed(`parent.${prop}`, function(key) {
   return parent[key];
 }).readOnly();
 
+export const model = key => readOnly(`model.${key}`);
+
 export default Base.extend(FrameMixin, {
 
   isNode: true,
