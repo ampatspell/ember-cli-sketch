@@ -2,6 +2,9 @@ import Component from '@ember/component';
 import layout from './template';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { A } from '@ember/array';
+import { assign } from '@ember/polyfills';
+import { getOwner } from '@ember/application';
 
 const transforms = {
   'toFloat': value => parseFloat(value)
@@ -77,9 +80,21 @@ export default Component.extend({
     return this.stage;
   }),
 
+  documents: computed(function() {
+    let array = A();
+    let add = (parentId, id, type, props) => array.pushObject(getOwner(this).factoryFor('model:document').create(assign({ parentId, id, type }, props)));
+
+    add(null, 'area-1', 'area', { x: 0, y: 0, width: 500, height: 200 });
+    add('area-1', 'rect-1', 'rect', { x: 10, y: 10, width: 50, height: 50, rotation: 2, fil: 'red', opacity: 0.5 });
+    add('area-1', 'rect-2', 'rect', { x: 70, y: 10, width: 50, height: 50, rotation: 2, fil: 'green', opacity: 0.5 });
+
+    return array;
+  }).readOnly(),
+
   actions: {
     ready(stage) {
-      setGlobal({ stage });
+      let { documents } = this;
+      setGlobal({ documents });
       stage.center();
     },
     toggle() {
