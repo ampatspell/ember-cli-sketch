@@ -38,9 +38,6 @@ export default Base.extend({
   onKeyDown() {
   },
 
-  onKeyPress() {
-  },
-
   onKeyUp() {
   },
 

@@ -26,7 +26,6 @@ export default Mixin.create({
         wheel:     wrap(e => this.onMouseWheel(e)),
         keydown:   wrap(e => this.onKeyDown(e)),
         keyup:     wrap(e => this.onKeyUp(e)),
-        keypress:  wrap(e => this.onKeyPress(e))
       };
       this._handlers = events;
     }
@@ -151,10 +150,6 @@ export default Mixin.create({
 
   onKeyDown(e) {
     this.interactions.onKeyDown(this.keysHashFromKeyboardEvent(e));
-  },
-
-  onKeyPress(e) {
-    this.interactions.onKeyPress();
   },
 
   onKeyUp(e) {

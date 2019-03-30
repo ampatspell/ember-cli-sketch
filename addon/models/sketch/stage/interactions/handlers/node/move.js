@@ -10,11 +10,7 @@ export default Handler.extend({
     nodes.forEach(node => node.isArea && node.moveToBottom());
   },
 
-  onKeyDown({ key, body }) {
-    if(!body) {
-      return;
-    }
-
+  onKeyDown(key) {
     let delta = {
       x: 0,
       y: 0
@@ -22,13 +18,13 @@ export default Handler.extend({
 
     let d = this.keyboard.isShift ? 15 : 1;
 
-    if(key === 'ArrowUp') {
+    if(key.isArrowUp) {
       delta.y = -d;
-    } else if(key === 'ArrowDown') {
+    } else if(key.isArrowDown) {
       delta.y = d;
-    } else if(key === 'ArrowLeft') {
+    } else if(key.isArrowLeft) {
       delta.x = -d;
-    } else if(key === 'ArrowRight') {
+    } else if(key.isArrowRight) {
       delta.x = d;
     } else {
       return;

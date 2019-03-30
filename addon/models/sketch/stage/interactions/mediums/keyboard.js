@@ -1,14 +1,13 @@
 import Base from '../../../-base';
 import { array, serialized } from '../../../../../util/computed';
 import { computed } from '@ember/object';
+import { sketches } from '../../../../../services/sketches';
 
 const properties = [ 'state', 'keys', 'isShift', 'isSpace', 'isMeta' ];
 
-const is = (key, value) => computed(`keys.@each.${key}`, function() {
-  return !!this.keys.find(object => object[key] === value);
+const is = key => computed(`keys.@each.${key}`, function() {
+  return !!this.keys.find(object => object[key]);
 }).readOnly();
-
-const isKey = value => is('key', value);
 
 export default Base.extend({
 
@@ -17,24 +16,34 @@ export default Base.extend({
   state: 'up',
   keys: array(),
 
-  isShift: isKey('Shift'),
-  isSpace: isKey(' '),
-  isMeta:  isKey('Meta'),
+  isShift: is('isShift'),
+  isSpace: is('isSpace'),
+  isMeta:  is('isMeta'),
 
   serialized: serialized(properties, hash => {
-    hash.keys = hash.keys.slice();
+    hash.keys = hash.keys.map(key => key.serialized);
     return hash;
   }),
 
+  isKeyCode(keyCode) {
+    return !!this.keys.find(object => object.keyCode === keyCode);
+  },
+
   existingKey({ key, keyCode }) {
     return this.keys.find(object => object.key === key && object.keyCode === keyCode);
+  },
+
+  createKey(opts) {
+    return sketches(this).factory.stage.interactions.key(this, opts);
   },
 
   addKey(opts) {
     if(this.existingKey(opts)) {
       return;
     }
-    this.keys.pushObject(opts);
+    let key = this.createKey(opts);
+    this.keys.pushObject(key);
+    return key;
   },
 
   removeKey(opts) {
@@ -43,19 +52,17 @@ export default Base.extend({
       return;
     }
     this.keys.removeObject(object);
+    return object;
   },
 
   onKeyDown(opts) {
     this.setProperties({ state: 'down' });
-    this.addKey(opts);
-  },
-
-  onKeyPress() {
+    return this.addKey(opts);
   },
 
   onKeyUp(opts) {
     this.setProperties({ state: 'up' });
-    this.removeKey(opts);
+    return this.removeKey(opts);
   },
 
   reset() {
