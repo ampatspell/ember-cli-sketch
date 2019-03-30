@@ -10,5 +10,6 @@ export default Base.extend({
   },
 
   stage: factory('stage'),
+  model: factory('model')
 
 });

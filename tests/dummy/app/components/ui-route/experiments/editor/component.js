@@ -43,10 +43,13 @@ export default Component.extend({
     return getOwner(this).factoryFor('model:documents').create();
   }).readOnly(),
 
+  didInsertElement() {
+    this._super(...arguments);
+    setGlobal({ component: this });
+  },
+
   actions: {
     ready(stage) {
-      let { documents } = this;
-      setGlobal({ documents });
       stage.center();
     },
     toggle() {
