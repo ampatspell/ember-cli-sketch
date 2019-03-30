@@ -169,7 +169,7 @@
   <div class="row">
     <div class="value small">
       {{#each documents.all as |doc|}}
-        <div>{{doc}}</div>
+        <div>{{doc}}{{#if doc.parent}} ({{doc.parent.id}}){{/if}}</div>
       {{/each}}
     </div>
   </div>
