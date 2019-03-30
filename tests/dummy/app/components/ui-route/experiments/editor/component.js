@@ -76,9 +76,9 @@ export default Component.extend({
       this.stage.reset();
     },
     add(type) {
-      let group = this.stage.areas.all.firstObject.group;
-      let node = this.sketches.factory.node(type, { frame: { x: 100, y: 100, width: 50, height: 50 }, fill: '#990000' });
-      group.addNode(node, { select: true });
+      let area = component.stage.nodes.areas.all.firstObject;
+      let node = this.sketches.factory.stage.node.create(type, { frame: { x: 100, y: 100, width: 50, height: 50 }, model: { fill: 'red', opacity: 0.5 } });
+      area.nodes.addNode(node, { select: true });
     },
     remove(node) {
       node.remove();

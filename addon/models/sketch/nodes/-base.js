@@ -2,6 +2,7 @@ import Base from '../-base';
 import { computed } from '@ember/object';
 import { readOnly, gt } from '@ember/object/computed';
 import { frame } from '../frame/-base';
+import { A } from '@ember/array';
 
 export default opts => Base.extend({
 
@@ -10,7 +11,7 @@ export default opts => Base.extend({
   frame: frame('nodes'),
 
   all: computed(`owner.all.@each.${opts.condition}`, function() {
-    return this.owner.all.filterBy(opts.condition, true);
+    return A(this.owner.all.filterBy(opts.condition, true));
   }).readOnly(),
 
   any: gt('all.length', 0),
