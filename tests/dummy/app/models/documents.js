@@ -12,6 +12,10 @@ export default EmberObject.extend({
     this.prepare();
   },
 
+  byId(id) {
+    return this.all.find(doc => doc.id === id);
+  },
+
   add(parent, id, type, props) {
     let parentId = parent && parent.id;
     if(parentId) {
@@ -30,6 +34,6 @@ export default EmberObject.extend({
     }
     addArea('area-1', 0, 0);
     addArea('area-2', 0, 240);
-  }
+  },
 
 });
