@@ -5,7 +5,7 @@ export default Node.extend({
 
   frame: frame('node'),
 
-  fill: model('fill'),
+  fill:    model('fill'),
   opacity: model('opacity')
 
 });

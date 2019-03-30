@@ -179,6 +179,12 @@ export default Base.extend(FrameMixin, {
 
   moveNodesToContainedAreas(nodes) {
     return nodes.filter(node => this.moveNodeToContainedArea(node));
+  },
+
+  _moveNode(node, target) {
+    node.remove();
+    this.model._moveNode(node, target);
+    target.nodes.addNode(node);
   }
 
 });

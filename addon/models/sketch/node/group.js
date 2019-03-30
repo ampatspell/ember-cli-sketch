@@ -11,15 +11,17 @@ export default Node.extend({
   nodes: nodes(),
 
   moveToParent(parent) {
-    let select = this._beginMoveSelection();
-    let commits = this.nodes.all.map(node => node._beginMoveToParent(parent));
+    throw new Error('not implemented');
 
-    // TODO: via model
-    this.remove();
-    parent.nodes.addNode(this);
-    commits.forEach(commit => commit());
+    // let select = this._beginMoveSelection();
+    // let commits = this.nodes.all.map(node => node._beginMoveToParent(parent));
 
-    select();
+    // // TODO: via model
+    // this.remove();
+    // parent.nodes.addNode(this);
+    // commits.forEach(commit => commit());
+
+    // select();
 
     return true;
   }

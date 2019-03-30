@@ -30,6 +30,6 @@ export default Mixin.create({
     }
     this._node = null;
     this.notifyPropertyChange('node');
-  },
+  }
 
 });

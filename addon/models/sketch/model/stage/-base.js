@@ -9,8 +9,7 @@ export default Base.extend({
   sketches: service(),
 
   stage: computed(function() {
-    let { model } = this;
-    return this.sketches.factory.stage.create({ model });
+    return this.sketches.factory.stage.create({ model: this });
   }).readOnly(),
 
   nodes: array(),
@@ -25,6 +24,12 @@ export default Base.extend({
       return this.stage;
     }
     return parent.node;
+  },
+
+  _moveNode(node, target) {
+    this._suppressUpdates = node.model;
+    this.moveModel(node.model, target.model);
+    this._suppressUpdates = null;
   },
 
   _addNodeForModel(model) {
@@ -50,6 +55,9 @@ export default Base.extend({
   //
 
   onModelUpdated(model) {
+    if(this._suppressUpdates === model) {
+      return;
+    }
     this._removeNodeForModel(model);
     this._addNodeForModel(model);
   },
