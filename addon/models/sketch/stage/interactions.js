@@ -46,12 +46,12 @@ export default Base.extend({
   },
 
   onMouseClick() {
-    this.mouse.onMouseClick();
+    this.mouse.onMouseClick(...arguments);
     this.invokeHandlers('onMouseClick', ...arguments);
   },
 
   onMouseUp() {
-    this.mouse.onMouseUp();
+    this.mouse.onMouseUp(...arguments);
     this.invokeHandlers('onMouseUp', ...arguments);
   },
 
@@ -60,19 +60,18 @@ export default Base.extend({
     this.invokeHandlers('onMouseWheel', ...arguments);
   },
 
-  onKeyDown() {
-    this.keyboard.onKeyDown(...arguments);
-    this.invokeHandlers('onKeyDown', ...arguments);
+  onKeyDown(opts) {
+    let key = this.keyboard.onKeyDown(opts);
+    if(opts.body && key) {
+      this.invokeHandlers('onKeyDown', key);
+    }
   },
 
-  onKeyPress() {
-    this.keyboard.onKeyPress(...arguments);
-    this.invokeHandlers('onKeyPress', ...arguments);
-  },
-
-  onKeyUp() {
-    this.keyboard.onKeyUp(...arguments);
-    this.invokeHandlers('onKeyUp', ...arguments);
+  onKeyUp(opts) {
+    let key = this.keyboard.onKeyUp(opts);
+    if(opts.body && key) {
+      this.invokeHandlers('onKeyUp', key);
+    }
   },
 
   reset() {

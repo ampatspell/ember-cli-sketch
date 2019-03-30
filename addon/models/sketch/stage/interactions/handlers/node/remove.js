@@ -19,15 +19,10 @@ export default Handler.extend({
     });
   },
 
-  onKeyUp({ key, body }) {
-    if(!body) {
+  onKeyUp(key) {
+    if(!key.isBackspaceOrDelete) {
       return;
     }
-
-    if(![ 'Backspace', 'Delete' ].includes(key)) {
-      return;
-    }
-
     this.perform();
   }
 

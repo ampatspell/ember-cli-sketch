@@ -26,7 +26,6 @@ export default Mixin.create({
         wheel:     wrap(e => this.onMouseWheel(e)),
         keydown:   wrap(e => this.onKeyDown(e)),
         keyup:     wrap(e => this.onKeyUp(e)),
-        keypress:  wrap(e => this.onKeyPress(e))
       };
       this._handlers = events;
     }
@@ -145,15 +144,12 @@ export default Mixin.create({
     let { keyCode, key } = e;
     // TODO: figure out focus & blur
     let body = document.activeElement === document.body;
-    return { keyCode, key, body };
+    let hash = { keyCode, key, body };
+    return hash;
   },
 
   onKeyDown(e) {
     this.interactions.onKeyDown(this.keysHashFromKeyboardEvent(e));
-  },
-
-  onKeyPress(e) {
-    this.interactions.onKeyPress(this.keysHashFromKeyboardEvent(e));
   },
 
   onKeyUp(e) {
