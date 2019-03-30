@@ -2,8 +2,6 @@ import Component from '@ember/component';
 import layout from './template';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
-import { A } from '@ember/array';
-import { assign } from '@ember/polyfills';
 import { getOwner } from '@ember/application';
 
 const transforms = {
@@ -21,7 +19,7 @@ export default Component.extend({
     let stage = factory.stage.create({ frame: { x: 50, y: 50 } });
 
     let nodes = {};
-    documents.forEach(doc => {
+    documents.all.forEach(doc => {
 
       let { parentId, id, x, y, width, height, rotation, fill, opacity } = doc;
       let node = factory.node.create(doc.type, { frame: { x, y, width, height, rotation }, fill, opacity });
@@ -42,19 +40,7 @@ export default Component.extend({
   }),
 
   documents: computed(function() {
-    let array = A();
-    let add = (parentId, id, type, props) => array.pushObject(getOwner(this).factoryFor('model:document').create(assign({ parentId, id, type }, props)));
-
-    let addArea = (id, x, y) => {
-      add(null, id, 'area', { x, y, width: 500, height: 200 });
-      add(id, `${id}-rect-1`, 'rect', { x: 10, y: 10, width: 50, height: 50, rotation: 2, fill: 'red', opacity: 0.5 });
-      add(id, `${id}-rect-2`, 'rect', { x: 70, y: 10, width: 50, height: 50, rotation: 2, fill: 'green', opacity: 0.5 });
-    }
-
-    addArea('area-1', 0, 0);
-    addArea('area-2', 0, 240);
-
-    return array;
+    return getOwner(this).factoryFor('model:documents').create();
   }).readOnly(),
 
   actions: {
