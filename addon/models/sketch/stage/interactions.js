@@ -46,12 +46,12 @@ export default Base.extend({
   },
 
   onMouseClick() {
-    this.mouse.onMouseClick();
+    this.mouse.onMouseClick(...arguments);
     this.invokeHandlers('onMouseClick', ...arguments);
   },
 
   onMouseUp() {
-    this.mouse.onMouseUp();
+    this.mouse.onMouseUp(...arguments);
     this.invokeHandlers('onMouseUp', ...arguments);
   },
 
