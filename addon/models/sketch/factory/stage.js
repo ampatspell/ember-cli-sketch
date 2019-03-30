@@ -6,51 +6,51 @@ export default Base.extend({
   node: factory('stage/node'),
 
   create(props) {
-    return this.model('stage', props);
+    return this._model('stage', props);
   },
 
   frame(type, owner) {
-    return this.model(`frame/${type}`, { owner });
+    return this._model(`frame/${type}`, { owner });
   },
 
   nodes(owner) {
-    return this.model(`nodes`, { owner });
+    return this._model(`nodes`, { owner });
   },
 
   typed(type, owner) {
-    return this.model(`nodes/${type}`, { owner });
+    return this._model(`nodes/${type}`, { owner });
   },
 
   position(owner) {
-    return this.model('stage/position', { owner });
+    return this._model('stage/position', { owner });
   },
 
   resizing(owner) {
-    return this.model('stage/resizing', { owner });
+    return this._model('stage/resizing', { owner });
   },
 
   selection(owner) {
-    return this.model('stage/selection', { owner });
+    return this._model('stage/selection', { owner });
   },
 
   dragging(owner) {
-    return this.model('stage/dragging', { owner });
+    return this._model('stage/dragging', { owner });
   },
 
   hover(owner) {
-    return this.model('stage/hover', { owner });
+    return this._model('stage/hover', { owner });
   },
 
   renderer(owner) {
-    return this.model('stage/renderer', { owner });
+    return this._model('stage/renderer', { owner });
   },
 
   constraints(owner) {
-    return this.model('stage/constraints', { owner });
+    return this._model('stage/constraints', { owner });
   },
 
   constraint(owner, opts) {
-    return this.model('stage/constraint', { owner, opts });
+    return this._model('stage/constraint', { owner, opts });
   }
 
 });

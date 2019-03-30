@@ -5,10 +5,10 @@ export default Base.extend({
 
   owner: null,
 
-  model() {
+  _model() {
     return this.owner.model(...arguments);
   },
 
-  stage: factory('stage')
+  stage: factory('stage'),
 
 });

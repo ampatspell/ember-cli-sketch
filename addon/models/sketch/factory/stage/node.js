@@ -8,7 +8,7 @@ const node = type => function(props) {
 export default Base.extend({
 
   create(type, props) {
-    return this.model(`node/${type}`, assign({ type }, props));
+    return this._model(`node/${type}`, assign({ type }, props));
   },
 
   group: node('group'),

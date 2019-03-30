@@ -10,8 +10,8 @@ export default Base.extend({
 
   owner: null,
 
-  model() {
-    return this.owner.model(...arguments);
+  _model() {
+    return this.owner._model(...arguments);
   }
 
 });

@@ -15,23 +15,23 @@ const types = Object.freeze([
 export default Base.extend({
 
   create(owner) {
-    return this.model('stage/interactions', { owner });
+    return this._model('stage/interactions', { owner });
   },
 
   medium(type, owner) {
-    return this.model(`stage/interactions/mediums/${type}`, { owner });
+    return this._model(`stage/interactions/mediums/${type}`, { owner });
   },
 
   key(owner, opts) {
-    return this.model('stage/interactions/mediums/keyboard/key', assign({ owner }, opts));
+    return this._model('stage/interactions/mediums/keyboard/key', assign({ owner }, opts));
   },
 
   handlers(owner) {
-    return this.model('stage/interactions/handlers', { owner, types });
+    return this._model('stage/interactions/handlers', { owner, types });
   },
 
   handler(type, owner) {
-    return this.model(`stage/interactions/handlers/${type}`, { types, owner });
+    return this._model(`stage/interactions/handlers/${type}`, { types, owner });
   }
 
 });
