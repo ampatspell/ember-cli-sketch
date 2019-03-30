@@ -1,6 +1,6 @@
 import { computed } from '@ember/object';
-import { compact } from '../../../util/object';
 import { round, rotatedRectBounds } from '../../../util/math';
+import { serialized as _serialized } from '../../../util/computed';
 
 const keys = (() => {
   let zoomable = [ 'x', 'y', 'width', 'height' ];
@@ -12,9 +12,7 @@ const keys = (() => {
 const stageKey = 'owner.stage';
 const zoomKey = `${stageKey}.zoom`;
 
-export const serialized = () => computed(...keys.all, function() {
-  return compact(this.getProperties(keys.all));
-}).readOnly();
+export const serialized = () => _serialized(keys.all);
 
 export const zoomed = frameKey => computed(zoomKey, frameKey, function() {
   let zoom = this.get(zoomKey);

@@ -1,9 +1,14 @@
 import { computed } from '@ember/object';
 import { A } from '@ember/array';
 import { numberContraints } from './math';
+import { compact } from './object';
 
 export const array = () => computed(function() {
   return A();
+}).readOnly();
+
+export const serialized = keys => computed(...keys, function() {
+  return compact(this.getProperties(keys));
 }).readOnly();
 
 export const validated = (fn) => {
