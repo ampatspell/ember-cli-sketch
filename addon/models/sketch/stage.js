@@ -42,12 +42,30 @@ export default Base.extend(FrameMixin, {
     });
   },
 
+  _frameForOptions(opts) {
+    let { type } = opts;
+    if(type === 'bounds') {
+      return this.nodes.frame;
+    } else if(type === 'areas') {
+      return this.nodes.areas.frame;
+    }
+  },
+
   center(opts={}) {
-    let { renderer: { size }, zoom, nodes: { frame: { hover: bounds } } } = this;
+    opts = assign({ type: 'bounds' }, opts);
+
+    let { renderer: { size }, zoom } = this;
 
     if(!size) {
       return;
     }
+
+    let frame = this._frameForOptions(opts);
+    if(!frame) {
+      return;
+    }
+
+    let bounds = frame.hover;
 
     let dimension = (dimensionKey, sizeKey) => {
       let value = opts[dimensionKey];
@@ -66,19 +84,26 @@ export default Base.extend(FrameMixin, {
   },
 
   fit(opts={}) {
-    let { offset } = assign({ offset: 10 }, opts);
-    let { renderer: { size }, nodes: { frame: { absoluteBounds: bounds } } } = this;
+    opts = assign({ type: 'bounds', offset: 10 }, opts);
+    let { renderer: { size } } = this;
 
     if(!size) {
       return;
     }
 
-    let value = dimension => (size[dimension] - (offset * 2)) / bounds[dimension];
+    let frame = this._frameForOptions(opts);
+    if(!frame) {
+      return;
+    }
+
+    let bounds = frame.absoluteBounds;
+
+    let value = dimension => (size[dimension] - (opts.offset * 2)) / bounds[dimension];
 
     let zoom = Math.min(value('width'), value('height'));
     this.setProperties({ zoom });
 
-    this.center();
+    this.center({ type: opts.type });
   },
 
   //

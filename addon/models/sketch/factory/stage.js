@@ -16,6 +16,10 @@ export default Base.extend({
     return this.model(`nodes`, { owner });
   },
 
+  typed(type, owner) {
+    return this.model(`nodes/${type}`, { owner });
+  },
+
   position(owner) {
     return this.model('stage/position', { owner });
   },

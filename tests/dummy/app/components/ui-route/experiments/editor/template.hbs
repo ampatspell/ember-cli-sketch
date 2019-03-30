@@ -24,9 +24,17 @@
     <div class="value">{{ui-block/button value="Toggle" action=(action "toggle")}}</div>
   </div>
   <div class="row">
+    <div class="label">Stage</div>
     <div class="value">
       {{ui-block/button value="Center" action=(action "center")}}
       {{ui-block/button value="Fit" action=(action "fit")}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="label">Areas</div>
+    <div class="value">
+      {{ui-block/button value="Center" action=(action "center" "areas")}}
+      {{ui-block/button value="Fit" action=(action "fit" "areas")}}
     </div>
   </div>
   <div class="row">

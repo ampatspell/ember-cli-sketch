@@ -9,8 +9,8 @@ export const nodes = () => computed(function() {
   return sketches(this).factory.stage.nodes(this);
 }).readOnly();
 
-const is = key => computed(`all.@each.${key}`, function() {
-  return this.all.filterBy(key, true);
+const typed = type => computed(function() {
+  return sketches(this).factory.stage.typed(type, this);
 }).readOnly();
 
 export default Base.extend({
@@ -22,8 +22,8 @@ export default Base.extend({
   all: array(),
   any: gt('all.length', 0),
 
-  areas: is('isArea'),
-  containers: is('isContainer'),
+  areas: typed('areas'),
+  containers: typed('containers'),
 
   _moveToBottom(node) {
     let { all } = this;

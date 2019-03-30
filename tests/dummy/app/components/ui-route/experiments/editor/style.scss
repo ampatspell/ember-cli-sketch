@@ -10,7 +10,9 @@
     box-shadow: -1px 0 1px fade-out(#000, 0.95);
     width: 300px;
     padding: 25px;
+    height: 100vh;
     overflow-x: hidden;
+    overflow-y: scroll;
     > .section {
       margin-bottom: 10px;
     }
