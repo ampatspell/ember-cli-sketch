@@ -70,6 +70,10 @@ export default Base.extend(FrameMixin, {
   },
 
   remove() {
+    this.stage._removeNode(this);
+  },
+
+  _remove() {
     this.parent && this.parent.nodes._removeNode(this);
   },
 

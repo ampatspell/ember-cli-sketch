@@ -26,7 +26,7 @@ export default Handler.extend({
   },
 
   onMouseWheel({ direction, value, keys: { meta } }) {
-    if(meta) {
+    if(!this.mouse.isOverStage || meta) {
       return;
     }
 

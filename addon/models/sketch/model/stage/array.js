@@ -18,9 +18,13 @@ export default Base.extend({
     });
   },
 
+  removeModel(model) {
+    this.array.removeObject(model);
+  },
+
   //
 
-  onSourceObjectUpdated(model) {
+  onSourceObjectUpdated(model, key) {
     this.onModelUpdated(model);
   },
 

@@ -32,6 +32,10 @@ export default Base.extend({
     this._suppressUpdates = null;
   },
 
+  _removeNode(node) {
+    this.removeModel(node.model);
+  },
+
   _addNodeForModel(model) {
     // TODO: child nodes
     let node = model.node;
@@ -47,7 +51,7 @@ export default Base.extend({
       return;
     }
     // TODO: child nodes
-    node.remove();
+    node._remove();
     model._unsetNode();
     this.nodes.removeObject(node);
   },
@@ -55,6 +59,7 @@ export default Base.extend({
   //
 
   onModelUpdated(model) {
+    // TODO: on remove this is called for all models. parent is recomputed
     if(this._suppressUpdates === model) {
       return;
     }
