@@ -76,9 +76,20 @@ export default Component.extend({
       this.stage.reset();
     },
     add(type) {
-      let area = component.stage.nodes.areas.all.firstObject;
-      let node = this.sketches.factory.stage.node.create(type, { frame: { x: 100, y: 100, width: 50, height: 50 }, model: { fill: 'red', opacity: 0.5 } });
-      area.nodes.addNode(node, { select: true });
+      let parent = component.stage.selection.all.firstObject;
+      if(!parent) {
+        return;
+      }
+      let area;
+      if(parent.isArea) {
+        area = parent;
+      } else {
+        area = parent.area;
+        if(!area) {
+          return
+        }
+      }
+      this.documents.add(area.model.id, 'added', type, { x: 50, y: 50, width: 50, height: 50, fill: 'red', opacity: 0.5 });
     },
     remove(node) {
       node.remove();

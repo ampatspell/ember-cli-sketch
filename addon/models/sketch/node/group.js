@@ -14,6 +14,7 @@ export default Node.extend({
     let select = this._beginMoveSelection();
     let commits = this.nodes.all.map(node => node._beginMoveToParent(parent));
 
+    // TODO: via model
     this.remove();
     parent.nodes.addNode(this);
     commits.forEach(commit => commit());

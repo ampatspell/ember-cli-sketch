@@ -142,7 +142,7 @@ export default Base.extend(FrameMixin, {
     let frame = parent.frame.convertFrameFromAbsolute(this.frame.absolute);
 
     return () => {
-      this.frame.update(frame);
+      this.update(frame);
       select();
     };
   },
@@ -150,6 +150,7 @@ export default Base.extend(FrameMixin, {
   moveToParent(parent) {
     let commit = this._beginMoveToParent(parent);
 
+    // TODO: via model
     this.remove();
     parent.nodes.addNode(this);
     commit();
