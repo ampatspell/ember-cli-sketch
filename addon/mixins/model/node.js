@@ -1,7 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import { computed } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
 import { sketches } from '../../services/sketches';
-import { assign } from '@ember/polyfills';
 
 export default Mixin.create({
 
@@ -16,9 +16,11 @@ export default Mixin.create({
     return node;
   }).readOnly(),
 
+  nodeType: readOnly('type'),
+
   _createNode() {
-    let { type, properties } = this.createNode();
-    return sketches(this).factory.stage.node.create(type, assign({ model: this }, properties));
+    let type = this.nodeType;
+    return sketches(this).factory.stage.node.create(type, { model: this });
   },
 
   _unsetNode() {

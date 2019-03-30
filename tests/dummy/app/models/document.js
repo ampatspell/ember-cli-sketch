@@ -13,11 +13,6 @@ export default EmberObject.extend(NodeMixin, {
   id: null,
   type: null,
 
-  createNode() {
-    let { type, x, y, width, height, rotation } = this; // Temporary
-    return { type, properties: { frame: { x, y, width, height, rotation } } };
-  },
-
   toStringExtension() {
     let { id, type } = this;
     return `${id}:${type}`;

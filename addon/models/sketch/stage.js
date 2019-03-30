@@ -1,7 +1,8 @@
 import Base from './-base';
+import { readOnly } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
 import { frame, FrameMixin } from './frame/-base';
-import { self, constrainedNumber } from '../../util/computed';
+import { self } from '../../util/computed';
 import { nodes } from './nodes';
 import { interactions } from './stage/interactions';
 import { hover } from './stage/hover';
@@ -10,12 +11,7 @@ import { dragging } from './stage/dragging';
 import { resizing } from './stage/resizing';
 import { renderer } from './stage/renderer';
 
-const zoom = () => constrainedNumber({
-  initial: 1,
-  min: 0,
-  max: 10,
-  decimals: 2
-});
+export const model = key => readOnly(`model.${key}`);
 
 export default Base.extend(FrameMixin, {
 
@@ -23,8 +19,10 @@ export default Base.extend(FrameMixin, {
   isContainer: true,
   stage: self(),
 
+  model: null,
+
   frame: frame('stage'),
-  zoom: zoom(),
+  zoom: model('zoom'),
   nodes: nodes(),
 
   interactions: interactions(),

@@ -15,7 +15,7 @@ export const serialized = (keys, fn) => computed(...keys, function() {
   return compact(props);
 }).readOnly();
 
-export const validated = (fn) => {
+export const validated = fn => {
   let _get = (owner, key) => owner[`_${key}`];
   let _set = (owner, key, value) => owner[`_${key}`] = value;
   return computed({

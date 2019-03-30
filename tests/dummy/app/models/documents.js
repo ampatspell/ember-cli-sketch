@@ -2,10 +2,15 @@ import EmberObject from '@ember/object';
 import { array } from 'ember-cli-sketch/util/computed';
 import { getOwner } from '@ember/application';
 import { assign } from '@ember/polyfills';
+import { position, zoom } from 'ember-cli-sketch/computed';
 
 export default EmberObject.extend({
 
   all: array(),
+
+  x:    position('_x', { initial: 100 }),
+  y:    position('_y', { initial: 100 }),
+  zoom: zoom('_zoom'),
 
   init() {
     this._super(...arguments);
