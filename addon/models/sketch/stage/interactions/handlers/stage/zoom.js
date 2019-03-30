@@ -4,7 +4,7 @@ export default Handler.extend({
 
   update({ delta }) {
     let zoom = this.zoom + delta;
-    this.stage.setProperties({ zoom });
+    this.stage.update({ zoom });
   },
 
   onMouseWheel({ direction, value, keys: { meta } }) {

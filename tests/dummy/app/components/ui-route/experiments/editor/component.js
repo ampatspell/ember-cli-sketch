@@ -39,7 +39,7 @@ export default Component.extend({
 
   actions: {
     ready(stage) {
-      // stage.center();
+      stage.center();
     },
     toggle() {
       if(this.attachedStage) {

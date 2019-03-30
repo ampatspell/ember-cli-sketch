@@ -155,6 +155,12 @@ export default Base.extend(FrameMixin, {
     commit();
 
     return true;
+  },
+
+  //
+
+  update(props) {
+    this.model.update(props);
   }
 
 });

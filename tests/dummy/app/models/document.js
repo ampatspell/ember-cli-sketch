@@ -13,6 +13,10 @@ export default EmberObject.extend(NodeMixin, {
   id: null,
   type: null,
 
+  update(props) {
+    this.setProperties(props);
+  },
+
   toStringExtension() {
     let { id, type } = this;
     return `${id}:${type}`;

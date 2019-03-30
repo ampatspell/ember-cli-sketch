@@ -9,7 +9,8 @@ export default Base.extend({
   sketches: service(),
 
   stage: computed(function() {
-    return this.sketches.factory.stage.create({ model: this });
+    let { model } = this;
+    return this.sketches.factory.stage.create({ model });
   }).readOnly(),
 
   nodes: array(),

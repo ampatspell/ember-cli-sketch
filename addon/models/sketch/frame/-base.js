@@ -51,14 +51,15 @@ export default Base.extend({
     return values;
   },
 
-  update(props, opts) {
-    let { delta } = assign({ delta: false }, opts);
-    if(delta) {
-      this.setProperties(this.deltaToFrame(props));
-    } else {
-      this.setProperties(props);
-    }
-  },
+  // TODO: cleanup
+  // update(props, opts) {
+  //   let { delta } = assign({ delta: false }, opts);
+  //   if(delta) {
+  //     this.setProperties(this.deltaToFrame(props));
+  //   } else {
+  //     this.setProperties(props);
+  //   }
+  // },
 
   convertPointFromAbsolute(point) {
     let { absolute } = this;

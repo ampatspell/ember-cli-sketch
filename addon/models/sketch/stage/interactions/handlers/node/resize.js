@@ -62,7 +62,7 @@ export default Handler.extend({
       frame.width = value;
     }
 
-    node.frame.update(frame, { delta: true });
+    node.update(node.frame.deltaToFrame(frame));
 
     return true;
   },

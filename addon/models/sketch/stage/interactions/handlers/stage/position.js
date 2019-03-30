@@ -3,7 +3,8 @@ import Handler from '../-handler';
 export default Handler.extend({
 
   update({ delta }) {
-    this.stage.frame.update(delta, { delta: true });
+    let frame = this.stage.frame.deltaToFrame(delta);
+    this.stage.update(frame);
   },
 
   onMouseDown() {

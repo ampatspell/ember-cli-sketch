@@ -44,4 +44,12 @@ export default EmberObject.extend({
     addArea('area-2', 0, 240);
   },
 
+  update(props) {
+    this.setProperties(props);
+  },
+
+  handle(action) {
+    action.perform();
+  }
+
 });

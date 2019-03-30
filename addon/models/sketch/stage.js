@@ -33,10 +33,10 @@ export default Base.extend(FrameMixin, {
   renderer: renderer(),
 
   reset() {
-    this.setProperties({
-      'zoom': 1,
-      'frame.x': 0,
-      'frame.y': 0
+    this.update({
+      x: 0,
+      y: 0,
+      zoom: 1
     });
   },
 
@@ -78,7 +78,7 @@ export default Base.extend(FrameMixin, {
       y: dimension('y',  'height')
     };
 
-    this.frame.update(position);
+    this.update(position);
   },
 
   fit(opts={}) {
@@ -99,8 +99,8 @@ export default Base.extend(FrameMixin, {
     let value = dimension => (size[dimension] - (opts.offset * 2)) / bounds[dimension];
 
     let zoom = Math.min(value('width'), value('height'));
-    this.setProperties({ zoom });
 
+    this.update({ zoom });
     this.center({ type: opts.type });
   },
 
@@ -136,8 +136,12 @@ export default Base.extend(FrameMixin, {
 
   //
 
+  update(props) {
+    this.model.update(props);
+  },
+
   handle(action) {
-    action.perform();
+    this.model.handle(action);
   },
 
   //
