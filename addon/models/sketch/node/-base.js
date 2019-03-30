@@ -74,11 +74,11 @@ export default Base.extend(FrameMixin, {
   },
 
   willRemove() {
-    this.stage.willRemoveNode(this);
+    this.stage && this.stage.willRemoveNode(this);
   },
 
   didRemove() {
-    this.stage.didRemoveNode(this);
+    this.stage && this.stage.didRemoveNode(this);
     this.setProperties({ parent: null });
   },
 

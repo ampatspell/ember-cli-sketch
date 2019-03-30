@@ -20,36 +20,41 @@ export default Base.extend({
 
   parentNodeForModel(model) {
     let parent = model.parent;
-    return parent && parent.node;
+    if(!parent) {
+      return this.stage;
+    }
+    return parent.node;
   },
 
-  _addNode(model) {
+  _addNodeForModel(model) {
+    // TODO: child nodes
     let node = model.node;
     assert(`model.node must return node for '${model}'`, !!node);
-
     let parent = this.parentNodeForModel(model);
-    if(!parent) {
-      parent = this.stage;
-    }
-
     parent.nodes.addNode(node);
     this.nodes.pushObject(node);
+  },
+
+  _removeNodeForModel(model) {
+    let node = this.nodeForModel(model);
+    if(!node) {
+      return;
+    }
+    // TODO: child nodes
+    node.remove();
+    model._unsetNode();
+    this.nodes.removeObject(node);
   },
 
   //
 
   onModelUpdated(model) {
-    let node = this.nodeForModel(model);
-    if(node) {
-      node.remove();
-      model._unsetNode();
-      this.nodes.removeObject(node);
-    }
-    this._addNode(model);
+    this._removeNodeForModel(model);
+    this._addNodeForModel(model);
   },
 
   onModelAdded(model) {
-    this._addNode(model);
+    this._addNodeForModel(model);
   },
 
   onModelsAdded(models) {
@@ -57,10 +62,7 @@ export default Base.extend({
   },
 
   onModelRemoved(model) {
-    let node = this.nodeForModel(model);
-    if(node) {
-      node.remove();
-    }
+    this._removeNodeForModel(model);
   },
 
   onModelsRemoved(models) {
