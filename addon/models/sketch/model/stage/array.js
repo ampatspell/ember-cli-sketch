@@ -19,14 +19,12 @@ export default Base.extend({
 
   //
 
-  onSourceObjectsAdded(objects, start) {
-    let models = this.createModels(objects);
+  onSourceObjectsAdded(models, start) {
     this.models.replace(start, 0, models);
     this.onModelsAdded(models);
   },
 
-  onSourceObjectsRemoved(objects, start, len) {
-    let models = this.models.slice(start, start + len);
+  onSourceObjectsRemoved(models, start, len) {
     this.models.replace(start, len);
     this.onModelsRemoved(models);
   },

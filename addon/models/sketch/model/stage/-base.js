@@ -19,31 +19,23 @@ export default Base.extend({
     return this.nodes.findBy('model', model);
   },
 
-  //
-
-  nodeModelTypeForObject() {
-    assert(`override nodeModelTypeForObject and don't call super`, false);
-  },
-
-  createModel(object) {
-    let type = this.nodeModelTypeForObject(object);
-    return this.sketches.factory.model.node(this, type, object);
-  },
-
-  createModels(objects) {
-    return objects.map(object => this.createModel(object));
+  parentNodeForModel(model) {
+    let parent = model.parent;
+    return parent && parent.node;
   },
 
   //
-
-  _createNode(model, type, properties) {
-    return this.sketches.factory.stage.node.create(type, assign({ model }, properties));
-  },
 
   onModelAdded(model) {
     let node = model.node;
-    // Parent
-    this.stage.nodes.addNode(node);
+    assert(`model.node must return node for '${model}'`, !!node);
+
+    let parent = this.parentNodeForModel(model);
+    if(!parent) {
+      parent = this.stage;
+    }
+
+    parent.nodes.addNode(node);
     this.nodes.pushObject(node);
   },
 

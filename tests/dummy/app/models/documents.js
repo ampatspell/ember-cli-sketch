@@ -16,11 +16,15 @@ export default EmberObject.extend({
     return this.all.find(doc => doc.id === id);
   },
 
-  add(parentId, id, type, props) {
+  create(parentId, id, type, props) {
     if(parentId) {
       id = `${parentId}-${id}`;
     }
-    let document = getOwner(this).factoryFor('model:document').create(assign({ parentId, id, type }, props));
+    return getOwner(this).factoryFor('model:document').create(assign({ documents: this, parentId, id, type }, props));
+  },
+
+  add() {
+    let document = this.create(...arguments);
     this.all.pushObject(document);
     return document;
   },
