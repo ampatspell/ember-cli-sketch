@@ -7,8 +7,8 @@ export default EmberObject.extend({
   type: null,
 
   toStringExtension() {
-    let { parentId, id, type } = this;
-    return `${parentId}:${id}:${type}`;
+    let { id, type } = this;
+    return `${id}:${type}`;
   }
 
 });

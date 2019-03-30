@@ -17,62 +17,23 @@ export default Component.extend({
   sketches: service(),
 
   stage: computed(function() {
-    let { sketches: { factory } } = this;
+    let { sketches: { factory }, documents } = this;
     let stage = factory.stage.create({ frame: { x: 50, y: 50 } });
 
-    let createRects = (parent, ox, oy) => {
-      {
-        let node = factory.node.create('rect', {
-          frame: { x: ox, y: oy, width: 50, height: 50, rotation: 2 },
-          constraints: { horizontal: { min: 20, max: 100 }, vertical: { min: 20, max: 100 } },
-          fill: '#ff9c66',
-          opacity: 0.5
-        });
-        parent.nodes.addNode(node);
-      }
-      {
-        let node = factory.node.create('rect', {
-          frame: { x: ox+50, y: oy, width: 50, height: 50, rotation: -2 },
-          fill: '#80ff88',
-          opacity: 0.3
-        });
-        parent.nodes.addNode(node);
-      }
-      {
-        let node = factory.node.create('rect', {
-          frame: { x: ox, y: oy+50, width: 50, height: 50, rotation: -2 },
-          fill: '#668fff',
-          opacity: 0.2
-        });
-        parent.nodes.addNode(node);
-      }
-      {
-        let node = factory.node.create('rect', {
-          frame: { x: ox+50, y: oy+50, width: 50, height: 50, rotation: 2 },
-          fill: '#ff7d66',
-          opacity: 0.2
-        });
-        parent.nodes.addNode(node);
-      }
-    }
+    let nodes = {};
+    documents.forEach(doc => {
 
-    let createArea = (parent, ox, oy) => {
-      let area = factory.node.area({
-        frame: { x: ox, y: oy, width: 500, height: 200 },
-        // constraints: {
-        //   horizontal: { resize: false, move: false },
-        //   vertical: { resize: true, min: 100, max: 400 }
-        // }
-      });
-      createRects(area, 20, 20);
-      let group = area.nodes.addNode(factory.node.group());
-      createRects(group, 160, 20);
-      parent.nodes.addNode(area);
-    }
+      let { parentId, id, x, y, width, height, rotation, fill, opacity } = doc;
+      let node = factory.node.create(doc.type, { frame: { x, y, width, height, rotation }, fill, opacity });
+      nodes[id] = node;
 
-    createArea(stage, 10, 10);
-    createArea(stage, 10, 250);
-    createRects(stage, 20, 470);
+      let parent = stage;
+      if(parentId) {
+        parent = nodes[parentId];
+      }
+
+      parent.nodes.addNode(node);
+    });
     return stage;
   }).readOnly(),
 
@@ -84,9 +45,14 @@ export default Component.extend({
     let array = A();
     let add = (parentId, id, type, props) => array.pushObject(getOwner(this).factoryFor('model:document').create(assign({ parentId, id, type }, props)));
 
-    add(null, 'area-1', 'area', { x: 0, y: 0, width: 500, height: 200 });
-    add('area-1', 'rect-1', 'rect', { x: 10, y: 10, width: 50, height: 50, rotation: 2, fil: 'red', opacity: 0.5 });
-    add('area-1', 'rect-2', 'rect', { x: 70, y: 10, width: 50, height: 50, rotation: 2, fil: 'green', opacity: 0.5 });
+    let addArea = (id, x, y) => {
+      add(null, id, 'area', { x, y, width: 500, height: 200 });
+      add(id, `${id}-rect-1`, 'rect', { x: 10, y: 10, width: 50, height: 50, rotation: 2, fill: 'red', opacity: 0.5 });
+      add(id, `${id}-rect-2`, 'rect', { x: 70, y: 10, width: 50, height: 50, rotation: 2, fill: 'green', opacity: 0.5 });
+    }
+
+    addArea('area-1', 0, 0);
+    addArea('area-2', 0, 240);
 
     return array;
   }).readOnly(),
