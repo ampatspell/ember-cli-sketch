@@ -12,10 +12,10 @@ export default Base.extend({
     return this.sketches.factory.stage.create({ model: this });
   }).readOnly(),
 
-  nodes: array(),
+  models: array(),
 
-  nodeForModel(model) {
-    return this.nodes.findBy('model', model);
+  modelsForParent(parent) {
+    return this.models.filter(model => model.parent === parent);
   },
 
   parentNodeForModel(model) {
@@ -26,48 +26,57 @@ export default Base.extend({
     return parent.node;
   },
 
+  _withSuppressedUpdates(cb) {
+    this._isUpdatesSuppressed = true;
+    try {
+      return cb();
+    } finally {
+      this._isUpdatesSuppressed = false;
+    }
+  },
+
   _moveNode(node, target) {
-    this._suppressUpdates = node.model;
-    this.moveModel(node.model, target.model);
-    this._suppressUpdates = null;
+    this._withSuppressedUpdates(() => {
+      this.moveModel(node.model, target.model);
+    });
   },
 
   _removeNode(node) {
-    this.removeModel(node.model);
+    this._withSuppressedUpdates(() => {
+      this.removeModel(node.model);
+    });
   },
 
   _addNodeForModel(model) {
-    // TODO: child nodes
+    // TODO: child models
     let node = model.node;
     assert(`model.node must return node for '${model}'`, !!node);
     let parent = this.parentNodeForModel(model);
     parent.nodes.addNode(node);
-    this.nodes.pushObject(node);
   },
 
   _removeNodeForModel(model) {
-    let node = this.nodeForModel(model);
+    let node = model._node;
     if(!node) {
       return;
     }
-    // TODO: child nodes
     node._remove();
     model._unsetNode();
-    this.nodes.removeObject(node);
   },
 
   //
 
   onModelUpdated(model) {
-    // TODO: on remove this is called for all models. parent is recomputed
-    if(this._suppressUpdates === model) {
+    if(this._isUpdatesSuppressed === true) {
       return;
     }
+    // TODO: child models
     this._removeNodeForModel(model);
     this._addNodeForModel(model);
   },
 
   onModelAdded(model) {
+    this.models.pushObject(model);
     this._addNodeForModel(model);
   },
 
@@ -76,7 +85,9 @@ export default Base.extend({
   },
 
   onModelRemoved(model) {
+    this.modelsForParent(model).forEach(model => this.removeModel(model));
     this._removeNodeForModel(model);
+    this.models.removeObject(model);
   },
 
   onModelsRemoved(models) {

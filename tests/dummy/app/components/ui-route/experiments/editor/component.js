@@ -55,19 +55,19 @@ export default Component.extend({
       this.stage.fit({ type, offset: 25 });
     },
     updateZoom(zoom) {
-      this.stage.setProperties({ zoom });
+      this.stage.update({ zoom });
     },
     updateStagePosition(key, value) {
-      this.stage.frame.setProperties({ [key]: value });
+      this.stage.update({ [key]: value });
     },
     updateNodePosition(node, key, value) {
-      node.frame.setProperties({ [key]: value });
+      node.update({ [key]: value });
     },
     updateNodeProperty(node, key, transform, value) {
       if(transform) {
         value = transforms[transform](value);
       }
-      node.setProperties({ [key]: value });
+      node.update({ [key]: value });
     },
     select(node) {
       node.select();
@@ -89,7 +89,8 @@ export default Component.extend({
           return
         }
       }
-      this.documents.add(area.model.id, 'added', type, { x: 50, y: 50, width: 50, height: 50, fill: 'red', opacity: 0.5 });
+      let model = this.documents.add(area.model.id, 'added', type, { x: 50, y: 50, width: 50, height: 50, fill: 'red', opacity: 0.5 });
+      model.node.select();
     },
     remove(node) {
       node.remove();
