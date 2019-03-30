@@ -1,4 +1,4 @@
-import Base from './-base';
+import Base from '../-base';
 import { assign } from '@ember/polyfills';
 
 const node = type => function(props) {

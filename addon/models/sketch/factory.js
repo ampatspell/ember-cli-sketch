@@ -9,7 +9,6 @@ export default Base.extend({
     return this.owner.model(...arguments);
   },
 
-  stage: factory('stage'),
-  node: factory('node')
+  stage: factory('stage')
 
 });

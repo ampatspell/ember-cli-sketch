@@ -22,7 +22,7 @@ export default Component.extend({
     documents.all.forEach(doc => {
 
       let { parentId, id, x, y, width, height, rotation, fill, opacity } = doc;
-      let node = factory.node.create(doc.type, { frame: { x, y, width, height, rotation }, fill, opacity });
+      let node = factory.stage.node.create(doc.type, { frame: { x, y, width, height, rotation }, fill, opacity });
       nodes[id] = node;
 
       let parent = stage;

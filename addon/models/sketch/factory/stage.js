@@ -3,6 +3,7 @@ import Base, { factory } from './-base';
 export default Base.extend({
 
   interactions: factory('stage/interactions'),
+  node: factory('stage/node'),
 
   create(props) {
     return this.model('stage', props);

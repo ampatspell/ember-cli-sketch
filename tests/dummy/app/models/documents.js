@@ -16,8 +16,7 @@ export default EmberObject.extend({
     return this.all.find(doc => doc.id === id);
   },
 
-  add(parent, id, type, props) {
-    let parentId = parent && parent.id;
+  add(parentId, id, type, props) {
     if(parentId) {
       id = `${parentId}-${id}`;
     }
@@ -29,8 +28,8 @@ export default EmberObject.extend({
   prepare() {
     let addArea = (id, x, y) => {
       let area = this.add(null, id, 'area', { x, y, width: 500, height: 200 });
-      this.add(area, `rect-1`, 'rect', { x: 10, y: 10, width: 50, height: 50, rotation: 2, fill: 'red', opacity: 0.5 });
-      this.add(area, `rect-2`, 'rect', { x: 70, y: 10, width: 50, height: 50, rotation: 2, fill: 'green', opacity: 0.5 });
+      this.add(area.id, `rect-1`, 'rect', { x: 10, y: 10, width: 50, height: 50, rotation: 2, fill: 'red', opacity: 0.5 });
+      this.add(area.id, `rect-2`, 'rect', { x: 70, y: 10, width: 50, height: 50, rotation: 2, fill: 'green', opacity: 0.5 });
     }
     addArea('area-1', 0, 0);
     addArea('area-2', 0, 240);
