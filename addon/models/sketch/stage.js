@@ -44,7 +44,7 @@ export default Base.extend(FrameMixin, {
 
   _frameForOptions(opts) {
     let { type } = opts;
-    if(type === 'bounds') {
+    if(!type) {
       return this.nodes.frame;
     } else if(type === 'areas') {
       return this.nodes.areas.frame;
@@ -52,7 +52,7 @@ export default Base.extend(FrameMixin, {
   },
 
   center(opts={}) {
-    opts = assign({ type: 'bounds' }, opts);
+    opts = assign({}, opts);
 
     let { renderer: { size }, zoom } = this;
 
@@ -84,7 +84,7 @@ export default Base.extend(FrameMixin, {
   },
 
   fit(opts={}) {
-    opts = assign({ type: 'bounds', offset: 10 }, opts);
+    opts = assign({ offset: 10 }, opts);
     let { renderer: { size } } = this;
 
     if(!size) {
