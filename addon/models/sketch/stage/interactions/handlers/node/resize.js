@@ -67,9 +67,9 @@ export default Handler.extend({
 
     node.update(node.frame.deltaToFrame(frame));
 
-    // if(node.nodes) {
-    //   node.nodes.forEach(node => node.update(node.frame.deltaToFrame(children)));
-    // }
+    if(!node.isGroup && node.nodes) {
+      node.nodes.forEach(node => node.update(node.frame.deltaToFrame(children)));
+    }
 
     return true;
   },
