@@ -1,5 +1,5 @@
 import Frame from './-base';
-import Position from './-position';
+import { Position } from './-property-mixins';
 import { serialized, zoomed } from './-computed';
 import { round } from '../../../util/math';
 import { readOnly } from '@ember/object/computed';

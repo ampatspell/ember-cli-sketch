@@ -1,7 +1,5 @@
 import Frame from './-base';
-import Position from './-position';
-import Size from './-size';
-import Rotation from './-rotation';
+import { Position, Size, Rotation } from './-property-mixins';
 import { serialized, rotated, zoomed, absolute } from './-computed';
 
 export default Frame.extend(Position, Size, Rotation, {

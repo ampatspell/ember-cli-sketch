@@ -19,9 +19,9 @@ const split = opts => {
   if(!opts) {
     return {};
   }
-  let { frame, constraints } = opts;
+  let { constraints } = opts;
   let props = omit(opts, [ 'frame', 'constraints' ]);
-  return { frame, constraints, props };
+  return { constraints, props };
 };
 
 export const FrameMixin = Mixin.create({
@@ -29,12 +29,10 @@ export const FrameMixin = Mixin.create({
   constraints: constraints(),
 
   prepare(opts) {
-    let { frame, props, constraints } = split(opts);
+    let { props, constraints } = split(opts);
     this._super(props);
-    if(frame) {
-      this.frame.prepare(frame);
-    }
     if(constraints) {
+      // TODO: constraints
       this.constraints.prepare(assign({ owner: this }, constraints));
     }
   }
@@ -58,16 +56,6 @@ export default Base.extend({
     });
     return values;
   },
-
-  // TODO: cleanup
-  // update(props, opts) {
-  //   let { delta } = assign({ delta: false }, opts);
-  //   if(delta) {
-  //     this.setProperties(this.deltaToFrame(props));
-  //   } else {
-  //     this.setProperties(props);
-  //   }
-  // },
 
   convertPointFromAbsolute(point) {
     let { absolute } = this;

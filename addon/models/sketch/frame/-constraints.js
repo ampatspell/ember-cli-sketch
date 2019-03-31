@@ -1,4 +1,4 @@
-// TODO: remove
+// TODO: constraints
 
 import { computed } from '@ember/object';
 import { numberContraints } from '../../../util/math';
