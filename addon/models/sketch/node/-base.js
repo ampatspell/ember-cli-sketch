@@ -26,6 +26,8 @@ export default Base.extend(FrameMixin, {
   parent: null,
   stage: readOnly('parent.stage'),
 
+  model: null,
+
   index: computed('parent.nodes.all.[]', function() {
     let nodes = this.get('parent.nodes.all');
     if(!nodes) {
