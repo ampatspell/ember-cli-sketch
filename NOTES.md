@@ -1,26 +1,5 @@
 # Notes
 
-## Stage
-
-* `frame` - `{ x, y }`
-* `zoom`
-* `nodes` - collection
-
-## Collection
-
-* `frame` - `{ x, y, width, height }` derived
-* all - array
-
-## Group
-
-* `frame` - `{ x, y }`
-* `nodes` - collection
-
-## Area
-
-* `frame` - `{ x, y }`
-* `nodes` - collection
-
-## Node
-
-* `frame` - `{ x, y, width, height }`
+* Remove nested nodes should be handled in models
+* `moveToBottom` should be handled in models
+* Investigate option to have active interaction so that it could be used as a basis for tools
