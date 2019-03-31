@@ -43,6 +43,7 @@ export default Handler.extend({
     let { node, node: { constraints }, edge } = this;
 
     let frame = {};
+    let children = {};
 
     if(edge.vertical === 'bottom') {
       let value = constraints.vertical.clampSizeDelta(delta.y);
@@ -51,6 +52,7 @@ export default Handler.extend({
       let value = constraints.vertical.clampSizeDelta(-delta.y);
       frame.y = -value;
       frame.height = value;
+      children.y = value;
     }
 
     if(edge.horizontal === 'right') {
@@ -60,9 +62,14 @@ export default Handler.extend({
       let value = constraints.horizontal.clampSizeDelta(-delta.x);
       frame.x = -value;
       frame.width = value;
+      children.x = value;
     }
 
     node.update(node.frame.deltaToFrame(frame));
+
+    // if(node.nodes) {
+    //   node.nodes.forEach(node => node.update(node.frame.deltaToFrame(children)));
+    // }
 
     return true;
   },

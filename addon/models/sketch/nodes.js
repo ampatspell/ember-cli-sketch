@@ -70,6 +70,10 @@ export default Base.extend({
 
   containsNode(node) {
     return this.all.find(child => child === node || child.containsNode(node));
+  },
+
+  forEach() {
+    return this.all.forEach(...arguments);
   }
 
 });
