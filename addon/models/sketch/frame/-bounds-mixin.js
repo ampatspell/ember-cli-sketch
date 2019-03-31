@@ -9,15 +9,16 @@ const property = (frameKey, propertyKey) => computed(frameKey, {
   get() {
     return this[frameKey][propertyKey];
   },
-  set(_, value) {
-    let delta = value - this[frameKey][propertyKey];
-    if(delta !== 0) {
-      this.owner.nodes.all.forEach(node => {
-        node.frame.update({ [propertyKey]: delta }, { delta: true });
-      });
-    }
-    return value;
-  }
+  // TODO: cleanup
+  // set(_, value) {
+  //   let delta = value - this[frameKey][propertyKey];
+  //   if(delta !== 0) {
+  //     this.owner.nodes.all.forEach(node => {
+  //       node.frame.update({ [propertyKey]: delta }, { delta: true });
+  //     });
+  //   }
+  //   return value;
+  // }
 });
 
 const frame = (ownerNodesKey, sourceKey) => computed(`${ownerNodesKey}.@each.${sourceKey}`, function() {

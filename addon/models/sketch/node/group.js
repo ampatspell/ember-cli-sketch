@@ -10,9 +10,7 @@ export default Node.extend({
   frame: frame('group'),
   nodes: nodes(),
 
-  moveToParent(parent) {
-    throw new Error('not implemented');
-
+  moveToParent(/*parent*/) {
     // let select = this._beginMoveSelection();
     // let commits = this.nodes.all.map(node => node._beginMoveToParent(parent));
 
@@ -23,7 +21,15 @@ export default Node.extend({
 
     // select();
 
-    return true;
+    // return true;
+    return false;
+  },
+
+  update(props) {
+    let delta = this.frame.frameToDelta(props);
+    this.nodes.all.forEach(node => {
+      node.update(node.frame.deltaToFrame(delta));
+    });
   }
 
 });

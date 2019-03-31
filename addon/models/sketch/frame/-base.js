@@ -51,6 +51,14 @@ export default Base.extend({
     return values;
   },
 
+  frameToDelta(props) {
+    let values = {};
+    keys(props).forEach(key => {
+      values[key] = props[key] - this[key];
+    });
+    return values;
+  },
+
   // TODO: cleanup
   // update(props, opts) {
   //   let { delta } = assign({ delta: false }, opts);
