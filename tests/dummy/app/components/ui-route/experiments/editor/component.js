@@ -76,7 +76,7 @@ export default Component.extend({
       this.stage.reset();
     },
     add(type) {
-      let parent = component.stage.selection.all.firstObject;
+      let parent = this.stage.selection.all.firstObject;
       if(!parent) {
         return;
       }
