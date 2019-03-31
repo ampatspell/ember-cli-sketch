@@ -6,3 +6,4 @@
 * Bring back constraints
 * When node type changes, child nodes should be added/removed
 * Node resize children delta is broken for groups
+* Move rounded properties to nodes so that models doesn't have to deal with that
