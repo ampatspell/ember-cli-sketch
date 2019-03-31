@@ -20,7 +20,7 @@ export default Mixin.create({
 
   _createNode() {
     let type = this.nodeType;
-    return sketches(this).factory.stage.node.create(type, { model: this });
+    return sketches(this).factory.stage.node(type, this);
   },
 
   _unsetNode() {

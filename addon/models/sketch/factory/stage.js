@@ -3,10 +3,13 @@ import Base, { factory } from './-base';
 export default Base.extend({
 
   interactions: factory('stage/interactions'),
-  node: factory('stage/node'),
 
-  create(props) {
-    return this._model('stage', props);
+  create(model) {
+    return this._model('stage', { model });
+  },
+
+  node(type, model) {
+    return this._model(`node/${type}`, { type, model });
   },
 
   frame(type, owner) {
