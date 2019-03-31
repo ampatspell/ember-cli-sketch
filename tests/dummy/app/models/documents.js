@@ -35,10 +35,15 @@ export default EmberObject.extend({
   },
 
   prepare() {
+    let addRects = (parent, x, y) => {
+      this.add(parent, `rect-1`, 'rect', { x: x, y: y, width: 50, height: 50, rotation: 2, fill: 'red', opacity: 0.5 });
+      this.add(parent, `rect-2`, 'rect', { x: x + 60, y: y, width: 50, height: 50, rotation: 2, fill: 'green', opacity: 0.5 });
+    };
     let addArea = (id, x, y) => {
       let area = this.add(null, id, 'area', { x, y, width: 500, height: 200 });
-      this.add(area.id, `rect-1`, 'rect', { x: 10, y: 10, width: 50, height: 50, rotation: 2, fill: 'red', opacity: 0.5 });
-      this.add(area.id, `rect-2`, 'rect', { x: 70, y: 10, width: 50, height: 50, rotation: 2, fill: 'green', opacity: 0.5 });
+      addRects(area.id, 10, 10);
+      let group = this.add(area.id, 'group-1', 'group');
+      addRects(group.id, 10, 70);
     }
     addArea('area-1', 0, 0);
     addArea('area-2', 0, 240);

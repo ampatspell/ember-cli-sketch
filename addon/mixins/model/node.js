@@ -2,6 +2,7 @@ import Mixin from '@ember/object/mixin';
 import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { sketches } from '../../services/sketches';
+import { assert } from '@ember/debug';
 
 export default Mixin.create({
 
@@ -20,6 +21,7 @@ export default Mixin.create({
 
   _createNode() {
     let type = this.nodeType;
+    assert(`nodeType is required for ${this}`, !!type);
     return sketches(this).factory.stage.node(type, this);
   },
 
