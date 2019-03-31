@@ -38,7 +38,7 @@ export default Handler.extend({
       y: delta.y / zoom
     }
 
-    dragging.forEach(node => node.update(node.frame.deltaToFrame(point)));
+    dragging.forEach(node => node.update(point, { delta: true }));
     dragging.addNodes(this.stage.moveNodesToContainedAreas(dragging.all));
   },
 

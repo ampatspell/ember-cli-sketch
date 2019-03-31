@@ -161,7 +161,11 @@ export default Base.extend(FrameMixin, {
 
   //
 
-  update(props) {
+  update(props, opts) {
+    let { delta } = assign({ delta: false }, opts);
+    if(delta) {
+      props = this.frame.deltaToFrame(props);
+    }
     this.model.update(props);
   }
 

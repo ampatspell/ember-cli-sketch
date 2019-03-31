@@ -1,6 +1,7 @@
 import Node from './-base';
 import { frame } from '../frame/-base';
 import { nodes } from '../nodes';
+import { assign } from '@ember/polyfills';
 
 export default Node.extend({
 
@@ -19,10 +20,15 @@ export default Node.extend({
     return true;
   },
 
-  update(props) {
+  update(props, opts) {
+    opts = assign({ delta: false }, opts);
+    if(opts.delta) {
+      props = this.frame.deltaToFrame(props);
+    }
+
     let delta = this.frame.frameToDelta(props);
     this.nodes.all.forEach(node => {
-      node.update(node.frame.deltaToFrame(delta));
+      node.update(delta, { delta: true });
     });
   }
 

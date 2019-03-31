@@ -65,10 +65,10 @@ export default Handler.extend({
       children.x = value;
     }
 
-    node.update(node.frame.deltaToFrame(frame));
+    node.update(frame, { delta: true });
 
     if(!node.isGroup && node.nodes) {
-      node.nodes.forEach(node => node.update(node.frame.deltaToFrame(children)));
+      node.nodes.forEach(node => node.update(children, { delta: true }));
     }
 
     return true;
