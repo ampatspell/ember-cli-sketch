@@ -10,19 +10,13 @@ export default Node.extend({
   frame: frame('group'),
   nodes: nodes(),
 
-  moveToParent(/*parent*/) {
-    // let select = this._beginMoveSelection();
-    // let commits = this.nodes.all.map(node => node._beginMoveToParent(parent));
-
-    // // TODO: via model
-    // this.remove();
-    // parent.nodes.addNode(this);
-    // commits.forEach(commit => commit());
-
-    // select();
-
-    // return true;
-    return false;
+  moveToParent(parent) {
+    let select = this._beginMoveSelection();
+    let commits = this.nodes.all.map(node => node._beginMoveToParent(parent));
+    this.stage._moveNode(this, parent);
+    commits.forEach(commit => commit());
+    select();
+    return true;
   },
 
   update(props) {
