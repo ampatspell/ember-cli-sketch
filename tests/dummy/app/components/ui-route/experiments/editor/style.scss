@@ -1,36 +1,39 @@
 .ui-route-experiments-editor {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  > .editor {
-    flex: 1;
-  }
-  > .info {
-    border-left: 1px solid fade-out(#000, 0.8);
-    box-shadow: -1px 0 1px fade-out(#000, 0.95);
-    width: 300px;
-    padding: 25px;
-    height: 100vh;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    > .section {
-      margin-bottom: 10px;
-    }
-    > .row {
-      margin-bottom: 10px;
-      > .label {
-        font-size: 13px;
-        margin-bottom: 3px;
-      }
-      > .value {
-        &.small {
-          font-size: 12px;
-        }
-        &.strong,
-        .strong {
-          font-weight: 600;
-        }
-      }
-    }
-  }
+
+  padding: 25px;
+
+  // flex: 1;
+  // display: flex;
+  // flex-direction: row;
+  // > .editor {
+  //   flex: 1;
+  // }
+  // > .info {
+  //   border-left: 1px solid fade-out(#000, 0.8);
+  //   box-shadow: -1px 0 1px fade-out(#000, 0.95);
+  //   width: 300px;
+  //   padding: 25px;
+  //   height: 100vh;
+  //   overflow-x: hidden;
+  //   overflow-y: scroll;
+  //   > .section {
+  //     margin-bottom: 10px;
+  //   }
+  //   > .row {
+  //     margin-bottom: 10px;
+  //     > .label {
+  //       font-size: 13px;
+  //       margin-bottom: 3px;
+  //     }
+  //     > .value {
+  //       &.small {
+  //         font-size: 12px;
+  //       }
+  //       &.strong,
+  //       .strong {
+  //         font-weight: 600;
+  //       }
+  //     }
+  //   }
+  // }
 }
