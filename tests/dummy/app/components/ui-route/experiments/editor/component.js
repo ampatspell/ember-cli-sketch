@@ -12,13 +12,13 @@ export default Component.extend({
     let stage = create(this, 'stage', { doc });
 
     let addArea = (id, x, y) => {
-      let area = stage.addNode(id, 'area', null, { x, y, width: 300, height: 300 });
+      let area = stage.addNode(id, 'area', null, { x, y, width: 400, height: 250 });
       stage.addNode(`${id}-1`, 'rect', area, { x: 10, y: 10, width: 50, height: 50, fill: 'red', opacity: 0.5 });
       stage.addNode(`${id}-2`, 'rect', area, { x: 70, y: 10, width: 50, height: 50, fill: 'green', opacity: 0.5 });
     };
 
     addArea('1', 0, 0);
-    addArea('2', 0, 320);
+    addArea('2', 0, 270);
 
     setGlobal({ stage });
     return stage;

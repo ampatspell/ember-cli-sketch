@@ -37,6 +37,7 @@ export default EmberObject.extend({
   addNode(id, type, parent, props) {
     let model = this.createNode(id, type, parent, props);
     this.content.pushObject(model);
+    return model;
   }
 
 });
