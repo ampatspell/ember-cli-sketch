@@ -1,9 +1,8 @@
 import { computed } from '@ember/object';
-import { getOwner } from '@ember/application';
 import { A } from '@ember/array';
-import { assert } from '@ember/debug';
 import { numberContraints } from './math';
 import { compact } from './object';
+import sketches from './sketches';
 
 export const array = () => computed(function() {
   return A();
@@ -17,11 +16,8 @@ export const serialized = (keys, fn) => computed(...keys, function() {
   return compact(props);
 }).readOnly();
 
-export const model = (name, fn) => computed(function() {
-  let fullName = `sketch:${name}`;
-  let factory = getOwner(this).factoryFor(fullName);
-  assert(`${fullName} is not registered`, !!factory);
-  return factory.create(fn.call(this, this));
+export const model = fn => computed(function() {
+  return fn.call(this, sketches(this).factory, this);
 }).readOnly();
 
 export const number = opts => key => {

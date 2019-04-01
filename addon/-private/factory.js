@@ -38,6 +38,18 @@ export default EmberObject.extend({
     return this._create(`frame/${type}`, { node });
   },
 
+  renderer(stage) {
+    return this._create('stage/renderer', { stage });
+  },
+
+  hover(stage) {
+    return this._create('stage/hover', { stage });
+  },
+
+  interactions(stage) {
+    return this._create('stage/interactions', { stage });
+  },
+
   interactionMedium(type, interactions) {
     return this._create(`stage/interactions/mediums/${type}`, { interactions });
   },

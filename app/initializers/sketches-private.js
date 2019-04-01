@@ -8,6 +8,7 @@ import FrameStage from 'ember-cli-sketch/-private/node/frame/stage';
 import FrameSized from 'ember-cli-sketch/-private/node/frame/sized';
 
 import Renderer from 'ember-cli-sketch/-private/stage/renderer';
+import Hover from 'ember-cli-sketch/-private/stage/hover';
 
 import Interactions from 'ember-cli-sketch/-private/stage/interactions';
 import Mouse from 'ember-cli-sketch/-private/stage/interactions/mediums/mouse';
@@ -28,7 +29,7 @@ export default {
     container.register('sketch:frame/stage', FrameStage);
     container.register('sketch:frame/sized', FrameSized);
     container.register('sketch:stage/renderer', Renderer);
-
+    container.register('sketch:stage/hover', Hover);
     container.register('sketch:stage/interactions', Interactions);
     container.register('sketch:stage/interactions/mediums/mouse', Mouse);
     container.register('sketch:stage/interactions/mediums/keyboard', Keyboard);
