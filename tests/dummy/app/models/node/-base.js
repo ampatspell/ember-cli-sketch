@@ -26,8 +26,8 @@ export default EmberObject.extend({
   }).readOnly(),
 
   toStringExtension() {
-    let { doc: { id, type } } = this;
-    return `${id}:${type}`;
+    let { doc: { id } } = this;
+    return id;
   }
 
 });

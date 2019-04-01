@@ -7,6 +7,6 @@ export default EmberObject.extend({
 
   node: null,
   model: readOnly('node.model'),
-  zoom: readOnly('node.stage.node.zoom'),
+  zoom: readOnly('node.stage.node.zoom')
 
 });

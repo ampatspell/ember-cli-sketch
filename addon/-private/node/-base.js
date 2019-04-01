@@ -11,6 +11,6 @@ export default opts => EmberObject.extend({
 
   stage:  readOnly(`model.${opts.stage}`),
   parent: readOnly(`model.${opts.parent}`),
-  nodes:  readOnly(`model.${opts.nodes}`),
+  nodes:  readOnly(`model.${opts.nodes}`)
 
 });
