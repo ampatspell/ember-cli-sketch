@@ -1,7 +1,15 @@
-<div>{{stage}}</div>
-<div>{{stage.doc}}</div>
-<div>
-  {{#each stage.nodes as |node|}}
-    {{node}}
-  {{/each}}
+<div class="block">
+  <div>{{stage}}</div>
+</div>
+
+<div class="block">
+  <div>{{stage.doc}}</div>
+</div>
+
+<div class="block">
+  <div>
+    {{#each stage.content as |node|}}
+      <div role="button" {{action "setGlobal" "node" node}}>{{node}}</div>
+    {{/each}}
+  </div>
 </div>

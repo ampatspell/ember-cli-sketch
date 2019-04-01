@@ -11,4 +11,10 @@ export default Component.extend({
     return create(this, 'stage');
   }).readOnly(),
 
+  actions: {
+    setGlobal(key, value){
+      setGlobal({ [key]: value });
+    }
+  }
+
 });

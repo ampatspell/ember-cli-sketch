@@ -1,12 +1,25 @@
-import EmberObject from '@ember/object';
+import EmberObject, { computed } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
 
 export default EmberObject.extend({
 
   doc: null,
-  type: null,
+  id: readOnly('doc.id'),
+
+  parent: computed('doc.parent', 'stage.content.@each.id', function() {
+    let id = this.doc.parent;
+    if(!id) {
+      return null;
+    }
+    return this.stage.content.findBy('id', id);
+  }).readOnly(),
+
+  nodes: computed('stage.content.@each.parent', function() {
+    return this.stage.content.filterBy('parent', this);
+  }).readOnly(),
 
   toStringExtension() {
-    let { doc: { id }, type } = this;
+    let { doc: { id, type } } = this;
     return `${id}:${type}`;
   }
 
