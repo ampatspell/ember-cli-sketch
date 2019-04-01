@@ -16,7 +16,9 @@ export default EmberObject.extend({
     let fullName = `sketch:node/${identifier}/${type}`;
     let factory = owner.factoryFor(fullName);
     if(!factory) {
-      factory = owner.factoryFor(`sketch:factory/node/${type}`).class;
+      factory = owner.factoryFor(`sketch:factory/node/${type}`);
+      assert(`node factory for type '${type}' is not registered`, !!factory);
+      factory = factory.class;
       owner.register(fullName, factory(opts));
       factory = owner.factoryFor(fullName);
     }

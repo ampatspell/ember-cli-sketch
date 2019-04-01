@@ -1,5 +1,12 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
+import node from '../-node';
+
+export {
+  node
+};
+
+export const doc = key => readOnly(`doc.${key}`);
 
 export default EmberObject.extend({
 
