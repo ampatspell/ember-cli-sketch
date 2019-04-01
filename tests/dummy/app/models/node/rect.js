@@ -9,4 +9,7 @@ export default Base.extend({
   width:  doc('width'),
   height: doc('height'),
 
+  fill: doc('fill'),
+  opacity: doc('opacity')
+
 });
