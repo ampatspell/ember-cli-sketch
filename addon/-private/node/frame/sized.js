@@ -14,6 +14,6 @@ export default Frame.extend({
 
   properties: serialized(keys),
   rotated:    rotated('properties'),
-  zoomed:     zoomed('properties'),
+  zoomed:     zoomed('properties')
 
 });

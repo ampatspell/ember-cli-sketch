@@ -14,6 +14,9 @@ export default opts => create(opts).extend({
   renderer:     model('renderer'),
   interactions: model('interactions'),
   hover:        model('hover'),
+  dragging:     model('dragging'),
+  resizing:     model('resizing'),
+  selection:    model('selection'),
 
   //
 
@@ -26,9 +29,9 @@ export default opts => create(opts).extend({
     renderer.detach(...arguments);
     interactions.reset();
     hover.reset();
-    // selection.reset();
-    // dragging.reset();
-    // resizing.reset();
+    selection.reset();
+    dragging.reset();
+    resizing.reset();
   }
 
 });

@@ -46,6 +46,18 @@ export default EmberObject.extend({
     return this._create('stage/hover', { stage });
   },
 
+  dragging(stage) {
+    return this._create('stage/dragging', { stage });
+  },
+
+  resizing(stage) {
+    return this._create('stage/resizing', { stage });
+  },
+
+  selection(stage) {
+    return this._create('stage/selection', { stage });
+  },
+
   interactions(stage) {
     return this._create('stage/interactions', { stage });
   },
@@ -64,12 +76,12 @@ export default EmberObject.extend({
       types: [
         'stage/zoom',
         'stage/position',
-        // 'node/resize',
-        // 'node/select',
-        // 'node/drag',
-        // 'node/move',
-        // 'node/remove',
-        // 'node/hover'
+        'node/resize',
+        'node/select',
+        'node/drag',
+        'node/move',
+        'node/remove',
+        'node/hover'
       ]
     });
   },
