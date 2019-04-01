@@ -27,8 +27,43 @@ export default EmberObject.extend({
     return factory.create({ sketches, model, opts });
   },
 
+  _create(name, props) {
+    let fullName = `sketch:${name}`;
+    let factory = getOwner(this).factoryFor(fullName);
+    assert(`${fullName} is not registered`, !!factory);
+    return factory.create(props);
+  },
+
   frame(type, node) {
-    return getOwner(this).factoryFor(`sketch:frame/${type}`).create({ node });
+    return this._create(`frame/${type}`, { node });
+  },
+
+  interactionMedium(type, interactions) {
+    return this._create(`stage/interactions/mediums/${type}`, { interactions });
+  },
+
+  interationsKeyboardKey(opts) {
+    return this._create('stage/interactions/mediums/keyboard/key', opts);
+  },
+
+  interactionHandlers(interactions) {
+    return this._create('stage/interactions/handlers', {
+      interactions,
+      types: [
+        'stage/zoom',
+        'stage/position',
+        // 'node/resize',
+        // 'node/select',
+        // 'node/drag',
+        // 'node/move',
+        // 'node/remove',
+        // 'node/hover'
+      ]
+    });
+  },
+
+  interactionHandler(type, handlers) {
+    return this._create(`stage/interactions/handlers/${type}`, { handlers });
   }
 
 });

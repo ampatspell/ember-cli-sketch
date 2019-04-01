@@ -43,6 +43,10 @@ export default EmberObject.extend({
   removeNode(model) {
     model.nodes.slice().forEach(model => model.remove());
     this.content.removeObject(model);
+  },
+
+  update(props) {
+    this.doc.setProperties(props);
   }
 
 });

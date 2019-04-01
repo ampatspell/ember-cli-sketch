@@ -1,8 +1,13 @@
 import { computed } from '@ember/object';
 import { getOwner } from '@ember/application';
+import { A } from '@ember/array';
 import { assert } from '@ember/debug';
 import { numberContraints } from './math';
 import { compact } from './object';
+
+export const array = () => computed(function() {
+  return A();
+}).readOnly();
 
 export const serialized = (keys, fn) => computed(...keys, function() {
   let props = this.getProperties(keys);

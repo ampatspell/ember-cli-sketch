@@ -18,5 +18,9 @@ export default opts => {
     parent: prop('parent'),
     nodes:  prop('nodes'),
 
+    update(props) {
+      return this.model.update(props);
+    }
+
   });
 };

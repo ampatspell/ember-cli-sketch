@@ -1,6 +1,7 @@
 import create, { frame } from './-base';
 import { zoom, model } from '../util/computed';
 import { readOnly } from '@ember/object/computed';
+
 export default opts => create(opts).extend({
 
   stage: readOnly('model'),
@@ -9,6 +10,7 @@ export default opts => create(opts).extend({
   zoom: zoom('model.zoom'),
 
   renderer: model('stage/renderer', stage => ({ stage })),
+  interactions: model('stage/interactions', stage => ({ stage })),
 
   //
 
@@ -19,7 +21,7 @@ export default opts => create(opts).extend({
   detach() {
     let { renderer, interactions, hover, selection, dragging, resizing } = this;
     renderer.detach(...arguments);
-    // interactions.reset();
+    interactions.reset();
     // hover.reset();
     // selection.reset();
     // dragging.reset();
