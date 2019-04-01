@@ -1,15 +1,19 @@
-<div class="block">
-  <div>{{stage}}</div>
-</div>
+{{ui-block/sketch stage=stage class='sketch'}}
 
-<div class="block">
-  <div>{{stage.doc}}</div>
-</div>
+<div class="info">
+  <div class="block">
+    <div>{{stage}}</div>
+  </div>
 
-<div class="block">
-  <div>
-    {{#each stage.content as |node|}}
-      <div role="button" {{action "setGlobal" "node" node}}>{{node}}</div>
-    {{/each}}
+  <div class="block">
+    <div>{{stage.doc}}</div>
+  </div>
+
+  <div class="block">
+    <div>
+      {{#each stage.content as |node|}}
+        <div role="button" {{action "setGlobal" "node" node}}>{{node}}</div>
+      {{/each}}
+    </div>
   </div>
 </div>

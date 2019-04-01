@@ -1,13 +1,29 @@
 import create, { frame } from './-base';
-import { zoom } from '../util/computed';
+import { zoom, model } from '../util/computed';
 import { readOnly } from '@ember/object/computed';
-
 export default opts => create(opts).extend({
-
-  frame: frame('stage'),
 
   stage: readOnly('model'),
 
-  zoom: zoom('model.zoom')
+  frame: frame('stage'),
+  zoom: zoom('model.zoom'),
+
+  renderer: model('stage/renderer', stage => ({ stage })),
+
+  //
+
+  attach() {
+    this.renderer.attach(...arguments);
+  },
+
+  detach() {
+    let { renderer, interactions, hover, selection, dragging, resizing } = this;
+    renderer.detach(...arguments);
+    // interactions.reset();
+    // hover.reset();
+    // selection.reset();
+    // dragging.reset();
+    // resizing.reset();
+  }
 
 });

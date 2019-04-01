@@ -5,12 +5,18 @@ export const frame = type => computed(function() {
   return this.sketches.factory.frame(type, this);
 }).readOnly();
 
-export default opts => EmberObject.extend({
+export default opts => {
 
-  model: null,
+  const prop = key => readOnly(`model.${opts.properties[key]}`);
 
-  stage:  readOnly(`model.${opts.stage}`),
-  parent: readOnly(`model.${opts.parent}`),
-  nodes:  readOnly(`model.${opts.nodes}`)
+  return EmberObject.extend({
 
-});
+    model: null,
+
+    type:   prop('type'),
+    stage:  prop('stage'),
+    parent: prop('parent'),
+    nodes:  prop('nodes'),
+
+  });
+};

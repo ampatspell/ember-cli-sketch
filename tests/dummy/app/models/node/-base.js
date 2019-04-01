@@ -12,6 +12,7 @@ export default EmberObject.extend({
 
   doc: null,
   id: readOnly('doc.id'),
+  type: readOnly('doc.type'),
 
   parent: computed('doc.parent', 'stage.content.@each.id', function() {
     let id = this.doc.parent;
