@@ -23,7 +23,12 @@ export default EmberObject.extend({
       factory = owner.factoryFor(fullName);
     }
 
-    return factory.create({ model, opts });
+    let { sketches } = this;
+    return factory.create({ sketches, model, opts });
+  },
+
+  frame(type, node) {
+    return getOwner(this).factoryFor(`sketch:frame/${type}`).create({ node });
   }
 
 });
