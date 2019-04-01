@@ -26,6 +26,10 @@ export default EmberObject.extend({
     return this.stage.content.filterBy('parent', this);
   }).readOnly(),
 
+  remove() {
+    this.stage.removeNode(this);
+  },
+
   toStringExtension() {
     let { doc: { id } } = this;
     return id;

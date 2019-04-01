@@ -38,6 +38,11 @@ export default EmberObject.extend({
     let model = this.createNode(id, type, parent, props);
     this.content.pushObject(model);
     return model;
+  },
+
+  removeNode(model) {
+    model.nodes.slice().forEach(model => model.remove());
+    this.content.removeObject(model);
   }
 
 });
