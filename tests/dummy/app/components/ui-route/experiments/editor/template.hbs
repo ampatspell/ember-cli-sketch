@@ -1,1 +1,7 @@
-{{this}}
+<div>{{stage}}</div>
+<div>{{stage.doc}}</div>
+<div>
+  {{#each stage.nodes as |node|}}
+    {{node}}
+  {{/each}}
+</div>
