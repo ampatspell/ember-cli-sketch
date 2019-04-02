@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+.ui-block-sketch {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  width: 100%;
+  height: 100%;
+  cursor: default;
+}
+
+.ui-block-sketch-stage {
+  position: absolute;
+}
+
+.ui-block-sketch-stage-node {
+  position: absolute;
+}
