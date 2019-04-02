@@ -16,10 +16,11 @@ export default EmberObject.extend({
 
   parent: computed('doc.parent', 'stage.content.@each.id', function() {
     let id = this.doc.parent;
-    if(!id) {
-      return null;
+    let stage = this.stage;
+    if(id === null) {
+      return stage;
     }
-    return this.stage.content.findBy('id', id);
+    return stage.content.findBy('id', id);
   }).readOnly(),
 
   nodes: computed('stage.content.@each.parent', function() {
@@ -27,6 +28,7 @@ export default EmberObject.extend({
   }).readOnly(),
 
   remove() {
+    this.set('doc.parent', undefined);
     this.stage.removeNode(this);
   },
 

@@ -1,5 +1,5 @@
 import EmberObject, { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
+import { readOnly, bool } from '@ember/object/computed';
 import { assert } from '@ember/debug';
 import { assign } from '@ember/polyfills';
 import { frame } from './frame/-base';
@@ -39,30 +39,22 @@ export default opts => {
 
     model: null,
 
-    isContainer: prop('container', false),
-
-    stage:     parent('isStage', 'stage'),
-    container: parent('isContainer', 'container'),
-
     _stage:  value('stage'),
     _parent: value('parent'),
     _models: value('nodes'),
+
     type:    value('type'),
+
+    isContainer: prop('container', false),
+    isAttached: bool('parent'),
+
+    parent:    readOnly('_parent.node'),
+    stage:     parent('isStage', 'stage'),
+    container: parent('isContainer', 'container'),
 
     _rotatedFrame: readOnly('frame.rotated'),
 
     nodes: nodes(),
-
-    parent: computed('_parent', '_stage', function() {
-      let parent = this._parent;
-      if(parent) {
-        return parent.node;
-      }
-      let stage = this._stage;
-      if(stage) {
-        return this._stage.node;
-      }
-    }).readOnly(),
 
     isSelected: computed('stage.selection.all.[]', function() {
       let selection = this.get('stage.selection.all');

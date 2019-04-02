@@ -39,12 +39,6 @@ export default EmberObject.extend({
 
   reset() {
     this.end();
-  },
-
-  willRemoveNodes(nodes) {
-    if(nodes.find(node => this.node === node)) {
-      this.end();
-    }
   }
 
 });

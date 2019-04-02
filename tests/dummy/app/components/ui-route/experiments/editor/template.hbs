@@ -37,7 +37,7 @@
   <div class="block">
     <div class="title">Hover</div>
     <div>
-      {{#each stage.node.hover.all as |node|}}
+      {{#each stage.node.hover.attached as |node|}}
         <div role="button" {{action "setGlobal" "node" node.model}}>{{node.model}}</div>
       {{else}}
         None
@@ -48,7 +48,7 @@
   <div class="block">
     <div class="title">Selection</div>
     <div>
-      {{#each stage.node.selection.all as |node|}}
+      {{#each stage.node.selection.attached as |node|}}
         <div role="button" {{action "setGlobal" "node" node.model}}>
           <div>{{node.model}}</div>
           <div class="pad-left">

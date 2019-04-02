@@ -1,15 +1,16 @@
 import EmberObject from '@ember/object';
-import { gt } from '@ember/object/computed';
+import { filterBy, gt } from '@ember/object/computed';
 import { array } from '../util/computed';
 
 export default EmberObject.extend({
 
   all: array(),
+  attached: filterBy('all', 'isAttached', true),
 
-  any: gt('all.length', 0),
+  any: gt('attached.length', 0),
 
   copy() {
-    return this.all.slice();
+    return this.attached.slice();
   },
 
   clear() {
@@ -17,7 +18,7 @@ export default EmberObject.extend({
   },
 
   includes(node) {
-    return this.all.includes(node);
+    return this.attached.includes(node);
   },
 
   addNode(node) {
@@ -42,19 +43,15 @@ export default EmberObject.extend({
   },
 
   find() {
-    return this.all.find(...arguments);
+    return this.attached.find(...arguments);
   },
 
   filter() {
-    return this.all.filter(...arguments);
+    return this.attached.filter(...arguments);
   },
 
   reset() {
     this.clear();
-  },
-
-  willRemoveNodes(nodes) {
-    this.all.removeObjects(nodes);
   }
 
 });

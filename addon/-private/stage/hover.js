@@ -5,10 +5,11 @@ import { array } from '../util/computed';
 export default EmberObject.extend({
 
   all: array(),
+  attached: filterBy('all', 'isAttached', true),
+  deselected: filterBy('attached', 'isSelected', false),
 
-  deselected: filterBy('all', 'isSelected', false),
-  last: readOnly('all.lastObject'),
-  any: gt('all.length', 0),
+  last: readOnly('attached.lastObject'),
+  any: gt('attached.length', 0),
 
   replace(nodes) {
     let { all } = this;
@@ -16,15 +17,11 @@ export default EmberObject.extend({
   },
 
   find() {
-    return this.all.find(...arguments);
+    return this.attached.find(...arguments);
   },
 
   reset() {
     this.replace();
-  },
-
-  willRemoveNodes() {
-    this.reset();
   }
 
 });

@@ -30,10 +30,6 @@ export default EmberObject.extend({
 
   reset() {
     this.clear();
-  },
-
-  willRemoveNodes(nodes) {
-    this.all.removeObjects(nodes);
   }
 
 });

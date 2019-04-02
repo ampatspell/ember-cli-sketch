@@ -22,7 +22,7 @@ export default EmberObject.extend({
   zoom: doc('zoom'),
 
   nodes: computed('content.@each.parent', function() {
-    return this.content.filterBy('parent', null);
+    return this.content.filterBy('parent', this);
   }).readOnly(),
 
   createNode(id, type, parent, props) {
