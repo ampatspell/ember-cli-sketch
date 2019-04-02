@@ -51,9 +51,6 @@
       {{#each stage.node.selection.attached as |node|}}
         <div role="button" {{action "setGlobal" "node" node.model}}>
           <div>{{node.model}}</div>
-          <div class="pad-left">
-            {{node.frame.absolute.x}}x{{node.frame.absolute.y}}
-          </div>
         </div>
       {{else}}
         None
