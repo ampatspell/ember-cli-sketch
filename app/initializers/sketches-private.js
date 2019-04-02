@@ -1,11 +1,13 @@
 import Sketches from 'ember-cli-sketch/-private/sketches';
 import Factory from 'ember-cli-sketch/-private/factory';
 import Nodes from 'ember-cli-sketch/-private/node/nodes';
+import NodesContainers from 'ember-cli-sketch/-private/node/nodes/containers';
 
 import NodeStage from 'ember-cli-sketch/-private/node/stage';
 import NodeSized from 'ember-cli-sketch/-private/node/sized';
 
 import FrameStage from 'ember-cli-sketch/-private/node/frame/stage';
+import FrameNodes from 'ember-cli-sketch/-private/node/frame/nodes';
 import FrameSized from 'ember-cli-sketch/-private/node/frame/sized';
 
 import Renderer from 'ember-cli-sketch/-private/stage/renderer';
@@ -36,9 +38,11 @@ export default {
     container.register('sketch:factory', Factory);
     container.register('sketch:factory', Factory);
     container.register('sketch:node/nodes', Nodes);
+    container.register('sketch:node/nodes/containers', NodesContainers);
     container.register('sketch:factory/node/stage', NodeStage);
     container.register('sketch:factory/node/sized', NodeSized);
     container.register('sketch:frame/stage', FrameStage);
+    container.register('sketch:frame/nodes', FrameNodes);
     container.register('sketch:frame/sized', FrameSized);
     container.register('sketch:stage/renderer', Renderer);
     container.register('sketch:stage/hover', Hover);

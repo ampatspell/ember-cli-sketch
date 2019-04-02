@@ -2,7 +2,7 @@ import Base, { node, doc } from './-base';
 
 export default Base.extend({
 
-  node: node({ type: 'sized' }),
+  node: node({ type: 'sized', container: true }),
 
   x:      doc('x'),
   y:      doc('y'),

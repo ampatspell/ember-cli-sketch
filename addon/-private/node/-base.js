@@ -2,10 +2,11 @@ import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { assert } from '@ember/debug';
 import { assign } from '@ember/polyfills';
+import { frame } from './frame/-base';
 
-export const frame = type => computed(function() {
-  return this.sketches.factory.frame(type, this);
-}).readOnly();
+export {
+  frame
+};
 
 export const nodes = () => computed(function() {
   return this.sketches.factory.nodes(this);
@@ -13,17 +14,27 @@ export const nodes = () => computed(function() {
 
 export default opts => {
 
-  const prop = key => readOnly(`model.${opts.properties[key]}`);
+  const value = key => readOnly(`model.${opts.properties[key]}`);
+
+  const prop = (key, defaultValue) => computed(function() {
+    let value = opts[key];
+    if(value === undefined) {
+      value = defaultValue;
+    }
+    return value;
+  }).readOnly();
 
   return EmberObject.extend({
 
     model: null,
 
-    _parent:  prop('parent'),
-    _nodes:  prop('nodes'),
+    isContainer: prop('container', false),
 
-    type:    prop('type'),
-    stage:   prop('stage'),
+    _parent: value('parent'),
+    _nodes:  value('nodes'),
+
+    type:    value('type'),
+    stage:   value('stage'),
 
     nodes:   nodes(),
 

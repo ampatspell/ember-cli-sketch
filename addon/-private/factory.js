@@ -42,6 +42,10 @@ export default EmberObject.extend({
     return this._create('node/nodes', { parent });
   },
 
+  typedNodes(type, nodes) {
+    return this._create(`node/nodes/${type}`, { nodes });
+  },
+
   renderer(stage) {
     return this._create('stage/renderer', { stage });
   },

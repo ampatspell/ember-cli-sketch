@@ -1,11 +1,22 @@
-import EmberObject from '@ember/object';
-import { readOnly } from '@ember/object/computed';
+import EmberObject, { computed } from '@ember/object';
+import { readOnly, map } from '@ember/object/computed';
+import { frame } from './frame/-base';
+
+export const typed = type => computed(function() {
+  return this.sketches.factory.typedNodes(type, this);
+}).readOnly();
 
 export default EmberObject.extend({
 
   parent: null,
+  sketches: readOnly('parent.sketches'),
+
+  frame: frame('nodes'),
 
   all: readOnly('parent._nodes'),
+  _nodes: map('all', model => model.node),
+
+  containers: typed('containers'),
 
   nodesForPosition(position, type) {
     return this.all.reduce((nodes, model) => {
