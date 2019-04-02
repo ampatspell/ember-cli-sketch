@@ -22,3 +22,29 @@ export const rotated = frameKey => computed(frameKey, function() {
   let frame = this.get(frameKey);
   return rotatedRectBounds(frame);
 }).readOnly();
+
+export const absolute = (frameKey, parentFrameKey) => computed(frameKey, parentFrameKey, function() {
+  let parent = this.get(parentFrameKey);
+  if(!parent) {
+    debugger;
+  }
+  if(!parent) {
+    return;
+  }
+
+  let frame = this.get(frameKey);;
+  if(!frame) {
+    return;
+  }
+
+  let { x, y, width, height, rotation } = frame;
+
+  let result = {
+    x:      round(parent.x + x, 2),
+    y:      round(parent.y + y, 2),
+    width:  round(width, 2),
+    height: round(height, 2),
+    rotation
+  };
+  return result;
+}).readOnly();

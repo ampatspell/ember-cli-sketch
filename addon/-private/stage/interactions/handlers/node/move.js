@@ -6,8 +6,9 @@ export default Handler.extend({
     let { selection, stage } = this;
     let nodes = selection.all;
     nodes.forEach(node => node.update(delta, { delta: true }));
-    stage.moveNodesToContainedAreas(nodes);
-    nodes.forEach(node => node.isArea && node.moveToBottom());
+    // TODO: move
+    // stage.moveNodesToContainedAreas(nodes);
+    // nodes.forEach(node => node.isArea && node.moveToBottom());
   },
 
   onKeyDown(key) {

@@ -16,4 +16,23 @@
       {{/each}}
     </div>
   </div>
+
+  <div class="block">
+    <div class="title">Hover</div>
+    <div>
+      {{#each stage.node.hover.all as |node|}}
+        <div role="button" {{action "setGlobal" "node" node.model}}>{{node.model}}</div>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="title">Selection</div>
+    <div>
+      {{#each stage.node.selection.all as |node|}}
+        <div role="button" {{action "setGlobal" "node" node.model}}>{{node.model}}</div>
+      {{/each}}
+    </div>
+  </div>
+
 </div>

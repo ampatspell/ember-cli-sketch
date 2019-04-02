@@ -30,7 +30,8 @@ export default Handler.extend({
         return;
       }
       dragging.replace(selection.all);
-      dragging.forEach(node => node.isArea && node.moveToBottom());
+      // TODO: move
+      // dragging.forEach(node => node.isArea && node.moveToBottom());
     }
 
     let point = {
@@ -39,7 +40,8 @@ export default Handler.extend({
     }
 
     dragging.forEach(node => node.update(point, { delta: true }));
-    dragging.addNodes(this.stage.moveNodesToContainedAreas(dragging.all));
+    // TODO: move
+    // dragging.addNodes(this.stage.moveNodesToContainedAreas(dragging.all));
   },
 
   onMouseDown() {

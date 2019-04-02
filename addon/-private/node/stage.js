@@ -32,6 +32,12 @@ export default opts => create(opts).extend({
     selection.reset();
     dragging.reset();
     resizing.reset();
+  },
+
+  //
+
+  nodesForPosition(position, type) {
+    return this.nodes.nodesForPosition(position, type);
   }
 
 });

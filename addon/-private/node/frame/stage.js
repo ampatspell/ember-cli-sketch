@@ -12,8 +12,8 @@ export default Frame.extend({
   y: model('y'),
 
   properties: serialized(keys),
-  absolute:   readOnly('properties'),
   zoomed:     zoomed('properties'),
+  absolute:   readOnly('properties'),
 
   convertPointFromScreen(point) {
     let { zoom } = this;

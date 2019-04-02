@@ -1,5 +1,7 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
+import { assert } from '@ember/debug';
+import { assign } from '@ember/polyfills';
 
 export const frame = type => computed(function() {
   return this.sketches.factory.frame(type, this);
@@ -17,36 +19,30 @@ export default opts => {
 
     model: null,
 
+    _parent:  prop('parent'),
+    _nodes:  prop('nodes'),
+
     type:    prop('type'),
     stage:   prop('stage'),
-    parent:  prop('parent'),
-    _nodes:  prop('nodes'),
+
     nodes:   nodes(),
 
-    update(props) {
+    parent: computed('_parent', 'stage', function() {
+      let parent = this._parent;
+      if(parent) {
+        return parent;
+      }
+      return this.stage;
+    }).readOnly(),
+
+    update(props, opts) {
+      let { delta } = assign({ delta: false }, opts);
+      if(delta) {
+        props = this.frame.deltaToFrame(props);
+      }
+      assert(`model.update is required for ${this.model}`, !!this.model.update);
       return this.model.update(props);
-    },
-
-    //
-
-    // _childNodesForPosition(position, type) {
-    //   return this.nodes.reduce((nodes, { node }) => {
-    //     if(node.frame.includesPosition(position, type)) {
-    //       nodes.push(node);
-    //     }
-    //     nodes.push(...node.nodes.nodesForPosition(position, type));
-    //     return nodes;
-    //   }, []);
-    // },
-
-    nodesForPosition(position, type) {
-      return [];
-      // let nodes = this.nodes.nodesForPosition(this.frame.convertPointFromParent(position), type);
-      // if(nodes.length || this.frame.includesPosition(position, type)) {
-      //   return [ this, ...nodes ];
-      // }
-      // return nodes;
-    },
+    }
 
   });
 };

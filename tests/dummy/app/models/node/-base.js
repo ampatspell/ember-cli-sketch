@@ -30,6 +30,10 @@ export default EmberObject.extend({
     this.stage.removeNode(this);
   },
 
+  update(props) {
+    this.doc.setProperties(props);
+  },
+
   toStringExtension() {
     let { doc: { id } } = this;
     return id;
