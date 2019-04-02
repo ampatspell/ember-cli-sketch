@@ -29,7 +29,7 @@ export default Handler.extend({
       if(!selection.any) {
         return;
       }
-      dragging.replace(selection.all);
+      dragging.replace(selection.attached);
       // TODO: move
       // dragging.forEach(node => node.isArea && node.moveToBottom());
     }
