@@ -64,8 +64,8 @@ export default opts => {
       }
     }).readOnly(),
 
-    isSelected: computed('stage.node.selection.all.[]', function() {
-      let selection = this.get('stage.node.selection.all');
+    isSelected: computed('stage.selection.all.[]', function() {
+      let selection = this.get('stage.selection.all');
       if(!selection) {
         return;
       }

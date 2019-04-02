@@ -10,6 +10,22 @@
   </div>
 
   <div class="block">
+    <div class="title">Tree</div>
+    <div>
+      {{#each stage.nodes as |node|}}
+        <div>
+          <div role="button" {{action "setGlobal" "node" node}}>{{node}}</div>
+          {{#each node.nodes as |nested|}}
+            <div class="pad-left">
+              <div role="button" {{action "setGlobal" "node" nested}}>{{nested}}</div>
+            </div>
+          {{/each}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="block">
     <div class="title">Content</div>
     <div>
       {{#each stage.content as |node|}}
@@ -33,7 +49,12 @@
     <div class="title">Selection</div>
     <div>
       {{#each stage.node.selection.all as |node|}}
-        <div role="button" {{action "setGlobal" "node" node.model}}>{{node.model}}</div>
+        <div role="button" {{action "setGlobal" "node" node.model}}>
+          <div>{{node.model}}</div>
+          <div class="pad-left">
+            {{node.frame.absolute.x}}x{{node.frame.absolute.y}}
+          </div>
+        </div>
       {{else}}
         None
       {{/each}}

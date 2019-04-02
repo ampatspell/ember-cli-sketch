@@ -2,6 +2,7 @@ import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { assert } from '@ember/debug';
 import { assign } from '@ember/polyfills';
+import { round } from '../../util/math';
 
 export const frame = type => computed(function() {
   return this.sketches.factory.frame(type, this);
@@ -22,7 +23,7 @@ export default EmberObject.extend({
   deltaToFrame(props) {
     let values = {};
     keys(props).forEach(key => {
-      values[key] = this[key] + props[key];
+      values[key] = round(this[key] + props[key], 2);
     });
     return values;
   },
