@@ -5,6 +5,10 @@ export const frame = type => computed(function() {
   return this.sketches.factory.frame(type, this);
 }).readOnly();
 
+export const nodes = () => computed(function() {
+  return this.sketches.factory.nodes(this);
+}).readOnly();
+
 export default opts => {
 
   const prop = key => readOnly(`model.${opts.properties[key]}`);
@@ -13,10 +17,11 @@ export default opts => {
 
     model: null,
 
-    type:   prop('type'),
-    stage:  prop('stage'),
-    parent: prop('parent'),
-    nodes:  prop('nodes'),
+    type:    prop('type'),
+    stage:   prop('stage'),
+    parent:  prop('parent'),
+    _nodes:  prop('nodes'),
+    nodes:   nodes(),
 
     update(props) {
       return this.model.update(props);

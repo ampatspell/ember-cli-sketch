@@ -38,6 +38,10 @@ export default EmberObject.extend({
     return this._create(`frame/${type}`, { node });
   },
 
+  nodes(parent) {
+    return this._create('node/nodes', { parent });
+  },
+
   renderer(stage) {
     return this._create('stage/renderer', { stage });
   },
