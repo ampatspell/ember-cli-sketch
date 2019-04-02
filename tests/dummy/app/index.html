@@ -13,6 +13,20 @@
     <link integrity="" rel="stylesheet" href="{{rootURL}}assets/dummy.css">
 
     {{content-for "head-footer"}}
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+
+    <script>
+      var config = {
+        apiKey: "AIzaSyDB7AdRuSvgo-aZ4NMQXp46Vyy30TOdRFI",
+        authDomain: "quatsch-e12c5.firebaseapp.com",
+        databaseURL: "https://quatsch-e12c5.firebaseio.com",
+        projectId: "quatsch-e12c5",
+        storageBucket: "quatsch-e12c5.appspot.com"
+      };
+      firebase.initializeApp(config);
+    </script>
   </head>
   <body>
     {{content-for "body"}}

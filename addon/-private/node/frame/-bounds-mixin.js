@@ -12,6 +12,10 @@ const property = (frameKey, propertyKey) => computed(frameKey, function() {
 const frame = (ownerNodesKey, sourceKey) => computed(`${ownerNodesKey}.@each.${sourceKey}`, function() {
   let nodes = this.get(ownerNodesKey);
 
+  if(!nodes.length) {
+    return;
+  }
+
   let box = {
     min: {
       x: Number.POSITIVE_INFINITY,

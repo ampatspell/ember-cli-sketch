@@ -10,6 +10,14 @@
   </div>
 
   <div class="block">
+    <div class="title">Add</div>
+    <div class="actions">
+      {{ui-block/button value='Center' action=(action 'center')}}
+      {{ui-block/button value='Fit' action=(action 'fit')}}
+    </div>
+  </div>
+
+  <div class="block">
     <div class="title">Tree</div>
     <div>
       {{#each stage.nodes as |node|}}
@@ -55,6 +63,16 @@
       {{else}}
         None
       {{/each}}
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="title">Add</div>
+    <div class="actions">
+      {{ui-block/button value='Area' action=(action 'addNode' 'area' (hash x=0 y=0 width=300 height=200))}}
+      {{ui-block/button value='Red Rect' action=(action 'addNode' 'rect' (hash x=10 y=10 width=50 height=50 fill="red" opacity=0.3 rotation=2))}}
+      {{ui-block/button value='Green Rect' action=(action 'addNode' 'rect' (hash x=10 y=10 width=50 height=50 fill="green" opacity=0.3 rotation=-2))}}
+      {{ui-block/button value='Blue Rect' action=(action 'addNode' 'rect' (hash x=10 y=10 width=50 height=50 fill="blue" opacity=0.3 rotation=2))}}
     </div>
   </div>
 

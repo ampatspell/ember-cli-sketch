@@ -36,6 +36,9 @@ export default Mixin.create({
     }
 
     let bounds = frame.hover;
+    if(!bounds) {
+      return;
+    }
 
     let dimension = (dimensionKey, sizeKey) => {
       let value = opts[dimensionKey];
@@ -67,6 +70,9 @@ export default Mixin.create({
     }
 
     let bounds = frame.absoluteBounds;
+    if(!bounds) {
+      return;
+    }
 
     let value = dimension => (size[dimension] - (opts.offset * 2)) / bounds[dimension];
 

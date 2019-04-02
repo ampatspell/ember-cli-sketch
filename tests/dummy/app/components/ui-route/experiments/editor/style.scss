@@ -22,6 +22,14 @@
       .pad-left {
         padding-left: 15px;
       }
+      > .actions {
+        margin-top: 5px;
+        display: flex;
+        flex-direction: column;
+        > button {
+          margin-bottom: 5px;
+        }
+      }
     }
   }
 }
