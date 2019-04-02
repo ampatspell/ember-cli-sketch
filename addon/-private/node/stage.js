@@ -2,10 +2,11 @@ import create, { frame } from './-base';
 import { zoom, model as _model } from '../util/computed';
 import { readOnly } from '@ember/object/computed';
 import { assert } from '@ember/debug';
+import CenterFitMixin from './stage/center-fit-mixin';
 
 const model = name => _model((factory, stage) => factory[name].call(factory, stage));
 
-export default opts => create(opts).extend({
+export default opts => create(opts).extend(CenterFitMixin, {
 
   stage: readOnly('model'),
 

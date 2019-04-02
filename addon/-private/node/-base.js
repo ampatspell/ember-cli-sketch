@@ -36,6 +36,8 @@ export default opts => {
     type:    value('type'),
     stage:   value('stage'),
 
+    zoom: readOnly('stage.node.zoom'),
+
     _rotatedFrame: readOnly('frame.rotated'),
 
     nodes:   nodes(),

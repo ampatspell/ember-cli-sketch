@@ -10,6 +10,7 @@ export default EmberObject.extend({
 
   parent: null,
   sketches: readOnly('parent.sketches'),
+  zoom: readOnly('parent.zoom'),
 
   frame: frame('nodes'),
 

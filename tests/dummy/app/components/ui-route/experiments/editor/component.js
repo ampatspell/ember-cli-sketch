@@ -8,7 +8,7 @@ export default Component.extend({
   layout,
 
   stage: computed(function() {
-    let doc = create(this, 'document', { id: 'stage', type: 'stage', x: 0, y: 0, zoom: 1 });
+    let doc = create(this, 'document', { id: 'stage', type: 'stage', x: 0, y: 0, zoom: 1.25 });
     let stage = create(this, 'stage', { doc });
 
     let addArea = (id, x, y) => {
@@ -25,6 +25,9 @@ export default Component.extend({
   }).readOnly(),
 
   actions: {
+    ready(stage) {
+      stage.node.center();
+    },
     setGlobal(key, value){
       setGlobal({ [key]: value });
     }
