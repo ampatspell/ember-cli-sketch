@@ -27,6 +27,14 @@ export default opts => {
 
     nodes:   nodes(),
 
+    isSelected: computed('stage.node.selection.all.[]', function() {
+      let selection = this.get('stage.node.selection.all');
+      if(!selection) {
+        return;
+      }
+      return selection.includes(this);
+    }).readOnly(),
+
     parent: computed('_parent', 'stage', function() {
       let parent = this._parent;
       if(parent) {

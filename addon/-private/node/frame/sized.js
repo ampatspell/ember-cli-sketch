@@ -18,4 +18,7 @@ export default Frame.extend({
   absolute:       absolute('properties', 'node.parent.node.frame.absolute'),
   absoluteBounds: rotated('absolute'),
 
+  hover:     zoomed('absoluteBounds'),
+  selection: zoomed('absoluteBounds')
+
 });

@@ -26,9 +26,6 @@ export const rotated = frameKey => computed(frameKey, function() {
 export const absolute = (frameKey, parentFrameKey) => computed(frameKey, parentFrameKey, function() {
   let parent = this.get(parentFrameKey);
   if(!parent) {
-    debugger;
-  }
-  if(!parent) {
     return;
   }
 
