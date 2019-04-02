@@ -10,7 +10,7 @@ export default Component.extend({
   classNameBindings: [ ':ui-block-sketch-selections-selection' ],
   attributeBindings: [ 'style' ],
 
-  stage: readOnly('model.node.stage.node'),
+  stage: readOnly('model.node.stage'),
   resizing: readOnly('stage.resizing'),
 
   // TODO: constraints

@@ -12,6 +12,17 @@ export const nodes = () => computed(function() {
   return this.sketches.factory.nodes(this);
 }).readOnly();
 
+const parent = (prop, key) => computed(`parent.{${prop},${key}}`, function() {
+  let parent = this.get('parent');
+  if(!parent) {
+    return;
+  }
+  if(parent[prop]) {
+    return parent;
+  }
+  return parent[key];
+}).readOnly();
+
 export default opts => {
 
   const value = key => readOnly(`model.${opts.properties[key]}`);
@@ -30,17 +41,28 @@ export default opts => {
 
     isContainer: prop('container', false),
 
+    stage:     parent('isStage', 'stage'),
+    container: parent('isContainer', 'container'),
+
+    _stage:  value('stage'),
     _parent: value('parent'),
     _models: value('nodes'),
-
     type:    value('type'),
-    stage:   value('stage'),
-
-    zoom: readOnly('stage.node.zoom'),
 
     _rotatedFrame: readOnly('frame.rotated'),
 
-    nodes:   nodes(),
+    nodes: nodes(),
+
+    parent: computed('_parent', '_stage', function() {
+      let parent = this._parent;
+      if(parent) {
+        return parent.node;
+      }
+      let stage = this._stage;
+      if(stage) {
+        return this._stage.node;
+      }
+    }).readOnly(),
 
     isSelected: computed('stage.node.selection.all.[]', function() {
       let selection = this.get('stage.node.selection.all');
@@ -50,16 +72,21 @@ export default opts => {
       return selection.includes(this);
     }).readOnly(),
 
-    parent: computed('_parent', 'stage', function() {
-      let parent = this._parent;
-      if(parent) {
-        return parent;
-      }
-      return this.stage;
-    }).readOnly(),
-
     containsNode(node) {
       return this.nodes.containsNode(node);
+    },
+
+    frameDidChange() {
+      this.stage.nodeFrameDidChange(this);
+    },
+
+    _update(props) {
+      assert(`update is required for ${this.model}`, !!this.model.update);
+      let changes = this.frame.changesForFrame(props);
+      this.model.update(props);
+      if(changes.length) {
+        this.frameDidChange();
+      }
     },
 
     update(props, opts) {
@@ -67,13 +94,52 @@ export default opts => {
       if(delta) {
         props = this.frame.deltaToFrame(props);
       }
-      assert(`update is required for ${this.model}`, !!this.model.update);
-      return this.model.update(props);
+      this._update(props);
     },
 
     remove() {
       assert(`remove is required for ${this.model}`, !!this.model.remove);
       this.model.remove();
+    },
+
+    //
+
+    deselect() {
+      this.stage.selection.removeNode(this);
+    },
+
+    select(opts) {
+      let { replace } = assign({ replace: true }, opts);
+      let { selection } = this.stage;
+      if(replace) {
+        selection.replace([ this ]);
+      } else {
+        selection.addNode(this);
+      }
+    },
+
+    //
+
+    _beginMoveSelection() {
+      let selected = this.isSelected;
+      if(selected) {
+        this.deselect();
+      }
+
+      return () => {
+        if(selected) {
+          this.select({ replace: false });
+        }
+      }
+    },
+
+    _beginMoveToParent(parent) {
+      let select = this._beginMoveSelection();
+      let frame = parent.frame.convertFrameFromAbsolute(this.frame.absolute);
+      return () => {
+        this.update(frame);
+        select();
+      };
     },
 
   });

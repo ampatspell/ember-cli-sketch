@@ -17,7 +17,7 @@ export default EmberObject.extend({
 
   parent: null,
   model: readOnly('parent.model'),
-  zoom: readOnly('parent.zoom'),
+  zoom: readOnly('parent.stage.zoom'),
 
   deltaToFrame(props) {
     let values = {};
@@ -33,6 +33,17 @@ export default EmberObject.extend({
       values[key] = props[key] - this[key];
     });
     return values;
+  },
+
+  changesForFrame(props) {
+    let delta = this.frameToDelta(props);
+    let changes = [];
+    keys(delta).forEach(key => {
+      if(delta[key] !== 0) {
+        changes.push(key);
+      }
+    });
+    return changes;
   },
 
   convertPointFromAbsolute(point) {

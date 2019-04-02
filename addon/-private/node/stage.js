@@ -1,14 +1,21 @@
 import create, { frame } from './-base';
 import { zoom, model as _model } from '../util/computed';
-import { readOnly } from '@ember/object/computed';
+import { computed } from '@ember/object';
 import { assert } from '@ember/debug';
 import CenterFitMixin from './stage/center-fit-mixin';
 
 const model = name => _model((factory, stage) => factory[name].call(factory, stage));
 
+const self = () => computed(function() {
+  return this;
+})
+
 export default opts => create(opts).extend(CenterFitMixin, {
 
-  stage: readOnly('model'),
+  isStage: true,
+  isContainer: true,
+
+  stage: self(),
 
   frame: frame('stage'),
   zoom:  zoom('model.zoom'),
@@ -45,6 +52,31 @@ export default opts => create(opts).extend(CenterFitMixin, {
 
   nodesForPosition(position, type) {
     return this.nodes.nodesForPosition(position, type);
+  },
+
+  //
+
+  nodeFrameDidChange(node) {
+    if(node === this) {
+      return;
+    }
+
+    let target = this.nodes.containers._nodes.find(container => {
+      return container.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds');
+    });
+
+    if(target) {
+      if(node.container === target) {
+        return;
+      }
+    } else if(!node.container) {
+      return;
+    } else {
+      target = this;
+    }
+
+    console.log(target+"");
+
   }
 
 });
