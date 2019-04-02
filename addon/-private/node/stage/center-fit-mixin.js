@@ -45,7 +45,9 @@ export default Mixin.create({
       if(value) {
         return value;
       }
-      return round(((size[sizeKey] / 2) - (bounds[sizeKey] / 2)) / zoom);
+      let base = this.frame[dimensionKey] - (bounds[dimensionKey] / zoom);
+      let offset = (size[sizeKey] - (bounds[sizeKey])) / 2 / zoom;
+      return round(base + offset);
     }
 
     let position = {

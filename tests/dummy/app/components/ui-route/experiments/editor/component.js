@@ -7,13 +7,13 @@ export default Component.extend({
 
   actions: {
     ready(stage) {
-      // stage.node.center();
+      stage.node.center();
     },
     center() {
       this.stage.node.center();
     },
     fit() {
-      this.stage.node.fit();
+      this.stage.node.fit({ offset: 100 });
     },
     setGlobal(key, value){
       setGlobal({ [key]: value });
