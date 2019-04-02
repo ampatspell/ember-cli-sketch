@@ -10,6 +10,7 @@
   </div>
 
   <div class="block">
+    <div class="title">Content</div>
     <div>
       {{#each stage.content as |node|}}
         <div role="button" {{action "setGlobal" "node" node}}>{{node}}</div>
@@ -22,6 +23,8 @@
     <div>
       {{#each stage.node.hover.all as |node|}}
         <div role="button" {{action "setGlobal" "node" node.model}}>{{node.model}}</div>
+      {{else}}
+        None
       {{/each}}
     </div>
   </div>
@@ -31,6 +34,8 @@
     <div>
       {{#each stage.node.selection.all as |node|}}
         <div role="button" {{action "setGlobal" "node" node.model}}>{{node.model}}</div>
+      {{else}}
+        None
       {{/each}}
     </div>
   </div>

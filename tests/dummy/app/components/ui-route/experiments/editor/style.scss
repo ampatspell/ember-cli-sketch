@@ -16,6 +16,9 @@
     font-size: 12px;
     > .block {
       margin-bottom: 10px;
+      > .title {
+        font-weight: 600;
+      }
     }
   }
 }

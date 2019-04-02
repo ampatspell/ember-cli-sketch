@@ -18,4 +18,8 @@ export default EmberObject.extend({
     }, []);
   },
 
+  containsNode(node) {
+    return this.all.find(child => child.node === node || child.node.containsNode(node));
+  }
+
 });

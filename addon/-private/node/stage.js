@@ -1,6 +1,7 @@
 import create, { frame } from './-base';
 import { zoom, model as _model } from '../util/computed';
 import { readOnly } from '@ember/object/computed';
+import { assert } from '@ember/debug';
 
 const model = name => _model((factory, stage) => factory[name].call(factory, stage));
 
@@ -35,6 +36,11 @@ export default opts => create(opts).extend({
   },
 
   //
+
+  handle(action) {
+    assert(`handle is required for ${this.model}`, !!this.model.handle);
+    this.model.handle(action);
+  },
 
   nodesForPosition(position, type) {
     return this.nodes.nodesForPosition(position, type);

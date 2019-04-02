@@ -35,14 +35,23 @@ export default opts => {
       return this.stage;
     }).readOnly(),
 
+    containsNode(node) {
+      return this.nodes.containsNode(node);
+    },
+
     update(props, opts) {
       let { delta } = assign({ delta: false }, opts);
       if(delta) {
         props = this.frame.deltaToFrame(props);
       }
-      assert(`model.update is required for ${this.model}`, !!this.model.update);
+      assert(`update is required for ${this.model}`, !!this.model.update);
       return this.model.update(props);
-    }
+    },
+
+    remove() {
+      assert(`remove is required for ${this.model}`, !!this.model.remove);
+      this.model.remove();
+    },
 
   });
 };

@@ -47,6 +47,10 @@ export default EmberObject.extend({
 
   update(props) {
     this.doc.setProperties(props);
+  },
+
+  handle(action) {
+    action.perform();
   }
 
 });
