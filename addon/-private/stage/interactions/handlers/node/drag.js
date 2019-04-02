@@ -40,8 +40,7 @@ export default Handler.extend({
     }
 
     dragging.forEach(node => node.update(point, { delta: true }));
-    // TODO: move
-    // dragging.addNodes(this.stage.moveNodesToContainedAreas(dragging.all));
+    this.stage.moveNodesToOverlappingContainers(dragging.all);
   },
 
   onMouseDown() {

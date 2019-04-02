@@ -76,17 +76,10 @@ export default opts => {
       return this.nodes.containsNode(node);
     },
 
-    frameDidChange() {
-      this.stage.nodeFrameDidChange(this);
-    },
-
     _update(props) {
       assert(`update is required for ${this.model}`, !!this.model.update);
-      let changes = this.frame.changesForFrame(props);
+      // let changes = this.frame.changesForFrame(props);
       this.model.update(props);
-      if(changes.length) {
-        this.frameDidChange();
-      }
     },
 
     update(props, opts) {
@@ -140,6 +133,20 @@ export default opts => {
         this.update(frame);
         select();
       };
+    },
+
+    moveTo(target) {
+      let commit = this._beginMoveToParent(target);
+
+      let model = null;
+      if(target && !target.isStage) {
+        target = target.model;
+      }
+
+      assert(`move is required for ${this.model}`, !!this.model.move);
+      this.model.move(model);
+
+      commit();
     },
 
   });

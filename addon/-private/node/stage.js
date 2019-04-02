@@ -56,27 +56,31 @@ export default opts => create(opts).extend(CenterFitMixin, {
 
   //
 
-  nodeFrameDidChange(node) {
+  moveNodeToOverlappingContainer(node) {
     if(node === this) {
       return;
     }
 
     let target = this.nodes.containers._nodes.find(container => {
-      return container.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds');
+      return container !== node && container.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds');
     });
 
     if(target) {
-      if(node.container === target) {
+      if(node.parent === target) {
         return;
       }
-    } else if(!node.container) {
-      return;
-    } else {
+    } else if(node.parent !== this) {
       target = this;
+    } else {
+      return;
     }
 
-    console.log(target+"");
+    node.moveTo(target);
+    return true;
+  },
 
+  moveNodesToOverlappingContainers(nodes) {
+    return nodes.filter(node => this.moveNodeToOverlappingContainer(node));
   }
 
 });

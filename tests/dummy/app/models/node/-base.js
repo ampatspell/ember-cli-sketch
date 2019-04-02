@@ -34,6 +34,10 @@ export default EmberObject.extend({
     this.doc.setProperties(props);
   },
 
+  move(target) {
+    this.set('doc.parent', target && target.id);
+  },
+
   toStringExtension() {
     let { doc: { id } } = this;
     return id;
