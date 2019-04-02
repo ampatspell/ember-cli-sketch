@@ -45,6 +45,16 @@ export default Handler.extend({
     let frame = {};
     let children = {};
 
+    // TODO: constraints
+    constraints = {
+      vertical: {
+        clampSizeDelta: value => value
+      },
+      horizontal: {
+        clampSizeDelta: value => value
+      }
+    };
+
     if(edge.vertical === 'bottom') {
       let value = constraints.vertical.clampSizeDelta(delta.y);
       frame.height = value;
@@ -66,10 +76,7 @@ export default Handler.extend({
     }
 
     node.update(frame, { delta: true });
-
-    if(!node.isGroup && node.nodes) {
-      node.nodes.forEach(node => node.update(children, { delta: true }));
-    }
+    node.nodes.all.forEach(model => model.node.update(children, { delta: true }));
 
     return true;
   },
