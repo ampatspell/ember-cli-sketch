@@ -31,10 +31,12 @@ export default opts => {
     isContainer: prop('container', false),
 
     _parent: value('parent'),
-    _nodes:  value('nodes'),
+    _models: value('nodes'),
 
     type:    value('type'),
     stage:   value('stage'),
+
+    _rotatedFrame: readOnly('frame.rotated'),
 
     nodes:   nodes(),
 

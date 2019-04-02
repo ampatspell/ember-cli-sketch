@@ -34,8 +34,8 @@ export default EmberObject.extend({
     return factory.create(props);
   },
 
-  frame(type, node) {
-    return this._create(`frame/${type}`, { node });
+  frame(type, parent) {
+    return this._create(`frame/${type}`, { parent });
   },
 
   nodes(parent) {

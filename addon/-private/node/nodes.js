@@ -13,7 +13,7 @@ export default EmberObject.extend({
 
   frame: frame('nodes'),
 
-  all: readOnly('parent._nodes'),
+  all: readOnly('parent._models'),
   _nodes: map('all', model => model.node),
 
   containers: typed('containers'),

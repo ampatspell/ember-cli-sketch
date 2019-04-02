@@ -15,7 +15,7 @@ export default Frame.extend({
   properties:     serialized(keys),
   rotated:        rotated('properties'),
   zoomed:         zoomed('properties'),
-  absolute:       absolute('properties', 'node.parent.node.frame.absolute'),
+  absolute:       absolute('properties', 'parent.parent.node.frame.absolute'),
   absoluteBounds: rotated('absolute'),
 
   hover:     zoomed('absoluteBounds'),

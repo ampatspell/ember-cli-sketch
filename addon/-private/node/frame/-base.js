@@ -15,9 +15,9 @@ const {
 
 export default EmberObject.extend({
 
-  node: null,
-  model: readOnly('node.model'),
-  zoom: readOnly('node.stage.node.zoom'),
+  parent: null,
+  model: readOnly('parent.model'),
+  zoom: readOnly('parent.stage.node.zoom'),
 
   deltaToFrame(props) {
     let values = {};

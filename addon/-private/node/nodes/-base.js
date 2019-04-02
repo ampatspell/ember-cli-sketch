@@ -1,16 +1,16 @@
-import EmberObject, { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
+import EmberObject from '@ember/object';
+import { filterBy, map, readOnly } from '@ember/object/computed';
 import { frame } from '../frame/-base';
 
 export default condition => EmberObject.extend({
 
   nodes: null,
   sketches: readOnly('nodes.sketches'),
+  parent: readOnly('nodes.parent'),
 
-  all: computed(`nodes._nodes.@each.${condition}`, function() {
-    return this.nodes._nodes.filter(node => node[condition]).map(node => node.model);
-  }).readOnly(),
+  _nodes: filterBy('nodes._nodes', condition, true),
+  all: map('_nodes', node => node.model),
 
-  frame: frame('nodes'),
+  frame: frame('nodes')
 
 });
