@@ -3,11 +3,11 @@ import Handler from '../-base';
 export default Handler.extend({
 
   perform({ delta }) {
-    let { selection, /*stage*/ } = this;
+    let { selection, stage } = this;
     let nodes = selection.all;
     nodes.forEach(node => node.update(delta, { delta: true }));
+    stage.moveNodesToOverlappingContainers(nodes);
     // TODO: move
-    // stage.moveNodesToContainedAreas(nodes);
     // nodes.forEach(node => node.isArea && node.moveToBottom());
   },
 

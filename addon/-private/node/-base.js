@@ -113,40 +113,26 @@ export default opts => {
 
     //
 
-    _beginMoveSelection() {
-      let selected = this.isSelected;
-      if(selected) {
-        this.deselect();
-      }
+    _withMoveToParent(parent, cb) {
+      let absolute = this.frame.absolute;
+      let frame = parent.frame.convertFrameFromAbsolute(absolute);
 
-      return () => {
-        if(selected) {
-          this.select({ replace: false });
-        }
-      }
-    },
+      cb();
 
-    _beginMoveToParent(parent) {
-      let select = this._beginMoveSelection();
-      let frame = parent.frame.convertFrameFromAbsolute(this.frame.absolute);
-      return () => {
-        this.update(frame);
-        select();
-      };
+      this.update(frame);
     },
 
     moveTo(target) {
-      let commit = this._beginMoveToParent(target);
+      assert(`move is required for ${this.model}`, !!this.model.move);
 
       let model = null;
       if(target && !target.isStage) {
-        target = target.model;
+        model = target.model;
       }
 
-      assert(`move is required for ${this.model}`, !!this.model.move);
-      this.model.move(model);
-
-      commit();
+      this._withMoveToParent(target, () => {
+        this.model.move(model);
+      });
     },
 
   });
