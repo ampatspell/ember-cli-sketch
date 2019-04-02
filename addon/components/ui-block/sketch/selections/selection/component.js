@@ -3,7 +3,7 @@ import layout from './template';
 import { readOnly, or } from '@ember/object/computed';
 import { frame, style } from '../../-computed';
 
-const disabled = key => readOnly(`constraints.${key}.isNotResizable`);
+// const disabled = key => readOnly(`constraints.${key}.isNotResizable`);
 
 export default Component.extend({
   layout,

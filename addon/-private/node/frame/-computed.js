@@ -29,7 +29,7 @@ export const absolute = (frameKey, parentFrameKey) => computed(frameKey, parentF
     return;
   }
 
-  let frame = this.get(frameKey);;
+  let frame = this.get(frameKey);
   if(!frame) {
     return;
   }
