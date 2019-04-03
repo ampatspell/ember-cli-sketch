@@ -5,7 +5,9 @@
 .ui-block-sketch-hovers-hover {
   position: absolute;
   border: 1px solid #60befd;
-  &.hidden {
-    display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  &.show {
+    opacity: 1;
   }
 }
