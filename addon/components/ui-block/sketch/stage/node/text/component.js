@@ -8,15 +8,15 @@ export default Component.extend({
 
   text: readOnly('model.text'),
 
-  style: style('model.{fill,color,opacity,fontFamily,fontWeight,fontSize}', function() {
-    let { model: { fill: background, color, opacity, fontFamily, fontWeight, fontSize } } = this;
+  style: style('model.{fill,color,opacity,fontFamily,fontWeight,fontSize}', 'zoom', function() {
+    let { model: { fill: background, color, opacity, fontFamily, fontWeight, fontSize }, zoom } = this;
     return {
       background,
       opacity,
       color,
       'font-family': fontFamily,
       'font-weight': fontWeight,
-      'font-size': `${fontSize}px`
+      'font-size': `${fontSize * zoom}px`
     };
   })
 
