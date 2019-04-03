@@ -101,43 +101,9 @@ export default Handler.extend({
     }
   },
 
-  edgeForNode(node, point) {
-    let bounds = node.frame.hover;
-    let local = node.frame.convertPoint(point, 'hover');
-    let offset = 10;
-
-    let edge = {};
-
-    if(local.x > -offset && local.x < offset) {
-      edge.horizontal = 'left';
-    } else if(local.x > bounds.width - offset && local.x + offset < bounds.width + offset) {
-      edge.horizontal = 'right';
-    } else if(local.x > bounds.width / 2 - offset && local.x < bounds.width / 2 + offset) {
-      edge.horizontal = 'middle';
-    }
-
-    if(local.y > -offset && local.y < offset) {
-      edge.vertical = 'top';
-    } else if(local.y > bounds.height - offset && local.y + offset < bounds.height + offset) {
-      edge.vertical = 'bottom';
-    } else if(local.y > bounds.height / 2 - offset && local.y < bounds.height / 2 + offset) {
-      edge.vertical = 'middle';
-    }
-
-    if(!edge.horizontal || !edge.vertical) {
-      return;
-    }
-
-    if(edge.horizontal === 'middle' && edge.vertical === 'middle') {
-      return;
-    }
-
-    console.log(edge);
-  },
-
   _edge() {
     let point = this.stage.frame.convertPointFromScreen(this.mouse.stage);
-    this.selection.attached.forEach(node => this.edgeForNode(node, point));
+    this.selection.attached.forEach(node => node.edge.set('point', point));
   },
 
 });

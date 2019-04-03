@@ -12,22 +12,18 @@ export default Component.extend({
   classNameBindings: [ ':ui-block-sketch-selections-selection' ],
   attributeBindings: [ 'style' ],
 
-  stage: readOnly('model.node.stage'),
+  node: readOnly('model.node'),
+  edge: readOnly('node.edge'),
+
+  stage: readOnly('node.stage'),
   resizing: readOnly('stage.resizing'),
 
   width:  attribute('model', 'width'),
   height: attribute('model', 'height'),
 
-  isTopLeftDisabled:      both(),
-  isTopRightDisabled:     both(),
-  isBottomLeftDisabled:   both(),
-  isBotomRightDisabled:   both(),
-
-  isTopMiddleDisabled:    height(),
-  isBottomMiddleDisabled: height(),
-
-  isMiddleLeftDisabled:   width(),
-  isMiddleRightDisabled:  width(),
+  isBothDisabled:   both(),
+  isHeightDisabled: height(),
+  isWidthDisabled:  width(),
 
   frame: frame('model', 'selection', { inset: -1, index: false }),
   style: style('frame', ({ frame }) => frame),

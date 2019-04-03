@@ -8,13 +8,14 @@ export {
   frame
 };
 
-export const nodes = () => computed(function() {
-  return this.sketches.factory.nodes(this);
+const factory = name => () => computed(function() {
+  let factory = this.sketches.factory;
+  return factory[name].call(factory, this);
 }).readOnly();
 
-export const attributes = () => computed(function() {
-  return this.sketches.factory.attributes(this);
-}).readOnly();
+export const nodes = factory('nodes');
+export const attributes = factory('attributes');
+export const edge = factory('edge');
 
 const parent = (prop, key) => computed(`parent.{${prop},${key}}`, function() {
   let parent = this.get('parent');
@@ -60,6 +61,7 @@ export default opts => {
 
     nodes: nodes(),
     attributes: attributes(),
+    edge: edge(),
 
     index: computed('parent.nodes.all.[]', function() {
       let nodes = this.get('parent.nodes.all');
