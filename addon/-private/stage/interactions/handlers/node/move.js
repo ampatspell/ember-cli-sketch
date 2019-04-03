@@ -7,8 +7,7 @@ export default Handler.extend({
     let nodes = selection.all;
     nodes.forEach(node => node.update(delta, { delta: true }));
     stage.moveNodesToOverlappingContainers(nodes);
-    // TODO: move
-    // nodes.forEach(node => node.isArea && node.moveToBottom());
+    nodes.forEach(node => node.isContainer && node.moveToBottom());
   },
 
   onKeyDown(key) {

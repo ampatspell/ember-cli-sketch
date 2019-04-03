@@ -142,5 +142,10 @@ export default opts => {
       });
     },
 
+    moveToBottom() {
+      assert(`moveToBottom is required for ${this.model}`, !!this.model.moveToBottom);
+      this.model.moveToBottom();
+    }
+
   });
 };

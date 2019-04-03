@@ -2,6 +2,7 @@ import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
 import { node, attr } from '../-node';
+import { A } from '@ember/array';
 
 export {
   node,
@@ -17,6 +18,7 @@ export default EmberObject.extend({
   doc: null,
   id: readOnly('doc.id'),
   type: readOnly('doc.type'),
+  position: readOnly('doc.position'),
 
   parent: computed('doc.parent', 'stage.content.models.@each.id', function() {
     let id = this.doc.parent;
@@ -27,8 +29,8 @@ export default EmberObject.extend({
     return stage.content.models.findBy('id', id);
   }).readOnly(),
 
-  nodes: computed('stage.content.models.@each.parent', function() {
-    return this.stage.content.models.filterBy('parent', this);
+  nodes: computed('stage.content.models.@each.{parent,position}', function() {
+    return A(A(this.stage.content.models.filterBy('parent', this)).sortBy('position'));
   }).readOnly(),
 
   remove() {
@@ -45,6 +47,10 @@ export default EmberObject.extend({
   move(target) {
     this.set('doc.parent', target && target.id);
     this.doc.scheduleSave();
+  },
+
+  moveToBottom() {
+    this.parent.moveNodeToBottom(this);
   },
 
   toStringExtension() {

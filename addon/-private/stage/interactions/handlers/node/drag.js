@@ -30,8 +30,7 @@ export default Handler.extend({
         return;
       }
       dragging.replace(selection.attached);
-      // TODO: move
-      // dragging.forEach(node => node.isArea && node.moveToBottom());
+      dragging.forEach(node => node.isContainer && node.moveToBottom());
     }
 
     let point = {

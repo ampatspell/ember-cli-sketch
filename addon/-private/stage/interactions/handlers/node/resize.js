@@ -17,10 +17,7 @@ export default Handler.extend({
     let { selection, node } = this;
     let nodes = selection.filter(selection => selection !== node);
     selection.removeNodes(nodes);
-
-    // TODO: move
-    // nodes.forEach(node => node.isArea && node.moveToBottom());
-
+    nodes.forEach(node => node.isContainer && node.moveToBottom());
     return true;
   },
 
