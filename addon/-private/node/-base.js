@@ -27,17 +27,17 @@ const parent = (prop, key) => computed(`parent.{${prop},${key}}`, function() {
   return parent[key];
 }).readOnly();
 
+const prop = (key, defaultValue) => computed(function() {
+  let value = this.opts[key];
+  if(value === undefined) {
+    value = defaultValue;
+  }
+  return value;
+}).readOnly();
+
 export default opts => {
 
   const value = key => readOnly(`model.${opts.properties[key]}`);
-
-  const prop = (key, defaultValue) => computed(function() {
-    let value = opts[key];
-    if(value === undefined) {
-      value = defaultValue;
-    }
-    return value;
-  }).readOnly();
 
   return EmberObject.extend({
 

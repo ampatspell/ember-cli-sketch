@@ -8,7 +8,7 @@ export default EmberObject.extend({
     assert(`model is required`, !!model);
     assert(`opts are required`, !!opts);
 
-    let { identifier, type } = opts;
+    let { identifier, type, properties } = opts;
     assert(`identifier is required`, !!identifier);
     assert(`type is required`, !!type);
 
@@ -19,7 +19,7 @@ export default EmberObject.extend({
       factory = owner.factoryFor(`sketch:factory/node/${type}`);
       assert(`node factory for type '${type}' is not registered`, !!factory);
       factory = factory.class;
-      owner.register(fullName, factory(opts));
+      owner.register(fullName, factory({ identifier, type, properties }));
       factory = owner.factoryFor(fullName);
     }
 
