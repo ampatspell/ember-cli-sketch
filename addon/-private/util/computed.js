@@ -1,6 +1,6 @@
 import { computed } from '@ember/object';
 import { A } from '@ember/array';
-import { numberContraints } from './math';
+import { numberConstraints } from './math';
 import { compact } from './object';
 import sketches from './sketches';
 
@@ -21,7 +21,7 @@ export const model = fn => computed(function() {
 }).readOnly();
 
 export const number = opts => key => {
-  let fn = numberContraints(opts);
+  let fn = numberConstraints(opts);
   return computed(key, function() {
     return fn(this.get(key));
   }).readOnly();

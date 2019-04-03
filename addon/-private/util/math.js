@@ -10,7 +10,7 @@ let {
   max
 } = Math;
 
-export const numberContraints = opts => value => {
+export const numberConstraints = opts => value => {
   if(typeof value !== 'number' || isNaN(value)) {
     return opts.initial;
   }

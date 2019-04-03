@@ -1,5 +1,6 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
+import { assign } from '@ember/polyfills';
 import { node, attr } from '../-node';
 
 export {
@@ -7,9 +8,9 @@ export {
   attr
 };
 
-export const position = (target, opts) => attr(target, opts);
-export const size = (target, opts) => attr(target, opts);
-export const rotation = (target, opts) => attr(target, opts);
+export const position = (target, opts) => attr(target, assign({ type: 'number' }, opts));
+export const size = (target, opts) => attr(target, assign({ type: 'number', min: 0 }, opts));
+export const rotation = (target, opts) => attr(target, assign({ type: 'number', min: -360, max: 360 }, opts));
 
 export default EmberObject.extend({
 

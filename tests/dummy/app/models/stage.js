@@ -17,11 +17,11 @@ export default EmberObject.extend({
 
   node: node({ type: 'stage' }),
 
-  x:    attr('x'),
-  y:    attr('y'),
-  zoom: attr('zoom'),
+  x:    attr('x', { type: 'number', initial: 0 }),
+  y:    attr('y', { type: 'number', initial: 0 }),
+  zoom: attr('zoom', { type: 'number', initial: 1, min: 0.1, decimals: 2 }),
 
-  thing: attr('thing', { type: 'number', initial: 0 }),
+  thing: attr('thing', { type: 'number', initial: 0, min: -10, max: 10 }),
 
   nodes: computed('content.models.@each.parent', function() {
     return this.content.models.filterBy('parent', this);

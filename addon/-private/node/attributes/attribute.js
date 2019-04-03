@@ -27,10 +27,7 @@ export default EmberObject.extend({
   transformValue(value) {
     let transform = this.transform();
     if(transform) {
-      value = transform.process(value);
-    }
-    if(value === undefined) {
-      value = this.opts.initial;
+      value = transform.process(value, this.opts);
     }
     return value;
   },
