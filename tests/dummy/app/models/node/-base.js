@@ -1,9 +1,10 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
-import node from '../-node';
+import { node, attr } from '../-node';
 
 export {
-  node
+  node,
+  attr
 };
 
 export const doc = key => readOnly(`doc.${key}`);
