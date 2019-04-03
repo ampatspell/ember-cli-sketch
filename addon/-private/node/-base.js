@@ -61,6 +61,14 @@ export default opts => {
     nodes: nodes(),
     attributes: attributes(),
 
+    index: computed('parent.nodes.all.[]', function() {
+      let nodes = this.get('parent.nodes.all');
+      if(!nodes) {
+        return;
+      }
+      return nodes.indexOf(this.model) + 1;
+    }).readOnly(),
+
     isSelected: computed('stage.selection.all.[]', function() {
       let selection = this.get('stage.selection.all');
       if(!selection) {
