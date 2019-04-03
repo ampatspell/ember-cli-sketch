@@ -7,7 +7,7 @@ export default Component.extend({
   classNameBindings: [ ':ui-block-sketch-hovers-hover' ],
   attributeBindings: [ 'style' ],
 
-  frame: frame('model', 'hover', { inset: -2, index: false }),
+  frame: frame('model', 'hover', { inset: -1, index: false }),
   style: style('frame', ({ frame }) => frame),
 
 });
