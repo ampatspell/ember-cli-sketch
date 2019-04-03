@@ -76,4 +76,11 @@
     </div>
   </div>
 
+  <div class="block">
+    <div class="title">Thing: {{stage.thing}}</div>
+    <div class="actions">
+      {{ui-block/slider min=-100 max=100 value=stage.thing update=(action 'updateThing')}}
+    </div>
+  </div>
+
 </div>

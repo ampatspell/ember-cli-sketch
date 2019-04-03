@@ -1,11 +1,11 @@
-import Attribute from './-base';
+import Attribute, { prop } from './-base';
 import { computed } from '@ember/object';
 import { numberConstraints } from '../../../util/math';
 
 export default Attribute.extend({
 
-  numberConstraints: computed(function() {
-    let { decimals, min, max, initial } = this.opts;
+  numberConstraints: computed('min', 'max', function() {
+    let { opts: { decimals, initial }, min, max } = this;
     return numberConstraints({ decimals, min, max, initial });
   }).readOnly(),
 

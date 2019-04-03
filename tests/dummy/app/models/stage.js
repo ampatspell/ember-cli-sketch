@@ -1,7 +1,7 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
-import { node, attr } from './-node';
+import { node, attr, prop } from './-node';
 import { inject as service } from '@ember/service';
 
 const doc = key => readOnly(`doc.${key}`);
@@ -21,7 +21,11 @@ export default EmberObject.extend({
   y:    attr('y', { type: 'number', initial: 0 }),
   zoom: attr('zoom', { type: 'number', initial: 1, min: 0.1, decimals: 2 }),
 
-  thing: attr('thing', { type: 'number', initial: 0, min: -10, max: 10 }),
+  // thing: attr('thing', { type: 'number', initial: 0, min: prop('thingMin'), max: prop('thingMax') }),
+  thing: attr('thing', { type: 'number', initial: 0, min: 0, max: 10 }),
+
+  thingMin: 0,
+  thingMax: 10,
 
   nodes: computed('content.models.@each.parent', function() {
     return this.content.models.filterBy('parent', this);

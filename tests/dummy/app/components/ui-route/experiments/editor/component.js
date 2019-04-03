@@ -25,6 +25,9 @@ export default Component.extend({
         model = this.stage;
       }
       this.stage.addNode(model, type, props);
+    },
+    updateThing(value) {
+      this.stage.set('thing', value);
     }
   }
 

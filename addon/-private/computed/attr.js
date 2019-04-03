@@ -1,6 +1,7 @@
 import { computed } from '@ember/object';
 import { getNode } from './node';
 import { assign } from '@ember/polyfills';
+import { hashToDeps } from './prop';
 
 export const __sketch_attribute__ = '__sketch_attribute__';
 
@@ -8,7 +9,8 @@ const attributes = model => getNode(model).attributes;
 
 export default (target, opts={}) => {
   opts = assign({ target, type: 'noop' }, opts);
-  return computed(opts.target, {
+  let deps = hashToDeps(opts);
+  return computed(opts.target, ...deps, {
     get(key) {
       return attributes(this).getValue(key);
     },

@@ -7,6 +7,6 @@ export default Base.extend({
   x:      position('x'),
   y:      position('y'),
   width:  size('width'),
-  height: size('height'),
+  height: size('height')
 
 });
