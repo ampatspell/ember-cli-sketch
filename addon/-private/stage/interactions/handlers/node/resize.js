@@ -1,44 +1,44 @@
 import Handler from '../-base';
-import { readOnly } from '@ember/object/computed';
 
 export default Handler.extend({
 
-  node: readOnly('resizing.node'),
-  edge: readOnly('resizing.edge'),
-  isActive: readOnly('resizing.isActive'),
+  node: null,
+  edge: null,
 
   begin() {
-    let { resizing } = this;
-
-    if(!resizing.begin()) {
+    let { selection } = this;
+    let node = selection.find(node => node.edge.has);
+    if(!node) {
       return;
     }
 
-    let { selection, node } = this;
-    let nodes = selection.filter(selection => selection !== node);
-    selection.removeNodes(nodes);
-    nodes.forEach(node => node.isContainer && node.moveToBottom());
+    let edge = node.edge.serialized;
+    this.setProperties({ node, edge });
+
+    selection.removeExcept(node);
+
+    if(node.isContainer) {
+      node.moveToBottom();
+    }
+
     return true;
   },
 
   end() {
-    let { resizing } = this;
-
-    if(!resizing.end()) {
+    if(!this.node) {
       return;
     }
 
+    this.setProperties({ node: null, edge: null });
     return true;
   },
 
   update(delta) {
-    let { isActive } = this;
+    let { node, edge } = this;
 
-    if(!isActive) {
+    if(!node) {
       return;
     }
-
-    let { node, edge } = this;
 
     let frame = {};
     let children = {};

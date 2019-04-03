@@ -16,7 +16,6 @@ export default Component.extend({
   edge: readOnly('node.edge'),
 
   stage: readOnly('node.stage'),
-  resizing: readOnly('stage.resizing'),
 
   width:  attribute('model', 'width'),
   height: attribute('model', 'height'),
@@ -26,21 +25,6 @@ export default Component.extend({
   isWidthDisabled:  width(),
 
   frame: frame('model', 'selection', { inset: -1, index: false }),
-  style: style('frame', ({ frame }) => frame),
-
-  actions: {
-    enter(edge) {
-      let { resizing, model: { node } } = this;
-      resizing.bind(node, edge);
-    },
-    leave() {
-      this.resizing.unbind();
-    }
-  },
-
-  willDestroyElement() {
-    this._super(...arguments);
-    this.resizing && this.resizing.unbind();
-  }
+  style: style('frame', ({ frame }) => frame)
 
 });

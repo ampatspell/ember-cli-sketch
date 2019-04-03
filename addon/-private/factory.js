@@ -70,10 +70,6 @@ export default EmberObject.extend({
     return this._create('stage/dragging', { stage });
   },
 
-  resizing(stage) {
-    return this._create('stage/resizing', { stage });
-  },
-
   selection(stage) {
     return this._create('stage/selection', { stage });
   },

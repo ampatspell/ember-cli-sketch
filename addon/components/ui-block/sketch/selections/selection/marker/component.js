@@ -12,16 +12,6 @@ export default Component.extend({
       return;
     }
     return edge.horizontal === this.horizontal && edge.vertical === this.vertical;
-  }).readOnly(),
-
-  mouseEnter() {
-    let { vertical, horizontal } = this;
-    this.enter({ vertical, horizontal });
-  },
-
-  mouseLeave() {
-    let { vertical, horizontal } = this;
-    this.leave({ vertical, horizontal });
-  }
+  }).readOnly()
 
 });
