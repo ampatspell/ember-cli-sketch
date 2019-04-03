@@ -31,7 +31,7 @@ export const frameToObject = (frame, opts={}) => {
 
   let { x, y, width, height, rotation } = frame;
 
-  let r = value => round(value, 0);
+  let r = value => round(value, 1);
 
   let hash = {};
 

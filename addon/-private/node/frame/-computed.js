@@ -1,6 +1,6 @@
 import { computed } from '@ember/object';
 import { reduce } from '../../util/object';
-import { round, rotatedRectBounds } from '../../util/math';
+import { rotatedRectBounds } from '../../util/math';
 
 const zoomableKeys = [ 'x', 'y', 'width', 'height' ];
 
@@ -12,7 +12,7 @@ export const zoomed = (frameKey, zoomKey='zoom') => computed(frameKey, zoomKey, 
   }
   return reduce(frame, (key, value) => {
     if(zoomableKeys.includes(key)) {
-      return round(value * zoom, 2);
+      return value * zoom;
     }
     return value;
   });
@@ -37,10 +37,10 @@ export const absolute = (frameKey, parentFrameKey) => computed(frameKey, parentF
   let { x, y, width, height, rotation } = frame;
 
   let result = {
-    x:      round(parent.x + x, 2),
-    y:      round(parent.y + y, 2),
-    width:  round(width, 2),
-    height: round(height, 2),
+    x:      parent.x + x,
+    y:      parent.y + y,
+    width:  width,
+    height: height,
     rotation
   };
   return result;

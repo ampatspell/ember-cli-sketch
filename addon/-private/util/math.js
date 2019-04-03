@@ -83,10 +83,10 @@ export const rotatedRectBounds = frame => {
   });
 
   return {
-    x:      round(box.min.x, 2),
-    y:      round(box.min.y, 2),
-    width:  round(box.max.x - box.min.x, 2),
-    height: round(box.max.y - box.min.y, 2),
+    x:      box.min.x,
+    y:      box.min.y,
+    width:  box.max.x - box.min.x,
+    height: box.max.y - box.min.y,
     rotation: 0
   };
 }

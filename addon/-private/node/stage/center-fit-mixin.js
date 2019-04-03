@@ -1,6 +1,5 @@
 import Mixin from '@ember/object/mixin';
 import { assign } from '@ember/polyfills';
-import { round } from '../../util/math';
 
 export default Mixin.create({
 
@@ -47,7 +46,7 @@ export default Mixin.create({
       }
       let base = this.frame[dimensionKey] - (bounds[dimensionKey] / zoom);
       let offset = (size[sizeKey] - (bounds[sizeKey])) / 2 / zoom;
-      return round(base + offset);
+      return base + offset;
     }
 
     let position = {
@@ -78,7 +77,7 @@ export default Mixin.create({
 
     let value = dimension => (size[dimension] - (opts.offset * 2)) / bounds[dimension];
 
-    let zoom = round(Math.min(value('width'), value('height')), 2);
+    let zoom = Math.min(value('width'), value('height'));
 
     this.update({ zoom });
     this.center({ type: opts.type });

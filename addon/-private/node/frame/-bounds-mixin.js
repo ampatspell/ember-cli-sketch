@@ -1,7 +1,6 @@
 import Mixin from '@ember/object/mixin';
 import { computed } from '@ember/object';
 import { assign } from '@ember/polyfills';
-import { round } from '../../util/math';
 
 const keys = [ 'x', 'y', 'width', 'height', 'rotation' ];
 
@@ -38,8 +37,8 @@ const frame = (ownerNodesKey, sourceKey) => computed(`${ownerNodesKey}.@each.${s
   return {
     x:      box.min.x,
     y:      box.min.y,
-    width:  round(box.max.x - box.min.x, 2),
-    height: round(box.max.y - box.min.y, 2),
+    width:  box.max.x - box.min.x,
+    height: box.max.y - box.min.y,
     rotation: 0
   };
 }).readOnly();
