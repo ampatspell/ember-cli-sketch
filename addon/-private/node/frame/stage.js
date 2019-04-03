@@ -15,7 +15,7 @@ export default Frame.extend({
   zoomed:     zoomed('properties'),
   absolute:   readOnly('properties'),
 
-  roundedZoomed: rounded('zoomed'),
+  rounded: rounded('zoomed'),
 
   convertPointFromScreen(point) {
     let { zoom } = this;
