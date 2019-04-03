@@ -121,9 +121,7 @@ export default opts => {
     _withMoveToParent(parent, cb) {
       let absolute = this.frame.absolute;
       let frame = parent.frame.convertFrameFromAbsolute(absolute);
-
       cb();
-
       this.update(frame);
     },
 

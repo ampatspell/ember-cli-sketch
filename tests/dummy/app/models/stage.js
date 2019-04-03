@@ -60,7 +60,7 @@ export default EmberObject.extend({
 
     let [ doc, content ] = await Promise.all([
       firestore.doc(`sketches/${id}`, [ 'x', 'y', 'zoom' ]),
-      firestore.query(`sketches/${id}/nodes`, [ 'parent', 'x', 'y', 'width', 'height', 'fill', 'opacity' ], { stage: this })
+      firestore.query(`sketches/${id}/nodes`, [ 'parent', 'x', 'y', 'width', 'height', 'rotation', 'fill', 'opacity' ], { stage: this })
     ]);
 
     if(!doc.exists) {
