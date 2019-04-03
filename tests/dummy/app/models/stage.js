@@ -88,7 +88,8 @@ export default EmberObject.extend({
         'fontFamily',
         'fontWeight',
         'fontSize',
-        'text'
+        'text',
+        'color'
       ], { stage: this })
     ]);
 
