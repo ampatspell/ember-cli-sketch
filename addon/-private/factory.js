@@ -34,30 +34,12 @@ export default EmberObject.extend({
     return factory.create(props);
   },
 
-  transforms() {
-    let transforms = this._transforms;
-    if(!transforms) {
-      transforms = this._create('node/attributes/transforms', {
-        types: [
-          'number',
-          'string'
-        ]
-      });
-      this._transforms = transforms;
-    }
-    return transforms;
-  },
-
   attributes(node) {
     return this._create(`node/attributes`, { node });
   },
 
-  attribute(attributes, opts) {
-    return this._create(`node/attribute`, { attributes, opts });
-  },
-
-  transform(type) {
-    return this._create(`node/attributes/transform/${type}`);
+  attribute(attributes, type, opts) {
+    return this._create(`node/attribute/${type}`, { attributes, opts });
   },
 
   frame(type, parent) {

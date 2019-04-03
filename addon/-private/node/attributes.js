@@ -4,10 +4,6 @@ import { assign } from '@ember/polyfills';
 import { assert } from '@ember/debug';
 import { __sketch_attribute__ } from '../computed/attr';
 
-const transforms = () => computed(function() {
-  return this.node.sketches.factory.transforms();
-}).readOnly();
-
 const definitions = () => computed(function() {
   let definitions = [];
   this.model.constructor.eachComputedProperty((key, meta) => {
@@ -22,8 +18,9 @@ const definitions = () => computed(function() {
 const attributes = () => computed(function() {
   let factory = this.node.sketches.factory;
   return this.definitions.reduce((hash, definition) => {
-    let attribute = factory.attribute(this, definition);
-    hash[definition.key] = attribute;
+    let { key, type } = definition;
+    let attribute = factory.attribute(this, type, definition);
+    hash[key] = attribute;
     return hash;
   }, {});
 }).readOnly();
@@ -33,7 +30,6 @@ export default EmberObject.extend({
   node: null,
   model: readOnly('node.model'),
 
-  transforms: transforms(),
   definitions: definitions(),
   attributes: attributes(),
 

@@ -7,7 +7,7 @@ export const __sketch_attribute__ = '__sketch_attribute__';
 const attributes = model => getNode(model).attributes;
 
 export default (target, opts={}) => {
-  opts = assign({ target }, opts);
+  opts = assign({ target, type: 'noop' }, opts);
   return computed(opts.target, {
     get(key) {
       return attributes(this).getValue(key);
