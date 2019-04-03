@@ -8,7 +8,7 @@ export const __sketch__prop__ = '__sketch__prop__';
 
 export const hashToDeps = hash => A(keys(hash).map(key => {
   let value = hash[key];
-  if(value[__sketch__prop__]) {
+  if(value && value[__sketch__prop__]) {
     return value.key;
   }
 })).compact();
