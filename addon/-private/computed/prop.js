@@ -15,4 +15,4 @@ export const hashToDeps = hash => A(keys(hash).map(key => {
 
 export const isProp = object => object && object[__sketch__prop__] === true;
 
-export default key => ({ [__sketch__prop__]: true, key: true, key });
+export default key => ({ [__sketch__prop__]: true, key });

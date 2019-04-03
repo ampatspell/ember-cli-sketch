@@ -1,11 +1,8 @@
 import EmberObject, { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
 import { node, attr } from './-node';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
-
-const doc = key => readOnly(`doc.${key}`);
 
 export default EmberObject.extend({
 
@@ -60,7 +57,6 @@ export default EmberObject.extend({
     if(last === model) {
       return;
     }
-    console.log('move to bottom', model+'');
     model.doc.set('position', last.position + 1);
     model.doc.scheduleSave();
   },

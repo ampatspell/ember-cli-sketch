@@ -1,4 +1,4 @@
-import EmberObject, { computed, defineProperty } from '@ember/object';
+import EmberObject, { defineProperty } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { isProp } from '../../../computed/prop';
 

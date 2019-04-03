@@ -50,7 +50,7 @@ export default EmberObject.extend({
         let model = models.objectAt(oldIndex);
         let doc = model.doc;
         if(!doc || doc.get('ref.path') !== path) {
-          doc = docs.findBy('ref.path', path);
+          doc = models.findBy('doc.ref.path', path);
         }
         doc.onSnapshot(snapshot);
         if(oldIndex !== newIndex) {
