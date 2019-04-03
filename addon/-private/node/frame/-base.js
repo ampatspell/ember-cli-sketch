@@ -46,12 +46,17 @@ export default EmberObject.extend({
     return changes;
   },
 
-  convertPointFromAbsolute(point) {
-    let { absolute } = this;
+  convertPoint(point, frameKey) {
+    let frame = this[frameKey];
+    assert(`frame ${frameKey} not declared for ${this}`, !!frame);
     return {
-      x: point.x - absolute.x,
-      y: point.y - absolute.y,
+      x: point.x - frame.x,
+      y: point.y - frame.y,
     };
+  },
+
+  convertPointFromAbsolute(point) {
+    return this.convertPoint(point, 'absolute');
   },
 
   convertFrameFromAbsolute(frame) {

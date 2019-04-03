@@ -85,6 +85,8 @@ export default Handler.extend({
   onMouseMove({ delta }) {
     let { mouse: { isLeftButton }, zoom } = this;
 
+    this._edge();
+
     if(!isLeftButton) {
       return;
     }
@@ -97,6 +99,37 @@ export default Handler.extend({
     if(this.update(delta)) {
       return false;
     }
-  }
+  },
+
+  edgeForNode(node, point) {
+    let bounds = node.frame.hover;
+    let local = node.frame.convertPoint(point, 'hover');
+    let offset = 5;
+
+    let edge = {};
+
+    if(local.y > -offset && local.y < offset) {
+      edge.vertical = 'top';
+    } else if(local.y > bounds.height - offset && local.y + offset < bounds.height + offset) {
+      edge.vertical = 'bottom';
+    }
+
+    if(local.x > -offset && local.x < offset) {
+      edge.horizontal = 'left';
+    } else if(local.x > bounds.width - offset && local.x + offset < bounds.width + offset) {
+      edge.horizontal = 'right';
+    }
+
+    if(!edge.horizontal && !edge.vertical) {
+      return;
+    }
+
+    console.log(edge);
+  },
+
+  _edge() {
+    let point = this.stage.frame.convertPointFromScreen(this.mouse.stage);
+    this.selection.attached.forEach(node => this.edgeForNode(node, point));
+  },
 
 });
