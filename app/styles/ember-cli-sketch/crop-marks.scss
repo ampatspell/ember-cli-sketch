@@ -4,76 +4,78 @@
   $o: 2px;
   $color: fade-out(#000, 0.7);
   pointer-events: none;
-  position: absolute;
-  top: -$size;
-  left: -$size;
-  bottom: -$size;
-  right: -$size;
-  > .mark {
+  > .content {
     position: absolute;
-    width: $size;
-    height: $size;
-    &:before,
-    &:after {
-      content: '';
+    top: -$size;
+    left: -$size;
+    bottom: -$size;
+    right: -$size;
+    > .mark {
       position: absolute;
-      background: $color;
+      width: $size;
+      height: $size;
+      &:before,
+      &:after {
+        content: '';
+        position: absolute;
+        background: $color;
+      }
+      &:before {
+        width: $width;
+        height: 100%;
+      }
+      &:after {
+        width: 100%;
+        height: $width;
+      }
     }
-    &:before {
-      width: $width;
-      height: 100%;
-    }
-    &:after {
-      width: 100%;
-      height: $width;
-    }
-  }
 
-  > .top {
-    top: 0;
-    &:before {
-      top: -$o;
-    }
-    &:after {
-      bottom: 0;
-    }
-  }
-
-  > .bottom {
-    bottom: 0;
-    &:before {
-      top: $o;
-    }
-    &:after {
+    > .top {
       top: 0;
+      &:before {
+        top: -$o;
+      }
+      &:after {
+        bottom: 0;
+      }
     }
-  }
 
-  > .left {
-    left: 0;
-    &:before {
-      right: 0;
+    > .bottom {
+      bottom: 0;
+      &:before {
+        top: $o;
+      }
+      &:after {
+        top: 0;
+      }
     }
-    &:after {
-      right: $o;
-    }
-  }
 
-  > .right {
-    right: 0;
-    &:before {
+    > .left {
       left: 0;
+      &:before {
+        right: 0;
+      }
+      &:after {
+        right: $o;
+      }
     }
-    &:after {
-      left: $o;
+
+    > .right {
+      right: 0;
+      &:before {
+        left: 0;
+      }
+      &:after {
+        left: $o;
+      }
     }
-  }
-  > .stroke {
-    position: absolute;
-    top: $size - 1;
-    left: $size - 1;
-    bottom: $size - 1;
-    right: $size - 1;
-    border: 1px solid fade-out(#000, 0.9);
+    > .stroke {
+      position: absolute;
+      top: $size - 1;
+      left: $size - 1;
+      bottom: $size - 1;
+      right: $size - 1;
+      border: 1px solid fade-out(#000, 0.9);
+    }
   }
 }
