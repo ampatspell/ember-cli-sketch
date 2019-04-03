@@ -11,4 +11,4 @@ export const style = (...deps) => {
     }
     return [ frame, ...results ];
   });
-}
+};

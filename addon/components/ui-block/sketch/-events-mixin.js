@@ -4,7 +4,7 @@ import { run } from '@ember/runloop';
 
 export default Mixin.create({
 
-  interactions: readOnly('stage.interactions'),
+  interactions: readOnly('stage.node.interactions'),
 
   _withEvents(cb) {
     let events = this._handlers;

@@ -1,39 +1,40 @@
 import Component from '@ember/component';
 import layout from './template';
 import { readOnly, or } from '@ember/object/computed';
-import { frame, style } from '../../-computed';
+import { frame, style, attribute } from '../../-computed';
 
-const disabled = key => readOnly(`constraints.${key}.isNotResizable`);
+const both   = () => or('width.immutable', 'height.immutable');
+const width  = () => or('width.immutable');
+const height = () => or('height.immutable');
 
 export default Component.extend({
   layout,
   classNameBindings: [ ':ui-block-sketch-selections-selection' ],
   attributeBindings: [ 'style' ],
 
-  stage: readOnly('node.stage'),
+  stage: readOnly('model.node.stage'),
   resizing: readOnly('stage.resizing'),
 
-  constraints: readOnly('node.constraints'),
+  width:  attribute('model', 'width'),
+  height: attribute('model', 'height'),
 
-  horizontal: disabled('horizontal'),
-  vertical:   disabled('vertical'),
+  isTopLeftDisabled:      both(),
+  isTopRightDisabled:     both(),
+  isBottomLeftDisabled:   both(),
+  isBotomRightDisabled:   both(),
 
-  isTopLeftDisabled:      or('vertical', 'horizontal'),
-  isTopRightDisabled:     or('vertical', 'horizontal'),
-  isBottomLeftDisabled:   or('vertical', 'horizontal'),
-  isBotomRightDisabled:   or('vertical', 'horizontal'),
+  isTopMiddleDisabled:    height(),
+  isBottomMiddleDisabled: height(),
 
-  isTopMiddleDisabled:    or('vertical'),
-  isBottomMiddleDisabled: or('vertical'),
-  isMiddleLeftDisabled:   or('horizontal'),
-  isMiddleRightDisabled:  or('horizontal'),
+  isMiddleLeftDisabled:   width(),
+  isMiddleRightDisabled:  width(),
 
-  frame: frame('node', 'selection', { inset: -1, index: false }),
+  frame: frame('model', 'selection', { inset: -1, index: false }),
   style: style('frame', ({ frame }) => frame),
 
   actions: {
     enter(edge) {
-      let { resizing, node } = this;
+      let { resizing, model: { node } } = this;
       resizing.bind(node, edge);
     },
     leave() {

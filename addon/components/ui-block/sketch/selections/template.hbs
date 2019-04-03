@@ -1,3 +1,3 @@
-{{#each stage.selection.all as |node|}}
-  {{ui-block/sketch/selections/selection node=node}}
+{{#each stage.node.selection.attached as |node|}}
+  {{ui-block/sketch/selections/selection model=node.model}}
 {{/each}}

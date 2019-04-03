@@ -1,179 +1,123 @@
-{{ui-block/sketch stage=attachedStage ready=(action "ready") class="editor"}}
+{{ui-block/sketch stage=stage class="sketch" ready=(action 'ready')}}
 
 <div class="info">
-
-  <div class="section">
-    <div class="title">Stage</div>
+  <div class="block">
+    <div>{{stage}}</div>
   </div>
 
-  <div class="row">
-    <div class="label">
-      {{#if stage.renderer.isAttached}}
-        Attached
-      {{else}}
-        Detached
-      {{/if}}
-    </div>
-    {{#if stage.renderer.isAttached}}
-      <div class="value">{{stage.renderer.size.width}}×{{stage.renderer.size.width}}</div>
-    {{/if}}
+  <div class="block">
+    <div>{{stage.doc}}</div>
   </div>
 
-  <div class="row">
-    <div class="label">{{attachedStage}}</div>
-    <div class="value">{{ui-block/button value="Toggle" action=(action "toggle")}}</div>
-  </div>
-  <div class="row">
-    <div class="label">Stage</div>
-    <div class="value">
-      {{ui-block/button value="Center" action=(action "center")}}
-      {{ui-block/button value="Fit" action=(action "fit")}}
+  <div class="block">
+    <div class="title">Position: {{stage.x}}×{{stage.y}}</div>
+    <div class="actions">
+      {{ui-block/slider min=-1000 max=1000 step=1 value=stage.x update=(action 'updateStageProperty' 'x')}}
+      {{ui-block/slider min=-1000 max=1000 step=1 value=stage.y update=(action 'updateStageProperty' 'y')}}
+      {{ui-block/button value='Reset' action=(action 'resetPosition')}}
     </div>
   </div>
-  <div class="row">
-    <div class="label">Areas</div>
-    <div class="value">
-      {{ui-block/button value="Center" action=(action "center" "areas")}}
-      {{ui-block/button value="Fit" action=(action "fit" "areas")}}
+
+  <div class="block">
+    <div class="title">Zoom: {{stage.zoom}}</div>
+    <div class="actions">
+      {{ui-block/slider min=0 max=10 step=0.01 value=stage.zoom update=(action 'updateStageProperty' 'zoom')}}
+      {{ui-block/button value='Reset' action=(action 'updateStageProperty' 'zoom' 1)}}
     </div>
   </div>
-  <div class="row">
-    <div class="label" role="button" {{action "updateZoom" 1}}>Zoom ({{stage.zoom}})</div>
-    <div class="value">{{ui-block/slider min=0 max=10 step=0.01 value=stage.zoom update=(action "updateZoom")}}</div>
-  </div>
-  <div class="row">
-    <div class="label" role="button" {{action "updateStagePosition" "x" 0}}>Position X ({{stage.frame.x}})</div>
-    <div class="value">{{ui-block/slider min=-500 max=500 step=1 value=stage.frame.x update=(action "updateStagePosition" "x")}}</div>
-  </div>
-  <div class="row">
-    <div class="label" role="button" {{action "updateStagePosition" "y" 0}}>Position Y ({{stage.frame.y}})</div>
-    <div class="value">{{ui-block/slider min=-500 max=500 step=1 value=stage.frame.y update=(action "updateStagePosition" "y")}}</div>
-  </div>
-  <div class="row">
-    <div class="value">{{ui-block/button value="Reset" action=(action "reset")}}</div>
+
+  <div class="block">
+    <div class="title">Add</div>
+    <div class="actions">
+      {{ui-block/button value='Center' action=(action 'center')}}
+      {{ui-block/button value='Fit' action=(action 'fit')}}
+    </div>
   </div>
 
-  <div class="section">
-    <div class="title">Hover</div>
-  </div>
-
-  <div class="row">
-    <div class="value small">
-      {{#each stage.hover.all as |node|}}
-        <div>{{node}}</div>
-      {{else}}
-        <div>None</div>
+  <div class="block">
+    <div class="title">Tree</div>
+    <div>
+      {{#each stage.nodes as |node|}}
+        <div>
+          <div role="button" {{action "setGlobal" "node" node}}>{{node}}</div>
+          {{#each node.nodes as |nested|}}
+            <div class="pad-left">
+              <div role="button" {{action "setGlobal" "node" nested}}>{{nested}}</div>
+            </div>
+          {{/each}}
+        </div>
       {{/each}}
     </div>
   </div>
 
-  {{#each stage.selection.all as |node|}}
-    <div class="section">
-      <div class="title">Selection</div>
+  <div class="block">
+    <div class="title">Content</div>
+    <div>
+      {{#each stage.content as |node|}}
+        <div role="button" {{action "setGlobal" "node" node}}>{{node}}</div>
+      {{/each}}
     </div>
-    <div class="row">
-      <div class="value small">
-        <div role="button" {{action 'setGlobal' node}}>{{node}}</div>
-      </div>
+  </div>
+
+  <div class="block">
+    <div class="title">Hover</div>
+    <div>
+      {{#each stage.node.hover.attached as |node|}}
+        <div role="button" {{action "setGlobal" "node" node.model}}>{{node.model}}</div>
+      {{else}}
+        None
+      {{/each}}
     </div>
-    <div class="row">
-      <div class="label">Position X ({{node.frame.x}})</div>
-      <div class="value">
-        {{ui-block/slider min=-1000 max=1000 step=1 value=node.frame.x update=(action "updateNodePosition" node "x")}}
+  </div>
+
+  {{#each stage.node.selection.attached as |node|}}
+    <div class="block">
+      <div class="title" role="button" {{action "setGlobal" "node" node.model}}>
+        <div>Selection</div>
+        <div>{{node.model}}</div>
       </div>
-    </div>
-    <div class="row">
-      <div class="label">Position Y ({{node.frame.y}})</div>
-      <div class="value">
-        {{ui-block/slider min=-1000 max=1000 step=1 value=node.frame.y update=(action "updateNodePosition" node "y")}}
-      </div>
-    </div>
-    <div class="row">
-      <div class="label">Width ({{node.frame.width}})</div>
-      <div class="value">
-        {{ui-block/slider min=0 max=500 step=1 value=node.frame.width update=(action "updateNodePosition" node "width")}}
-      </div>
-    </div>
-    <div class="row">
-      <div class="label">Height ({{node.frame.height}})</div>
-      <div class="value">
-        {{ui-block/slider min=0 max=500 step=1 value=node.frame.height update=(action "updateNodePosition" node "height")}}
-      </div>
-    </div>
-    {{#unless node.isGroup}}
-      {{#unless node.isArea}}
-        <div class="row">
-          <div class="label">Rotation ({{node.frame.rotation}})</div>
-          <div class="value">
-            {{ui-block/slider min=-360 max=360 step=0.1 value=node.frame.rotation update=(action "updateNodePosition" node "rotation")}}
-          </div>
-        </div>
-      {{/unless}}
-    {{/unless}}
-    {{#if (eq node.type "rect")}}
-      <div class="row">
-        <div class="label">Fill</div>
-        <div class="value">
-          {{ui-block/input value=node.fill update=(action "updateNodeProperty" node "fill" null)}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="label">Opacity</div>
-        <div class="value">
-          {{ui-block/input value=node.opacity update=(action "updateNodeProperty" node "opacity" "toFloat")}}
-        </div>
-      </div>
-    {{/if}}
-    <div class="row">
-      <div class="value">
-        {{ui-block/button value="Remove" action=(action "remove" node)}}
+      <div class="actions">
+        <div class="label" role="button" {{action "updateNodeProperty" node "x" 0}}>x: {{node.model.x}}</div>
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.x update=(action 'updateNodeProperty' node 'x')}}
+
+        <div class="label" role="button" {{action "updateNodeProperty" node "y" 0}}>y: {{node.model.y}}</div>
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.y update=(action 'updateNodeProperty' node 'y')}}
+
+        <div class="label" role="button" {{action "updateNodeProperty" node "width" 100}}>width: {{node.model.width}}</div>
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.width update=(action 'updateNodeProperty' node 'width')}}
+
+        <div class="label" role="button" {{action "updateNodeProperty" node "height" 100}}>height: {{node.model.height}}</div>
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.height update=(action 'updateNodeProperty' node 'height')}}
+
+        {{#if node.model.hasRotation}}
+          <div class="label" role="button" {{action "updateNodeProperty" node "rotation" 0}}>rotation: {{node.model.rotation}}</div>
+          {{ui-block/slider min=-360 max=360 step=0.1 value=node.model.rotation update=(action 'updateNodeProperty' node 'rotation')}}
+        {{/if}}
+
+        {{#if node.model.hasFill}}
+          <div class="label" role="button" {{action "updateNodeProperty" node "fill" "red"}}>fill: {{node.model.fill}}</div>
+          {{ui-block/input value=node.model.fill update=(action 'updateNodeProperty' node 'fill')}}
+        {{/if}}
+
+        {{#if node.model.hasOpacity}}
+          <div class="label" role="button" {{action "updateNodeProperty" node "opacity" 1}}>opacity: {{node.model.opacity}}</div>
+          {{ui-block/slider min=0 max=1 step=0.01 value=node.model.opacity update=(action 'updateNodeProperty' node 'opacity')}}
+        {{/if}}
       </div>
     </div>
   {{else}}
-    <div class="section">
+    <div class="block">
       <div class="title">Selection</div>
-    </div>
-    <div class="row">
-      <div class="label">None</div>
+      <div>None</div>
     </div>
   {{/each}}
 
-  <div class="section">
-    <div class="title">Nodes</div>
-  </div>
-
-  <div class="row">
-    {{#each stage.areas.all as |area|}}
-      {{#each area.group.nodes as |node|}}
-        <div class="value {{if node.isSelected "strong"}}" role="button" {{action "select" node}}>
-          {{node.type}} {{node.frame.serialized.x}}×{{node.frame.serialized.y}}
-        </div>
-      {{/each}}
-    {{/each}}
-  </div>
-
-  <div class="section">
-    <div class="title">Mutations</div>
-  </div>
-
-  <div class="row">
-    <div class="value">
-      {{ui-block/button value="Add Rect" action=(action "add" "rect")}}
+  <div class="block">
+    <div class="title">Add</div>
+    <div class="actions">
+      {{ui-block/button value='Area' action=(action 'addNode' 'area' (hash x=0 y=0 width=300 height=200))}}
+      {{ui-block/button value='Rect' action=(action 'addNode' 'rect' (hash x=10 y=10 width=50 height=50 fill="red" opacity=0.3 rotation=2))}}
     </div>
   </div>
 
-  <div class="section">
-    <div class="title">Shotcuts</div>
-  </div>
-
-  <div class="row">
-    <div class="value small">
-      <div><span class="strong">Space + drag</span>: moves content around</div>
-      <div><span class="strong">Wheel</span>: moves content around</div>
-      <div><span class="strong">Command + shift + wheel</span>: zoom</div>
-      <div><span class="strong">Click</span>: replace selection</div>
-      <div><span class="strong">Shift + click</span>: toggle selection</div>
-      <div><span class="strong">Backspace, Delete</span>: Remove selected nodes</div>
-    </div>
-  </div>
 </div>

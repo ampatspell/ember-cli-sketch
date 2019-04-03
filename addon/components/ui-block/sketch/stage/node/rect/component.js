@@ -5,8 +5,8 @@ import { style } from '../-computed';
 export default Component.extend({
   layout,
 
-  style: style('node.{fill,opacity}', function() {
-    let { node: { fill: background, opacity } } = this;
+  style: style('model.{fill,opacity}', function() {
+    let { model: { fill: background, opacity } } = this;
     return {
       background,
       opacity

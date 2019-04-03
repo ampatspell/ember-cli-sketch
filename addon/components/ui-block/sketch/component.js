@@ -42,11 +42,11 @@ export default Component.extend(EventsMixin, {
   },
 
   detachStage(stage) {
-    stage.detach();
+    stage.node.detach();
   },
 
   attachStage(stage) {
-    stage.attach(this);
+    stage.node.attach(this);
     if(this.element) {
       this.notifyReady(stage);
     }
