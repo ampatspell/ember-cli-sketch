@@ -6,7 +6,7 @@ export default Component.extend({
   classNameBindings: [ ':ui-block-sketch-stage-node', 'model.node.type' ],
   attributeBindings: [ 'style' ],
 
-  frame: frame('model', 'zoomed'),
+  frame: frame('model', 'rounded'),
   style: style('frame', ({ frame }) => frame),
 
   zoom: readOnly('model.node.stage.zoom'),

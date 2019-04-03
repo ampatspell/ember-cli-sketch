@@ -12,7 +12,7 @@ export const zoomed = (frameKey, zoomKey='zoom') => computed(frameKey, zoomKey, 
   }
   return reduce(frame, (key, value) => {
     if(zoomableKeys.includes(key)) {
-      return value * zoom;
+      value = value * zoom;
     }
     return value;
   });
@@ -44,4 +44,19 @@ export const absolute = (frameKey, parentFrameKey) => computed(frameKey, parentF
     rotation
   };
   return result;
+}).readOnly();
+
+export const rounded = frameKey => computed(frameKey, function() {
+  let frame = this.get(frameKey);
+  if(!frame) {
+    return;
+  }
+  return reduce(frame, (key, value) => {
+    if(key === 'x' || key === 'y') {
+      value = Math.floor(value);
+    } else if(key === 'width' || key === 'height') {
+      value = Math.ceil(value);
+    }
+    return value;
+  });
 }).readOnly();

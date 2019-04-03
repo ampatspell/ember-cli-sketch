@@ -1,7 +1,7 @@
 import Frame, { model } from './-base';
 import { computed } from '@ember/object';
 import { serialized } from '../../util/computed';
-import { zoomed, rotated, absolute } from './-computed';
+import { zoomed, rotated, absolute, rounded } from './-computed';
 
 const keys = [ 'x', 'y', 'width', 'height', 'rotation' ];
 
@@ -20,13 +20,15 @@ export default Frame.extend({
   height:   model('height'),
   rotation: rotation(),
 
-  properties:     serialized(keys),
-  rotated:        rotated('properties'),
-  zoomed:         zoomed('properties'),
-  absolute:       absolute('properties', 'parent.parent.frame.absolute'),
-  absoluteBounds: rotated('absolute'),
+  properties:           serialized(keys),
+  rotated:              rotated('properties'),
+  zoomed:               zoomed('properties'),
+  absolute:             absolute('properties', 'parent.parent.frame.absolute'),
+  absoluteBounds:       rotated('absolute'),
+  zoomedAbsoluteBounds: zoomed('absoluteBounds'),
 
-  hover:     zoomed('absoluteBounds'),
-  selection: zoomed('absoluteBounds')
+  rounded:   rounded('zoomed'),
+  hover:     rounded('zoomedAbsoluteBounds'),
+  selection: rounded('zoomedAbsoluteBounds')
 
 });

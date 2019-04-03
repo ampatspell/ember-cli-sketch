@@ -2,7 +2,6 @@ import { computed } from '@ember/object';
 import { typeOf } from '@ember/utils';
 import { htmlSafe } from '@ember/string';
 import { assign } from '@ember/polyfills';
-import { round } from '../../../-private/util/math';
 
 const normalizeInset = inset => {
   if(typeof inset !== 'object') {
@@ -31,19 +30,17 @@ export const frameToObject = (frame, opts={}) => {
 
   let { x, y, width, height, rotation } = frame;
 
-  let r = value => round(value, 1);
-
   let hash = {};
 
-  hash.transform = `translate(${r(x)}px, ${r(y)}px)`;
+  hash.transform = `translate(${x}px, ${y}px)`;
 
   if(rotation !== undefined) {
     hash.transform += ` rotate(${rotation}deg)`;
   }
 
   if(width !== undefined && height !== undefined) {
-    hash.width = `${r(width)}px`;
-    hash.height = `${r(height)}px`;
+    hash.width = `${width}px`;
+    hash.height = `${height}px`;
   }
 
   return hash;

@@ -1,6 +1,6 @@
 import Frame, { model } from './-base';
 import { serialized } from '../../util/computed';
-import { zoomed } from './-computed';
+import { zoomed, rounded } from './-computed';
 import { readOnly } from '@ember/object/computed';
 import { round } from '../../util/math';
 
@@ -14,6 +14,8 @@ export default Frame.extend({
   properties: serialized(keys),
   zoomed:     zoomed('properties'),
   absolute:   readOnly('properties'),
+
+  roundedZoomed: rounded('zoomed'),
 
   convertPointFromScreen(point) {
     let { zoom } = this;

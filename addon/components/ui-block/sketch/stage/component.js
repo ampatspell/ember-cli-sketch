@@ -7,7 +7,7 @@ export default Component.extend({
   classNameBindings: [ ':ui-block-sketch-stage' ],
   attributeBindings: [ 'style' ],
 
-  frame: frame('stage', 'zoomed'),
+  frame: frame('stage', 'roundedZoomed'),
   style: style('frame', ({ frame }) => frame),
 
 });
