@@ -6,10 +6,6 @@
   </div>
 
   <div class="block">
-    <div>{{stage.doc}}</div>
-  </div>
-
-  <div class="block">
     <div class="title">Position: {{stage.x}}×{{stage.y}}</div>
     <div class="actions">
       {{ui-block/slider min=-1000 max=1000 step=1 value=stage.x update=(action 'updateStageProperty' 'x')}}
