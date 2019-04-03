@@ -15,8 +15,8 @@ export default EmberObject.extend({
 
   node: node({ type: 'stage' }),
 
-  x:    attr('_x', { type: 'number', initial: 0 }),
-  y:    attr('_y', { type: 'number', initial: 0 }),
+  x:    attr('_x', { type: 'number', initial: 0, decimals: 0 }),
+  y:    attr('_y', { type: 'number', initial: 0, decimals: 0 }),
   zoom: attr('_zoom', { type: 'number', initial: 1, min: 0.1, decimals: 2 }),
 
   // thing: attr('thing', { type: 'number', initial: 0, min: prop('thingMin'), max: prop('thingMax') }),
