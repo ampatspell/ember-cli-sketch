@@ -12,39 +12,19 @@ export default Component.extend({
   classNameBindings: [ ':ui-block-sketch-selections-selection' ],
   attributeBindings: [ 'style' ],
 
-  stage: readOnly('model.node.stage'),
-  resizing: readOnly('stage.resizing'),
+  node: readOnly('model.node'),
+  edge: readOnly('node.edge'),
+
+  stage: readOnly('node.stage'),
 
   width:  attribute('model', 'width'),
   height: attribute('model', 'height'),
 
-  isTopLeftDisabled:      both(),
-  isTopRightDisabled:     both(),
-  isBottomLeftDisabled:   both(),
-  isBotomRightDisabled:   both(),
-
-  isTopMiddleDisabled:    height(),
-  isBottomMiddleDisabled: height(),
-
-  isMiddleLeftDisabled:   width(),
-  isMiddleRightDisabled:  width(),
+  isBothDisabled:   both(),
+  isHeightDisabled: height(),
+  isWidthDisabled:  width(),
 
   frame: frame('model', 'selection', { inset: -1, index: false }),
-  style: style('frame', ({ frame }) => frame),
-
-  actions: {
-    enter(edge) {
-      let { resizing, model: { node } } = this;
-      resizing.bind(node, edge);
-    },
-    leave() {
-      this.resizing.unbind();
-    }
-  },
-
-  willDestroyElement() {
-    this._super(...arguments);
-    this.resizing && this.resizing.unbind();
-  }
+  style: style('frame', ({ frame }) => frame)
 
 });

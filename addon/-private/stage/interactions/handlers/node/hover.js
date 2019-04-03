@@ -4,7 +4,7 @@ export default Handler.extend({
 
   perform() {
     let { stage, hover } = this;
-    let point = stage.frame.convertPointFromScreen(this.mouse.stage);
+    let point = this.mouse.absolute;
     let nodes = stage.nodesForPosition(point, 'absoluteBounds');
     hover.replace(nodes);
   },

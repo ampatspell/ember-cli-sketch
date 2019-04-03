@@ -1,18 +1,17 @@
 import Component from '@ember/component';
 import layout from './template';
+import { computed } from '@ember/object';
 
 export default Component.extend({
   layout,
-  classNameBindings: [ ':marker', 'vertical', 'horizontal', 'disabled:disabled' ],
+  classNameBindings: [ ':marker', 'vertical', 'horizontal', 'disabled:disabled', 'over:over' ],
 
-  mouseEnter() {
-    let { vertical, horizontal } = this;
-    this.enter({ vertical, horizontal });
-  },
-
-  mouseLeave() {
-    let { vertical, horizontal } = this;
-    this.leave({ vertical, horizontal });
-  }
+  over: computed('edge.serialized', 'vertical', 'horizontal', function() {
+    let edge = this.edge.serialized;
+    if(!edge) {
+      return;
+    }
+    return edge.horizontal === this.horizontal && edge.vertical === this.vertical;
+  }).readOnly()
 
 });

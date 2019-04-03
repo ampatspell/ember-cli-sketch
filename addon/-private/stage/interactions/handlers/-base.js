@@ -15,7 +15,6 @@ export default EmberObject.extend({
   hover: readOnly('stage.hover'),
   selection: readOnly('stage.selection'),
   dragging: readOnly('stage.dragging'),
-  resizing: readOnly('stage.resizing'),
 
   onMouseOver() {
   },

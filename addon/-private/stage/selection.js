@@ -37,6 +37,12 @@ export default EmberObject.extend({
     this.all.removeObjects(nodes);
   },
 
+  removeExcept(node) {
+    let nodes = this.filter(selection => selection !== node);
+    this.removeNodes(nodes);
+    return nodes;
+  },
+
   replace(next) {
     let { all } = this;
     all.replace(0, all.length, next);
