@@ -95,9 +95,34 @@
           {{ui-block/input value=node.model.fill update=(action 'updateNodeProperty' node 'fill')}}
         {{/if}}
 
+        {{#if node.model.hasColor}}
+          <div class="label" role="button" {{action "updateNodeProperty" node "color" "black"}}>color: {{node.model.color}}</div>
+          {{ui-block/input value=node.model.color update=(action 'updateNodeProperty' node 'color')}}
+        {{/if}}
+
         {{#if node.model.hasOpacity}}
           <div class="label" role="button" {{action "updateNodeProperty" node "opacity" 1}}>opacity: {{node.model.opacity}}</div>
           {{ui-block/slider min=0 max=1 step=0.01 value=node.model.opacity update=(action 'updateNodeProperty' node 'opacity')}}
+        {{/if}}
+
+        {{#if node.model.hasFontFamily}}
+          <div class="label">font family:</div>
+          {{ui-block/input value=node.model.fontFamily update=(action 'updateNodeProperty' node 'fontFamily')}}
+        {{/if}}
+
+        {{#if node.model.hasFontWeight}}
+          <div class="label" role="button" {{action "updateNodeProperty" node "fontWeight" 500}}>font weight:</div>
+          {{ui-block/input value=node.model.fontWeight update=(action 'updateNodeProperty' node 'fontWeight')}}
+        {{/if}}
+
+        {{#if node.model.hasFontSize}}
+          <div class="label" role="button" {{action "updateNodeProperty" node "fontSize" 16}}>font size: {{node.model.fontSize}}</div>
+          {{ui-block/slider min=0 max=96 step=1 value=node.model.fontSize update=(action 'updateNodeProperty' node 'fontSize')}}
+        {{/if}}
+
+        {{#if node.model.hasText}}
+          <div class="label" role="button" {{action "updateNodeProperty" node "text" ""}}>text:</div>
+          {{ui-block/input value=node.model.text update=(action 'updateNodeProperty' node 'text')}}
         {{/if}}
       </div>
     </div>
@@ -113,6 +138,20 @@
     <div class="actions">
       {{ui-block/button value='Area' action=(action 'addNode' 'area' (hash x=0 y=0 width=300 height=200))}}
       {{ui-block/button value='Rect' action=(action 'addNode' 'rect' (hash x=10 y=10 width=50 height=50 fill="red" opacity=0.3 rotation=2))}}
+      {{ui-block/button
+          value='Text'
+          action=(action 'addNode' 'text' (hash
+            x=10
+            y=10
+            width=200
+            height=50
+            text="To whom it may concern: It is springtime. It is late afternoon."
+            fontFamily="Ubuntu Mono"
+            fontWeight=400
+            opacity=1
+            rotation=2
+          ))
+      }}
     </div>
   </div>
 

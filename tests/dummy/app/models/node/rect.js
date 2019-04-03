@@ -11,7 +11,7 @@ export default Base.extend({
   rotation: rotation('rotation'),
 
   fill:     attr('fill'),
-  opacity:  attr('opacity'),
+  opacity:  attr('opacity', { type: 'number', min: 0, max: 1, decimals: 2 }),
 
   hasRotation: true,
   hasFill: true,

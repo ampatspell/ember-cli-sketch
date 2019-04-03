@@ -6,6 +6,20 @@
   position: absolute;
 }
 
+.ui-block-sketch-frame {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #ddd;
+  > .info {
+    font-size: 11px;
+    position: absolute;
+    left: 0;
+    left: -1px;
+    top: -11px;
+  }
+}
+
 .ui-block-sketch-stage-node.area {
   background: #fff;
   > .nodes {
@@ -21,16 +35,8 @@
   }
 }
 
-.ui-block-sketch-frame {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border: 1px solid #ddd;
-  > .info {
-    font-size: 11px;
-    position: absolute;
-    left: 0;
-    left: -1px;
-    top: -11px;
-  }
+.ui-block-sketch-stage-node.text {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
 }
