@@ -1,5 +1,9 @@
 import Sketches from 'ember-cli-sketch/-private/sketches';
 import Factory from 'ember-cli-sketch/-private/factory';
+
+import Attributes from 'ember-cli-sketch/-private/node/attributes';
+import Attribute from 'ember-cli-sketch/-private/node/attributes/attribute';
+
 import Nodes from 'ember-cli-sketch/-private/node/nodes';
 import NodesContainers from 'ember-cli-sketch/-private/node/nodes/containers';
 
@@ -37,6 +41,8 @@ export default {
     container.register('sketch:sketches', Sketches);
     container.register('sketch:factory', Factory);
     container.register('sketch:factory', Factory);
+    container.register('sketch:node/attributes', Attributes);
+    container.register('sketch:node/attribute', Attribute);
     container.register('sketch:node/nodes', Nodes);
     container.register('sketch:node/nodes/containers', NodesContainers);
     container.register('sketch:factory/node/stage', NodeStage);

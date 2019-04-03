@@ -1,4 +1,4 @@
-import { node } from 'ember-cli-sketch/computed';
+import { node, attr } from 'ember-cli-sketch/computed';
 
 export default node({
   identifier: 'dummy',
@@ -9,3 +9,7 @@ export default node({
     type: 'type'
   }
 });
+
+export {
+  attr
+}

@@ -34,6 +34,14 @@ export default EmberObject.extend({
     return factory.create(props);
   },
 
+  attributes(node) {
+    return this._create(`node/attributes`, { node });
+  },
+
+  attribute(attributes, opts) {
+    return this._create(`node/attribute`, { attributes, opts });
+  },
+
   frame(type, parent) {
     return this._create(`frame/${type}`, { parent });
   },

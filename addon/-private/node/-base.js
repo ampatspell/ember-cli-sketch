@@ -12,6 +12,10 @@ export const nodes = () => computed(function() {
   return this.sketches.factory.nodes(this);
 }).readOnly();
 
+export const attributes = () => computed(function() {
+  return this.sketches.factory.attributes(this);
+}).readOnly();
+
 const parent = (prop, key) => computed(`parent.{${prop},${key}}`, function() {
   let parent = this.get('parent');
   if(!parent) {
@@ -55,6 +59,7 @@ export default opts => {
     _rotatedFrame: readOnly('frame.rotated'),
 
     nodes: nodes(),
+    attributes: attributes(),
 
     isSelected: computed('stage.selection.all.[]', function() {
       let selection = this.get('stage.selection.all');
