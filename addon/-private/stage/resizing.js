@@ -33,7 +33,7 @@ export default EmberObject.extend({
 
   end() {
     let { node } = this;
-    this.setProperties({ isActive: false });
+    this.setProperties({ isActive: false, node: null, edge: null });
     return !!node;
   },
 
