@@ -50,7 +50,7 @@ export default EmberObject.extend({
 
   scheduleSave() {
     cancel(this._save);
-    this._save = later(() => this.save(), 100);
+    this._save = later(() => this.save(), 50);
   },
 
   toStringExtension() {

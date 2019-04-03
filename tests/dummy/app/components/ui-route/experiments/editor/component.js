@@ -27,13 +27,13 @@ export default Component.extend({
       this.stage.addNode(model, type, props);
     },
     updateStageProperty(prop, value) {
-      this.stage.set(prop, value);
+      this.stage.update({ [prop]: value });
     },
     resetPosition() {
-      this.stage.setProperties({ x: 0, y: 0 });
+      this.stage.update({ x: 0, y: 0 });
     },
     updateNodeProperty(node, key, value) {
-      node.model.setProperties({ [key]: value });
+      node.model.update({ [key]: value });
     }
   }
 
