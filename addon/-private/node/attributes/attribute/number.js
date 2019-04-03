@@ -1,4 +1,4 @@
-import Attribute, { prop } from './-base';
+import Attribute from './-base';
 import { computed } from '@ember/object';
 import { numberConstraints } from '../../../util/math';
 
@@ -25,6 +25,14 @@ export default Attribute.extend({
     value = this.numberConstraints(value);
 
     return value;
+  },
+
+  clampDelta(value) {
+    if(this.immutable) {
+      return 0;
+    }
+    let current = this.getValue();
+    return this.numberConstraints(current + value) - current;
   }
 
 });

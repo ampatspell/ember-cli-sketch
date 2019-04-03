@@ -33,9 +33,10 @@ export default EmberObject.extend({
   definitions: definitions(),
   attributes: attributes(),
 
-  attribute(key, required=true) {
+  attribute(key, required=true, requiredType) {
     let attribute = this.attributes[key];
     assert(`attribute '${key}' not defined for ${this.model}`, attribute || !required);
+    assert(`attribute ${key} must be ${requiredType} not ${attribute.type}`, !requiredType || attribute.type === requiredType);
     return attribute;
   },
 

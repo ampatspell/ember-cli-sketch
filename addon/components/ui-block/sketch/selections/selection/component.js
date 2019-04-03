@@ -34,7 +34,6 @@ export default Component.extend({
 
   actions: {
     enter(edge) {
-      setGlobal({ component: this });
       let { resizing, model: { node } } = this;
       resizing.bind(node, edge);
     },

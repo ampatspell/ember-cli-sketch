@@ -77,8 +77,8 @@ export default opts => {
       return selection.includes(this);
     }).readOnly(),
 
-    clampSizeDelta(dimension, value) {
-      return value;
+    clampAttributeDelta(attribute, delta) {
+      return this.attributes.attribute(attribute, true, 'number').clampDelta(delta);
     },
 
     containsNode(node) {

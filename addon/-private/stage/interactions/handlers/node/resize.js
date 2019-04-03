@@ -47,20 +47,20 @@ export default Handler.extend({
     let children = {};
 
     if(edge.vertical === 'bottom') {
-      let value = node.clampSizeDelta('y', delta.y);
+      let value = node.clampAttributeDelta('height', delta.y);
       frame.height = value;
     } else if(edge.vertical === 'top') {
-      let value = node.clampSizeDelta('y', -delta.y);
+      let value = node.clampAttributeDelta('height', -delta.y);
       frame.y = -value;
       frame.height = value;
       children.y = value;
     }
 
     if(edge.horizontal === 'right') {
-      let value = node.clampSizeDelta('x', delta.x);
+      let value = node.clampAttributeDelta('width', delta.x);
       frame.width = value;
     } else if(edge.horizontal === 'left') {
-      let value = node.clampSizeDelta('x', -delta.x);
+      let value = node.clampAttributeDelta('width', -delta.x);
       frame.x = -value;
       frame.width = value;
       children.x = value;
