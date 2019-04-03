@@ -12,16 +12,14 @@ export default EmberObject.extend({
 
   firestore: service(),
 
-  node: node({ type: 'stage' }),
-
   doc: null,
   content: null,
 
-  x:    doc('x'),
-  y:    doc('y'),
-  zoom: doc('zoom'),
+  node: node({ type: 'stage' }),
 
-  thing: attr('thing', {}),
+  x:    attr('x'),
+  y:    attr('y'),
+  zoom: attr('zoom'),
 
   nodes: computed('content.models.@each.parent', function() {
     return this.content.models.filterBy('parent', this);

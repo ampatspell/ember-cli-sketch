@@ -7,7 +7,9 @@ export {
   attr
 };
 
-export const doc = key => readOnly(`doc.${key}`);
+export const position = (target, opts) => attr(target, opts);
+export const size = (target, opts) => attr(target, opts);
+export const rotation = (target, opts) => attr(target, opts);
 
 export default EmberObject.extend({
 

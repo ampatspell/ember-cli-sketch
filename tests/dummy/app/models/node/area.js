@@ -1,12 +1,12 @@
-import Base, { node, doc } from './-base';
+import Base, { node, position, size } from './-base';
 
 export default Base.extend({
 
   node: node({ type: 'sized', container: true }),
 
-  x:      doc('x'),
-  y:      doc('y'),
-  width:  doc('width'),
-  height: doc('height'),
+  x:      position('x'),
+  y:      position('y'),
+  width:  size('width'),
+  height: size('height'),
 
 });
