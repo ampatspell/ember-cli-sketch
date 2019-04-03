@@ -57,7 +57,7 @@ export default opts => create(opts).extend(CenterFitMixin, {
   //
 
   moveNodeToOverlappingContainer(node) {
-    if(node === this) {
+    if(node.isContainer) {
       return;
     }
 
