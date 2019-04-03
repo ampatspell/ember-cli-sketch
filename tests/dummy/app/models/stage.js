@@ -21,6 +21,8 @@ export default EmberObject.extend({
   y:    attr('y'),
   zoom: attr('zoom'),
 
+  thing: attr('thing', { type: 'number', initial: 0 }),
+
   nodes: computed('content.models.@each.parent', function() {
     return this.content.models.filterBy('parent', this);
   }).readOnly(),

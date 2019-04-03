@@ -4,6 +4,10 @@ import Factory from 'ember-cli-sketch/-private/factory';
 import Attributes from 'ember-cli-sketch/-private/node/attributes';
 import Attribute from 'ember-cli-sketch/-private/node/attributes/attribute';
 
+import Transforms from 'ember-cli-sketch/-private/node/attributes/transforms';
+import TransformNumber from 'ember-cli-sketch/-private/node/attributes/transforms/number';
+import TransformString from 'ember-cli-sketch/-private/node/attributes/transforms/string';
+
 import Nodes from 'ember-cli-sketch/-private/node/nodes';
 import NodesContainers from 'ember-cli-sketch/-private/node/nodes/containers';
 
@@ -40,9 +44,11 @@ export default {
   initialize(container) {
     container.register('sketch:sketches', Sketches);
     container.register('sketch:factory', Factory);
-    container.register('sketch:factory', Factory);
     container.register('sketch:node/attributes', Attributes);
     container.register('sketch:node/attribute', Attribute);
+    container.register('sketch:node/attributes/transforms', Transforms);
+    container.register('sketch:node/attributes/transform/number', TransformNumber);
+    container.register('sketch:node/attributes/transform/string', TransformString);
     container.register('sketch:node/nodes', Nodes);
     container.register('sketch:node/nodes/containers', NodesContainers);
     container.register('sketch:factory/node/stage', NodeStage);
