@@ -1,12 +1,7 @@
-import { computed } from '@ember/object';
 import { assert } from '@ember/debug';
-import sketches from '../util/sketches';
+import { factory } from '../util/computed';
 
-export default opts => {
-  return computed(function() {
-    return sketches(this).factory.node(this, opts);
-  }).readOnly();
-}
+export default opts => factory((factory, model) => factory.node(model, opts));
 
 export const getNode = model => {
   let node = model.node;

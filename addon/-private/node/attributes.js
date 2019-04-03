@@ -2,6 +2,7 @@ import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
 import { assert } from '@ember/debug';
+import { factory } from '../util/computed';
 import { __sketch_attribute__ } from '../computed/attr';
 
 const definitions = () => computed(function() {
@@ -15,15 +16,14 @@ const definitions = () => computed(function() {
   return definitions;
 }).readOnly();
 
-const attributes = () => computed(function() {
-  let factory = this.node.sketches.factory;
-  return this.definitions.reduce((hash, definition) => {
+const attributes = () => factory((factory, attributes) => {
+  return attributes.definitions.reduce((hash, definition) => {
     let { key, type } = definition;
-    let attribute = factory.attribute(this, type, definition);
+    let attribute = factory.attribute(attributes, type, definition);
     hash[key] = attribute;
     return hash;
   }, {});
-}).readOnly();
+});
 
 export default EmberObject.extend({
 

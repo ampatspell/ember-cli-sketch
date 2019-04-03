@@ -1,11 +1,10 @@
-import EmberObject, { computed } from '@ember/object';
+import EmberObject from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { assert } from '@ember/debug';
 import { assign } from '@ember/polyfills';
+import { factory } from '../../util/computed';
 
-export const frame = type => computed(function() {
-  return this.sketches.factory.frame(type, this);
-}).readOnly();
+export const frame = type => factory((factory, node) => factory.frame(type, node));
 
 export const model = key => readOnly(`model.${key}`);
 

@@ -8,6 +8,10 @@ export const array = () => computed(function() {
   return A();
 }).readOnly();
 
+export const self = () => computed(function() {
+  return this;
+})
+
 export const serialized = (keys, fn) => computed(...keys, function() {
   let props = this.getProperties(keys);
   if(fn) {
@@ -16,7 +20,7 @@ export const serialized = (keys, fn) => computed(...keys, function() {
   return compact(props);
 }).readOnly();
 
-export const model = fn => computed(function() {
+export const factory = fn => computed(function() {
   return fn.call(this, sketches(this).factory, this);
 }).readOnly();
 

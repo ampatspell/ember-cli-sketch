@@ -1,15 +1,13 @@
-import EmberObject, { computed } from '@ember/object';
+import EmberObject from '@ember/object';
 import { readOnly, map } from '@ember/object/computed';
 import { frame } from './frame/-base';
+import { factory } from '../util/computed';
 
-export const typed = type => computed(function() {
-  return this.sketches.factory.typedNodes(type, this);
-}).readOnly();
+export const typed = type => factory((factory, nodes) => factory.typedNodes(type, nodes));
 
 export default EmberObject.extend({
 
   parent: null,
-  sketches: readOnly('parent.sketches'),
   stage: readOnly('parent.stage'),
 
   frame: frame('nodes'),

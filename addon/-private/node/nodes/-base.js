@@ -5,7 +5,6 @@ import { frame } from '../frame/-base';
 export default condition => EmberObject.extend({
 
   nodes: null,
-  sketches: readOnly('nodes.sketches'),
   parent: readOnly('nodes.parent'),
   stage: readOnly('parent.stage'),
 

@@ -1,14 +1,9 @@
 import create, { frame } from './-base';
-import { zoom, model as _model } from '../util/computed';
-import { computed } from '@ember/object';
+import { zoom, factory, self } from '../util/computed';
 import { assert } from '@ember/debug';
 import CenterFitMixin from './stage/center-fit-mixin';
 
-const model = name => _model((factory, stage) => factory[name].call(factory, stage));
-
-const self = () => computed(function() {
-  return this;
-})
+const model = name => factory((factory, stage) => factory[name].call(factory, stage));
 
 export default opts => create(opts).extend(CenterFitMixin, {
 

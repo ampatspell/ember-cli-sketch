@@ -1,12 +1,11 @@
-import EmberObject, { computed } from '@ember/object';
+import EmberObject from '@ember/object';
 import { readOnly } from '@ember/object/computed';
-import sketches from '../../util/sketches';
 import { A } from '@ember/array';
+import { factory } from '../../util/computed';
 
-const all = () => computed(function() {
-  let factory = sketches(this).factory;
-  return A(this.types.map(type => factory.interactionHandler(type, this)));
-}).readOnly();
+const all = () => factory((factory, handlers) => {
+  return A(handlers.types.map(type => factory.interactionHandler(type, handlers)));
+});
 
 export default EmberObject.extend({
 

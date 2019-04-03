@@ -3,19 +3,17 @@ import { readOnly, bool } from '@ember/object/computed';
 import { assert } from '@ember/debug';
 import { assign } from '@ember/polyfills';
 import { frame } from './frame/-base';
+import { factory as _factory } from '../util/computed';
 
 export {
   frame
 };
 
-const factory = name => () => computed(function() {
-  let factory = this.sketches.factory;
-  return factory[name].call(factory, this);
-}).readOnly();
+const factory = name => () => _factory((factory, node) => factory[name].call(factory, node));
 
-export const nodes = factory('nodes');
-export const attributes = factory('attributes');
-export const edge = factory('edge');
+const nodes = factory('nodes');
+const attributes = factory('attributes');
+const edge = factory('edge');
 
 const parent = (prop, key) => computed(`parent.{${prop},${key}}`, function() {
   let parent = this.get('parent');

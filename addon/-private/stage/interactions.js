@@ -1,16 +1,11 @@
-import EmberObject, { computed } from '@ember/object';
-import sketches from '../util/sketches';
+import EmberObject from '@ember/object';
+import { factory } from '../util/computed';
 
-const medium = type => computed(function() {
-  return sketches(this).factory.interactionMedium(type, this);
-}).readOnly();
-
+const medium = type => factory((factory, interactions) => factory.interactionMedium(type, interactions));
 const mouse = () => medium('mouse');
 const keyboard = () => medium('keyboard');
 
-const handlers = () => computed(function() {
-  return sketches(this).factory.interactionHandlers(this);
-}).readOnly();
+const handlers = () => factory((factory, interactions) => factory.interactionHandlers(interactions));
 
 export default EmberObject.extend({
 
