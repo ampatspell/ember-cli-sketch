@@ -69,9 +69,6 @@ export default opts => {
     },
 
     _update(props) {
-      if(!this.isAttached) {
-        return;
-      }
       assert(`update is required for ${this.model}`, !!this.model.update);
       // let changes = this.frame.changesForFrame(props);
       this.model.update(props);

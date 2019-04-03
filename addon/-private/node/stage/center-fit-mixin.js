@@ -78,7 +78,7 @@ export default Mixin.create({
 
     let value = dimension => (size[dimension] - (opts.offset * 2)) / bounds[dimension];
 
-    let zoom = Math.min(value('width'), value('height'));
+    let zoom = round(Math.min(value('width'), value('height')), 2);
 
     this.update({ zoom });
     this.center({ type: opts.type });
