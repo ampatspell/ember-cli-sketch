@@ -10,6 +10,23 @@
   </div>
 
   <div class="block">
+    <div class="title">Position: {{stage.x}}×{{stage.y}}</div>
+    <div class="actions">
+      {{ui-block/slider min=-1000 max=1000 step=1 value=stage.x update=(action 'updateStageProperty' 'x')}}
+      {{ui-block/slider min=-1000 max=1000 step=1 value=stage.y update=(action 'updateStageProperty' 'y')}}
+      {{ui-block/button value='Reset' action=(action 'resetPosition')}}
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="title">Zoom: {{stage.zoom}}</div>
+    <div class="actions">
+      {{ui-block/slider min=0 max=10 step=0.01 value=stage.zoom update=(action 'updateStageProperty' 'zoom')}}
+      {{ui-block/button value='Reset' action=(action 'updateStageProperty' 'zoom' 1)}}
+    </div>
+  </div>
+
+  <div class="block">
     <div class="title">Add</div>
     <div class="actions">
       {{ui-block/button value='Center' action=(action 'center')}}
@@ -53,33 +70,53 @@
     </div>
   </div>
 
-  <div class="block">
-    <div class="title">Selection</div>
-    <div>
-      {{#each stage.node.selection.attached as |node|}}
-        <div role="button" {{action "setGlobal" "node" node.model}}>
-          <div>{{node.model}}</div>
-        </div>
-      {{else}}
-        None
-      {{/each}}
+  {{#each stage.node.selection.attached as |node|}}
+    <div class="block">
+      <div class="title" role="button" {{action "setGlobal" "node" node.model}}>
+        <div>Selection</div>
+        <div>{{node.model}}</div>
+      </div>
+      <div class="actions">
+        <div class="label">x: {{node.model.x}}</div>
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.x update=(action 'updateNodeProperty' node 'x')}}
+
+        <div class="label">y: {{node.model.y}}</div>
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.y update=(action 'updateNodeProperty' node 'y')}}
+
+        <div class="label">width: {{node.model.width}}</div>
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.width update=(action 'updateNodeProperty' node 'width')}}
+
+        <div class="label">height: {{node.model.height}}</div>
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.height update=(action 'updateNodeProperty' node 'height')}}
+
+        {{#if node.model.hasRotation}}
+          <div class="label">rotation: {{node.model.rotation}}</div>
+          {{ui-block/slider min=-360 max=360 step=0.1 value=node.model.rotation update=(action 'updateNodeProperty' node 'rotation')}}
+        {{/if}}
+
+        {{#if node.model.hasFill}}
+          <div class="label">fill: {{node.model.fill}}</div>
+          {{ui-block/input value=node.model.fill update=(action 'updateNodeProperty' node 'fill')}}
+        {{/if}}
+
+        {{#if node.model.hasOpacity}}
+          <div class="label">opacity: {{node.model.opacity}}</div>
+          {{ui-block/slider min=0 max=1 step=0.01 value=node.model.opacity update=(action 'updateNodeProperty' node 'opacity')}}
+        {{/if}}
+      </div>
     </div>
-  </div>
+  {{else}}
+    <div class="block">
+      <div class="title">Selection</div>
+      <div>None</div>
+    </div>
+  {{/each}}
 
   <div class="block">
     <div class="title">Add</div>
     <div class="actions">
       {{ui-block/button value='Area' action=(action 'addNode' 'area' (hash x=0 y=0 width=300 height=200))}}
-      {{ui-block/button value='Red Rect' action=(action 'addNode' 'rect' (hash x=10 y=10 width=50 height=50 fill="red" opacity=0.3 rotation=2))}}
-      {{ui-block/button value='Green Rect' action=(action 'addNode' 'rect' (hash x=10 y=10 width=50 height=50 fill="green" opacity=0.3 rotation=-2))}}
-      {{ui-block/button value='Blue Rect' action=(action 'addNode' 'rect' (hash x=10 y=10 width=50 height=50 fill="blue" opacity=0.3 rotation=2))}}
-    </div>
-  </div>
-
-  <div class="block">
-    <div class="title">Thing: {{stage.thing}}</div>
-    <div class="actions">
-      {{ui-block/slider min=-100 max=100 value=stage.thing update=(action 'updateThing')}}
+      {{ui-block/button value='Rect' action=(action 'addNode' 'rect' (hash x=10 y=10 width=50 height=50 fill="red" opacity=0.3 rotation=2))}}
     </div>
   </div>
 

@@ -26,7 +26,8 @@
         margin-top: 5px;
         display: flex;
         flex-direction: column;
-        > button {
+        > button,
+        > input {
           margin-bottom: 5px;
         }
       }

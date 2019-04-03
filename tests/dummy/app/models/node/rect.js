@@ -11,6 +11,10 @@ export default Base.extend({
   rotation: rotation('rotation'),
 
   fill:     attr('fill'),
-  opacity:  attr('opacity')
+  opacity:  attr('opacity'),
+
+  hasRotation: true,
+  hasFill: true,
+  hasOpacity: true,
 
 });
