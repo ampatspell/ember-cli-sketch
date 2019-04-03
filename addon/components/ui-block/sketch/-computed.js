@@ -88,3 +88,11 @@ export const style = (...deps) => {
     return htmlSafe(array.join('; '));
   }).readOnly();
 };
+
+export const attribute = (modelKey, attribute, required=true) => computed(modelKey, function() {
+  let model = this.get(modelKey);
+  if(!model) {
+    return;
+  }
+  return model.node.attributes.attribute(attribute, required);
+}).readOnly();

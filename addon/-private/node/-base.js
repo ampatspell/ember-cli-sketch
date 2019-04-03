@@ -77,6 +77,10 @@ export default opts => {
       return selection.includes(this);
     }).readOnly(),
 
+    clampSizeDelta(dimension, value) {
+      return value;
+    },
+
     containsNode(node) {
       return this.nodes.containsNode(node);
     },

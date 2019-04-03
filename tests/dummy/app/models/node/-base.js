@@ -38,7 +38,7 @@ export default EmberObject.extend({
   },
 
   update(props) {
-    this.doc.setProperties(props);
+    this.setProperties(props);
     this.doc.scheduleSave();
   },
 

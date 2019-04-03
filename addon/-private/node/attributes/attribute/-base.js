@@ -35,13 +35,14 @@ export default EmberObject.extend({
   },
 
   getValue() {
-    let value = this.getPrimitiveValue();
-    return this.transformValue(value);
+    return this.transformValue(this.getPrimitiveValue());
   },
 
   setValue(value) {
-    value = this.transformValue(value);
-    return this.setPrimitiveValue(value);
+    if(this.immutable) {
+      return this.getValue();
+    }
+    return this.setPrimitiveValue(this.transformValue(value));
   },
 
 });

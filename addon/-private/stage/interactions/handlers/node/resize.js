@@ -41,36 +41,26 @@ export default Handler.extend({
       return;
     }
 
-    let { node, node: { constraints }, edge } = this;
+    let { node, edge } = this;
 
     let frame = {};
     let children = {};
 
-    // TODO: constraints
-    constraints = {
-      vertical: {
-        clampSizeDelta: value => value
-      },
-      horizontal: {
-        clampSizeDelta: value => value
-      }
-    };
-
     if(edge.vertical === 'bottom') {
-      let value = constraints.vertical.clampSizeDelta(delta.y);
+      let value = node.clampSizeDelta('y', delta.y);
       frame.height = value;
     } else if(edge.vertical === 'top') {
-      let value = constraints.vertical.clampSizeDelta(-delta.y);
+      let value = node.clampSizeDelta('y', -delta.y);
       frame.y = -value;
       frame.height = value;
       children.y = value;
     }
 
     if(edge.horizontal === 'right') {
-      let value = constraints.horizontal.clampSizeDelta(delta.x);
+      let value = node.clampSizeDelta('x', delta.x);
       frame.width = value;
     } else if(edge.horizontal === 'left') {
-      let value = constraints.horizontal.clampSizeDelta(-delta.x);
+      let value = node.clampSizeDelta('x', -delta.x);
       frame.x = -value;
       frame.width = value;
       children.x = value;
