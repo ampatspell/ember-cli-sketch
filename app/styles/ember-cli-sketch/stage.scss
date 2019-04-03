@@ -40,3 +40,9 @@
   display: flex;
   align-items: center;
 }
+
+.ui-block-sketch-stage-node.image {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
