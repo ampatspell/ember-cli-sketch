@@ -85,8 +85,6 @@ export default Handler.extend({
   onMouseMove({ delta }) {
     let { mouse: { isLeftButton }, zoom } = this;
 
-    this._edge();
-
     if(!isLeftButton) {
       return;
     }
@@ -99,11 +97,6 @@ export default Handler.extend({
     if(this.update(delta)) {
       return false;
     }
-  },
-
-  _edge() {
-    let point = this.stage.frame.convertPointFromScreen(this.mouse.stage);
-    this.selection.attached.forEach(node => node.edge.set('point', point));
-  },
+  }
 
 });

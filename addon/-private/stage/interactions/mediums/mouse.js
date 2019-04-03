@@ -1,4 +1,4 @@
-import EmberObject from '@ember/object';
+import EmberObject, { computed } from '@ember/object';
 import { equal, and } from '@ember/object/computed';
 
 const button = value => equal('button', value).readOnly();
@@ -11,6 +11,11 @@ export default EmberObject.extend({
   button: null,
   over: null,
   stage: null,
+
+  absolute: computed('stage', function() {
+    let { stage } = this;
+    return this.interactions.stage.frame.convertPointFromScreen(stage);
+  }).readOnly(),
 
   isLeftButton: button(0),
   isOverStage: over('stage'),

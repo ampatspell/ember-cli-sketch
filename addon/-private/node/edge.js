@@ -37,7 +37,7 @@ const prop = key => readOnly(`serialized.${key}`);
 
 export default EmberObject.extend({
 
-  point: null,
+  point: readOnly('node.stage.interactions.mouse.stage'),
 
   serialized: computed('point', 'node.frame.hover', function() {
     let { point } = this;
