@@ -124,6 +124,11 @@
           <div class="label" role="button" {{action "updateNodeProperty" node "text" ""}}>text:</div>
           {{ui-block/input value=node.model.text update=(action 'updateNodeProperty' node 'text')}}
         {{/if}}
+
+        {{#if node.model.hasUrl}}
+          <div class="label" role="button" {{action "updateNodeProperty" node "url" ""}}>URL:</div>
+          {{ui-block/input value=node.model.url update=(action 'updateNodeProperty' node 'url')}}
+        {{/if}}
       </div>
     </div>
   {{else}}
