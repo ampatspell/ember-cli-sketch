@@ -9,6 +9,6 @@ export default Component.extend({
   frame: frame('model', 'rounded'),
   style: style('frame', ({ frame }) => frame),
 
-  zoom: readOnly('model.node.stage.zoom'),
+  zoom: readOnly('model.node.stage.zoom')
 
 });

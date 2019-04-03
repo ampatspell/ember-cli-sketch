@@ -8,6 +8,6 @@ export default Component.extend({
   attributeBindings: [ 'style' ],
 
   frame: frame('stage', 'rounded'),
-  style: style('frame', ({ frame }) => frame),
+  style: style('frame', ({ frame }) => frame)
 
 });
