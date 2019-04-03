@@ -31,7 +31,10 @@ export default EmberObject.extend({
   },
 
   async save() {
-    let { keys } = this;
+    let { exists, keys } = this;
+    if(!exists) {
+      return;
+    }
     let data = compact(this.getProperties(keys));
     // console.log('save', this.ref.path, data);
     await this.ref.set(data, { merge: true });
