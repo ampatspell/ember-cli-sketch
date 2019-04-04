@@ -109,6 +109,10 @@ export default EmberObject.extend({
     setGlobal({ stage: this });
 
     return this;
+  },
+
+  toStringExtension() {
+    return this.id;
   }
 
 });

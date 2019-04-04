@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import layout from './template';
 
 export default Component.extend({
-  classNameBindings: [ ':ui-route-experiments-editor' ],
+  classNameBindings: [ ':ui-route-experiments-editors-editor' ],
   layout,
 
   actions: {
