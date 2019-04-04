@@ -30,9 +30,6 @@ export default EmberObject.extend({
   },
 
   deactivate() {
-  },
-
-  reset() {
   }
 
 });

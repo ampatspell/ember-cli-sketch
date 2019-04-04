@@ -79,7 +79,8 @@ export default EmberObject.extend({
       stage,
       types: [
         'selection',
-        'stage/drag'
+        'stage/drag',
+        'stage/zoom'
       ]
     });
   },

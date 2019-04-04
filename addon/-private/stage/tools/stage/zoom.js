@@ -3,8 +3,8 @@ import Tool from '../-base';
 export default Tool.extend({
 
   update({ delta }) {
-    let frame = this.stage.frame.deltaToFrame(delta);
-    this.stage.update(frame);
+    let zoom = this.zoom + delta;
+    this.stage.update({ zoom });
   },
 
   onMouseDown() {
@@ -20,17 +20,15 @@ export default Tool.extend({
       return;
     }
 
-    let { zoom } = this;
-    delta.x = delta.x / zoom;
-    delta.y = delta.y / zoom;
-
+    delta = delta.y / 500;
     this.update({ delta });
-
     return false;
   },
 
-  onMouseWheel({ direction, value }) {
-    this.update({ delta: { [direction]: -value * 25 } });
+  onMouseWheel({ value }) {
+    let delta = value / 10;
+    this.update({ delta });
+    return false;
   },
 
   deactivate() {

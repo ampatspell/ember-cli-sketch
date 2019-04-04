@@ -2,20 +2,22 @@ import Handler from '../-base';
 
 export default Handler.extend({
 
-  update({ delta }) {
-    let zoom = this.zoom + delta;
-    this.stage.update({ zoom });
-  },
+  // TODO: remove
 
-  onMouseWheel({ direction, value, keys: { meta } }) {
-    if(direction !== 'x' && !meta) {
-      return;
-    }
+  // update({ delta }) {
+  //   let zoom = this.zoom + delta;
+  //   this.stage.update({ zoom });
+  // },
 
-    let delta = value / 10;
-    this.update({ delta });
+  // onMouseWheel({ direction, value, keys: { meta } }) {
+  //   if(direction !== 'x' && !meta) {
+  //     return;
+  //   }
 
-    return false;
-  }
+  //   let delta = value / 10;
+  //   this.update({ delta });
+
+  //   return false;
+  // }
 
 });

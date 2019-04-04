@@ -1,19 +1,34 @@
 import Handler from './-base';
 import { readOnly } from '@ember/object/computed';
 
+const mapping = {
+  isSpace: 'stage/drag',
+  isMeta:  'stage/zoom'
+};
+
+const map = key => {
+  for(let prop in mapping) {
+    if(key[prop] === true) {
+      return mapping[prop];
+    }
+  }
+};
+
 export default Handler.extend({
 
   tools: readOnly('stage.tools'),
 
   onKeyDown(key) {
-    if(key.isSpace) {
-      this.tools.activate('stage/drag');
+    let tool = map(key);
+    if(tool) {
+      this.tools.activate(tool);
     }
   },
 
   onKeyUp(key) {
-    if(key.isSpace) {
-      this.tools.deactivate('stage/drag');
+    let tool = map(key);
+    if(tool) {
+      this.tools.deactivate(tool);
     }
   },
 
