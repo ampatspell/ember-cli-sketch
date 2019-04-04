@@ -1,5 +1,9 @@
-import { style as _style } from '../../-computed';
+import { style as _style, className } from '../../-computed';
 import { typeOf } from '@ember/utils';
+
+export {
+  className
+};
 
 export const style = (...deps) => {
   let fn = deps.pop();
