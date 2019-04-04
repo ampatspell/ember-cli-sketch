@@ -8,10 +8,14 @@ const is = key => computed(`keys.@each.${key}`, function() {
   return !!this.keys.find(object => object[key]);
 }).readOnly();
 
+const state = () => computed('keys.[]', function() {
+  return this.keys.length ? 'down' : 'up';
+}).readOnly();
+
 export default EmberObject.extend({
 
-  state: 'up',
   keys: array(),
+  state: state(),
 
   isShift: is('isShift'),
   isSpace: is('isSpace'),
@@ -53,17 +57,14 @@ export default EmberObject.extend({
   },
 
   onKeyDown(opts) {
-    this.setProperties({ state: 'down' });
     return this.addKey(opts);
   },
 
   onKeyUp(opts) {
-    this.setProperties({ state: 'up' });
     return this.removeKey(opts);
   },
 
   reset() {
-    this.setProperties({ state: 'up' });
     this.keys.clear();
   }
 

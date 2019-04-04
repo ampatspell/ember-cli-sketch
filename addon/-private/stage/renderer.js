@@ -26,6 +26,14 @@ export default EmberObject.extend({
       return;
     }
     _component.recalculateSize();
+  },
+
+  focus() {
+    let { isAttached, _component } = this;
+    if(!isAttached) {
+      return;
+    }
+    _component.focus();
   }
 
 });

@@ -52,4 +52,11 @@ export default Component.extend(EventsMixin, {
     }
   },
 
+  focus() {
+    let element = document.activeElement;
+    if(element) {
+      document.activeElement.blur();
+    }
+  },
+
 });

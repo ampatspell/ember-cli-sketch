@@ -34,6 +34,11 @@ export default Component.extend({
     },
     updateNodeProperty(node, key, value) {
       node.model.update({ [key]: value });
+    },
+    setTool(type) {
+      let { node } = this.stage;
+      node.tools.activate(type);
+      node.focus();
     }
   }
 

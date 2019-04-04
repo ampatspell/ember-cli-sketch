@@ -20,6 +20,7 @@ export default opts => create(opts).extend(CenterFitMixin, {
   hover:        model('hover'),
   dragging:     model('dragging'),
   selection:    model('selection'),
+  tools:        model('tools'),
 
   //
 
@@ -28,12 +29,19 @@ export default opts => create(opts).extend(CenterFitMixin, {
   },
 
   detach() {
-    let { renderer, interactions, hover, selection, dragging } = this;
+    let { renderer, interactions, hover, selection, dragging, tools } = this;
     renderer.detach(...arguments);
     interactions.reset();
     hover.reset();
     selection.reset();
     dragging.reset();
+    tools.reset();
+  },
+
+  //
+
+  focus() {
+    this.renderer.focus();
   },
 
   //

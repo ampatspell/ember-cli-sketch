@@ -25,6 +25,11 @@ export default EmberObject.extend({
     this.invokeHandlers('onMouseOver', ...arguments);
   },
 
+  onMouseOut() {
+    this.mouse.onMouseOut(...arguments);
+    this.invokeHandlers('onMouseOut', ...arguments);
+  },
+
   onMouseDown() {
     this.mouse.onMouseDown(...arguments);
     this.invokeHandlers('onMouseDown', ...arguments);

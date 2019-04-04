@@ -14,6 +14,9 @@ export default EmberObject.extend({
 
   absolute: computed('stage', function() {
     let { stage } = this;
+    if(!stage) {
+      return;
+    }
     return this.interactions.stage.frame.convertPointFromScreen(stage);
   }).readOnly(),
 
@@ -25,6 +28,12 @@ export default EmberObject.extend({
 
   onMouseOver({ over }) {
     this.setProperties({ over });
+  },
+
+  onMouseOut({ window }) {
+    if(window) {
+      this.setProperties({ over: null });
+    }
   },
 
   onMouseDown({ button }) {

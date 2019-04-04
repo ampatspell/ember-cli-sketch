@@ -103,15 +103,24 @@ export default Mixin.create({
     this.interactions.onMouseUp();
   },
 
-  onMouseOver(e) {
+  overFromMouseEvent(e) {
     let { element } = this;
     let { target } = e;
     let stage = target === element || element.contains(e.target);
-    let over = stage ? 'stage' : null;
+    if(stage) {
+      return 'stage';
+    }
+    return 'body';
+  },
+
+  onMouseOver(e) {
+    let over = this.overFromMouseEvent(e);
     this.interactions.onMouseOver({ over });
   },
 
-  onMouseOut() {
+  onMouseOut(e) {
+    let window = e.toElement === null;
+    this.interactions.onMouseOut({ window });
   },
 
   onMouseClick(e) {

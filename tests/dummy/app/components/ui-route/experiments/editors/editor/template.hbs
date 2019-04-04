@@ -1,8 +1,41 @@
 {{ui-block/sketch stage=stage class="sketch" ready=(action 'ready')}}
 
 <div class="info">
+
   <div class="block">
     <div>{{stage}}</div>
+  </div>
+
+  <div class="block">
+    <div class="title">Tool: {{stage.node.tools.selected.type}}</div>
+    <div class="actions">
+      <div class="row">
+        {{ui-block/button class="small" value='Selection' action=(action 'setTool' null)}}
+        {{ui-block/button class="small" value='Drag stage' action=(action 'setTool' 'stage/drag')}}
+        {{ui-block/button class="small" value='Zoom stage' action=(action 'setTool' 'stage/zoom')}}
+      </div>
+    </div>
+    <div class="actions">
+      <div>Space: drag stage</div>
+      <div>Command: zoom stage</div>
+      <div>Escape: selection</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="title">Interactions</div>
+    <div clas="actions">
+      <div>
+        Mouse:
+        {{#let stage.node.interactions.mouse.over as |over|}}
+          {{#if over}}
+            {{over}}
+          {{else}}
+            out
+          {{/if}}
+        {{/let}}
+      </div>
+    </div>
   </div>
 
   <div class="block">

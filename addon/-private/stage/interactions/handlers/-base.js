@@ -19,6 +19,9 @@ export default EmberObject.extend({
   onMouseOver() {
   },
 
+  onMouseOut() {
+  },
+
   onMouseDown() {
   },
 

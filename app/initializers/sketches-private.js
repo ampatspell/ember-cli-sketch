@@ -23,16 +23,19 @@ import Hover from 'ember-cli-sketch/-private/stage/hover';
 import Dragging from 'ember-cli-sketch/-private/stage/dragging';
 import Selection from 'ember-cli-sketch/-private/stage/selection';
 
+import Tools from 'ember-cli-sketch/-private/stage/tools';
+import ToolSelection from 'ember-cli-sketch/-private/stage/tools/selection';
+import ToolStageDrag from 'ember-cli-sketch/-private/stage/tools/stage/drag';
+import ToolStageZoom from 'ember-cli-sketch/-private/stage/tools/stage/zoom';
+
 import Interactions from 'ember-cli-sketch/-private/stage/interactions';
 import Mouse from 'ember-cli-sketch/-private/stage/interactions/mediums/mouse';
 import Keyboard from 'ember-cli-sketch/-private/stage/interactions/mediums/keyboard';
 import Key from 'ember-cli-sketch/-private/stage/interactions/mediums/keyboard/key';
 import Handlers from 'ember-cli-sketch/-private/stage/interactions/handlers';
 
-import HandlerStagePosition from 'ember-cli-sketch/-private/stage/interactions/handlers/stage/position';
-import HandlerStageZoom from 'ember-cli-sketch/-private/stage/interactions/handlers/stage/zoom';
+import HandlerTools from 'ember-cli-sketch/-private/stage/interactions/handlers/tools';
 import HandlerNodeDrag from 'ember-cli-sketch/-private/stage/interactions/handlers/node/drag';
-import HandlerNodeHover from 'ember-cli-sketch/-private/stage/interactions/handlers/node/hover';
 import HandlerNodeMove from 'ember-cli-sketch/-private/stage/interactions/handlers/node/move';
 import HandlerNodeRemove from 'ember-cli-sketch/-private/stage/interactions/handlers/node/remove';
 import HandlerNodeResize from 'ember-cli-sketch/-private/stage/interactions/handlers/node/resize';
@@ -59,15 +62,17 @@ export default {
     container.register('sketch:stage/hover', Hover);
     container.register('sketch:stage/dragging', Dragging);
     container.register('sketch:stage/selection', Selection);
+    container.register('sketch:stage/tools', Tools);
+    container.register('sketch:stage/tools/selection', ToolSelection);
+    container.register('sketch:stage/tools/stage/drag', ToolStageDrag);
+    container.register('sketch:stage/tools/stage/zoom', ToolStageZoom);
     container.register('sketch:stage/interactions', Interactions);
     container.register('sketch:stage/interactions/mediums/mouse', Mouse);
     container.register('sketch:stage/interactions/mediums/keyboard', Keyboard);
     container.register('sketch:stage/interactions/mediums/keyboard/key', Key);
     container.register('sketch:stage/interactions/handlers', Handlers);
-    container.register('sketch:stage/interactions/handlers/stage/position', HandlerStagePosition);
-    container.register('sketch:stage/interactions/handlers/stage/zoom', HandlerStageZoom);
+    container.register('sketch:stage/interactions/handlers/tools', HandlerTools);
     container.register('sketch:stage/interactions/handlers/node/drag', HandlerNodeDrag);
-    container.register('sketch:stage/interactions/handlers/node/hover', HandlerNodeHover);
     container.register('sketch:stage/interactions/handlers/node/move', HandlerNodeMove);
     container.register('sketch:stage/interactions/handlers/node/remove', HandlerNodeRemove);
     container.register('sketch:stage/interactions/handlers/node/resize', HandlerNodeResize);

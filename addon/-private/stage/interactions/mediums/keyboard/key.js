@@ -4,6 +4,7 @@ import { assign } from '@ember/polyfills';
 import { serialized } from '../../../../util/computed';
 
 const keys = {
+  isEscape:     'Escape',
   isShift:      'Shift',
   isMeta:       'Meta',
   isSpace:      ' ',

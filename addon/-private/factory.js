@@ -74,6 +74,21 @@ export default EmberObject.extend({
     return this._create('stage/selection', { stage });
   },
 
+  tools(stage) {
+    return this._create('stage/tools', {
+      stage,
+      types: [
+        'selection',
+        'stage/drag',
+        'stage/zoom'
+      ]
+    });
+  },
+
+  tool(type, tools) {
+    return this._create(`stage/tools/${type}`, { type, tools });
+  },
+
   interactions(stage) {
     return this._create('stage/interactions', { stage });
   },
@@ -90,14 +105,12 @@ export default EmberObject.extend({
     return this._create('stage/interactions/handlers', {
       interactions,
       types: [
-        'stage/zoom',
-        'stage/position',
+        'tools',
         'node/resize',
         'node/select',
         'node/drag',
         'node/move',
-        'node/remove',
-        'node/hover'
+        'node/remove'
       ]
     });
   },
