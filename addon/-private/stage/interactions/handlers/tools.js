@@ -17,6 +17,14 @@ export default Handler.extend({
     }
   },
 
+  onMouseDown() {
+    return this.tools.selected.onMouseDown(...arguments);
+  },
+
+  onMouseUp() {
+    return this.tools.selected.onMouseUp(...arguments);
+  },
+
   onMouseMove() {
     return this.tools.selected.onMouseMove(...arguments);
   },

@@ -4,9 +4,6 @@ export default Tool.extend({
 
   update() {
     let { stage, hover, point } = this;
-    if(!point) {
-      return;
-    }
     let nodes = stage.nodesForPosition(point, 'absoluteBounds');
     hover.replace(nodes);
   },
@@ -20,6 +17,9 @@ export default Tool.extend({
   },
 
   activate() {
+    if(!this.point) {
+      return;
+    }
     this.update();
   },
 

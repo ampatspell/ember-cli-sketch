@@ -2,35 +2,37 @@ import Handler from '../-base';
 
 export default Handler.extend({
 
-  update({ delta }) {
-    let frame = this.stage.frame.deltaToFrame(delta);
-    this.stage.update(frame);
-  },
+  // TODO: remove
 
-  onMouseDown() {
-    if(this.mouse.isLeftButton && this.keyboard.isSpace) {
-      return false;
-    }
-  },
+  // update({ delta }) {
+  //   let frame = this.stage.frame.deltaToFrame(delta);
+  //   this.stage.update(frame);
+  // },
 
-  onMouseMove({ delta }) {
-    if(this.mouse.isLeftButton && this.keyboard.isSpace) {
+  // onMouseDown() {
+  //   if(this.mouse.isLeftButton && this.keyboard.isSpace) {
+  //     return false;
+  //   }
+  // },
 
-      let { zoom } = this;
-      delta.x = delta.x / zoom;
-      delta.y = delta.y / zoom;
-      this.update({ delta });
+  // onMouseMove({ delta }) {
+  //   if(this.mouse.isLeftButton && this.keyboard.isSpace) {
 
-      return false;
-    }
-  },
+  //     let { zoom } = this;
+  //     delta.x = delta.x / zoom;
+  //     delta.y = delta.y / zoom;
+  //     this.update({ delta });
 
-  onMouseWheel({ direction, value, keys: { meta } }) {
-    if(!this.mouse.isOverStage || meta) {
-      return;
-    }
+  //     return false;
+  //   }
+  // },
 
-    this.update({ delta: { [direction]: -value * 25 } });
-  }
+  // onMouseWheel({ direction, value, keys: { meta } }) {
+  //   if(!this.mouse.isOverStage || meta) {
+  //     return;
+  //   }
+
+  //   this.update({ delta: { [direction]: -value * 25 } });
+  // }
 
 });
