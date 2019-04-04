@@ -125,6 +125,24 @@
           {{ui-block/input value=node.model.text update=(action 'updateNodeProperty' node 'text')}}
         {{/if}}
 
+        {{#if node.model.hasAlign}}
+          <div class="label">Align: {{node.model.align}}</div>
+          <div class="row">
+            {{ui-block/button value='Left' action=(action 'updateNodeProperty' node 'align' 'left')}}
+            {{ui-block/button value='Center' action=(action 'updateNodeProperty' node 'align' 'center')}}
+            {{ui-block/button value='Right' action=(action 'updateNodeProperty' node 'align' 'right')}}
+          </div>
+        {{/if}}
+
+        {{#if node.model.hasAlign}}
+          <div class="label">Vertical Align: {{node.model.verticalAlign}}</div>
+          <div class="row">
+            {{ui-block/button value='Top' action=(action 'updateNodeProperty' node 'verticalAlign' 'top')}}
+            {{ui-block/button value='Middle' action=(action 'updateNodeProperty' node 'verticalAlign' 'middle')}}
+            {{ui-block/button value='Bottom' action=(action 'updateNodeProperty' node 'verticalAlign' 'bottom')}}
+          </div>
+        {{/if}}
+
         {{#if node.model.hasUrl}}
           <div class="label" role="button" {{action "updateNodeProperty" node "url" ""}}>URL:</div>
           {{ui-block/input value=node.model.url update=(action 'updateNodeProperty' node 'url')}}

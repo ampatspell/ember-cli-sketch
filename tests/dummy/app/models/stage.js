@@ -91,6 +91,8 @@ export default EmberObject.extend({
         'text',
         'color',
         'url',
+        'align',
+        'verticalAlign'
       ], { stage: this })
     ]);
 
