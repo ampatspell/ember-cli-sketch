@@ -10,9 +10,11 @@
     <div class="title">Tool: {{stage.node.tools.selected.type}}</div>
     <div class="actions">
       <div class="row">
-        {{ui-block/button class="small" value='Selection' action=(action 'setTool' null)}}
-        {{ui-block/button class="small" value='Drag stage' action=(action 'setTool' 'stage/drag')}}
-        {{ui-block/button class="small" value='Zoom stage' action=(action 'setTool' 'stage/zoom')}}
+        {{#let stage.node.tools.selected as |selected|}}
+          {{ui-block/button class="small" value='Selection' disabled=(eq selected.type 'selection') action=(action 'setTool' null)}}
+          {{ui-block/button class="small" value='Drag stage' disabled=(eq selected.type 'stage/drag') action=(action 'setTool' 'stage/drag')}}
+          {{ui-block/button class="small" value='Zoom stage' disabled=(eq selected.type 'stage/zoom') action=(action 'setTool' 'stage/zoom')}}
+        {{/let}}
       </div>
     </div>
     <div class="actions">
