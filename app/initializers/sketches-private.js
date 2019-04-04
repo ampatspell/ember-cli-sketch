@@ -35,10 +35,7 @@ import Key from 'ember-cli-sketch/-private/stage/interactions/mediums/keyboard/k
 import Handlers from 'ember-cli-sketch/-private/stage/interactions/handlers';
 
 import HandlerTools from 'ember-cli-sketch/-private/stage/interactions/handlers/tools';
-import HandlerStagePosition from 'ember-cli-sketch/-private/stage/interactions/handlers/stage/position';
-import HandlerStageZoom from 'ember-cli-sketch/-private/stage/interactions/handlers/stage/zoom';
 import HandlerNodeDrag from 'ember-cli-sketch/-private/stage/interactions/handlers/node/drag';
-import HandlerNodeHover from 'ember-cli-sketch/-private/stage/interactions/handlers/node/hover';
 import HandlerNodeMove from 'ember-cli-sketch/-private/stage/interactions/handlers/node/move';
 import HandlerNodeRemove from 'ember-cli-sketch/-private/stage/interactions/handlers/node/remove';
 import HandlerNodeResize from 'ember-cli-sketch/-private/stage/interactions/handlers/node/resize';
@@ -75,10 +72,7 @@ export default {
     container.register('sketch:stage/interactions/mediums/keyboard/key', Key);
     container.register('sketch:stage/interactions/handlers', Handlers);
     container.register('sketch:stage/interactions/handlers/tools', HandlerTools);
-    container.register('sketch:stage/interactions/handlers/stage/position', HandlerStagePosition);
-    container.register('sketch:stage/interactions/handlers/stage/zoom', HandlerStageZoom);
     container.register('sketch:stage/interactions/handlers/node/drag', HandlerNodeDrag);
-    container.register('sketch:stage/interactions/handlers/node/hover', HandlerNodeHover);
     container.register('sketch:stage/interactions/handlers/node/move', HandlerNodeMove);
     container.register('sketch:stage/interactions/handlers/node/remove', HandlerNodeRemove);
     container.register('sketch:stage/interactions/handlers/node/resize', HandlerNodeResize);
