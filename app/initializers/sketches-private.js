@@ -33,6 +33,7 @@ import Keyboard from 'ember-cli-sketch/-private/stage/interactions/mediums/keybo
 import Key from 'ember-cli-sketch/-private/stage/interactions/mediums/keyboard/key';
 import Handlers from 'ember-cli-sketch/-private/stage/interactions/handlers';
 
+import HandlerTools from 'ember-cli-sketch/-private/stage/interactions/handlers/tools';
 import HandlerStagePosition from 'ember-cli-sketch/-private/stage/interactions/handlers/stage/position';
 import HandlerStageZoom from 'ember-cli-sketch/-private/stage/interactions/handlers/stage/zoom';
 import HandlerNodeDrag from 'ember-cli-sketch/-private/stage/interactions/handlers/node/drag';
@@ -71,6 +72,7 @@ export default {
     container.register('sketch:stage/interactions/mediums/keyboard', Keyboard);
     container.register('sketch:stage/interactions/mediums/keyboard/key', Key);
     container.register('sketch:stage/interactions/handlers', Handlers);
+    container.register('sketch:stage/interactions/handlers/tools', HandlerTools);
     container.register('sketch:stage/interactions/handlers/stage/position', HandlerStagePosition);
     container.register('sketch:stage/interactions/handlers/stage/zoom', HandlerStageZoom);
     container.register('sketch:stage/interactions/handlers/node/drag', HandlerNodeDrag);

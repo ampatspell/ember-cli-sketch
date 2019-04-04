@@ -104,6 +104,7 @@ export default EmberObject.extend({
     return this._create('stage/interactions/handlers', {
       interactions,
       types: [
+        'tools',
         'stage/zoom',
         'stage/position',
         'node/resize',
