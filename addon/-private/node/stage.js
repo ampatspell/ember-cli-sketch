@@ -40,6 +40,12 @@ export default opts => create(opts).extend(CenterFitMixin, {
 
   //
 
+  focus() {
+    this.renderer.focus();
+  },
+
+  //
+
   handle(action) {
     assert(`handle is required for ${this.model}`, !!this.model.handle);
     this.model.handle(action);

@@ -29,6 +29,8 @@ export default Handler.extend({
     let tool = map(key);
     if(tool) {
       this.tools.deactivate(tool);
+    } else if(key.isEscape) {
+      this.tools.activate(this.tools.default.type);
     }
   },
 
