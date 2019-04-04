@@ -7,6 +7,7 @@ const keys = {
   isEscape:     'Escape',
   isShift:      'Shift',
   isMeta:       'Meta',
+  isAlt:        'Alt',
   isSpace:      ' ',
   isBackspace:  'Backspace',
   isDelete:     'Delete',

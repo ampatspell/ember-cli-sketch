@@ -3,7 +3,7 @@ import { readOnly } from '@ember/object/computed';
 
 const mapping = {
   isSpace: 'stage/drag',
-  isMeta:  'stage/zoom'
+  isAlt:   'stage/zoom'
 };
 
 const map = key => {
