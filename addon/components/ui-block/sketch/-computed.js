@@ -93,3 +93,10 @@ export const attribute = (modelKey, attribute, required=true) => computed(modelK
   }
   return model.node.attributes.attribute(attribute, required);
 }).readOnly();
+
+export const className = (valueKey, prefix) => computed(valueKey, function() {
+  let value = this.get(valueKey);
+  if(value) {
+    return `${prefix}-${value}`;
+  }
+}).readOnly();
