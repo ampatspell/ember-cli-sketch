@@ -23,6 +23,10 @@ import Hover from 'ember-cli-sketch/-private/stage/hover';
 import Dragging from 'ember-cli-sketch/-private/stage/dragging';
 import Selection from 'ember-cli-sketch/-private/stage/selection';
 
+import Tools from 'ember-cli-sketch/-private/stage/tools';
+import ToolHover from 'ember-cli-sketch/-private/stage/tools/hover';
+import ToolStageDrag from 'ember-cli-sketch/-private/stage/tools/stage/drag';
+
 import Interactions from 'ember-cli-sketch/-private/stage/interactions';
 import Mouse from 'ember-cli-sketch/-private/stage/interactions/mediums/mouse';
 import Keyboard from 'ember-cli-sketch/-private/stage/interactions/mediums/keyboard';
@@ -59,6 +63,9 @@ export default {
     container.register('sketch:stage/hover', Hover);
     container.register('sketch:stage/dragging', Dragging);
     container.register('sketch:stage/selection', Selection);
+    container.register('sketch:stage/tools', Tools);
+    container.register('sketch:stage/tools/hover', ToolHover);
+    container.register('sketch:stage/tools/stage/drag', ToolStageDrag);
     container.register('sketch:stage/interactions', Interactions);
     container.register('sketch:stage/interactions/mediums/mouse', Mouse);
     container.register('sketch:stage/interactions/mediums/keyboard', Keyboard);
