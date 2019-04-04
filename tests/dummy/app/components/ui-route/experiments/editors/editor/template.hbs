@@ -194,14 +194,12 @@
   <div class="block">
     <div class="title">Add</div>
     <div class="actions">
-      {{ui-block/button value='Area' action=(action 'addNode' 'area' (hash x=0 y=0 width=300 height=200))}}
-      {{ui-block/button value='Rect' action=(action 'addNode' 'rect' (hash x=10 y=10 width=50 height=50 fill="red" opacity=0.3 rotation=0))}}
-      {{ui-block/button value='Image' action=(action 'addNode' 'image' (hash x=10 y=10 width=100 height=100 url="https://66.media.tumblr.com/61445375824c46e0358ce929586ec013/tumblr_pfig1gFRQ41qz5jeho1_1280.jpg" opacity=1.0 rotation=0))}}
+      {{ui-block/button value='Area' action=(action 'addNode' 'area' (hash width=300 height=200))}}
+      {{ui-block/button value='Rect' action=(action 'addNode' 'rect' (hash width=50 height=50 fill="red" opacity=0.3 rotation=0))}}
+      {{ui-block/button value='Image' action=(action 'addNode' 'image' (hash width=100 height=100 url="https://66.media.tumblr.com/61445375824c46e0358ce929586ec013/tumblr_pfig1gFRQ41qz5jeho1_1280.jpg" opacity=1.0 rotation=0))}}
       {{ui-block/button
           value='Text'
           action=(action 'addNode' 'text' (hash
-            x=10
-            y=10
             width=200
             height=50
             text="To whom it may concern: It is springtime. It is late afternoon."

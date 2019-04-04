@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import layout from './template';
+import { assign } from '@ember/polyfills';
 
 export default Component.extend({
   classNameBindings: [ ':ui-route-experiments-editors-editor' ],
@@ -18,13 +19,20 @@ export default Component.extend({
     setGlobal(key, value){
       setGlobal({ [key]: value });
     },
-    addNode(type, props) {
-      let selection = this.stage.node.selection.attached.lastObject;
-      let model = selection && selection.model;
-      if(!model) {
-        model = this.stage;
-      }
-      this.stage.addNode(model, type, props);
+    async addNode(type, props) {
+      let pos = (p, s) => this.stage.node.frame.absolute[p] - props[s];
+      let x = pos('x', 'width');
+      let y = pos('y', 'height');
+      let model = await this.stage.addNode(null, type, assign({ x, y }, props));
+
+      let delegate = {
+        cancel() {
+          model.remove();
+        },
+        commit() {
+        }
+      };
+      this.stage.node.tools.activate('node/add', { model, delegate });
     },
     updateStageProperty(prop, value) {
       this.stage.update({ [prop]: value });

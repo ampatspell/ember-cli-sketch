@@ -34,8 +34,8 @@ export default EmberObject.extend({
   }).readOnly(),
 
   remove() {
-    this.set('doc.parent', undefined);
     this.stage.removeNode(this);
+    this.set('doc.parent', undefined);
     this.doc.delete();
   },
 

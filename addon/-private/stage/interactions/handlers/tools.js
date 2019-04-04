@@ -42,6 +42,10 @@ export default Handler.extend({
     return this.tools.selected.onMouseUp(...arguments);
   },
 
+  onMouseClick() {
+    return this.tools.selected.onMouseClick(...arguments);
+  },
+
   onMouseMove() {
     return this.tools.selected.onMouseMove(...arguments);
   },
