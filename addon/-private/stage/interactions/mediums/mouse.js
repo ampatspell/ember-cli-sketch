@@ -27,6 +27,12 @@ export default EmberObject.extend({
     this.setProperties({ over });
   },
 
+  onMouseOut({ window }) {
+    if(window) {
+      this.setProperties({ over: null });
+    }
+  },
+
   onMouseDown({ button }) {
     this.setProperties({ state: 'down', button });
   },

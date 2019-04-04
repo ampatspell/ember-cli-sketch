@@ -23,6 +23,22 @@
   </div>
 
   <div class="block">
+    <div class="title">Interactions</div>
+    <div clas="actions">
+      <div>
+        Mouse:
+        {{#let stage.node.interactions.mouse.over as |over|}}
+          {{#if over}}
+            {{over}}
+          {{else}}
+            out
+          {{/if}}
+        {{/let}}
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
     <div class="title">Position: {{stage.x}}×{{stage.y}}</div>
     <div class="actions">
       {{ui-block/slider min=-1000 max=1000 step=1 value=stage.x update=(action 'updateStageProperty' 'x')}}
