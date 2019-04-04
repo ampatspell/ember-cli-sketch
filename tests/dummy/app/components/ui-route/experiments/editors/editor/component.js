@@ -1,10 +1,13 @@
 import Component from '@ember/component';
 import layout from './template';
 import { assign } from '@ember/polyfills';
+import { equal } from '@ember/object/computed';
 
 export default Component.extend({
   classNameBindings: [ ':ui-route-experiments-editors-editor' ],
   layout,
+
+  isAddingNode: equal('stage.node.tools.selected.type', 'node/add'),
 
   actions: {
     ready(stage) {
