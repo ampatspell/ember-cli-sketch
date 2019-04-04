@@ -78,7 +78,7 @@ export default EmberObject.extend({
     return this._create('stage/tools', {
       stage,
       types: [
-        'hover',
+        'selection',
         'stage/drag'
       ]
     });
