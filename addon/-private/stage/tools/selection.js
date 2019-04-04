@@ -3,8 +3,8 @@ import Tool from './-base';
 export default Tool.extend({
 
   update() {
-    let { stage, hover, point } = this;
-    let nodes = stage.nodesForPosition(point, 'absoluteBounds');
+    let { stage, hover, mouse: { absolute } } = this;
+    let nodes = stage.nodesForPosition(absolute, 'absoluteBounds');
     hover.replace(nodes);
   },
 

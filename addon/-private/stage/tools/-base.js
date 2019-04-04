@@ -5,10 +5,9 @@ export default EmberObject.extend({
 
   tools: null,
   stage: readOnly('tools.stage'),
+  zoom: readOnly('stage.zoom'),
   hover: readOnly('stage.hover'),
-
-  zoom:  readOnly('stage.zoom'),
-  point: readOnly('stage.interactions.mouse.stage'),
+  mouse: readOnly('stage.interactions.mouse'),
 
   //
 
