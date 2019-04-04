@@ -45,7 +45,8 @@ export default EmberObject.extend({
       position = last.position + 1;
     }
 
-    await this.firestore.add(`sketches/${this.id}/nodes`, assign({ position, parent, type }, props));
+    let id = await this.firestore.add(`sketches/${this.id}/nodes`, assign({ position, parent, type }, props));
+    return this.content.models.findBy('id', id);
   },
 
   removeNode(model) {

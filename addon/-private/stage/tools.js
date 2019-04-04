@@ -5,23 +5,17 @@ import { A } from '@ember/array';
 const all = () => factory((factory, tools) => A(tools.types.map(type => factory.tool(type, tools))));
 
 const selected = () => {
-  let _set = (owner, next) => {
-    let current = owner._selected;
-    if(current !== next) {
-      if(current) {
-        current.deactivate();
-      }
-      owner._selected = next;
-      next.activate();
-    }
-    return next;
-  }
   return computed({
     get() {
-      return _set(this, this.default);
+      if(!this._selected) {
+        this._selected = this.default;
+        this._selected.activate();
+      }
+      return this._selected;
     },
     set(key, value) {
-      return _set(this, value || this.default);
+      this._selected = value;
+      return this._selected;
     }
   });
 }
@@ -43,12 +37,27 @@ export default EmberObject.extend({
     return this.all.findBy('type', type);
   },
 
-  activate(type) {
-    let tool = this.byType(type);
-    if(this.selected === tool) {
+  replace(tool, props) {
+    let { selected } = this;
+
+    tool = tool || this.default;
+
+    if(selected === tool) {
       return;
     }
+
+    if(selected) {
+      selected.deactivate();
+    }
+
     this.set('selected', tool);
+
+    tool.activate(props);
+  },
+
+  activate(type, props) {
+    let tool = this.byType(type);
+    this.replace(tool, props);
   },
 
   deactivate(type) {
@@ -56,11 +65,18 @@ export default EmberObject.extend({
     if(this.selected !== tool) {
       return;
     }
-    this.set('selected', null);
+    this.replace(null);
+  },
+
+  _deactivate(tool) {
+    if(this.selected !== tool) {
+      return;
+    }
+    this.reset();
   },
 
   reset() {
-    this.set('selected', null);
+    this.replace(null);
   }
 
 });

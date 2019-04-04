@@ -9,6 +9,10 @@ export default EmberObject.extend({
   hover: readOnly('stage.hover'),
   mouse: readOnly('stage.interactions.mouse'),
 
+  done() {
+    this.tools._deactivate(this);
+  },
+
   //
 
   onMouseDown() {
@@ -21,6 +25,9 @@ export default EmberObject.extend({
   },
 
   onMouseWheel() {
+  },
+
+  onMouseClick() {
   },
 
   //

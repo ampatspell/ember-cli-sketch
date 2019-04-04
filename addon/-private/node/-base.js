@@ -120,6 +120,16 @@ export default opts => {
       }
     },
 
+    hover() {
+      let { replace } = assign({ replace: true }, opts);
+      let { hover } = this.stage;
+      if(replace) {
+        hover.replace([ this ]);
+      } else {
+        hover.addNode(this);
+      }
+    },
+
     //
 
     _withMoveToParent(parent, cb) {

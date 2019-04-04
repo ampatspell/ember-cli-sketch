@@ -45,6 +45,7 @@ export default EmberObject.extend({
     if(!this.exists) {
       return;
     }
+    this.set('exists', false);
     await this.ref.delete();
   },
 
