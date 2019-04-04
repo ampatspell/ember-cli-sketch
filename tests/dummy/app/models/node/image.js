@@ -17,4 +17,15 @@ export default Base.extend({
   hasOpacity: true,
   hasUrl: true,
 
+  // update(props) {
+  //   console.log(props);
+  //   this._super(props);
+  //   let aspect = 2/3;
+  //   let { width, height } = this;
+  //   let h = Math.ceil(width * aspect);
+  //   if(height !== h) {
+  //     this.update({ height: h });
+  //   }
+  // }
+
 });
