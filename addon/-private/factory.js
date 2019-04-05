@@ -81,7 +81,8 @@ export default EmberObject.extend({
         'selection',
         'stage/drag',
         'stage/zoom',
-        'node/add'
+        'node/select',
+        'node/add',
       ]
     });
   },
