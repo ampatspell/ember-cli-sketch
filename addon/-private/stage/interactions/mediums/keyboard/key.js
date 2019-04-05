@@ -1,5 +1,5 @@
 import EmberObject from '@ember/object';
-import { equal, or } from '@ember/object/computed';
+import { readOnly, equal, or } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
 import { serialized } from '../../../../util/computed';
 
@@ -29,6 +29,8 @@ export default EmberObject.extend(assign({
 
   isBackspaceOrDelete: or('isBackspace', 'isDelete'),
 
-  serialized: serialized([ 'key', 'keyCode', ...Object.keys(keys) ])
+  isBody: readOnly('body'),
+
+  serialized: serialized([ 'body', 'key', 'keyCode', ...Object.keys(keys) ])
 
 }, properties));

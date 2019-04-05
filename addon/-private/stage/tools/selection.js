@@ -75,8 +75,8 @@ export default Tool.extend({
   },
 
   onKeyUp(key) {
-    if(key.isBackspaceOrDelete) {
-      this.tools.activate('node/remove');
+    if(key.isBody && key.isBackspaceOrDelete) {
+      this.tools.activate('node/remove', { key });
     }
   },
 
