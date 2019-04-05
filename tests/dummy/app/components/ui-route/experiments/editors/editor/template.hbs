@@ -49,6 +49,23 @@
           {{/if}}
         {{/let}}
       </div>
+      <div>
+        Keyboard:
+        {{#let stage.node.interactions.keyboard as |keyboard|}}
+          {{#if keyboard.isShift}}
+            shift
+          {{/if}}
+          {{#if keyboard.isSpace}}
+            space
+          {{/if}}
+          {{#if keyboard.isMeta}}
+            meta
+          {{/if}}
+          {{#if keyboard.isAlt}}
+            alt
+          {{/if}}
+        {{/let}}
+      </div>
     </div>
   </div>
 

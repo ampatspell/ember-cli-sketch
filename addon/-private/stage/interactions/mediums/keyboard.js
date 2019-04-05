@@ -20,6 +20,7 @@ export default EmberObject.extend({
   isShift: is('isShift'),
   isSpace: is('isSpace'),
   isMeta:  is('isMeta'),
+  isAlt:   is('isAlt'),
 
   serialized: serialized(properties, hash => {
     hash.keys = hash.keys.map(key => key.serialized);
