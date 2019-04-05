@@ -108,6 +108,13 @@
       <div class="title" role="button" {{action "setGlobal" "node" node.model}}>
         <div>Selection</div>
         <div>{{node.model}}</div>
+        <div>Edge:
+          {{#if node.edge.has}}
+            {{node.edge.horizontal}} × {{node.edge.vertical}}
+          {{else}}
+            None
+          {{/if}}
+        </div>
       </div>
       <div class="actions">
         <div class="label" role="button" {{action "updateNodeProperty" node "x" 0}}>x: {{node.model.x}}</div>
