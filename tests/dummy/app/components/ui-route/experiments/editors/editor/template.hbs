@@ -9,13 +9,15 @@
   <div class="block">
     <div class="title">Tool: {{stage.node.tools.selected.type}}</div>
     <div class="actions">
-      <div class="row">
-        {{#let stage.node.tools.selected as |selected|}}
+      {{#let stage.node.tools.selected as |selected|}}
+        <div class="row">
           {{ui-block/button class="small" value='Selection' disabled=(eq selected.type 'selection') action=(action 'setTool' null)}}
+        </div>
+        <div class="row">
           {{ui-block/button class="small" value='Drag stage' disabled=(eq selected.type 'stage/drag') action=(action 'setTool' 'stage/drag')}}
           {{ui-block/button class="small" value='Zoom stage' disabled=(eq selected.type 'stage/zoom') action=(action 'setTool' 'stage/zoom')}}
-        {{/let}}
-      </div>
+        </div>
+      {{/let}}
     </div>
     <div class="actions">
       <div>Space: drag stage</div>

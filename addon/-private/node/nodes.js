@@ -2,6 +2,7 @@ import EmberObject from '@ember/object';
 import { readOnly, map } from '@ember/object/computed';
 import { frame } from './frame/-base';
 import { factory } from '../util/computed';
+import { A } from '@ember/array';
 
 export const typed = type => factory((factory, nodes) => factory.typedNodes(type, nodes));
 
@@ -25,7 +26,7 @@ export default EmberObject.extend({
       }
       nodes.push(...node.nodes.nodesForPosition(position, type));
       return nodes;
-    }, []);
+    }, A());
   },
 
   containsNode(node) {

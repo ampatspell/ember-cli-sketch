@@ -40,7 +40,6 @@ import HandlerNodeDrag from 'ember-cli-sketch/-private/stage/interactions/handle
 import HandlerNodeMove from 'ember-cli-sketch/-private/stage/interactions/handlers/node/move';
 import HandlerNodeRemove from 'ember-cli-sketch/-private/stage/interactions/handlers/node/remove';
 import HandlerNodeResize from 'ember-cli-sketch/-private/stage/interactions/handlers/node/resize';
-import HandlerNodeSelect from 'ember-cli-sketch/-private/stage/interactions/handlers/node/select';
 
 export default {
   name: 'sketch:internal',
@@ -78,6 +77,5 @@ export default {
     container.register('sketch:stage/interactions/handlers/node/move', HandlerNodeMove);
     container.register('sketch:stage/interactions/handlers/node/remove', HandlerNodeRemove);
     container.register('sketch:stage/interactions/handlers/node/resize', HandlerNodeResize);
-    container.register('sketch:stage/interactions/handlers/node/select', HandlerNodeSelect);
   }
 }
