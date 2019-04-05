@@ -1,44 +1,12 @@
-import Handler from '../-base';
+import Tool from '../-base';
 
-export default Handler.extend({
+export default Tool.extend({
 
   node: null,
   edge: null,
 
-  begin() {
-    let { selection } = this;
-    let node = selection.find(node => node.edge.has);
-    if(!node) {
-      return;
-    }
-
-    let edge = node.edge.serialized;
-    this.setProperties({ node, edge });
-
-    selection.removeExcept(node);
-
-    if(node.isContainer) {
-      node.moveToBottom();
-    }
-
-    return true;
-  },
-
-  end() {
-    if(!this.node) {
-      return;
-    }
-
-    this.setProperties({ node: null, edge: null });
-    return true;
-  },
-
   update(delta) {
     let { node, edge } = this;
-
-    if(!node) {
-      return;
-    }
 
     let frame = {};
     let children = {};
@@ -69,19 +37,6 @@ export default Handler.extend({
     return true;
   },
 
-  onMouseDown() {
-    let { mouse: { isLeftButtonOverStage } } = this;
-    if(isLeftButtonOverStage && this.begin()) {
-      return false;
-    }
-  },
-
-  onMouseUp() {
-    if(this.end()) {
-      return false;
-    }
-  },
-
   onMouseMove({ delta }) {
     let { mouse: { isLeftButton }, zoom } = this;
 
@@ -94,9 +49,30 @@ export default Handler.extend({
       y: delta.y / zoom
     };
 
-    if(this.update(delta)) {
-      return false;
+    this.update(delta);
+  },
+
+  onMouseUp() {
+    this.done();
+  },
+
+  activate({ node }) {
+    let edge = node.edge.serialized;
+    this.setProperties({ node, edge });
+
+    this.selection.removeExcept(node);
+
+    if(node.isContainer) {
+      node.moveToBottom();
     }
+  },
+
+  deactivate() {
+    this.reset();
+  },
+
+  reset() {
+    this.setProperties({ node: null, edge: null });
   }
 
 });

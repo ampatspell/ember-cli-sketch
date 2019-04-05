@@ -78,10 +78,12 @@ export default EmberObject.extend({
     return this._create('stage/tools', {
       stage,
       types: [
-        'node/selection',
+        'selection',
         'stage/drag',
         'stage/zoom',
-        'node/add'
+        'node/add',
+        'node/resize',
+        'node/drag'
       ]
     });
   },
@@ -105,13 +107,7 @@ export default EmberObject.extend({
   interactionHandlers(interactions) {
     return this._create('stage/interactions/handlers', {
       interactions,
-      types: [
-        'tools',
-        'node/resize',
-        'node/drag',
-        'node/move',
-        'node/remove'
-      ]
+      types: [ 'tools' ]
     });
   },
 

@@ -57,14 +57,14 @@ export default EmberObject.extend({
 
   onKeyDown(opts) {
     let key = this.keyboard.onKeyDown(opts);
-    if(opts.body && key) {
+    if(key) {
       this.invokeHandlers('onKeyDown', key);
     }
   },
 
   onKeyUp(opts) {
     let key = this.keyboard.onKeyUp(opts);
-    if(opts.body && key) {
+    if(key) {
       this.invokeHandlers('onKeyUp', key);
     }
   },

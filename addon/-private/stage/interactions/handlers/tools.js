@@ -23,6 +23,7 @@ export default Handler.extend({
     if(tool) {
       this.tools.activate(tool);
     }
+    this.tools.selected.onKeyDown(key);
   },
 
   onKeyUp(key) {
@@ -32,6 +33,7 @@ export default Handler.extend({
     } else if(key.isEscape) {
       this.tools.activate(this.tools.default.type);
     }
+    this.tools.selected.onKeyUp(key);
   },
 
   onMouseDown() {
@@ -52,6 +54,6 @@ export default Handler.extend({
 
   onMouseWheel() {
     return this.tools.selected.onMouseWheel(...arguments);
-  }
+  },
 
 });
