@@ -28,12 +28,11 @@ export default opts => create(opts).extend(CenterFitMixin, {
   },
 
   detach() {
-    let { renderer, interactions, hover, selection, dragging, tools } = this;
+    let { renderer, interactions, hover, selection, tools } = this;
     renderer.detach(...arguments);
     interactions.reset();
     hover.reset();
     selection.reset();
-    dragging.reset();
     tools.reset();
   },
 

@@ -64,7 +64,7 @@ export default Tool.extend({
   },
 
   activate() {
-    if(!this.point) {
+    if(!this.mouse.absolute) {
       return;
     }
     this.updateHover();
