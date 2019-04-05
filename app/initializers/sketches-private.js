@@ -28,7 +28,6 @@ import ToolSelection from 'ember-cli-sketch/-private/stage/tools/selection';
 import ToolStageDrag from 'ember-cli-sketch/-private/stage/tools/stage/drag';
 import ToolStageZoom from 'ember-cli-sketch/-private/stage/tools/stage/zoom';
 import ToolNodeAdd from 'ember-cli-sketch/-private/stage/tools/node/add';
-import ToolNodeSelect from 'ember-cli-sketch/-private/stage/tools/node/select';
 
 import Interactions from 'ember-cli-sketch/-private/stage/interactions';
 import Mouse from 'ember-cli-sketch/-private/stage/interactions/mediums/mouse';
@@ -41,7 +40,6 @@ import HandlerNodeDrag from 'ember-cli-sketch/-private/stage/interactions/handle
 import HandlerNodeMove from 'ember-cli-sketch/-private/stage/interactions/handlers/node/move';
 import HandlerNodeRemove from 'ember-cli-sketch/-private/stage/interactions/handlers/node/remove';
 import HandlerNodeResize from 'ember-cli-sketch/-private/stage/interactions/handlers/node/resize';
-import HandlerNodeSelect from 'ember-cli-sketch/-private/stage/interactions/handlers/node/select';
 
 export default {
   name: 'sketch:internal',
@@ -69,7 +67,6 @@ export default {
     container.register('sketch:stage/tools/stage/drag', ToolStageDrag);
     container.register('sketch:stage/tools/stage/zoom', ToolStageZoom);
     container.register('sketch:stage/tools/node/add', ToolNodeAdd);
-    container.register('sketch:stage/tools/node/select', ToolNodeSelect);
     container.register('sketch:stage/interactions', Interactions);
     container.register('sketch:stage/interactions/mediums/mouse', Mouse);
     container.register('sketch:stage/interactions/mediums/keyboard', Keyboard);
@@ -80,6 +77,5 @@ export default {
     container.register('sketch:stage/interactions/handlers/node/move', HandlerNodeMove);
     container.register('sketch:stage/interactions/handlers/node/remove', HandlerNodeRemove);
     container.register('sketch:stage/interactions/handlers/node/resize', HandlerNodeResize);
-    container.register('sketch:stage/interactions/handlers/node/select', HandlerNodeSelect);
   }
 }

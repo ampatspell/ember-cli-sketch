@@ -11,8 +11,7 @@
     <div class="actions">
       {{#let stage.node.tools.selected as |selected|}}
         <div class="row">
-          {{ui-block/button class="small" value='Default' disabled=(eq selected.type 'selection') action=(action 'setTool' null)}}
-          {{ui-block/button class="small" value='Select' disabled=(eq selected.type 'node/select') action=(action 'setTool' 'node/select')}}
+          {{ui-block/button class="small" value='Selection' disabled=(eq selected.type 'selection') action=(action 'setTool' null)}}
         </div>
         <div class="row">
           {{ui-block/button class="small" value='Drag stage' disabled=(eq selected.type 'stage/drag') action=(action 'setTool' 'stage/drag')}}
