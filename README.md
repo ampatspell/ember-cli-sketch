@@ -2,7 +2,7 @@
 
 work in progress
 
-[Live demo](https://quatsch-e12c5.firebaseapp.com/experiments/editor)
+[Live demo](https://quatsch-e12c5.firebaseapp.com/experiments/editors)
 
 ![screenshot](https://raw.githubusercontent.com/ampatspell/ember-cli-sketch/master/screenshot.png)
 
