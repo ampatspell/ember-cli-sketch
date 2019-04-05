@@ -38,7 +38,6 @@ import Key from 'ember-cli-sketch/-private/stage/interactions/mediums/keyboard/k
 import Handlers from 'ember-cli-sketch/-private/stage/interactions/handlers';
 
 import HandlerTools from 'ember-cli-sketch/-private/stage/interactions/handlers/tools';
-import HandlerNodeRemove from 'ember-cli-sketch/-private/stage/interactions/handlers/node/remove';
 
 export default {
   name: 'sketch:internal',
@@ -74,6 +73,5 @@ export default {
     container.register('sketch:stage/interactions/mediums/keyboard/key', Key);
     container.register('sketch:stage/interactions/handlers', Handlers);
     container.register('sketch:stage/interactions/handlers/tools', HandlerTools);
-    container.register('sketch:stage/interactions/handlers/node/remove', HandlerNodeRemove);
   }
 }

@@ -107,10 +107,7 @@ export default EmberObject.extend({
   interactionHandlers(interactions) {
     return this._create('stage/interactions/handlers', {
       interactions,
-      types: [
-        'tools',
-        'node/remove'
-      ]
+      types: [ 'tools' ]
     });
   },
 

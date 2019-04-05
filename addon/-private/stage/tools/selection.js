@@ -41,7 +41,7 @@ export default Tool.extend({
     }
   },
 
-  moveSelectionForKey({ key }) {
+  moveSelectedNodesForKey({ key }) {
     let { selection, stage, keyboard } = this;
 
     let delta = {
@@ -67,6 +67,23 @@ export default Tool.extend({
     nodes.forEach(node => node.update(delta, { delta: true }));
     stage.moveNodesToOverlappingContainers(nodes);
     nodes.forEach(node => node.isContainer && node.moveToBottom());
+  },
+
+  removeSelectedNodes() {
+    let { stage, selection } = this;
+
+    if(!selection.any) {
+      return;
+    }
+
+    let nodes = selection.copy();
+    let perform = () => nodes.forEach(node => node.remove());
+
+    stage.handle({
+      type: 'remove-nodes',
+      nodes,
+      perform
+    });
   },
 
   selectedNodeWithActiveEdge() {
@@ -99,7 +116,13 @@ export default Tool.extend({
   },
 
   onKeyDown(key) {
-    this.moveSelectionForKey({ key });
+    this.moveSelectedNodesForKey({ key });
+  },
+
+  onKeyUp(key) {
+    if(key.isBackspaceOrDelete) {
+      this.removeSelectedNodes();
+    }
   },
 
   activate() {
