@@ -19,7 +19,7 @@ export default EmberObject.extend({
 
   isShift: is('isShift'),
   isSpace: is('isSpace'),
-  isMeta:  is('isMeta'),
+  isMeta:  is('isMeta'),  // is stuck on command+tab
   isAlt:   is('isAlt'),
 
   serialized: serialized(properties, hash => {
