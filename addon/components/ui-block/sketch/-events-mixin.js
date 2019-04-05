@@ -16,6 +16,8 @@ export default Mixin.create({
         return fn(e);
       });
       events = {
+        blur:        wrap(e => this.onBlur(e)),
+        focus:       wrap(e => this.onFocus(e)),
         resize:      wrap(e => this.onWindowResize(e)),
         mouseover:   wrap(e => this.onMouseOver(e)),
         mouseout:    wrap(e => this.onMouseOut(e)),
@@ -26,7 +28,7 @@ export default Mixin.create({
         wheel:       wrap(e => this.onMouseWheel(e)),
         keydown:     wrap(e => this.onKeyDown(e)),
         keyup:       wrap(e => this.onKeyUp(e)),
-        selectstart: wrap(e => this.onSelectStart(e))
+        selectstart: wrap(e => this.onSelectStart(e)),
       };
       this._handlers = events;
     }
@@ -164,6 +166,14 @@ export default Mixin.create({
 
   onKeyUp(e) {
     this.interactions.onKeyUp(this.keysHashFromKeyboardEvent(e));
+  },
+
+  onBlur() {
+    this.interactions.onBlur();
+  },
+
+  onFocus() {
+    this.interactions.onFocus();
   },
 
   onSelectStart() {

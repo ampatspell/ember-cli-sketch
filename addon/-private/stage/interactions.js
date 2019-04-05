@@ -69,6 +69,13 @@ export default EmberObject.extend({
     }
   },
 
+  onBlur() {
+    this.keyboard.reset();
+  },
+
+  onFocus() {
+  },
+
   reset() {
     this.mouse.reset(),
     this.keyboard.reset();
