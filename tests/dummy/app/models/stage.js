@@ -53,13 +53,12 @@ export default EmberObject.extend({
     model.nodes.slice().forEach(model => model.remove());
   },
 
-  moveNodeToBottom(model) {
-    let last = this.nodes.lastObject;
-    if(last === model) {
-      return;
-    }
-    model.doc.set('position', last.position + 1);
+  replace(model, next) {
+    let pos = model.position;
+    model.doc.set('position', next.position);
+    next.doc.set('position', pos);
     model.doc.scheduleSave();
+    next.doc.scheduleSave();
   },
 
   update(props) {

@@ -152,9 +152,39 @@ export default opts => {
       });
     },
 
-    moveToBottom() {
-      assert(`moveToBottom is required for ${this.model}`, !!this.model.moveToBottom);
-      this.model.moveToBottom();
+    _replace(next) {
+      let model = this.model;
+      if(!next || next === model) {
+        return;
+      }
+      let node = this.parent;
+      if(!node) {
+        return;
+      }
+      let parent = node.model;
+      assert(`replace is required for ${parent}`, !!parent.replace);
+      parent.replace(model, next);
+    },
+
+    moveToTop() {
+      let last = this.parent.nodes.all.lastObject;
+      this._replace(last);
+    },
+
+    _moveWithDelta(delta) {
+      let model = this.model;
+      let nodes = this.parent.nodes.all;
+      let index = nodes.indexOf(model);
+      let next = nodes.objectAt(index + delta);
+      this._replace(next);
+    },
+
+    moveDown() {
+      this._moveWithDelta(-1);
+    },
+
+    moveUp() {
+      this._moveWithDelta(+1);
     }
 
   });

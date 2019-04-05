@@ -49,8 +49,8 @@ export default EmberObject.extend({
     this.doc.scheduleSave();
   },
 
-  moveToBottom() {
-    this.parent.moveNodeToBottom(this);
+  replace(model, next) {
+    this.parent.replace(model, next);
   },
 
   toStringExtension() {

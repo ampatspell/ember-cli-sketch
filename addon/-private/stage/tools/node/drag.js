@@ -6,7 +6,7 @@ export default Tool.extend({
     let { stage, selection, zoom } = this;
 
     let nodes = selection.attached;
-    nodes.forEach(node => node.isContainer && node.moveToBottom());
+    nodes.forEach(node => node.isContainer && node.moveToTop());
 
     let point = {
       x: delta.x / zoom,

@@ -50,6 +50,12 @@ export default Component.extend({
       let { node } = this.stage;
       node.tools.activate(type);
       node.focus();
+    },
+    moveUp(node) {
+      node.moveUp();
+    },
+    moveDown(node) {
+      node.moveDown();
     }
   }
 

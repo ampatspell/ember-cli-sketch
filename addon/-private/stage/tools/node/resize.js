@@ -62,9 +62,7 @@ export default Tool.extend({
 
     this.selection.removeExcept(node);
 
-    if(node.isContainer) {
-      node.moveToBottom();
-    }
+    node.isContainer && node.moveToTop();
   },
 
   deactivate() {
