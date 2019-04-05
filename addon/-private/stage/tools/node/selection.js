@@ -52,8 +52,14 @@ export default Tool.extend({
     if(!this.mouse.isLeftButtonOverStage) {
       return;
     }
-    let toggle = this.keyboard.isShift;
-    this.updateSelection({ toggle });
+
+    let node = this.selection.find(node => node.edge.has);
+    if(node) {
+      this.tools.activate('node/resize', { node });
+    } else {
+      let toggle = this.keyboard.isShift;
+      this.updateSelection({ toggle });
+    }
   },
 
   activate() {
