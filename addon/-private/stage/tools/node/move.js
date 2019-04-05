@@ -2,12 +2,8 @@ import Tool from '../-base';
 
 export default Tool.extend({
 
-  activate({ key }) {
+  perform({ key }) {
     let { stage, selection, keyboard } = this;
-
-    if(!selection.any) {
-      return;
-    }
 
     let delta = {
       x: 0,
@@ -32,8 +28,13 @@ export default Tool.extend({
     nodes.forEach(node => node.update(delta, { delta: true }));
     stage.moveNodesToOverlappingContainers(nodes);
     nodes.forEach(node => node.isContainer && node.moveToBottom());
-
-    this.done();
   },
+
+  activate({ key }) {
+    if(this.selection.any) {
+      this.perform({ key });
+    }
+    this.done();
+  }
 
 });

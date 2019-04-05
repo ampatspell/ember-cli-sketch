@@ -2,12 +2,8 @@ import Tool from '../-base';
 
 export default Tool.extend({
 
-  activate() {
+  perform() {
     let { stage, selection } = this;
-
-    if(!selection.any) {
-      return;
-    }
 
     let nodes = selection.copy();
     let perform = () => nodes.forEach(node => node.remove());
@@ -17,7 +13,12 @@ export default Tool.extend({
       nodes,
       perform
     });
+  },
 
+  activate() {
+    if(this.selection.any) {
+      this.perform();
+    }
     this.done();
   },
 
