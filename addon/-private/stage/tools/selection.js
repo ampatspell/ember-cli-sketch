@@ -21,6 +21,11 @@ export default Tool.extend({
     }
 
     let shift = this.keyboard.isShift;
+
+    if(!shift && node.isSelected) {
+      return;
+    }
+
     node.select({ replace: !shift, toggle: shift });
   },
 
