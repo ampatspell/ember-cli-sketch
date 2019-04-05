@@ -153,9 +153,9 @@ export default Mixin.create({
   },
 
   keysHashFromKeyboardEvent(e) {
-    let { keyCode, key } = e;
+    let { keyCode, key, metaKey: _metaKey } = e;
     let body = document.activeElement === document.body;
-    let hash = { keyCode, key, body };
+    let hash = { keyCode, key, body, _metaKey };
     return hash;
   },
 

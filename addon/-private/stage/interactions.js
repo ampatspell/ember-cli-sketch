@@ -55,7 +55,21 @@ export default EmberObject.extend({
     this.invokeHandlers('onMouseWheel', ...arguments);
   },
 
+  _keyboardMetaWorkaround(opts) {
+    let meta = opts._metaKey;
+    delete opts._metaKey;
+
+    // OSX doesn't fire meta if window is not in focus
+    // so, fake it on next key down
+    if(!meta && this.keyboard.isMeta) {
+      this.onKeyUp({ key: 'Meta', keyCode: 91 });
+    }
+
+    return opts;
+  },
+
   onKeyDown(opts) {
+    opts = this._keyboardMetaWorkaround(opts);
     let key = this.keyboard.onKeyDown(opts);
     if(key) {
       this.invokeHandlers('onKeyDown', key);
