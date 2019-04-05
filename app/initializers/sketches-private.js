@@ -24,7 +24,7 @@ import Dragging from 'ember-cli-sketch/-private/stage/dragging';
 import Selection from 'ember-cli-sketch/-private/stage/selection';
 
 import Tools from 'ember-cli-sketch/-private/stage/tools';
-import ToolNodeSelection from 'ember-cli-sketch/-private/stage/tools/node/selection';
+import ToolSelection from 'ember-cli-sketch/-private/stage/tools/selection';
 import ToolStageDrag from 'ember-cli-sketch/-private/stage/tools/stage/drag';
 import ToolStageZoom from 'ember-cli-sketch/-private/stage/tools/stage/zoom';
 import ToolNodeAdd from 'ember-cli-sketch/-private/stage/tools/node/add';
@@ -38,7 +38,6 @@ import Key from 'ember-cli-sketch/-private/stage/interactions/mediums/keyboard/k
 import Handlers from 'ember-cli-sketch/-private/stage/interactions/handlers';
 
 import HandlerTools from 'ember-cli-sketch/-private/stage/interactions/handlers/tools';
-import HandlerNodeMove from 'ember-cli-sketch/-private/stage/interactions/handlers/node/move';
 import HandlerNodeRemove from 'ember-cli-sketch/-private/stage/interactions/handlers/node/remove';
 
 export default {
@@ -63,7 +62,7 @@ export default {
     container.register('sketch:stage/dragging', Dragging);
     container.register('sketch:stage/selection', Selection);
     container.register('sketch:stage/tools', Tools);
-    container.register('sketch:stage/tools/node/selection', ToolNodeSelection);
+    container.register('sketch:stage/tools/selection', ToolSelection);
     container.register('sketch:stage/tools/stage/drag', ToolStageDrag);
     container.register('sketch:stage/tools/stage/zoom', ToolStageZoom);
     container.register('sketch:stage/tools/node/add', ToolNodeAdd);
@@ -75,7 +74,6 @@ export default {
     container.register('sketch:stage/interactions/mediums/keyboard/key', Key);
     container.register('sketch:stage/interactions/handlers', Handlers);
     container.register('sketch:stage/interactions/handlers/tools', HandlerTools);
-    container.register('sketch:stage/interactions/handlers/node/move', HandlerNodeMove);
     container.register('sketch:stage/interactions/handlers/node/remove', HandlerNodeRemove);
   }
 }

@@ -32,6 +32,12 @@ export default EmberObject.extend({
   onMouseClick() {
   },
 
+  onKeyDown() {
+  },
+
+  onKeyUp() {
+  },
+
   //
 
   activate() {

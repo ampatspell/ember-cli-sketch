@@ -1,4 +1,4 @@
-import Tool from '../-base';
+import Tool from './-base';
 
 export default Tool.extend({
 
@@ -12,7 +12,7 @@ export default Tool.extend({
     this.hover.replace(nodes);
   },
 
-  updateSelection({ toggle }) {
+  updateSelection() {
     let { hover: { last: node }, selection } = this;
 
     if(!node) {
@@ -20,6 +20,7 @@ export default Tool.extend({
       return;
     }
 
+    let toggle = this.keyboard.isShift;
     let includes = selection.includes(node);
 
     if(toggle) {
@@ -40,6 +41,38 @@ export default Tool.extend({
     }
   },
 
+  moveSelectionForKey({ key }) {
+    let { selection, stage, keyboard } = this;
+
+    let delta = {
+      x: 0,
+      y: 0
+    };
+
+    let d = keyboard.isShift ? 15 : 1;
+
+    if(key.isArrowUp) {
+      delta.y = -d;
+    } else if(key.isArrowDown) {
+      delta.y = d;
+    } else if(key.isArrowLeft) {
+      delta.x = -d;
+    } else if(key.isArrowRight) {
+      delta.x = d;
+    } else {
+      return;
+    }
+
+    let nodes = selection.all;
+    nodes.forEach(node => node.update(delta, { delta: true }));
+    stage.moveNodesToOverlappingContainers(nodes);
+    nodes.forEach(node => node.isContainer && node.moveToBottom());
+  },
+
+  selectedNodeWithActiveEdge() {
+    return this.selection.find(node => node.edge.has);
+  },
+
   onMouseMove() {
     this.updateHover();
   },
@@ -53,17 +86,20 @@ export default Tool.extend({
       return;
     }
 
-    let node = this.selection.find(node => node.edge.has);
+    let node = this.selectedNodeWithActiveEdge();
     if(node) {
       this.tools.activate('node/resize', { node });
     } else {
-      let toggle = this.keyboard.isShift;
-      this.updateSelection({ toggle });
+      this.updateSelection();
 
       if(this.selection.any) {
         this.tools.activate('node/drag');
       }
     }
+  },
+
+  onKeyDown(key) {
+    this.moveSelectionForKey({ key });
   },
 
   activate() {
