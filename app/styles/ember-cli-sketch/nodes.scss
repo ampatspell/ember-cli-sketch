@@ -1,0 +1,52 @@
+.ui-block-sketch-stage-node.area {
+  background: #fff;
+  > .nodes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  > .crop-marks {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.ui-block-sketch-stage-node.text {
+  overflow: hidden;
+  display: flex;
+  > .text {
+    flex: 1;
+  }
+  &.align-left {
+    > .text {
+      text-align: left;
+    }
+  }
+  &.align-center {
+    > .text {
+      text-align: center;
+    }
+  }
+  &.align-right {
+    > .text {
+      text-align: right;
+    }
+  }
+  &.vertical-top {
+    align-items: flex-start;
+  }
+  &.vertical-middle {
+    align-items: center;
+  }
+  &.vertical-bottom {
+    align-items: flex-end;
+  }
+}
+
+.ui-block-sketch-stage-node.image {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
