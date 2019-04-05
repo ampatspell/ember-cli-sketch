@@ -3,6 +3,7 @@ import { readOnly } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
 import { node, attr } from '../-node';
 import { A } from '@ember/array';
+import { guidFor } from '@ember/object/internals';
 
 export {
   node,
@@ -19,6 +20,33 @@ export default EmberObject.extend({
   id: readOnly('doc.id'),
   type: readOnly('doc.type'),
   position: readOnly('doc.position'),
+
+  description: computed('x', 'y', 'width', 'height', 'fill', 'color', function() {
+    let { x, y, width, height, fill, color } = this;
+    let arr = [];
+    if(fill) {
+      arr.push(fill);
+    }
+    if(color) {
+      arr.push(color);
+    }
+    arr.push(`[${x},${y},${width},${height}]`);
+    return arr.join(' ');
+  }).readOnly(),
+
+  info: computed('type', 'description', 'guid', function() {
+    let { type, description, guid } = this;
+    let arr = [ type ];
+    if(description) {
+      arr.push(description);
+    }
+    arr.push(`(${guid})`);
+    return arr.join(' ');
+  }).readOnly(),
+
+  guid: computed(function() {
+    return guidFor(this);
+  }).readOnly(),
 
   parent: computed('doc.parent', 'stage.content.models.@each.id', function() {
     let id = this.doc.parent;
