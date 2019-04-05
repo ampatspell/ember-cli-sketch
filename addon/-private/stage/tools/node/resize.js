@@ -72,7 +72,6 @@ export default Tool.extend({
   },
 
   reset() {
-    console.log('reset');
     this.setProperties({ node: null, edge: null });
   }
 
