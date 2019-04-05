@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import layout from './template';
 import { assign } from '@ember/polyfills';
+import { computed } from '@ember/object';
 import { equal } from '@ember/object/computed';
 
 export default Component.extend({
@@ -9,9 +10,20 @@ export default Component.extend({
 
   isAddingNode: equal('stage.node.tools.selected.type', 'node/add'),
 
+  attached: computed(function() {
+    return this.stage;
+  }),
+
   actions: {
+    toggle() {
+      if(this.attached) {
+        this.set('attached', null);
+      } else {
+        this.set('attached', this.stage);
+      }
+    },
     ready(stage) {
-      stage.node.center();
+      stage.node.fit({ offset: 100 });
     },
     center() {
       this.stage.node.center();
