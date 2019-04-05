@@ -59,6 +59,10 @@ export default Tool.extend({
     } else {
       let toggle = this.keyboard.isShift;
       this.updateSelection({ toggle });
+
+      if(this.selection.any) {
+        this.tools.activate('node/drag');
+      }
     }
   },
 

@@ -82,7 +82,8 @@ export default EmberObject.extend({
         'stage/drag',
         'stage/zoom',
         'node/add',
-        'node/resize'
+        'node/resize',
+        'node/drag'
       ]
     });
   },
@@ -108,7 +109,6 @@ export default EmberObject.extend({
       interactions,
       types: [
         'tools',
-        'node/drag',
         'node/move',
         'node/remove'
       ]
