@@ -10,9 +10,9 @@ export {
   attr
 };
 
-export const position = (target, opts) => attr(target, assign({ type: 'number' }, opts));
-export const size = (target, opts) => attr(target, assign({ type: 'number', min: 0 }, opts));
-export const rotation = (target, opts) => attr(target, assign({ type: 'number', min: -360, max: 360 }, opts));
+export const position = (target, opts) => attr(target, assign({ type: 'number', decimals: 2 }, opts));
+export const size = (target, opts) => attr(target, assign({ type: 'number', min: 0, decimals: 2 }, opts));
+export const rotation = (target, opts) => attr(target, assign({ type: 'number', min: -360, max: 360, decimals: 2 }, opts));
 
 export default EmberObject.extend({
 

@@ -75,7 +75,10 @@ export default Tool.extend({
     this.updateHover();
   },
 
-  deactivate() {
+  deactivate(next) {
+    if(next.type === 'node/drag') {
+      return;
+    }
     this.hover.reset();
   }
 

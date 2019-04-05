@@ -12,6 +12,8 @@ export default Tool.extend({
 
     let d = keyboard.isShift ? 15 : 1;
 
+    d = d / this.zoom;
+
     if(key.isArrowUp) {
       delta.y = -d;
     } else if(key.isArrowDown) {

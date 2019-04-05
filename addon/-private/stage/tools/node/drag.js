@@ -21,6 +21,7 @@ export default Tool.extend({
     if(!this.mouse.isLeftButton) {
       return;
     }
+    this.hover.reset();
     this.update({ delta });
   },
 

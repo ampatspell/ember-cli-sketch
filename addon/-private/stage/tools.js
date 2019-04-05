@@ -47,7 +47,7 @@ export default EmberObject.extend({
     }
 
     if(selected) {
-      selected.deactivate();
+      selected.deactivate(tool);
     }
 
     this.set('selected', tool);
