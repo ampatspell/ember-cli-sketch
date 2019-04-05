@@ -20,25 +20,8 @@ export default Tool.extend({
       return;
     }
 
-    let toggle = this.keyboard.isShift;
-    let includes = selection.includes(node);
-
-    if(toggle) {
-      if(includes) {
-        selection.removeNode(node);
-      } else {
-        let remove = [
-          ...selection.filter(sel => node.containsNode(sel)),
-          ...selection.filter(sel => sel.containsNode(node)),
-        ];
-        selection.removeNodes(remove);
-        selection.addNode(node);
-      }
-    } else {
-      if(!includes) {
-        selection.replace([ node ]);
-      }
-    }
+    let shift = this.keyboard.isShift;
+    node.select({ replace: !shift, toggle: shift });
   },
 
   selectedNodeWithActiveEdge() {

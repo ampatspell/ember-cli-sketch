@@ -111,12 +111,28 @@ export default opts => {
     },
 
     select(opts) {
-      let { replace } = assign({ replace: true }, opts);
+      let { replace, toggle } = assign({ replace: true, toggle: false }, opts);
+
       let { selection } = this.stage;
+      let selected = this.isSelected;
+
       if(replace) {
-        selection.replace([ this ]);
+        if(toggle && selected) {
+          selection.clear();
+        } else {
+          selection.replace([ this ]);
+        }
       } else {
-        selection.addNode(this);
+        if(toggle && selected) {
+          selection.removeNode(this);
+        } else {
+          let nodes = [
+            ...selection.filter(sel => this.containsNode(sel)),
+            ...selection.filter(sel => sel.containsNode(this)),
+          ];
+          selection.removeNodes(nodes);
+          selection.addNode(this);
+        }
       }
     },
 

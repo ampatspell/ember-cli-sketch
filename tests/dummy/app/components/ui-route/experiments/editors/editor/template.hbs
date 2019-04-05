@@ -69,22 +69,13 @@
     <div>
       {{#each stage.nodes as |node|}}
         <div>
-          <div role="button" {{action "setGlobal" "node" node}}>{{node.info}}</div>
+          <div role="button" {{action "select" node}}>{{node.info}}</div>
           {{#each node.nodes as |nested|}}
             <div class="pad-left">
-              <div role="button" {{action "setGlobal" "node" nested}}>{{nested.info}}</div>
+              <div role="button" {{action "select" nested}}>{{nested.info}}</div>
             </div>
           {{/each}}
         </div>
-      {{/each}}
-    </div>
-  </div>
-
-  <div class="block">
-    <div class="title">Content</div>
-    <div>
-      {{#each stage.content as |node|}}
-        <div role="button" {{action "setGlobal" "node" node}}>{{node}}</div>
       {{/each}}
     </div>
   </div>

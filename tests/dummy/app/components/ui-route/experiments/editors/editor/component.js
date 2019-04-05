@@ -22,6 +22,9 @@ export default Component.extend({
     setGlobal(key, value){
       setGlobal({ [key]: value });
     },
+    select(node) {
+      node.node.select();
+    },
     async addNode(type, props) {
       let pos = (p, s) => this.stage.node.frame.absolute[p] - props[s];
       let x = pos('x', 'width');
