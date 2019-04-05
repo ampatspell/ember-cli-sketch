@@ -78,10 +78,10 @@ export default EmberObject.extend({
     return this._create('stage/tools', {
       stage,
       types: [
-        'selection',
+        'node/selection',
         'stage/drag',
         'stage/zoom',
-        'node/add',
+        'node/add'
       ]
     });
   },

@@ -1,4 +1,4 @@
-import Tool from './-base';
+import Tool from '../-base';
 
 export default Tool.extend({
 

@@ -24,7 +24,7 @@ import Dragging from 'ember-cli-sketch/-private/stage/dragging';
 import Selection from 'ember-cli-sketch/-private/stage/selection';
 
 import Tools from 'ember-cli-sketch/-private/stage/tools';
-import ToolSelection from 'ember-cli-sketch/-private/stage/tools/selection';
+import ToolNodeSelection from 'ember-cli-sketch/-private/stage/tools/node/selection';
 import ToolStageDrag from 'ember-cli-sketch/-private/stage/tools/stage/drag';
 import ToolStageZoom from 'ember-cli-sketch/-private/stage/tools/stage/zoom';
 import ToolNodeAdd from 'ember-cli-sketch/-private/stage/tools/node/add';
@@ -63,7 +63,7 @@ export default {
     container.register('sketch:stage/dragging', Dragging);
     container.register('sketch:stage/selection', Selection);
     container.register('sketch:stage/tools', Tools);
-    container.register('sketch:stage/tools/selection', ToolSelection);
+    container.register('sketch:stage/tools/node/selection', ToolNodeSelection);
     container.register('sketch:stage/tools/stage/drag', ToolStageDrag);
     container.register('sketch:stage/tools/stage/zoom', ToolStageZoom);
     container.register('sketch:stage/tools/node/add', ToolNodeAdd);
