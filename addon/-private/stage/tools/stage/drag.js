@@ -33,8 +33,13 @@ export default Tool.extend({
     this.update({ delta: { [direction]: -value * 25 } });
   },
 
+  activate() {
+    this._cursor = this.cursor.push('drag');
+  },
+
   deactivate() {
     this.dragging = false;
+    this._cursor.cancel();
   }
 
 });

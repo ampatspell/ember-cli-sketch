@@ -1,6 +1,5 @@
 import Sketches from 'ember-cli-sketch/-private/sketches';
 import Factory from 'ember-cli-sketch/-private/sketches/factory';
-import Cursor from 'ember-cli-sketch/-private/sketches/cursor';
 
 import Attributes from 'ember-cli-sketch/-private/node/attributes';
 import AttributeNoop from 'ember-cli-sketch/-private/node/attributes/attribute/noop';
@@ -22,6 +21,7 @@ import FrameSized from 'ember-cli-sketch/-private/node/frame/sized';
 import Renderer from 'ember-cli-sketch/-private/stage/renderer';
 import Hover from 'ember-cli-sketch/-private/stage/hover';
 import Selection from 'ember-cli-sketch/-private/stage/selection';
+import Cursor from 'ember-cli-sketch/-private/stage/cursor';
 
 import Tools from 'ember-cli-sketch/-private/stage/tools';
 import ToolSelection from 'ember-cli-sketch/-private/stage/tools/selection';
@@ -46,7 +46,6 @@ export default {
   initialize(container) {
     container.register('sketch:sketches', Sketches);
     container.register('sketch:sketches/factory', Factory);
-    container.register('sketch:sketches/cursor', Cursor);
     container.register('sketch:node/attributes', Attributes);
     container.register('sketch:node/attribute/noop', AttributeNoop);
     container.register('sketch:node/attribute/number', AttributeNumber);
@@ -63,6 +62,7 @@ export default {
     container.register('sketch:stage/hover', Hover);
     container.register('sketch:stage/selection', Selection);
     container.register('sketch:stage/tools', Tools);
+    container.register('sketch:stage/cursor', Cursor);
     container.register('sketch:stage/tools/selection', ToolSelection);
     container.register('sketch:stage/tools/stage/drag', ToolStageDrag);
     container.register('sketch:stage/tools/stage/zoom', ToolStageZoom);

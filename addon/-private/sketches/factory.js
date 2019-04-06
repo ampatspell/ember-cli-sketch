@@ -34,10 +34,6 @@ export default EmberObject.extend({
     return factory.create(props);
   },
 
-  cursor(opts) {
-    return this._create('sketches/cursor', opts);
-  },
-
   edge(node) {
     return this._create(`node/edge`, { node });
   },
@@ -64,6 +60,10 @@ export default EmberObject.extend({
 
   renderer(stage) {
     return this._create('stage/renderer', { stage });
+  },
+
+  cursor(opts) {
+    return this._create('stage/cursor', opts);
   },
 
   hover(stage) {
