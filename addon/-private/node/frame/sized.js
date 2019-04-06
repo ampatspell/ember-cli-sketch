@@ -23,12 +23,13 @@ export default Frame.extend({
   properties:           serialized(keys),
   rotated:              rotated('properties'),
   zoomed:               zoomed('properties'),
+  zoomedRotated:        zoomed('rotated'),
+
   absolute:             absolute('properties', 'parent.parent.frame.absolute'),
   absoluteBounds:       rotated('absolute'),
-  zoomedAbsoluteBounds: zoomed('absoluteBounds'),
 
   rounded:   rounded('zoomed'),
-  hover:     rounded('zoomedAbsoluteBounds'),
-  selection: rounded('zoomedAbsoluteBounds')
+  hover:     absolute('zoomedRotated', 'parent.parent.frame.hover'),
+  selection: absolute('zoomedRotated', 'parent.parent.frame.selection')
 
 });

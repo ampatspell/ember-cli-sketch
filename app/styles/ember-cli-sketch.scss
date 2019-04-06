@@ -4,3 +4,16 @@
 @import "ember-cli-sketch/hovers";
 @import "ember-cli-sketch/selections";
 @import "ember-cli-sketch/crop-marks";
+
+.-info {
+  position: absolute;
+  font-size: 12px;
+  left: 1px;
+  white-space: nowrap;
+  &.top {
+    top: -14px;
+  }
+  &.inner {
+    top: 2px;
+  }
+}

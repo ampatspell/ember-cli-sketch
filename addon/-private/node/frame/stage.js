@@ -15,7 +15,9 @@ export default Frame.extend({
   zoomed:     zoomed('properties'),
   absolute:   readOnly('properties'),
 
-  rounded: rounded('zoomed'),
+  rounded:   rounded('zoomed'),
+  hover:     readOnly('rounded'),
+  selection: readOnly('rounded'),
 
   convertPointFromScreen(point) {
     let { zoom } = this;
