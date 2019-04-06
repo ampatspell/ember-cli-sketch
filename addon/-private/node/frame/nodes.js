@@ -8,11 +8,11 @@ export default Frame.extend(BoundsMixin, {
 
   absolute: absolute('properties', 'parent.parent.frame.absolute'),
   absoluteBounds: rotated('absolute'),
+  rotated: rotated('properties'),
 
-  rotated:              rotated('properties'),
-  zoomedRotated:        zoomed('rotated'),
+  _zoomedRotated: zoomed('rotated'),
 
-  hover:     absolute('zoomedRotated', 'parent.parent.frame.hover'),
-  selection: absolute('zoomedRotated', 'parent.parent.frame.selection')
+  hover: absolute('_zoomedRotated', 'parent.parent.frame.hover'),
+  selection: absolute('_zoomedRotated', 'parent.parent.frame.selection')
 
 });

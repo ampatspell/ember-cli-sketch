@@ -12,11 +12,12 @@ export default Frame.extend({
   y: model('y'),
 
   properties: serialized(keys),
-  zoomed:     zoomed('properties'),
-  absolute:   readOnly('properties'),
+  absolute: readOnly('properties'),
 
-  rounded:   rounded('zoomed'),
-  hover:     readOnly('rounded'),
+  _zoomed: zoomed('properties'),
+
+  rounded: rounded('_zoomed'),
+  hover: readOnly('rounded'),
   selection: readOnly('rounded'),
 
   convertPointFromScreen(point) {

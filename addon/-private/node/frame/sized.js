@@ -20,16 +20,16 @@ export default Frame.extend({
   height:   model('height'),
   rotation: rotation(),
 
-  properties:           serialized(keys),
-  rotated:              rotated('properties'),
-  zoomed:               zoomed('properties'),
-  zoomedRotated:        zoomed('rotated'),
+  properties: serialized(keys),
+  rotated: rotated('properties'),
+  absolute: absolute('properties', 'parent.parent.frame.absolute'),
+  absoluteBounds: rotated('absolute'),
 
-  absolute:             absolute('properties', 'parent.parent.frame.absolute'),
-  absoluteBounds:       rotated('absolute'),
+  _zoomed: zoomed('properties'),
+  _zoomedRotated: zoomed('rotated'),
 
-  rounded:   rounded('zoomed'),
-  hover:     absolute('zoomedRotated', 'parent.parent.frame.hover'),
-  selection: absolute('zoomedRotated', 'parent.parent.frame.selection')
+  rounded: rounded('_zoomed'),
+  hover: absolute('_zoomedRotated', 'parent.parent.frame.hover'),
+  selection: absolute('_zoomedRotated', 'parent.parent.frame.selection')
 
 });
