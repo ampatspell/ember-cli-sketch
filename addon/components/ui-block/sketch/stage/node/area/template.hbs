@@ -1,2 +1,8 @@
 {{ui-block/sketch/stage/node/accessories/crop-marks class='crop-marks'}}
 <div class="nodes">{{ui-block/sketch/stage/nodes model=model}}</div>
+
+<div class="-info inner">
+  {{#let model.node.frame.rounded as |frame|}}
+    {{frame.x}}, {{frame.y}}, {{frame.width}}, {{frame.height}}
+  {{/let}}
+</div>
