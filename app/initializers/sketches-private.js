@@ -1,5 +1,6 @@
 import Sketches from 'ember-cli-sketch/-private/sketches';
-import Factory from 'ember-cli-sketch/-private/factory';
+import Factory from 'ember-cli-sketch/-private/sketches/factory';
+import Cursor from 'ember-cli-sketch/-private/sketches/cursor';
 
 import Attributes from 'ember-cli-sketch/-private/node/attributes';
 import AttributeNoop from 'ember-cli-sketch/-private/node/attributes/attribute/noop';
@@ -44,7 +45,8 @@ export default {
   name: 'sketch:internal',
   initialize(container) {
     container.register('sketch:sketches', Sketches);
-    container.register('sketch:factory', Factory);
+    container.register('sketch:sketches/factory', Factory);
+    container.register('sketch:sketches/cursor', Cursor);
     container.register('sketch:node/attributes', Attributes);
     container.register('sketch:node/attribute/noop', AttributeNoop);
     container.register('sketch:node/attribute/number', AttributeNumber);

@@ -34,6 +34,10 @@ export default EmberObject.extend({
     return factory.create(props);
   },
 
+  cursor(opts) {
+    return this._create('sketches/cursor', opts);
+  },
+
   edge(node) {
     return this._create(`node/edge`, { node });
   },

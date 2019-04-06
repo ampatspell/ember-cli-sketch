@@ -2,11 +2,19 @@ import EmberObject, { computed } from '@ember/object';
 import { getOwner } from '@ember/application';
 
 const factory = () => computed(function() {
-  return getOwner(this).factoryFor('sketch:factory').create({ sketches: this });
+  setGlobal({ sketches: this });
+  return getOwner(this).factoryFor('sketch:sketches/factory').create({ sketches: this });
+}).readOnly();
+
+const create = name => computed(function() {
+  let factory = this.factory;
+  return factory[name].call(factory, { sketches: this });
 }).readOnly();
 
 export default EmberObject.extend({
 
-  factory: factory()
+  factory: factory(),
+
+  cursor: create('cursor')
 
 });
