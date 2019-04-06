@@ -84,7 +84,6 @@ export default EmberObject.extend({
   },
 
   onBlur() {
-    this.keyboard.reset();
   },
 
   onFocus() {
