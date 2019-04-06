@@ -33,13 +33,20 @@
         > input {
           margin-bottom: 5px;
         }
-        > .row {
+        .row {
           display: flex;
           flex-direction: row;
           margin-bottom: 5px;
           > button {
             margin-right: 5px;
           }
+        }
+        &.cols {
+          display: flex;
+          flex-direction: row;
+        }
+        .col {
+          margin: 0 10px 0 0;
         }
       }
     }

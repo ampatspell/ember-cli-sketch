@@ -85,9 +85,21 @@
   </div>
 
   <div class="block">
-    <div class="actions">
-      {{ui-block/button value='Center' action=(action 'center')}}
-      {{ui-block/button value='Fit' action=(action 'fit')}}
+    <div class="actions cols">
+      <div class="col">
+        <div class="label">Stage</div>
+        <div class="row">
+          {{ui-block/button class="small" value='Center' action=(action 'center')}}
+          {{ui-block/button class="small" value='Fit' action=(action 'fit')}}
+        </div>
+      </div>
+      <div class="col">
+        <div class="label">Areas</div>
+        <div class="row">
+          {{ui-block/button class="small" value='Center' action=(action 'center' 'containers')}}
+          {{ui-block/button class="small" value='Fit' action=(action 'fit' 'containers')}}
+        </div>
+      </div>
     </div>
   </div>
 

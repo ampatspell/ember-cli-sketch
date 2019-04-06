@@ -25,11 +25,11 @@ export default Component.extend({
     ready(stage) {
       stage.node.fit({ offset: 100 });
     },
-    center() {
-      this.stage.node.center();
+    center(type) {
+      this.stage.node.center({ type });
     },
-    fit() {
-      this.stage.node.fit({ offset: 100 });
+    fit(type) {
+      this.stage.node.fit({ offset: 100, type });
     },
     setGlobal(key, value){
       setGlobal({ [key]: value });
