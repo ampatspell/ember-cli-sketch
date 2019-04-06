@@ -41,6 +41,8 @@ module.exports = (() => {
   const pdf = ({ url, width, height, range }) => withPage(async page => {
     await page.goto(url, { waitUntil: 'domcontentloaded' });
     await page.waitFor('.-stage-ready');
+    await page.setViewport({ width: width * 300, height: height * 300 });
+    await page.emulateMedia('print');
     return await page.pdf({
       printBackground: true,
       width: `${width}mm`,
