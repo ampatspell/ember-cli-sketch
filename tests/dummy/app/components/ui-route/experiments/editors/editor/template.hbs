@@ -96,10 +96,10 @@
     <div>
       {{#each stage.nodes as |node|}}
         <div>
-          <div role="button" {{action "select" node}}>{{node.info}}</div>
+          <div class={{if node.node.isSelected 'strong'}} role="button" {{action "select" node}}>{{node.info}}</div>
           {{#each node.nodes as |nested|}}
             <div class="pad-left">
-              <div role="button" {{action "select" nested}}>{{nested.info}}</div>
+              <div class={{if nested.node.isSelected 'strong'}} role="button" {{action "select" nested}}>{{nested.info}}</div>
             </div>
           {{/each}}
         </div>
