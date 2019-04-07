@@ -3,6 +3,7 @@ import { serialized } from '../../util/computed';
 import { zoomed, rounded } from './-computed';
 import { readOnly } from '@ember/object/computed';
 import { round } from '../../util/math';
+import { assign } from '@ember/polyfills';
 
 const keys = [ 'x', 'y' ];
 
@@ -27,6 +28,13 @@ export default Frame.extend({
       x: value('x'),
       y: value('y')
     };
+  },
+
+  offscreen(props) {
+    let pos = (p, s) => -this.absolute[p] - props[s];
+    let x = pos('x', 'width');
+    let y = pos('y', 'height');
+    return assign({}, props, { x, y });
   }
 
 });

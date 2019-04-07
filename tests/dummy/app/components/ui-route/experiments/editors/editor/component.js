@@ -38,10 +38,7 @@ export default Component.extend({
       node.node.select();
     },
     async addNode(type, props) {
-      let pos = (p, s) => this.stage.node.frame.absolute[p] - props[s];
-      let x = pos('x', 'width');
-      let y = pos('y', 'height');
-      let model = await this.stage.addNode(null, type, assign({ x, y }, props));
+      let model = await this.stage.addNode(null, type, props);
 
       let delegate = {
         cancel() {
