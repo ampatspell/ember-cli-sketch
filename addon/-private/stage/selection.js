@@ -6,7 +6,6 @@ export default EmberObject.extend({
 
   all: array(),
   attached: filterBy('all', 'isAttached', true),
-
   any: gt('attached.length', 0),
 
   copy() {

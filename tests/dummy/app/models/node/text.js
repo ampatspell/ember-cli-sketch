@@ -1,4 +1,4 @@
-import Base, { node, position, size, rotation, attr } from './-base';
+import Base, { node, position, size, rotation, hidden, attr } from './-base';
 
 export default Base.extend({
 
@@ -9,6 +9,7 @@ export default Base.extend({
   width:    size('width'),
   height:   size('height'),
   rotation: rotation('rotation'),
+  hidden:   hidden('hidden'),
 
   fill:     attr('fill', { initial: null }),
   color:    attr('color'),

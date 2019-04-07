@@ -1,3 +1,5 @@
 {{#each stage.node.selection.attached as |node|}}
-  {{ui-block/sketch/selections/selection model=node.model}}
+  {{#if node.isVisible}}
+    {{ui-block/sketch/selections/selection model=node.model}}
+  {{/if}}
 {{/each}}
