@@ -16,7 +16,7 @@ export default Service.extend({
   },
 
   async add(path, props) {
-    let ref = this.firestore.collection(path).doc()
+    let ref = this.firestore.collection(path).doc();
     await ref.set(props);
     return ref.id;
   },
