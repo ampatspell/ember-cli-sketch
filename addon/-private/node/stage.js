@@ -2,7 +2,6 @@ import create, { frame } from './-base';
 import { zoom, factory, self } from '../util/computed';
 import { assert } from '@ember/debug';
 import CenterFitMixin from './stage/center-fit-mixin';
-import { readOnly } from '@ember/object/computed';
 
 const model = name => factory((factory, stage) => factory[name].call(factory, stage));
 

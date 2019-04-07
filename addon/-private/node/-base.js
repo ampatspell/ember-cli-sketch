@@ -55,11 +55,12 @@ export default opts => {
     stage:     parent('isStage', 'stage'),
     container: parent('isContainer', 'container'),
 
-    _rotatedFrame: readOnly('frame.rotated'),
-
     nodes: nodes(),
     attributes: attributes(),
     edge: edge(),
+
+    _rotatedFrame: readOnly('frame.rotated'),
+    _hasEdge: readOnly('edge.has'),
 
     index: computed('parent.nodes.all.[]', function() {
       let nodes = this.get('parent.nodes.all');
