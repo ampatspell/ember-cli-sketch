@@ -45,8 +45,7 @@ export default EmberObject.extend({
       position = last.position + 1;
     }
 
-    props = this.node.frame.offscreen(props);
-    let id = await this.firestore.add(`sketches/${this.id}/nodes`, assign({ position, parent, type }, props));
+    let id = await this.firestore.add(`sketches/${this.id}/nodes`, assign({ position, parent, type, hidden: true }, props));
     return this.content.models.findBy('id', id);
   },
 
@@ -93,7 +92,8 @@ export default EmberObject.extend({
         'color',
         'url',
         'align',
-        'verticalAlign'
+        'verticalAlign',
+        'hidden'
       ], { stage: this })
     ]);
 

@@ -28,13 +28,6 @@ export default Frame.extend({
       x: value('x'),
       y: value('y')
     };
-  },
-
-  offscreen(props) {
-    let pos = (p, s) => -this.absolute[p] - props[s];
-    let x = pos('x', 'width');
-    let y = pos('y', 'height');
-    return assign({}, props, { x, y });
   }
 
 });

@@ -40,7 +40,11 @@ export default Tool.extend({
     stage.selection.reset();
 
     this.setProperties({ model, delegate });
-    this.model.node.hover();
+
+    let { node } = model;
+
+    node.show();
+    node.hover();
 
     this.update();
   },

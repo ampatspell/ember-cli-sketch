@@ -22,14 +22,17 @@ export default EmberObject.extend({
   type: readOnly('doc.type'),
   position: readOnly('doc.position'),
 
-  description: computed('x', 'y', 'width', 'height', 'fill', 'color', function() {
-    let { x, y, width, height, fill, color } = this;
+  description: computed('x', 'y', 'width', 'height', 'fill', 'color', 'hidden', function() {
+    let { x, y, width, height, fill, color, hidden } = this;
     let arr = [];
     if(fill) {
       arr.push(fill);
     }
     if(color) {
       arr.push(color);
+    }
+    if(hidden) {
+      arr.push('hidden');
     }
     arr.push(`[${x},${y},${width},${height}]`);
     return arr.join(' ');

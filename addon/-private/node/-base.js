@@ -103,6 +103,14 @@ export default opts => {
       this._update(props);
     },
 
+    hide() {
+      this.update({ hidden: true });
+    },
+
+    show() {
+      this.update({ hidden: false });
+    },
+
     remove() {
       assert(`remove is required for ${this.model}`, !!this.model.remove);
       this.model.remove();
