@@ -62,6 +62,10 @@ export default EmberObject.extend({
     return this._create('stage/renderer', { stage });
   },
 
+  cursor(stage) {
+    return this._create('stage/cursor', { stage });
+  },
+
   hover(stage) {
     return this._create('stage/hover', { stage });
   },

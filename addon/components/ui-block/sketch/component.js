@@ -1,10 +1,13 @@
 import Component from '@ember/component';
 import layout from './template';
 import { computed } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
+import { htmlSafe } from '@ember/string';
 import EventsMixin from './-events-mixin';
 
 export default Component.extend(EventsMixin, {
   classNameBindings: [ ':ui-block-sketch' ],
+  attributeBindings: [ 'style' ],
   layout,
 
   size: null,
@@ -27,6 +30,16 @@ export default Component.extend(EventsMixin, {
       return value;
     }
   }),
+
+  cursor: readOnly('stage.node.cursor.value'),
+
+  style: computed('cursor', function() {
+    let { cursor } = this;
+    if(!cursor) {
+      return;
+    }
+    return htmlSafe(`cursor: ${cursor}`);
+  }).readOnly(),
 
   didInsertElement() {
     this._super(...arguments);

@@ -2,6 +2,8 @@ import Tool from '../-base';
 
 export default Tool.extend({
 
+  cursor: 'pointer',
+
   update({ delta }) {
     let frame = this.stage.frame.deltaToFrame(delta);
     this.stage.update(frame);

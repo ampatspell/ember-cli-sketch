@@ -37,3 +37,11 @@ export const zoom = number({
   max: 10,
   decimals: 2
 });
+
+export const findBy = (arrayKey, prop, value) => computed(`${arrayKey}.@each.${prop}`, function() {
+  let array = this.get(arrayKey);
+  if(!array) {
+    return;
+  }
+  return array.findBy(prop, value);
+}).readOnly();
