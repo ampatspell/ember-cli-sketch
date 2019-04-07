@@ -34,7 +34,7 @@ export default EmberObject.extend({
     if(edge) {
       return edge;
     }
-    return this.get('tool');
+    return this.tool;
   }).readOnly()
 
 });
