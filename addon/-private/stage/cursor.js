@@ -1,5 +1,5 @@
 import EmberObject, { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
+import { readOnly, or } from '@ember/object/computed';
 import { findBy } from '../util/computed';
 
 export default EmberObject.extend({
@@ -29,12 +29,6 @@ export default EmberObject.extend({
 
   tool: readOnly('stage.tools.selected.cursor'),
 
-  value: computed('edge', 'tool', function() {
-    let edge = this.edge;
-    if(edge) {
-      return edge;
-    }
-    return this.tool;
-  }).readOnly()
+  value: or('tool', 'edge')
 
 });

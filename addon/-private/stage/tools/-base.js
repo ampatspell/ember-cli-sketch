@@ -5,7 +5,6 @@ export default EmberObject.extend({
 
   tools: null,
   stage: readOnly('tools.stage'),
-  cursor: readOnly('stage.cursor'),
   zoom: readOnly('stage.zoom'),
   hover: readOnly('stage.hover'),
   selection: readOnly('stage.selection'),
