@@ -1,4 +1,4 @@
-import Base, { node, position, size } from './-base';
+import Base, { node, position, size, hidden } from './-base';
 
 export default Base.extend({
 
@@ -7,6 +7,7 @@ export default Base.extend({
   x:      position('x'),
   y:      position('y'),
   width:  size('width', { min: 100, max: 500 }),
-  height: size('height', { min: 100, max: 300 })
+  height: size('height', { min: 100, max: 300 }),
+  hidden: hidden('hidden'),
 
 });

@@ -5,6 +5,7 @@ import Attributes from 'ember-cli-sketch/-private/node/attributes';
 import AttributeNoop from 'ember-cli-sketch/-private/node/attributes/attribute/noop';
 import AttributeNumber from 'ember-cli-sketch/-private/node/attributes/attribute/number';
 import AttributeString from 'ember-cli-sketch/-private/node/attributes/attribute/string';
+import AttributeBoolean from 'ember-cli-sketch/-private/node/attributes/attribute/boolean';
 
 import Nodes from 'ember-cli-sketch/-private/node/nodes';
 import NodesContainers from 'ember-cli-sketch/-private/node/nodes/containers';
@@ -50,6 +51,7 @@ export default {
     container.register('sketch:node/attribute/noop', AttributeNoop);
     container.register('sketch:node/attribute/number', AttributeNumber);
     container.register('sketch:node/attribute/string', AttributeString);
+    container.register('sketch:node/attribute/boolean', AttributeBoolean);
     container.register('sketch:node/edge', Edge);
     container.register('sketch:node/nodes', Nodes);
     container.register('sketch:node/nodes/containers', NodesContainers);

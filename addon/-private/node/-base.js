@@ -1,5 +1,5 @@
 import EmberObject, { computed } from '@ember/object';
-import { readOnly, bool } from '@ember/object/computed';
+import { readOnly, bool, not, and } from '@ember/object/computed';
 import { assert } from '@ember/debug';
 import { assign } from '@ember/polyfills';
 import { frame } from './frame/-base';
@@ -45,11 +45,14 @@ export default opts => {
     _stage:  value('stage'),
     _parent: value('parent'),
     _models: value('nodes'),
+    _hidden: value('hidden'),
+    _visible: not('_hidden'),
 
     type:    value('type'),
 
     isContainer: prop('container', false),
     isAttached: bool('parent'),
+    isVisible: and('isAttached', '_visible'),
 
     parent:    readOnly('_parent.node'),
     stage:     parent('isStage', 'stage'),

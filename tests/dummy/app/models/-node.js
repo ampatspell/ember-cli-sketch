@@ -7,7 +7,8 @@ export const node = opts => _node(assign({
     stage: 'stage',
     parent: 'parent',
     nodes: 'nodes',
-    type: 'type'
+    type: 'type',
+    hidden: 'hidden'
   }
 }, opts));
 

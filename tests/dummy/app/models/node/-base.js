@@ -13,6 +13,7 @@ export {
 export const position = (target, opts) => attr(target, assign({ type: 'number', decimals: 2 }, opts));
 export const size = (target, opts) => attr(target, assign({ type: 'number', min: 0, decimals: 2 }, opts));
 export const rotation = (target, opts) => attr(target, assign({ type: 'number', min: -360, max: 360, decimals: 2 }, opts));
+export const hidden = target => attr(target, { type: 'boolean', initial: false });
 
 export default EmberObject.extend({
 
