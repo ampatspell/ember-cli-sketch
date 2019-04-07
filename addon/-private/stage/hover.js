@@ -8,8 +8,8 @@ export default EmberObject.extend({
   attached: filterBy('all', 'isAttached', true),
   deselected: filterBy('attached', 'isSelected', false),
 
-  last: readOnly('attached.lastObject'),
-  any: gt('attached.length', 0),
+  last: readOnly('all.lastObject'),
+  any: gt('all.length', 0),
 
   replace(nodes) {
     let { all } = this;

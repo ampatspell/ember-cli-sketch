@@ -1,5 +1,5 @@
 import EmberObject from '@ember/object';
-import { readOnly, map } from '@ember/object/computed';
+import { readOnly, map, filterBy } from '@ember/object/computed';
 import { frame } from './frame/-base';
 import { factory } from '../util/computed';
 import { A } from '@ember/array';
@@ -14,17 +14,22 @@ export default EmberObject.extend({
   frame: frame('nodes'),
 
   all: readOnly('parent._models'),
+  visible: map('_visibleNodes', node => node.model),
+
   _nodes: map('all', model => model.node),
+  _visibleNodes: filterBy('_nodes', 'isVisible', true),
 
   containers: typed('containers'),
 
   nodesForPosition(position, type) {
     return this.all.reduce((nodes, model) => {
       let node = model.node;
-      if(node.frame.includesPosition(position, type)) {
-        nodes.push(node);
+      if(node.isVisible) {
+        if(node.frame.includesPosition(position, type)) {
+          nodes.push(node);
+        }
+        nodes.push(...node.nodes.nodesForPosition(position, type));
       }
-      nodes.push(...node.nodes.nodesForPosition(position, type));
       return nodes;
     }, A());
   },

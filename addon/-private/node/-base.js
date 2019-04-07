@@ -52,7 +52,7 @@ export default opts => {
 
     isContainer: prop('container', false),
     isAttached: bool('parent'),
-    isVisible: and('isAttached', '_visible'),
+    isVisible: and('isAttached', '_visible', 'parent.isVisible'),
 
     parent:    readOnly('_parent.node'),
     stage:     parent('isStage', 'stage'),

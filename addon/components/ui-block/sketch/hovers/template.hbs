@@ -1,3 +1,5 @@
 {{#each stage.node.hover.deselected as |node|}}
-  {{ui-block/sketch/hovers/hover model=node.model}}
+  {{#if node.isVisible}}
+    {{ui-block/sketch/hovers/hover model=node.model}}
+  {{/if}}
 {{/each}}
