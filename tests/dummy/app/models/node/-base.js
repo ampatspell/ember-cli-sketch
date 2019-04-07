@@ -78,6 +78,7 @@ export default EmberObject.extend({
 
   move(target) {
     this.set('doc.parent', target && target.id);
+    this.set('doc.position', this.parent.nodes.lastObject.position + 1);
     this.doc.scheduleSave();
   },
 

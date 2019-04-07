@@ -1,8 +1,6 @@
 import EmberObject from '@ember/object';
-import { filterBy, map, readOnly } from '@ember/object/computed';
+import { filterBy, readOnly } from '@ember/object/computed';
 import { frame } from '../frame/-base';
-
-const models = key => map(key, node => node.model);
 
 export default condition => EmberObject.extend({
 
@@ -10,11 +8,8 @@ export default condition => EmberObject.extend({
   parent: readOnly('nodes.parent'),
   stage: readOnly('parent.stage'),
 
-  _nodes: filterBy('nodes._nodes', condition, true),
-  _visibleNodes: filterBy('_nodes', 'isVisible', true),
-
-  all: models('_nodes'),
-  visible: models('_visibleNodes'),
+  all: filterBy('nodes.all', condition, true),
+  visible: filterBy('all', 'isVisible', true),
 
   frame: frame('nodes')
 

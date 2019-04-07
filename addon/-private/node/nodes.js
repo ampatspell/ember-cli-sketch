@@ -6,24 +6,22 @@ import { A } from '@ember/array';
 
 export const typed = type => factory((factory, nodes) => factory.typedNodes(type, nodes));
 
+const nodes = key => map(key, model => model.node);
+
 export default EmberObject.extend({
 
   parent: null,
   stage: readOnly('parent.stage'),
 
+  all: nodes('parent._models'),
+  visible: filterBy('all', 'isVisible', true),
+
   frame: frame('nodes'),
-
-  all: readOnly('parent._models'),
-  visible: map('_visibleNodes', node => node.model),
-
-  _nodes: map('all', model => model.node),
-  _visibleNodes: filterBy('_nodes', 'isVisible', true),
 
   containers: typed('containers'),
 
   nodesForPosition(position, type) {
-    return this.all.reduce((nodes, model) => {
-      let node = model.node;
+    return this.all.reduce((nodes, node) => {
       if(node.isVisible) {
         if(node.frame.includesPosition(position, type)) {
           nodes.push(node);
@@ -35,7 +33,7 @@ export default EmberObject.extend({
   },
 
   containsNode(node) {
-    return this.all.find(child => child.node === node || child.node.containsNode(node));
+    return this.all.find(child => child === node || child.containsNode(node));
   }
 
 });

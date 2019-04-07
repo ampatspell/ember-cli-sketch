@@ -63,7 +63,7 @@ export default opts => create(opts).extend(CenterFitMixin, {
       return;
     }
 
-    let target = this.nodes.containers._visibleNodes.find(container => {
+    let target = this.nodes.containers.visible.find(container => {
       return container !== node && container.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds');
     });
 

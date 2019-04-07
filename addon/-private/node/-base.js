@@ -70,7 +70,7 @@ export default opts => {
       if(!nodes) {
         return;
       }
-      return nodes.indexOf(this.model) + 1;
+      return nodes.indexOf(this) + 1;
     }).readOnly(),
 
     isSelected: computed('stage.selection.all.[]', function() {
@@ -181,17 +181,15 @@ export default opts => {
     },
 
     _replace(next) {
-      let model = this.model;
-      if(!next || next === model) {
+      if(!next || next === this) {
         return;
       }
-      let node = this.parent;
-      if(!node) {
+      let parent = this.parent;
+      if(!parent) {
         return;
       }
-      let parent = node.model;
-      assert(`replace is required for ${parent}`, !!parent.replace);
-      parent.replace(model, next);
+      assert(`replace is required for ${parent}`, !!parent.model.replace);
+      parent.model.replace(this.model, next.model);
     },
 
     moveToTop() {
@@ -200,9 +198,8 @@ export default opts => {
     },
 
     _moveWithDelta(delta) {
-      let model = this.model;
       let nodes = this.parent.nodes.all;
-      let index = nodes.indexOf(model);
+      let index = nodes.indexOf(this);
       let next = nodes.objectAt(index + delta);
       this._replace(next);
     },

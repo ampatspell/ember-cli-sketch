@@ -1,5 +1,3 @@
-{{#each model.node.nodes.all as |node|}}
-  {{#if node.node.isVisible}}
-    {{ui-block/sketch/stage/node model=node}}
-  {{/if}}
+{{#each model.node.nodes.visible as |node|}}
+  {{ui-block/sketch/stage/node model=node.model}}
 {{/each}}
