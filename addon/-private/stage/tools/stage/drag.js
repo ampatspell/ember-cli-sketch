@@ -2,6 +2,8 @@ import Tool from '../-base';
 
 export default Tool.extend({
 
+  cursor: 'pointer',
+
   update({ delta }) {
     let frame = this.stage.frame.deltaToFrame(delta);
     this.stage.update(frame);
@@ -33,13 +35,8 @@ export default Tool.extend({
     this.update({ delta: { [direction]: -value * 25 } });
   },
 
-  activate() {
-    this._cursor = this.cursor.push('drag');
-  },
-
   deactivate() {
     this.dragging = false;
-    this._cursor.cancel();
   }
 
 });

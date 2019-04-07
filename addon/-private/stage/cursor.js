@@ -1,10 +1,6 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
-import { array, findBy } from '../util/computed';
-
-const mapping = {
-  'drag': 'pointer'
-};
+import { findBy } from '../util/computed';
 
 export default EmberObject.extend({
 
@@ -31,23 +27,14 @@ export default EmberObject.extend({
     }
   }).readOnly(),
 
-  cursors: array(),
+  tool: readOnly('stage.tools.selected.cursor'),
 
-  value: computed('edge', 'cursors.lastObject.value', function() {
+  value: computed('edge', 'tool', function() {
     let edge = this.edge;
     if(edge) {
       return edge;
     }
-    return this.get('cursors.lastObject.value');
-  }).readOnly(),
-
-  push(type) {
-    let value = mapping[type];
-    let token = { value };
-    this.cursors.pushObject(token);
-    return {
-      cancel: () => this.cursors.removeObject(token)
-    };
-  }
+    return this.get('tool');
+  }).readOnly()
 
 });
