@@ -1,4 +1,4 @@
-import Base, { node, position, size, rotation, hidden, attr } from './-base';
+import Base, { node, position, size, rotation, visible, attr } from './-base';
 
 export default Base.extend({
 
@@ -9,7 +9,7 @@ export default Base.extend({
   width:    size('width'),
   height:   size('height'),
   rotation: rotation('rotation'),
-  hidden:   hidden('hidden'),
+  visible:  visible('visible'),
 
   fill:     attr('fill'),
   opacity:  attr('opacity', { type: 'number', min: 0, max: 1, decimals: 2 }),
