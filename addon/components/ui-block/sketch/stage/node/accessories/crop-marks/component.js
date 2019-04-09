@@ -4,9 +4,10 @@ import { style } from '../../../../-computed';
 
 export default Component.extend({
   layout,
-  classNameBindings: [ ':ui-block-sketch-stage-accessories-crop-marks' ],
+  classNameBindings: [ ':ui-block-sketch-stage-accessories-crop-marks', 'highlighted:highlighted' ],
   attributeBindings: 'style',
 
+  highlighted: false,
   inset: 0,
 
   insetStyle: style('inset', function() {

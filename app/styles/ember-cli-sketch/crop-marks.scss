@@ -2,7 +2,6 @@
   $size: 10px;
   $width: 1px;
   $o: 2px;
-  $color: fade-out(#000, 0.7);
   pointer-events: none;
   position: absolute;
   top: 0;
@@ -38,7 +37,8 @@
         &:after {
           content: '';
           position: absolute;
-          background: $color;
+          background: fade-out(#000, 0.7);
+          transition: background-color 0.2s ease-in-out;
         }
         &:before {
           width: $width;
@@ -87,6 +87,18 @@
         }
         &:after {
           left: $o;
+        }
+      }
+    }
+  }
+  &.highlighted {
+    > .inset {
+      > .content {
+        > .mark {
+          &:before,
+          &:after {
+            background: $color-hover;
+          }
         }
       }
     }

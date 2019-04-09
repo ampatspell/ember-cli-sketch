@@ -34,6 +34,14 @@ const prop = (key, defaultValue) => computed(function() {
   return value;
 }).readOnly();
 
+const included = arrayKey => computed(`${arrayKey}.[]`, function() {
+  let array = this.get(arrayKey);
+  if(!array) {
+    return;
+  }
+  return array.includes(this);
+}).readOnly();
+
 export default opts => {
 
   const value = key => readOnly(`model.${opts.properties[key]}`);
@@ -74,13 +82,8 @@ export default opts => {
       return nodes.indexOf(this) + 1;
     }).readOnly(),
 
-    isSelected: computed('stage.selection.all.[]', function() {
-      let selection = this.get('stage.selection.all');
-      if(!selection) {
-        return;
-      }
-      return selection.includes(this);
-    }).readOnly(),
+    isSelected: included('stage.selection.all'),
+    isHovered: included('stage.hover.all'),
 
     clampAttributeDelta(attribute, delta) {
       return this.attributes.attribute(attribute, true, 'number').clampDelta(delta);
