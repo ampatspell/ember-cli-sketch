@@ -24,6 +24,7 @@ export default Mixin.create({
         mousemove:   wrap(e => this.onMouseMove(e)),
         mousedown:   wrap(e => this.onMouseDown(e)),
         click:       wrap(e => this.onMouseClick(e)),
+        dblclick:    wrap(e => this.onMouseDoubleClick(e)),
         mouseup:     wrap(e => this.onMouseUp(e)),
         wheel:       wrap(e => this.onMouseWheel(e)),
         keydown:     wrap(e => this.onKeyDown(e)),
@@ -129,6 +130,11 @@ export default Mixin.create({
   onMouseClick(e) {
     let { button } = e;
     this.interactions.onMouseClick({ button });
+  },
+
+  onMouseDoubleClick(e) {
+    let { button } = e;
+    this.interactions.onMouseDoubleClick({ button });
   },
 
   onMouseWheel(e) {

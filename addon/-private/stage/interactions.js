@@ -45,6 +45,11 @@ export default EmberObject.extend({
     this.invokeHandlers('onMouseClick', ...arguments);
   },
 
+  onMouseDoubleClick() {
+    this.mouse.onMouseDoubleClick(...arguments);
+    this.invokeHandlers('onMouseDoubleClick', ...arguments);
+  },
+
   onMouseUp() {
     this.mouse.onMouseUp(...arguments);
     this.invokeHandlers('onMouseUp', ...arguments);

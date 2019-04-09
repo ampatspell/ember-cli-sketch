@@ -47,6 +47,9 @@ export default EmberObject.extend({
   onMouseClick() {
   },
 
+  onMouseDoubleClick() {
+  },
+
   onMouseUp() {
     this.setProperties({ state: 'up', button: null });
   },

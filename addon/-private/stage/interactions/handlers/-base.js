@@ -27,6 +27,9 @@ export default EmberObject.extend({
   onMouseClick() {
   },
 
+  onMouseDoubleClick() {
+  },
+
   onMouseMove() {
   },
 

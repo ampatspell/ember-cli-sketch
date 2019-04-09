@@ -48,6 +48,10 @@ export default Handler.extend({
     return this.tools.selected.onMouseClick(...arguments);
   },
 
+  onMouseDoubleClick() {
+    return this.tools.selected.onMouseDoubleClick(...arguments);
+  },
+
   onMouseMove() {
     return this.tools.selected.onMouseMove(...arguments);
   },
