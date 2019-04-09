@@ -35,6 +35,8 @@ export default EmberObject.extend({
     return this.model.set(this.opts.target, value);
   },
 
+  //
+
   isChanged(value) {
     let transformed = this.transformValue(value);
     return this.getValue() !== transformed;
@@ -70,6 +72,8 @@ export default EmberObject.extend({
       }
     }
   },
+
+  //
 
   getValue() {
     return this.transformValue(this.getPrimitiveValue());
