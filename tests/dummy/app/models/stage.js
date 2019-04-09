@@ -99,7 +99,8 @@ export default EmberObject.extend({
         'visible',
         'selectable',
         'cropMarks',
-        'cropMarksInset'
+        'cropMarksInset',
+        'identifier'
       ], { stage: this })
     ]);
 

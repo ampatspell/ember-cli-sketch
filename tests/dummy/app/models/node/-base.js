@@ -22,6 +22,7 @@ export default EmberObject.extend({
   id: readOnly('doc.id'),
   type: readOnly('doc.type'),
   position: readOnly('doc.position'),
+  identifier: attr('identifier', { type: 'string' }),
 
   description: computed('fill', 'color', 'visible', 'selectable', function() {
     let { fill, color, visible, selectable } = this;

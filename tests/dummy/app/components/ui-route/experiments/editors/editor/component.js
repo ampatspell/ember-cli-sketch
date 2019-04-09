@@ -1,7 +1,11 @@
 import Component from '@ember/component';
 import layout from './template';
 import { computed } from '@ember/object';
-import { equal } from '@ember/object/computed';
+import { equal, and } from '@ember/object/computed';
+
+const identifier = name => computed(`stage.nodes.@each.identifier`, function() {
+  return this.stage.nodes.findBy('identifier', name);
+}).readOnly();
 
 export default Component.extend({
   classNameBindings: [ ':ui-route-experiments-editors-editor' ],
@@ -12,6 +16,10 @@ export default Component.extend({
   attached: computed(function() {
     return this.stage;
   }),
+
+  background: identifier('background'),
+  content: identifier('content'),
+  backgroundAndContent: and('background', 'content'),
 
   actions: {
     toggle() {
@@ -71,6 +79,16 @@ export default Component.extend({
     },
     moveDown(node) {
       node.moveDown();
+    },
+    toggleContentBackground() {
+      let { content, background } = this;
+      if(content.visible) {
+        background.update({ selectable: true });
+        content.update({ visible: false });
+      } else {
+        background.update({ selectable: false });
+        content.update({ visible: true });
+      }
     }
   }
 

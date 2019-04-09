@@ -16,6 +16,16 @@
     </div>
   </div>
 
+  {{#if backgroundAndContent}}
+    <div class="block">
+      <div class="title">Background & Content</div>
+      <div class="label">Editing: {{if content.visible "Content" "Background"}}</div>
+      <div class="actions">
+        {{ui-block/button class="small" value=(if content.visible "Edit background" "Edit content") action=(action "toggleContentBackground")}}
+      </div>
+    </div>
+  {{/if}}
+
   <div class="block">
     <div class="title">Tool: {{stage.node.tools.selected.type}}</div>
     <div class="actions">
