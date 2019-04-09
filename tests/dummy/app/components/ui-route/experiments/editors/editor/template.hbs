@@ -175,16 +175,16 @@
         {{ui-block/button class="small" value=(if node.model.selectable "Not selectable" "Selectable") action=(action "toggleNodeProperty" node "selectable")}}
 
         <div class="label" role="button" {{action "updateNodeProperty" node "x" 0}}>x: {{node.model.x}}</div>
-        {{ui-block/slider min=-1000 max=1000 step=1 value=node.x update=(action "updateNodeProperty" node "x")}}
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.model.x update=(action "updateNodeProperty" node "x")}}
 
         <div class="label" role="button" {{action "updateNodeProperty" node "y" 0}}>y: {{node.model.y}}</div>
-        {{ui-block/slider min=-1000 max=1000 step=1 value=node.y update=(action "updateNodeProperty" node "y")}}
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.model.y update=(action "updateNodeProperty" node "y")}}
 
         <div class="label" role="button" {{action "updateNodeProperty" node "width" 100}}>width: {{node.model.width}}</div>
-        {{ui-block/slider min=-1000 max=1000 step=1 value=node.width update=(action "updateNodeProperty" node "width")}}
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.model.width update=(action "updateNodeProperty" node "width")}}
 
         <div class="label" role="button" {{action "updateNodeProperty" node "height" 100}}>height: {{node.model.height}}</div>
-        {{ui-block/slider min=-1000 max=1000 step=1 value=node.height update=(action "updateNodeProperty" node "height")}}
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.model.height update=(action "updateNodeProperty" node "height")}}
 
         {{#if node.model.hasRotation}}
           <div class="label" role="button" {{action "updateNodeProperty" node "rotation" 0}}>rotation: {{node.model.rotation}}</div>
