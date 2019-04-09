@@ -1,5 +1,5 @@
 import EmberObject, { computed } from '@ember/object';
-import { readOnly, bool, not, and } from '@ember/object/computed';
+import { readOnly, bool, and } from '@ember/object/computed';
 import { assert } from '@ember/debug';
 import { assign } from '@ember/polyfills';
 import { frame } from './frame/-base';
@@ -95,7 +95,7 @@ export default opts => {
 
     _update(props) {
       assert(`update is required for ${this.model}`, !!this.model.update);
-      // let changes = this.frame.changesForFrame(props);
+      // props = this.willUpdate(props, this.frame.changesForFrame(props));
       this.model.update(props);
     },
 

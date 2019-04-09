@@ -1,33 +1,26 @@
-import Base, { node, position, size, rotation, visible, selectable, attr } from './-base';
+import Base, { node, x, y, rotation, visible, selectable, attr } from './-base';
+import { width, height, aspect } from './-aspect';
 
 export default Base.extend({
 
   node: node({ type: 'sized' }),
 
-  x:          position('x'),
-  y:          position('y'),
-  width:      size('width'),
-  height:     size('height'),
-  rotation:   rotation('rotation'),
-  visible:    visible('visible'),
-  selectable: selectable('selectable'),
+  x:          x(),
+  y:          y(),
+  width:      width(),
+  height:     height(),
+  aspect:     aspect(),
+  rotation:   rotation(),
+
+  visible:    visible(),
+  selectable: selectable(),
 
   opacity:  attr('opacity', { type: 'number', min: 0, max: 1, decimals: 2 }),
   url:  attr('url', { type: 'string' }),
 
+  hasAspect: true,
   hasRotation: true,
   hasOpacity: true,
-  hasUrl: true,
-
-  // update(props) {
-  //   console.log(props);
-  //   this._super(props);
-  //   let aspect = 2/3;
-  //   let { width, height } = this;
-  //   let h = Math.ceil(width * aspect);
-  //   if(height !== h) {
-  //     this.update({ height: h });
-  //   }
-  // }
+  hasUrl: true
 
 });

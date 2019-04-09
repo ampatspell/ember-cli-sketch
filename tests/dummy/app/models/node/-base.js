@@ -1,20 +1,28 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
-import { node, attr } from '../-node';
+import { node, attr, prop } from '../-node';
 import { A } from '@ember/array';
 import { guidFor } from '@ember/object/internals';
 
 export {
   node,
-  attr
+  attr,
+  prop
 };
 
 export const position = (target, opts) => attr(target, assign({ type: 'number', decimals: 2 }, opts));
+export const x = opts => position('x', opts);
+export const y = opts => position('y', opts);
+
 export const size = (target, opts) => attr(target, assign({ type: 'number', min: 0, decimals: 2 }, opts));
-export const rotation = (target, opts) => attr(target, assign({ type: 'number', min: -360, max: 360, decimals: 2 }, opts));
-export const visible = target => attr(target, { type: 'boolean', initial: true });
-export const selectable = target => attr(target, { type: 'boolean', initial: true });
+export const width = opts => size('width', opts);
+export const height = opts => size('height', opts);
+
+export const rotation = opts => attr('rotation', assign({ type: 'number', min: -360, max: 360, decimals: 2 }, opts));
+export const aspect = opts => attr('aspect', assign({ type: 'number', min: 0, decimals: 3, initial: 2/3 }, opts));
+export const visible = () => attr('visible', { type: 'boolean', initial: true });
+export const selectable = () => attr('selectable', { type: 'boolean', initial: true });
 
 export default EmberObject.extend({
 

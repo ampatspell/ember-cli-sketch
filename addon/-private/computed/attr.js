@@ -9,8 +9,8 @@ const attributes = model => getNode(model).attributes;
 
 export default (target, opts={}) => {
   opts = assign({ target, type: 'noop' }, opts);
-  let deps = hashToDeps(opts);
-  return computed(opts.target, ...deps, {
+  opts.deps = hashToDeps(opts);
+  return computed(opts.target, ...opts.deps.keys, {
     get(key) {
       return attributes(this).getValue(key);
     },

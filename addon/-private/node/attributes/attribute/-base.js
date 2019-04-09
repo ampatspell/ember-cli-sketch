@@ -1,6 +1,7 @@
 import EmberObject, { defineProperty } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { isProp } from '../../../computed/prop';
+import { reduce } from '../../../util/object';
 
 export default EmberObject.extend({
 
@@ -34,15 +35,59 @@ export default EmberObject.extend({
     return this.model.set(this.opts.target, value);
   },
 
+  //
+
+  isChanged(value) {
+    let transformed = this.transformValue(value);
+    return this.getValue() !== transformed;
+  },
+
+  _mappedDeps() {
+    let deps = this.opts.deps.mapping;
+    let model = this.model;
+    return reduce(deps, (_, value) => model.get(value));
+  },
+
+  _invokeChanged(value) {
+    let changed = this.opts.changed;
+    if(!changed) {
+      return;
+    }
+    let deps = this._mappedDeps();
+    let model = this.model;
+    return changed.call(this.model, value, deps, model);
+  },
+
+  didSetValue(value) {
+    let deps = this._invokeChanged(value);
+    if(!deps) {
+      return;
+    }
+
+    for(let key in deps) {
+      let value = deps[key];
+      let attribute = this.attributes.attribute(key);
+      if(attribute.isChanged(value)) {
+        attribute.setValue(value, true);
+      }
+    }
+  },
+
+  //
+
   getValue() {
     return this.transformValue(this.getPrimitiveValue());
   },
 
-  setValue(value) {
+  setValue(value, skipNotify) {
     if(this.immutable) {
       return this.getValue();
     }
-    return this.setPrimitiveValue(this.transformValue(value));
-  },
+    value = this.setPrimitiveValue(this.transformValue(value));
+    if(!skipNotify) {
+      this.didSetValue(value);
+    }
+    return value;
+  }
 
 });

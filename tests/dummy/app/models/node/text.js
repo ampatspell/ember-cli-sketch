@@ -1,16 +1,17 @@
-import Base, { node, position, size, rotation, visible, selectable, attr } from './-base';
+import Base, { node, x, y, width, height, rotation, visible, selectable, attr } from './-base';
 
 export default Base.extend({
 
   node: node({ type: 'sized' }),
 
-  x:          position('x'),
-  y:          position('y'),
-  width:      size('width'),
-  height:     size('height'),
-  rotation:   rotation('rotation'),
-  visible:    visible('visible'),
-  selectable: selectable('selectable'),
+  x:          x(),
+  y:          y(),
+  width:      width(),
+  height:     height(),
+  rotation:   rotation(),
+
+  visible:    visible(),
+  selectable: selectable(),
 
   fill:     attr('fill', { initial: null }),
   color:    attr('color'),
@@ -21,6 +22,7 @@ export default Base.extend({
   fontWeight: attr('fontWeight', { type: 'number', initial: 400 }),
   fontSize:   attr('fontSize', { type: 'number', initial: 16, min: 10, max: 96 }),
   fontStyle:  attr('fontStyle', { type: 'string', initial: 'normal' }),
+
   align:         attr('align', { type: 'string', initial: 'left' }),
   verticalAlign: attr('verticalAlign', { type: 'string', initial: 'top' }),
 
