@@ -6,7 +6,7 @@ export default Attribute.extend({
     if(value && typeof value !== 'string') {
       value = String(value);
     }
-    if(!value) {
+    if(!value && value !== '') {
       value = this.opts.initial;
     }
     return value;
