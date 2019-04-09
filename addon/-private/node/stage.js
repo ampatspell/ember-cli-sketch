@@ -11,6 +11,7 @@ export default opts => create(opts).extend(CenterFitMixin, {
   isContainer: true,
   isAttached: true,
   isVisible: true,
+  isSelectable: true,
 
   stage: self(),
 

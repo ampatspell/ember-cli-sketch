@@ -42,16 +42,18 @@ export default opts => {
 
     model: null,
 
-    _stage:  value('stage'),
-    _parent: value('parent'),
-    _models: value('nodes'),
-    _visible: value('visible'),
+    _stage:      value('stage'),
+    _parent:     value('parent'),
+    _models:     value('nodes'),
+    _visible:    value('visible'),
+    _selectable: value('selectable'),
 
-    type:    value('type'),
+    type: value('type'),
 
-    isContainer: prop('container', false),
-    isAttached: bool('parent'),
-    isVisible: and('isAttached', '_visible', 'parent.isVisible'),
+    isContainer:  prop('container', false),
+    isAttached:   bool('parent'),
+    isVisible:    and('isAttached', '_visible', 'parent.isVisible'),
+    isSelectable: and('isAttached', 'isVisible', '_selectable', 'parent.isSelectable'),
 
     parent:    readOnly('_parent.node'),
     stage:     parent('isStage', 'stage'),
