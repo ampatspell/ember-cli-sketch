@@ -9,69 +9,85 @@
   left: 0;
   bottom: 0;
   right: 0;
-  > .content {
+  > .overlay {
+    opacity: 0.2;
     position: absolute;
-    top: -$size;
-    left: -$size;
-    bottom: -$size;
-    right: -$size;
-    > .mark {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border: 0px solid #fff;
+  }
+  > .inset {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    > .content {
       position: absolute;
-      width: $size;
-      height: $size;
-      &:before,
-      &:after {
-        content: '';
+      top: -$size;
+      left: -$size;
+      bottom: -$size;
+      right: -$size;
+      > .mark {
         position: absolute;
-        background: $color;
+        width: $size;
+        height: $size;
+        &:before,
+        &:after {
+          content: '';
+          position: absolute;
+          background: $color;
+        }
+        &:before {
+          width: $width;
+          height: 100%;
+        }
+        &:after {
+          width: 100%;
+          height: $width;
+        }
       }
-      &:before {
-        width: $width;
-        height: 100%;
-      }
-      &:after {
-        width: 100%;
-        height: $width;
-      }
-    }
 
-    > .top {
-      top: 0;
-      &:before {
-        top: -$o;
-      }
-      &:after {
-        bottom: 0;
-      }
-    }
-
-    > .bottom {
-      bottom: 0;
-      &:before {
-        top: $o;
-      }
-      &:after {
+      > .top {
         top: 0;
+        &:before {
+          top: -$o;
+        }
+        &:after {
+          bottom: 0;
+        }
       }
-    }
 
-    > .left {
-      left: 0;
-      &:before {
-        right: 0;
+      > .bottom {
+        bottom: 0;
+        &:before {
+          top: $o;
+        }
+        &:after {
+          top: 0;
+        }
       }
-      &:after {
-        right: $o;
-      }
-    }
 
-    > .right {
-      right: 0;
-      &:before {
+      > .left {
         left: 0;
+        &:before {
+          right: 0;
+        }
+        &:after {
+          right: $o;
+        }
       }
-      &:after {
-        left: $o;
+
+      > .right {
+        right: 0;
+        &:before {
+          left: 0;
+        }
+        &:after {
+          left: $o;
+        }
       }
     }
   }

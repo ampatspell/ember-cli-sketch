@@ -9,7 +9,7 @@ export default Component.extend({
 
   inset: 0,
 
-  style: style('inset', function() {
+  insetStyle: style('inset', function() {
     let { inset } = this;
     if(!inset) {
       return;
@@ -21,6 +21,17 @@ export default Component.extend({
       bottom: inset,
       right:  inset
     };
-  })
+  }),
+
+  overlayStyle: style('inset', function() {
+    let { inset } = this;
+    if(!inset) {
+      return;
+    }
+    inset = `${inset - 1}px`;
+    return {
+      'border-width': inset
+    }
+  }),
 
 });
