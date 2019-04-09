@@ -1,4 +1,4 @@
-import Base, { node, position, size, rotation, visible, selectable, attr } from './-base';
+import Base, { node, position, size, rotation, visible, selectable, aspect, attr } from './-base';
 
 export default Base.extend({
 
@@ -8,6 +8,7 @@ export default Base.extend({
   y:          position('y'),
   width:      size('width'),
   height:     size('height'),
+  aspect:     aspect('aspect'),
   rotation:   rotation('rotation'),
   visible:    visible('visible'),
   selectable: selectable('selectable'),
@@ -15,6 +16,7 @@ export default Base.extend({
   opacity:  attr('opacity', { type: 'number', min: 0, max: 1, decimals: 2 }),
   url:  attr('url', { type: 'string' }),
 
+  hasAspect: true,
   hasRotation: true,
   hasOpacity: true,
   hasUrl: true,
