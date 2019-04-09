@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import layout from './template';
-import { assign } from '@ember/polyfills';
 import { computed } from '@ember/object';
 import { equal } from '@ember/object/computed';
 

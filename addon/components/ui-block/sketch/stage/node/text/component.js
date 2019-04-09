@@ -13,7 +13,7 @@ export default Component.extend({
   text: readOnly('model.text'),
 
   style: style('model.{fill,color,opacity,fontFamily,fontWeight,fontSize}', 'zoom', function() {
-    let { model: { fill: background, color, opacity, fontFamily, fontWeight, fontSize, align, verticalAlign }, zoom } = this;
+    let { model: { fill: background, color, opacity, fontFamily, fontWeight, fontSize }, zoom } = this;
     return {
       background,
       opacity,

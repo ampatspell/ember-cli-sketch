@@ -3,7 +3,6 @@ import { serialized } from '../../util/computed';
 import { zoomed, rounded } from './-computed';
 import { readOnly } from '@ember/object/computed';
 import { round } from '../../util/math';
-import { assign } from '@ember/polyfills';
 
 const keys = [ 'x', 'y' ];
 

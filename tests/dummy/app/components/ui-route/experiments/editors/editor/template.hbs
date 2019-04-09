@@ -1,4 +1,4 @@
-{{ui-block/sketch stage=attached class="sketch" ready=(action 'ready')}}
+{{ui-block/sketch stage=attached class="sketch" ready=(action "ready")}}
 
 <div class="info">
 
@@ -12,7 +12,7 @@
       {{/if}}
     </div>
     <div class="actions">
-      {{ui-block/button class="small" value='Toggle' action=(action 'toggle')}}
+      {{ui-block/button class="small" value="Toggle" action=(action "toggle")}}
     </div>
   </div>
 
@@ -21,11 +21,11 @@
     <div class="actions">
       {{#let stage.node.tools.selected as |selected|}}
         <div class="row">
-          {{ui-block/button class="small" value='Selection' disabled=(eq selected.type 'node/selection') action=(action 'setTool' null)}}
+          {{ui-block/button class="small" value="Selection" disabled=(eq selected.type "node/selection") action=(action "setTool" null)}}
         </div>
         <div class="row">
-          {{ui-block/button class="small" value='Drag stage' disabled=(eq selected.type 'stage/drag') action=(action 'setTool' 'stage/drag')}}
-          {{ui-block/button class="small" value='Zoom stage' disabled=(eq selected.type 'stage/zoom') action=(action 'setTool' 'stage/zoom')}}
+          {{ui-block/button class="small" value="Drag stage" disabled=(eq selected.type "stage/drag") action=(action "setTool" "stage/drag")}}
+          {{ui-block/button class="small" value="Zoom stage" disabled=(eq selected.type "stage/zoom") action=(action "setTool" "stage/zoom")}}
         </div>
       {{/let}}
     </div>
@@ -72,15 +72,15 @@
   <div class="block">
     <div class="title" role="button" {{action "resetPosition"}}>Position: {{stage.x}}×{{stage.y}}</div>
     <div class="actions">
-      {{ui-block/slider min=-1000 max=1000 step=1 value=stage.x update=(action 'updateStageProperty' 'x')}}
-      {{ui-block/slider min=-1000 max=1000 step=1 value=stage.y update=(action 'updateStageProperty' 'y')}}
+      {{ui-block/slider min=-1000 max=1000 step=1 value=stage.x update=(action "updateStageProperty" "x")}}
+      {{ui-block/slider min=-1000 max=1000 step=1 value=stage.y update=(action "updateStageProperty" "y")}}
     </div>
   </div>
 
   <div class="block">
     <div class="title" role="button" {{action "updateStageProperty" "zoom" 1}}>Zoom: {{stage.zoom}}</div>
     <div class="actions">
-      {{ui-block/slider min=0 max=10 step=0.01 value=stage.zoom update=(action 'updateStageProperty' 'zoom')}}
+      {{ui-block/slider min=0 max=10 step=0.01 value=stage.zoom update=(action "updateStageProperty" "zoom")}}
     </div>
   </div>
 
@@ -89,15 +89,15 @@
       <div class="col">
         <div class="label">Stage</div>
         <div class="row">
-          {{ui-block/button class="small" value='Center' action=(action 'center')}}
-          {{ui-block/button class="small" value='Fit' action=(action 'fit')}}
+          {{ui-block/button class="small" value="Center" action=(action "center")}}
+          {{ui-block/button class="small" value="Fit" action=(action "fit")}}
         </div>
       </div>
       <div class="col">
         <div class="label">Areas</div>
         <div class="row">
-          {{ui-block/button class="small" value='Center' action=(action 'center' 'containers')}}
-          {{ui-block/button class="small" value='Fit' action=(action 'fit' 'containers')}}
+          {{ui-block/button class="small" value="Center" action=(action "center" "containers")}}
+          {{ui-block/button class="small" value="Fit" action=(action "fit" "containers")}}
         </div>
       </div>
     </div>
@@ -108,10 +108,10 @@
     <div>
       {{#each stage.nodes as |node|}}
         <div>
-          <div class={{if node.node.isSelected 'strong'}} role="button" {{action "select" node}}>{{node.info}}</div>
+          <div class={{if node.node.isSelected "strong"}} role="button" {{action "select" node}}>{{node.info}}</div>
           {{#each node.nodes as |nested|}}
             <div class="pad-left">
-              <div class={{if nested.node.isSelected 'strong'}} role="button" {{action "select" nested}}>{{nested.info}}</div>
+              <div class={{if nested.node.isSelected "strong"}} role="button" {{action "select" nested}}>{{nested.info}}</div>
             </div>
           {{/each}}
         </div>
@@ -136,7 +136,8 @@
         <div>Selection</div>
         <div>{{node.model}}</div>
         <div>#{{node.index}}</div>
-        <div>Edge:
+        <div>
+          Edge:
           {{#if node.edge.has}}
             {{node.edge.horizontal}} × {{node.edge.vertical}}
           {{else}}
@@ -145,86 +146,86 @@
         </div>
       </div>
       <div class="actions">
-        {{ui-block/button class="small" value='Move up' action=(action 'moveUp' node)}}
-        {{ui-block/button class="small" value='Move down' action=(action 'moveDown' node)}}
+        {{ui-block/button class="small" value="Move up" action=(action "moveUp" node)}}
+        {{ui-block/button class="small" value="Move down" action=(action "moveDown" node)}}
       </div>
       <div class="actions">
         <div class="label" role="button" {{action "updateNodeProperty" node "hidden" false}}>hidden: {{node.model.hidden}}</div>
-        {{ui-block/button value=(if node.model.hidden 'Show' 'Hide') action=(action 'toggleNodeProperty' node "hidden")}}
+        {{ui-block/button value=(if node.model.hidden "Show" "Hide") action=(action "toggleNodeProperty" node "hidden")}}
 
         <div class="label" role="button" {{action "updateNodeProperty" node "x" 0}}>x: {{node.model.x}}</div>
-        {{ui-block/slider min=-1000 max=1000 step=1 value=node.x update=(action 'updateNodeProperty' node 'x')}}
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.x update=(action "updateNodeProperty" node "x")}}
 
         <div class="label" role="button" {{action "updateNodeProperty" node "y" 0}}>y: {{node.model.y}}</div>
-        {{ui-block/slider min=-1000 max=1000 step=1 value=node.y update=(action 'updateNodeProperty' node 'y')}}
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.y update=(action "updateNodeProperty" node "y")}}
 
         <div class="label" role="button" {{action "updateNodeProperty" node "width" 100}}>width: {{node.model.width}}</div>
-        {{ui-block/slider min=-1000 max=1000 step=1 value=node.width update=(action 'updateNodeProperty' node 'width')}}
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.width update=(action "updateNodeProperty" node "width")}}
 
         <div class="label" role="button" {{action "updateNodeProperty" node "height" 100}}>height: {{node.model.height}}</div>
-        {{ui-block/slider min=-1000 max=1000 step=1 value=node.height update=(action 'updateNodeProperty' node 'height')}}
+        {{ui-block/slider min=-1000 max=1000 step=1 value=node.height update=(action "updateNodeProperty" node "height")}}
 
         {{#if node.model.hasRotation}}
           <div class="label" role="button" {{action "updateNodeProperty" node "rotation" 0}}>rotation: {{node.model.rotation}}</div>
-          {{ui-block/slider min=-360 max=360 step=0.1 value=node.model.rotation update=(action 'updateNodeProperty' node 'rotation')}}
+          {{ui-block/slider min=-360 max=360 step=0.1 value=node.model.rotation update=(action "updateNodeProperty" node "rotation")}}
         {{/if}}
 
         {{#if node.model.hasFill}}
           <div class="label" role="button" {{action "updateNodeProperty" node "fill" "red"}}>fill: {{node.model.fill}}</div>
-          {{ui-block/input value=node.model.fill update=(action 'updateNodeProperty' node 'fill')}}
+          {{ui-block/input value=node.model.fill update=(action "updateNodeProperty" node "fill")}}
         {{/if}}
 
         {{#if node.model.hasColor}}
           <div class="label" role="button" {{action "updateNodeProperty" node "color" "black"}}>color: {{node.model.color}}</div>
-          {{ui-block/input value=node.model.color update=(action 'updateNodeProperty' node 'color')}}
+          {{ui-block/input value=node.model.color update=(action "updateNodeProperty" node "color")}}
         {{/if}}
 
         {{#if node.model.hasOpacity}}
           <div class="label" role="button" {{action "updateNodeProperty" node "opacity" 1}}>opacity: {{node.model.opacity}}</div>
-          {{ui-block/slider min=0 max=1 step=0.01 value=node.model.opacity update=(action 'updateNodeProperty' node 'opacity')}}
+          {{ui-block/slider min=0 max=1 step=0.01 value=node.model.opacity update=(action "updateNodeProperty" node "opacity")}}
         {{/if}}
 
         {{#if node.model.hasFontFamily}}
           <div class="label">font family:</div>
-          {{ui-block/input value=node.model.fontFamily update=(action 'updateNodeProperty' node 'fontFamily')}}
+          {{ui-block/input value=node.model.fontFamily update=(action "updateNodeProperty" node "fontFamily")}}
         {{/if}}
 
         {{#if node.model.hasFontWeight}}
           <div class="label" role="button" {{action "updateNodeProperty" node "fontWeight" 500}}>font weight:</div>
-          {{ui-block/input value=node.model.fontWeight update=(action 'updateNodeProperty' node 'fontWeight')}}
+          {{ui-block/input value=node.model.fontWeight update=(action "updateNodeProperty" node "fontWeight")}}
         {{/if}}
 
         {{#if node.model.hasFontSize}}
           <div class="label" role="button" {{action "updateNodeProperty" node "fontSize" 16}}>font size: {{node.model.fontSize}}</div>
-          {{ui-block/slider min=0 max=96 step=1 value=node.model.fontSize update=(action 'updateNodeProperty' node 'fontSize')}}
+          {{ui-block/slider min=0 max=96 step=1 value=node.model.fontSize update=(action "updateNodeProperty" node "fontSize")}}
         {{/if}}
 
         {{#if node.model.hasText}}
           <div class="label" role="button" {{action "updateNodeProperty" node "text" ""}}>text:</div>
-          {{ui-block/input value=node.model.text update=(action 'updateNodeProperty' node 'text')}}
+          {{ui-block/input value=node.model.text update=(action "updateNodeProperty" node "text")}}
         {{/if}}
 
         {{#if node.model.hasAlign}}
           <div class="label">Align: {{node.model.align}}</div>
           <div class="row">
-            {{ui-block/button value='Left' action=(action 'updateNodeProperty' node 'align' 'left')}}
-            {{ui-block/button value='Center' action=(action 'updateNodeProperty' node 'align' 'center')}}
-            {{ui-block/button value='Right' action=(action 'updateNodeProperty' node 'align' 'right')}}
+            {{ui-block/button value="Left" action=(action "updateNodeProperty" node "align" "left")}}
+            {{ui-block/button value="Center" action=(action "updateNodeProperty" node "align" "center")}}
+            {{ui-block/button value="Right" action=(action "updateNodeProperty" node "align" "right")}}
           </div>
         {{/if}}
 
         {{#if node.model.hasAlign}}
           <div class="label">Vertical Align: {{node.model.verticalAlign}}</div>
           <div class="row">
-            {{ui-block/button value='Top' action=(action 'updateNodeProperty' node 'verticalAlign' 'top')}}
-            {{ui-block/button value='Middle' action=(action 'updateNodeProperty' node 'verticalAlign' 'middle')}}
-            {{ui-block/button value='Bottom' action=(action 'updateNodeProperty' node 'verticalAlign' 'bottom')}}
+            {{ui-block/button value="Top" action=(action "updateNodeProperty" node "verticalAlign" "top")}}
+            {{ui-block/button value="Middle" action=(action "updateNodeProperty" node "verticalAlign" "middle")}}
+            {{ui-block/button value="Bottom" action=(action "updateNodeProperty" node "verticalAlign" "bottom")}}
           </div>
         {{/if}}
 
         {{#if node.model.hasUrl}}
           <div class="label" role="button" {{action "updateNodeProperty" node "url" ""}}>URL:</div>
-          {{ui-block/input value=node.model.url update=(action 'updateNodeProperty' node 'url')}}
+          {{ui-block/input value=node.model.url update=(action "updateNodeProperty" node "url")}}
         {{/if}}
       </div>
     </div>
@@ -244,13 +245,13 @@
       </div>
     {{/if}}
     <div class="actions">
-      {{ui-block/button value='Area' disabled=isAddingNode action=(action 'addNode' 'area' (hash width=300 height=200))}}
-      {{ui-block/button value='Rect' disabled=isAddingNode action=(action 'addNode' 'rect' (hash width=50 height=50 fill="red" opacity=0.3 rotation=0))}}
-      {{ui-block/button value='Image' disabled=isAddingNode action=(action 'addNode' 'image' (hash width=300 height=200 url="https://66.media.tumblr.com/61445375824c46e0358ce929586ec013/tumblr_pfig1gFRQ41qz5jeho1_1280.jpg" opacity=1.0 rotation=0))}}
+      {{ui-block/button value="Area" disabled=isAddingNode action=(action "addNode" "area" (hash width=300 height=200))}}
+      {{ui-block/button value="Rect" disabled=isAddingNode action=(action "addNode" "rect" (hash width=50 height=50 fill="red" opacity=0.3 rotation=0))}}
+      {{ui-block/button value="Image" disabled=isAddingNode action=(action "addNode" "image" (hash width=300 height=200 url="https://66.media.tumblr.com/61445375824c46e0358ce929586ec013/tumblr_pfig1gFRQ41qz5jeho1_1280.jpg" opacity=1.0 rotation=0))}}
       {{ui-block/button
           disabled=isAddingNode
-          value='Text'
-          action=(action 'addNode' 'text' (hash
+          value="Text"
+          action=(action "addNode" "text" (hash
             width=200
             height=50
             text="To whom it may concern: It is springtime. It is late afternoon."
