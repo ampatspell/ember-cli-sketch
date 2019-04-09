@@ -28,9 +28,9 @@ export default Component.extend({
     if(!inset) {
       return;
     }
-    inset = `${inset - 1}px`;
+    let borderWidth = `${inset - 1}px`;
     return {
-      'border-width': inset
+      borderWidth
     }
   }),
 

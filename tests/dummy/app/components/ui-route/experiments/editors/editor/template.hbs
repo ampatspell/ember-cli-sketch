@@ -211,6 +211,14 @@
           {{ui-block/slider min=0 max=96 step=1 value=node.model.fontSize update=(action "updateNodeProperty" node "fontSize")}}
         {{/if}}
 
+        {{#if node.model.hasFontStyle}}
+          <div class="label">Font style: {{node.model.fontStyle}}</div>
+          <div class="row">
+            {{ui-block/button value="Normal" action=(action "updateNodeProperty" node "fontStyle" "normal")}}
+            {{ui-block/button value="Italic" action=(action "updateNodeProperty" node "fontStyle" "italic")}}
+          </div>
+        {{/if}}
+
         {{#if node.model.hasText}}
           <div class="label" role="button" {{action "updateNodeProperty" node "text" ""}}>text:</div>
           {{ui-block/input value=node.model.text update=(action "updateNodeProperty" node "text")}}

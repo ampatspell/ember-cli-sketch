@@ -1,6 +1,6 @@
 import { computed } from '@ember/object';
 import { typeOf } from '@ember/utils';
-import { htmlSafe } from '@ember/string';
+import { htmlSafe, dasherize } from '@ember/string';
 import { assign } from '@ember/polyfills';
 
 const normalizeInset = inset => {
@@ -78,7 +78,7 @@ export const style = (...deps) => {
     let array = Object.keys(hash).reduce((array, key) => {
       let value = hash[key];
       if(value !== undefined) {
-        array.push(`${key}: ${value}`);
+        array.push(`${dasherize(key)}: ${value}`);
       }
       return array;
     }, []);

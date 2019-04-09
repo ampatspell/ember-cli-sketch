@@ -44,6 +44,12 @@
   &.vertical-bottom {
     align-items: flex-end;
   }
+  &.style-normal {
+    font-style: normal;
+  }
+  &.style-italic {
+    font-style: italic;
+  }
 }
 
 .ui-block-sketch-stage-node.image {

@@ -9,7 +9,7 @@ export default Component.extend({
     let { model: { opacity, url } } = this;
     return {
       opacity,
-      'background-image': `url("${url}")`
+      backgroundImage: `url("${url}")`
     };
   })
 

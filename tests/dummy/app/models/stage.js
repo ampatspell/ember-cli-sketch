@@ -90,6 +90,7 @@ export default EmberObject.extend({
         'fontFamily',
         'fontWeight',
         'fontSize',
+        'fontStyle',
         'text',
         'color',
         'url',

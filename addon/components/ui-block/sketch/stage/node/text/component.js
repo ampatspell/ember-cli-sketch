@@ -5,10 +5,11 @@ import { readOnly } from '@ember/object/computed';
 
 export default Component.extend({
   layout,
-  classNameBindings: [ 'align', 'verticalAlign' ],
+  classNameBindings: [ 'align', 'verticalAlign', 'fontStyle' ],
 
   align:         className('model.align', 'align'),
   verticalAlign: className('model.verticalAlign', 'vertical'),
+  fontStyle:     className('model.fontStyle', 'style'),
 
   text: readOnly('model.text'),
 
@@ -18,9 +19,9 @@ export default Component.extend({
       background,
       opacity,
       color,
-      'font-family': fontFamily,
-      'font-weight': fontWeight,
-      'font-size': `${fontSize * zoom}px`,
+      fontFamily,
+      fontWeight,
+      fontSize: `${fontSize * zoom}px`,
     };
   })
 
