@@ -45,8 +45,7 @@ export default opts => {
     _stage:  value('stage'),
     _parent: value('parent'),
     _models: value('nodes'),
-    _hidden: value('hidden'),
-    _visible: not('_hidden'),
+    _visible: value('visible'),
 
     type:    value('type'),
 
@@ -104,11 +103,11 @@ export default opts => {
     },
 
     hide() {
-      this.update({ hidden: true });
+      this.update({ visible: false });
     },
 
     show() {
-      this.update({ hidden: false });
+      this.update({ visible: true });
     },
 
     remove() {

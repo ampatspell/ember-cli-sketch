@@ -8,7 +8,7 @@ export const node = opts => _node(assign({
     parent: 'parent',
     nodes: 'nodes',
     type: 'type',
-    hidden: 'hidden'
+    visible: 'visible'
   }
 }, opts));
 
