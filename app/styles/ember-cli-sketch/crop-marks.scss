@@ -4,6 +4,11 @@
   $o: 2px;
   $color: fade-out(#000, 0.7);
   pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   > .content {
     position: absolute;
     top: -$size;
