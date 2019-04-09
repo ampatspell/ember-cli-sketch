@@ -63,11 +63,11 @@ export default Component.extend({
       this.stage.update({ x: 0, y: 0 });
     },
     updateNodeProperty(node, key, value) {
-      node.model.update({ [key]: value });
+      node.update({ [key]: value });
     },
     toggleNodeProperty(node, key) {
       let value = !node.model[key];
-      node.model.update({ [key]: value });
+      node.update({ [key]: value });
     },
     setTool(type) {
       let { node } = this.stage;

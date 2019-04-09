@@ -93,9 +93,13 @@ export default opts => {
       return this.nodes.containsNode(node);
     },
 
+    willUpdate(props) {
+      return props;
+    },
+
     _update(props) {
       assert(`update is required for ${this.model}`, !!this.model.update);
-      // let changes = this.frame.changesForFrame(props);
+      props = this.willUpdate(props, this.frame.changesForFrame(props));
       this.model.update(props);
     },
 

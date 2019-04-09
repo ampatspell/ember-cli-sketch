@@ -12,6 +12,7 @@ import NodesContainers from 'ember-cli-sketch/-private/node/nodes/containers';
 
 import NodeStage from 'ember-cli-sketch/-private/node/stage';
 import NodeSized from 'ember-cli-sketch/-private/node/sized';
+import NodeAspect from 'ember-cli-sketch/-private/node/aspect';
 
 import Edge from 'ember-cli-sketch/-private/node/edge';
 
@@ -57,6 +58,7 @@ export default {
     container.register('sketch:node/nodes/containers', NodesContainers);
     container.register('sketch:factory/node/stage', NodeStage);
     container.register('sketch:factory/node/sized', NodeSized);
+    container.register('sketch:factory/node/aspect', NodeAspect);
     container.register('sketch:frame/stage', FrameStage);
     container.register('sketch:frame/nodes', FrameNodes);
     container.register('sketch:frame/sized', FrameSized);
