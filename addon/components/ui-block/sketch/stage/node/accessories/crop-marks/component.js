@@ -32,6 +32,6 @@ export default Component.extend({
     return {
       borderWidth
     }
-  }),
+  })
 
 });
