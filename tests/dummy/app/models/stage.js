@@ -96,7 +96,9 @@ export default EmberObject.extend({
         'align',
         'verticalAlign',
         'visible',
-        'selectable'
+        'selectable',
+        'cropMarks',
+        'cropMarksInset'
       ], { stage: this })
     ]);
 
