@@ -14,20 +14,20 @@ export default EmberObject.extend({
   stage: readOnly('parent.stage'),
 
   all: nodes('parent._models'),
+
   visible: filterBy('all', 'isVisible', true),
+  selectable: filterBy('all', 'isSelectable', true),
 
   frame: frame('nodes'),
 
   containers: typed('containers'),
 
   nodesForPosition(position, type) {
-    return this.all.reduce((nodes, node) => {
-      if(node.isVisible) {
-        if(node.frame.includesPosition(position, type)) {
-          nodes.push(node);
-        }
-        nodes.push(...node.nodes.nodesForPosition(position, type));
+    return this.selectable.reduce((nodes, node) => {
+      if(node.frame.includesPosition(position, type)) {
+        nodes.push(node);
       }
+      nodes.push(...node.nodes.nodesForPosition(position, type));
       return nodes;
     }, A());
   },

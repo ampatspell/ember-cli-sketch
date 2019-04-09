@@ -6,7 +6,8 @@ export default EmberObject.extend({
 
   all: array(),
   attached: filterBy('all', 'isAttached', true),
-  deselected: filterBy('attached', 'isSelected', false),
+  selectable: filterBy('all', 'isSelectable', true),
+  deselected: filterBy('selectable', 'isSelected', false),
 
   last: readOnly('all.lastObject'),
   any: gt('all.length', 0),

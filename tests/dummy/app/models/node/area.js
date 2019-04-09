@@ -1,4 +1,4 @@
-import Base, { node, position, size, visible } from './-base';
+import Base, { node, position, size, visible, selectable } from './-base';
 
 export default Base.extend({
 
@@ -9,5 +9,6 @@ export default Base.extend({
   width:   size('width', { min: 100, max: 500 }),
   height:  size('height', { min: 100, max: 300 }),
   visible: visible('visible'),
+  selectable: selectable('selectable'),
 
 });

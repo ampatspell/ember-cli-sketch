@@ -14,6 +14,7 @@ export const position = (target, opts) => attr(target, assign({ type: 'number', 
 export const size = (target, opts) => attr(target, assign({ type: 'number', min: 0, decimals: 2 }, opts));
 export const rotation = (target, opts) => attr(target, assign({ type: 'number', min: -360, max: 360, decimals: 2 }, opts));
 export const visible = target => attr(target, { type: 'boolean', initial: true });
+export const selectable = target => attr(target, { type: 'boolean', initial: true });
 
 export default EmberObject.extend({
 
@@ -22,8 +23,8 @@ export default EmberObject.extend({
   type: readOnly('doc.type'),
   position: readOnly('doc.position'),
 
-  description: computed('x', 'y', 'width', 'height', 'fill', 'color', 'visible', function() {
-    let { x, y, width, height, fill, color, visible } = this;
+  description: computed('fill', 'color', 'visible', 'selectable', function() {
+    let { fill, color, visible, selectable } = this;
     let arr = [];
     if(fill) {
       arr.push(fill);
@@ -32,9 +33,11 @@ export default EmberObject.extend({
       arr.push(color);
     }
     if(!visible) {
-      arr.push('hidden');
+      arr.push('[hidden]');
     }
-    arr.push(`[${x},${y},${width},${height}]`);
+    if(!selectable) {
+      arr.push('[not selectable]');
+    }
     return arr.join(' ');
   }).readOnly(),
 

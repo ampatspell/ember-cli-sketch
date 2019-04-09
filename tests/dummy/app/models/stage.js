@@ -95,7 +95,8 @@ export default EmberObject.extend({
         'url',
         'align',
         'verticalAlign',
-        'visible'
+        'visible',
+        'selectable'
       ], { stage: this })
     ]);
 

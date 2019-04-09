@@ -11,6 +11,7 @@ export default opts => create(opts).extend(CenterFitMixin, {
   isContainer: true,
   isAttached: true,
   isVisible: true,
+  isSelectable: true,
 
   stage: self(),
 
@@ -63,7 +64,7 @@ export default opts => create(opts).extend(CenterFitMixin, {
       return;
     }
 
-    let target = this.nodes.containers.visible.find(container => {
+    let target = this.nodes.containers.selectable.find(container => {
       return container !== node && container.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds');
     });
 
