@@ -11,7 +11,7 @@ export default Base.extend({
   visible: visible('visible'),
   selectable: selectable('selectable'),
 
-  fill:     attr('fill'),
+  fill:     attr('fill', { type: 'string', initial: '#fff' }),
 
   cropMarks: attr('cropMarks', { type: 'boolean', initial: true }),
   cropMarksInset: attr('cropMarksInset', { type: 'number', min: 0, max: 25, initial: 0 }),
