@@ -69,13 +69,5 @@
         left: $o;
       }
     }
-    > .stroke {
-      position: absolute;
-      top: $size - 1;
-      left: $size - 1;
-      bottom: $size - 1;
-      right: $size - 1;
-      border: 1px solid fade-out(#000, 0.9);
-    }
   }
 }
