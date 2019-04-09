@@ -59,7 +59,9 @@ export default Tool.extend({
   },
 
   onKeyDown(key) {
-    this.tools.activate('node/move', { key });
+    if(key.isBody) {
+      this.tools.activate('node/move', { key });
+    }
   },
 
   onKeyUp(key) {
