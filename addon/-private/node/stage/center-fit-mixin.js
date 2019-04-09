@@ -79,6 +79,10 @@ export default Mixin.create({
 
     let zoom = Math.min(value('width'), value('height'));
 
+    if(opts.zoom) {
+      zoom = Math.min(zoom, opts.zoom);
+    }
+
     this.update({ zoom });
     this.center({ type: opts.type });
   }

@@ -22,13 +22,13 @@ export default Component.extend({
       }
     },
     ready(stage) {
-      stage.node.fit({ offset: 100 });
+      stage.node.fit({ offset: 100, zoom: 3 });
     },
     center(type) {
       this.stage.node.center({ type });
     },
     fit(type) {
-      this.stage.node.fit({ offset: 100, type });
+      this.stage.node.fit({ offset: 100, type, zoom: 3 });
     },
     setGlobal(key, value){
       setGlobal({ [key]: value });
