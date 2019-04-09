@@ -1,15 +1,16 @@
-import Base, { node, position, size, rotation, visible, attr } from './-base';
+import Base, { node, position, size, rotation, visible, selectable, attr } from './-base';
 
 export default Base.extend({
 
   node: node({ type: 'sized' }),
 
-  x:        position('x'),
-  y:        position('y'),
-  width:    size('width'),
-  height:   size('height'),
-  rotation: rotation('rotation'),
-  visible:  visible('visible'),
+  x:          position('x'),
+  y:          position('y'),
+  width:      size('width'),
+  height:     size('height'),
+  rotation:   rotation('rotation'),
+  visible:    visible('visible'),
+  selectable: selectable('selectable'),
 
   fill:     attr('fill', { initial: null }),
   color:    attr('color'),

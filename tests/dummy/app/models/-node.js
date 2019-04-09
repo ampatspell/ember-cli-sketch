@@ -4,11 +4,12 @@ import { assign } from '@ember/polyfills';
 export const node = opts => _node(assign({
   identifier: 'dummy',
   properties: {
-    stage: 'stage',
-    parent: 'parent',
-    nodes: 'nodes',
-    type: 'type',
-    visible: 'visible'
+    stage:      'stage',
+    parent:     'parent',
+    nodes:      'nodes',
+    type:       'type',
+    visible:    'visible',
+    selectable: 'selectable'
   }
 }, opts));
 

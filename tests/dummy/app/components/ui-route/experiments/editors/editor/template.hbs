@@ -158,8 +158,11 @@
         {{ui-block/button class="small" value="Move down" action=(action "moveDown" node)}}
       </div>
       <div class="actions">
-        <div class="label" role="button" {{action "updateNodeProperty" node "visible" false}}>visible: {{node.model.visible}}</div>
+        <div class="label" role="button" {{action "updateNodeProperty" node "visible" true}}>visible: {{node.model.visible}}</div>
         {{ui-block/button class="small" value=(if node.model.visible "Hide" "Show") action=(action "toggleNodeProperty" node "visible")}}
+
+        <div class="label" role="button" {{action "updateNodeProperty" node "selectable" true}}>selectable: {{node.model.selectable}}</div>
+        {{ui-block/button class="small" value=(if node.model.selectable "Not selectable" "Selectable") action=(action "toggleNodeProperty" node "selectable")}}
 
         <div class="label" role="button" {{action "updateNodeProperty" node "x" 0}}>x: {{node.model.x}}</div>
         {{ui-block/slider min=-1000 max=1000 step=1 value=node.x update=(action "updateNodeProperty" node "x")}}
