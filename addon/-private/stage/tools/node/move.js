@@ -26,7 +26,7 @@ export default Tool.extend({
       return;
     }
 
-    let nodes = selection.all;
+    let nodes = selection.selectable;
     nodes.forEach(node => node.update(delta, { delta: true }));
     stage.moveNodesToOverlappingContainers(nodes);
     nodes.forEach(node => node.isContainer && node.moveToTop());

@@ -5,7 +5,7 @@ export default Tool.extend({
   update({ delta }) {
     let { stage, selection, zoom } = this;
 
-    let nodes = selection.attached;
+    let nodes = selection.selectable;
     nodes.forEach(node => node.isContainer && node.moveToTop());
 
     let point = {
