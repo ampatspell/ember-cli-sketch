@@ -1,14 +1,30 @@
-import Base, { node, position, size, rotation, visible, selectable, aspect, attr } from './-base';
+import Base, { node, position, size, rotation, visible, selectable, aspect, attr, prop } from './-base';
+
+const didSetHeight = (value, { aspect }) => {
+  let width = value / aspect;
+  return { width };
+}
+
+const didSetWidth = (value, { aspect }) => {
+  let height = value * aspect;
+  return { height };
+}
+
+const didSetAspect = (value, _, model) => {
+  let width = model.height / value;
+  let height = width * value;
+  return { height, width };
+}
 
 export default Base.extend({
 
-  node: node({ type: 'aspect' }),
+  node: node({ type: 'sized' }),
 
   x:          position('x'),
   y:          position('y'),
-  width:      size('width'),
-  height:     size('height'),
-  aspect:     aspect('aspect'),
+  aspect:     aspect('aspect', { changed: didSetAspect }),
+  width:      size('width',  { inverse: prop('height'), aspect: prop('aspect'), changed: didSetWidth }),
+  height:     size('height', { inverse: prop('width'),  aspect: prop('aspect'), changed: didSetHeight }),
   rotation:   rotation('rotation'),
   visible:    visible('visible'),
   selectable: selectable('selectable'),
