@@ -104,6 +104,14 @@
   </div>
 
   <div class="block">
+    <div class="label">Background: {{stage.fill}}</div>
+    <div class="row">
+      {{ui-block/button class="small" value="Grey" action=(action "updateStageProperty" "fill" "grey")}}
+      {{ui-block/button class="small" value="White" action=(action "updateStageProperty" "fill" "white")}}
+    </div>
+  </div>
+
+  <div class="block">
     <div class="title">Tree</div>
     <div>
       {{#each stage.nodes as |node|}}

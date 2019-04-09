@@ -4,11 +4,14 @@ import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { htmlSafe } from '@ember/string';
 import EventsMixin from './-events-mixin';
+import { className } from './-computed';
 
 export default Component.extend(EventsMixin, {
-  classNameBindings: [ ':ui-block-sketch' ],
+  classNameBindings: [ ':ui-block-sketch', 'fill' ],
   attributeBindings: [ 'style' ],
   layout,
+
+  fill: className('stage.fill', 'fill'),
 
   size: null,
 
