@@ -1,7 +1,6 @@
 import EmberObject, { defineProperty } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { isProp } from '../../../computed/prop';
-import { reduce } from '../../../util/object';
 
 export default EmberObject.extend({
 
@@ -42,18 +41,12 @@ export default EmberObject.extend({
     return this.getValue() !== transformed;
   },
 
-  _mappedDeps() {
-    let deps = this.opts.deps.mapping;
-    let model = this.model;
-    return reduce(deps, (_, value) => model.get(value));
-  },
-
   _invokeChanged(value) {
     let changed = this.opts.changed;
     if(!changed) {
       return;
     }
-    let deps = this._mappedDeps();
+    let deps = this.getProperties(Object.keys(this.opts));
     let model = this.model;
     return changed.call(this.model, value, deps, model);
   },

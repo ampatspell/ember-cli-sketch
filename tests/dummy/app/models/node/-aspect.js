@@ -11,6 +11,8 @@ export const aspect = () => _aspect({
 export const width = () => _width({
   inverse: prop('height'),
   aspect: prop('aspect'),
+  min: 10,
+  max: prop('max'),
   changed(value, { aspect }) {
     let height = value * aspect;
     return { height };
