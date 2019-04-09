@@ -9,7 +9,9 @@ export default condition => EmberObject.extend({
   stage: readOnly('parent.stage'),
 
   all: filterBy('nodes.all', condition, true),
-  visible: filterBy('all', 'isVisible', true),
+
+  visible:    filterBy('all', 'isVisible', true),
+  selectable: filterBy('all', 'isSelectable', true),
 
   frame: frame('nodes')
 
