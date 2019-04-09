@@ -56,7 +56,6 @@ export default EmberObject.extend({
     if(!deps) {
       return;
     }
-
     for(let key in deps) {
       let value = deps[key];
       let attribute = this.attributes.attribute(key);
