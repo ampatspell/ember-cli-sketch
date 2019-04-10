@@ -3,14 +3,21 @@
 <div class="info">
 
   <div class="block">
-    <div>
-      {{stage}}
+    <div class="title">{{stage}}</div>
+    <div class="actions">
       {{#if attached}}
-        (attached)
+        <div>attached</div>
       {{else}}
-        (detached)
+        <div>detached</div>
       {{/if}}
     </div>
+    {{#let stage.node.renderer.size as |size|}}
+      {{#if size}}
+        <div class="actions">
+          {{size.width}}×{{size.height}}
+        </div>
+      {{/if}}
+    {{/let}}
     <div class="actions">
       {{ui-block/button class="small" value="Toggle" action=(action "toggle")}}
     </div>

@@ -32,6 +32,10 @@ module.exports = (() => {
 
   const withPage = cb => withBrowser(async browser => {
     let page = await browser.newPage();
+    page.on('console', async msg => {
+      let values = await Promise.all(msg.args().map(handle => handle.jsonValue()));
+      console.log('•', ...values);
+    });
     return await cb(page, browser);
   });
 
@@ -39,10 +43,10 @@ module.exports = (() => {
   // await page.screenshot({ path: './image.jpg', type: 'jpeg' });
 
   const pdf = ({ url, width, height, range }) => withPage(async page => {
+    await page.emulateMedia('screen');
+    // await page.setViewport({ width: 2500, height: 2000, deviceScaleFactor: 1 });
     await page.goto(url, { waitUntil: 'domcontentloaded' });
-    await page.waitFor('.-stage-ready');
-    await page.setViewport({ width: width * 300, height: height * 300 });
-    await page.emulateMedia('print');
+    await page.waitFor('.ui-block-sketch.ready');
     return await page.pdf({
       printBackground: true,
       width: `${width}mm`,

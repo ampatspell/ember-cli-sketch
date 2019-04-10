@@ -1,8 +1,9 @@
-import { style as _style, className } from '../../-computed';
+import { style as _style, className, imagePromise } from '../../-computed';
 import { typeOf } from '@ember/utils';
 
 export {
-  className
+  className,
+  imagePromise
 };
 
 export const style = (...deps) => {

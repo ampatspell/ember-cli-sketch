@@ -1,18 +1,33 @@
 import Component from '@ember/component';
 import layout from './template';
 import { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
+import { readOnly, equal, and } from '@ember/object/computed';
 import { htmlSafe } from '@ember/string';
 import EventsMixin from './-events-mixin';
 import { className } from './-computed';
+import { array } from '../../../-private/util/computed';
+import { schedule, cancel, run, next } from '@ember/runloop';
+import { Promise, resolve } from 'rsvp';
+
+const isSketchComponent = '__isSketchComponent';
+
+const afterRender = () => new Promise(resolve => schedule('afterRender', resolve));
+
+export const getSketchComponent = component => {
+  if(!component || component[isSketchComponent]) {
+    return component;
+  }
+  return getSketchComponent(component.parentView);
+};
 
 export default Component.extend(EventsMixin, {
-  classNameBindings: [ ':ui-block-sketch', 'fill' ],
+  classNameBindings: [ ':ui-block-sketch', 'fill', 'isReady:ready:loading' ],
   attributeBindings: [ 'style' ],
   layout,
 
-  fill: className('stage.fill', 'fill'),
+  [isSketchComponent]: true,
 
+  fill: className('stage.fill', 'fill'),
   size: null,
 
   stage: computed({
@@ -47,6 +62,7 @@ export default Component.extend(EventsMixin, {
   didInsertElement() {
     this._super(...arguments);
     this.notifyReady(this.stage);
+    this._scheduleUpdatePromisesResolved();
   },
 
   notifyReady(stage) {
@@ -55,6 +71,7 @@ export default Component.extend(EventsMixin, {
       return;
     }
     ready(stage);
+    this.registerRenderPromise(afterRender());
   },
 
   detachStage(stage) {
@@ -74,5 +91,46 @@ export default Component.extend(EventsMixin, {
       document.activeElement.blur();
     }
   },
+
+  //
+
+  _promises: array(),
+  _promisesResolved: false,
+  isReady: and('stage', '_promisesResolved'),
+
+  _cancelSchedulePromisesResolved() {
+    cancel(this.__updatePromisesResolved);
+  },
+
+  _updatePromisesResolved() {
+    let _promisesResolved = this._promises.length === 0;
+    if(this._promisesResolved === _promisesResolved) {
+      return;
+    }
+    this.setProperties({ _promisesResolved });
+  },
+
+  _scheduleUpdatePromisesResolved() {
+    this._cancelSchedulePromisesResolved();
+    this.__updatePromisesResolved = schedule('afterRender', () => {
+      if(this.isDestroying) {
+        return;
+      }
+      this._updatePromisesResolved();
+    });
+  },
+
+  registerRenderPromise(promise) {
+    this._cancelSchedulePromisesResolved();
+    this._promises.pushObject(promise);
+    this._updatePromisesResolved();
+    resolve(promise).then(() => {}, () => {}).finally(() => {
+      if(this.isDestroying) {
+        return;
+      }
+      this._promises.removeObject(promise);
+      this._scheduleUpdatePromisesResolved();
+    });
+  }
 
 });
