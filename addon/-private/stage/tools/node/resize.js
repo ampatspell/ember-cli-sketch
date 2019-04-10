@@ -34,7 +34,7 @@ export default Tool.extend({
     }
 
     node.update(frame, { delta: true });
-    node.nodes.all.forEach(model => model.node.update(children, { delta: true }));
+    node.nodes.all.forEach(node => node.update(children, { delta: true }));
 
     let after = node.frame.properties;
     frame = {};
