@@ -9,13 +9,7 @@ export default Tool.extend({
   update(delta) {
     let { node, edge } = this;
 
-    let frame = {
-      x: 0,
-      y: 0,
-      width: 0,
-      height: 0
-    };
-
+    let frame = {};
     let children = {};
 
     if(edge.vertical === 'bottom') {
@@ -38,18 +32,7 @@ export default Tool.extend({
       children.x = value;
     }
 
-    let current = node.frame.properties;
-    frame = node.attributes.resolve(node.frame.deltaToFrame(frame));
-
-    if(edge.horizontal === 'middle') {
-      frame.x -= (frame.width - current.width) / 2;
-    } else if (edge.vertical === 'middle') {
-      // frame.y -= (frame.height - current.height) / 2;
-    } else if(edge.horizontal === 'left') {
-      frame.x += (current.x + current.width) - (frame.x + frame.width);
-    }
-
-    node.update(frame);
+    node.update(frame, { delta: true });
     node.nodes.all.forEach(model => model.node.update(children, { delta: true }));
 
     return true;
