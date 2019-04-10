@@ -150,6 +150,7 @@ export default opts => {
           selection.addNode(this);
         }
       }
+      this.stage.focus();
     },
 
     hover() {
