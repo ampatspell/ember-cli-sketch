@@ -9,6 +9,7 @@ export default Tool.extend({
   update(delta) {
     let { node, edge } = this;
 
+    let before = node.frame.properties;
     let frame = {};
     let children = {};
 
@@ -34,6 +35,23 @@ export default Tool.extend({
 
     node.update(frame, { delta: true });
     node.nodes.all.forEach(model => model.node.update(children, { delta: true }));
+
+    let after = node.frame.properties;
+    frame = {};
+
+    if(edge.horizontal === 'left') {
+      frame.x = (before.x + before.width) - (after.x + after.width);
+    } else if(edge.horizontal === 'middle') {
+      frame.x = ((before.x + before.width) - (after.x + after.width)) / 2;
+    }
+
+    if(edge.vertical === 'top') {
+      frame.y = (before.y + before.height) - (after.y + after.height);
+    } else if(edge.vertical === 'middle') {
+      frame.y = ((before.y + before.height) - (after.y + after.height)) / 2;
+    }
+
+    node.update(frame, { delta: true });
 
     return true;
   },
