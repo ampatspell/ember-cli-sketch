@@ -46,15 +46,6 @@ export default EmberObject.extend({
 
   setValue(key, value) {
     return this.attribute(key).setValue(value);
-  },
-
-  resolve(props) {
-    let results = assign({}, props);
-    for(let key in props) {
-      let hash = this.attribute(key).resolve(props[key], results);
-      results = assign(results, hash);
-    }
-    return results;
   }
 
 });
