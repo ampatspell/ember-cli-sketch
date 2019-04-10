@@ -2,6 +2,7 @@ import { computed } from '@ember/object';
 import { typeOf } from '@ember/utils';
 import { htmlSafe, dasherize } from '@ember/string';
 import { assign } from '@ember/polyfills';
+import loadImage from '../../../-private/util/load-image';
 
 const normalizeInset = inset => {
   if(typeof inset !== 'object') {
@@ -96,7 +97,16 @@ export const attribute = (modelKey, attribute, required=true) => computed(modelK
 
 export const className = (valueKey, prefix) => computed(valueKey, function() {
   let value = this.get(valueKey);
-  if(value) {
-    return `${prefix}-${value}`;
+  if(!value) {
+    return;
   }
+  return `${prefix}-${value}`;
+}).readOnly();
+
+export const imagePromise = urlKey => computed(urlKey, function() {
+  let url = this.get(urlKey);
+  if(!url) {
+    return;
+  }
+  return loadImage(url);
 }).readOnly();
