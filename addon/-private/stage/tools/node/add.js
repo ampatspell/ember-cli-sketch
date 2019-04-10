@@ -3,9 +3,9 @@ import Tool from '../-base';
 export default Tool.extend({
 
   update() {
-    let { model: { node }, mouse: { absolute } } = this;
+    let { model: { node }, mouse: { absolute }, zoom } = this;
     let parent = node.parent.frame.absolute;
-    let calc = (prop, o) => absolute[prop] - parent[prop] + o;
+    let calc = (prop, o) => (absolute[prop] - parent[prop] + (o / zoom));
     let x = calc('x', 12);
     let y = calc('y', 3);
     node.update({ x, y });
