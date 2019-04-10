@@ -107,7 +107,6 @@ export default Component.extend(EventsMixin, {
     if(this._promisesResolved === _promisesResolved) {
       return;
     }
-    console.log('isReady', _promisesResolved);
     this.setProperties({ _promisesResolved });
   },
 
