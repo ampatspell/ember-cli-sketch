@@ -1,6 +1,7 @@
 import EmberObject, { defineProperty } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { isProp } from '../../../computed/prop';
+import { assign } from '@ember/polyfills';
 
 export default EmberObject.extend({
 
@@ -41,12 +42,12 @@ export default EmberObject.extend({
     return this.getValue() !== transformed;
   },
 
-  _invokeChanged(value) {
+  _invokeChanged(value, state) {
     let changed = this.opts.changed;
     if(!changed) {
       return;
     }
-    let deps = this.getProperties(Object.keys(this.opts));
+    let deps = assign(this.getProperties(Object.keys(this.opts)), state);
     let model = this.model;
     return changed.call(this.model, value, deps, model);
   },
@@ -80,6 +81,22 @@ export default EmberObject.extend({
       this.didSetValue(value);
     }
     return value;
+  },
+
+  //
+
+  resolve(value, state) {
+    if(this.immutable) {
+      return this.getValue();
+    }
+
+    value = this.transformValue(value);
+    let deps = this._invokeChanged(value, state);
+
+    return {
+      [this.key]: value,
+      ...deps
+    };
   }
 
 });
