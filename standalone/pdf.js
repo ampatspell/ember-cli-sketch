@@ -1,8 +1,12 @@
 let runtime = require('./runtime');
 
-let url = 'http://localhost:3000/experiments/editors/single/render';
-
 runtime(async tools => {
-  let buffer = await tools.pdf({ url, width: 210, height: 297 });
+  let id = 'single';
+  let width = 210;
+  let height = 297;
+
+  let url = `http://localhost:3000/experiments/editors/${id}/render/${width}/${height}`;
+
+  let buffer = await tools.pdf({ url, width, height });
   await tools.save({ filename: 'pdf.pdf', buffer });
 });

@@ -8,11 +8,9 @@ export default Component.extend({
   classNameBindings: [ ':ui-route-experiments-editors-editor-render' ],
   layout,
 
-  size: computed(function() {
-    return millimetersToPixels({
-      width: 210,
-      height: 297
-    });
+  size: computed('stage.size', function() {
+    let { size } = this.stage;
+    return millimetersToPixels(size);
   }).readOnly(),
 
   borderStyle: computed('stage.node.renderer.size', function() {

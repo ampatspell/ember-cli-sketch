@@ -11,7 +11,7 @@ Router.map(function() {
   this.route('experiments', function() {
     this.route('editors', function() {
       this.route('editor', { path: ':editor_id' }, function() {
-        this.route('render');
+        this.route('render', { path: 'render/:width/:height' });
       });
     });
   });

@@ -120,8 +120,8 @@ export default EmberObject.extend({
     return this;
   },
 
-  prepareForRender() {
-    this.setProperties({ fill: '#fff' });
+  prepareForRender({ width, height }) {
+    this.setProperties({ fill: '#fff', size: { width, height } });
     return this;
   },
 

@@ -4,8 +4,13 @@
   <div class="row">
     <div class="label">Size:</div>
     <div class="value">
+      {{#let stage.size as |size|}}
+        {{size.width}}mm × {{size.height}}mm
+      {{/let}}
+    </div>
+    <div class="value">
       {{#let stage.node.renderer.size as |size|}}
-        {{size.width}}×{{size.height}}
+        {{size.width}}px × {{size.height}}px
       {{/let}}
     </div>
   </div>
