@@ -27,3 +27,4 @@
 
 /standalone/node_modules/
 /standalone/*.pdf
+/standalone/*.png

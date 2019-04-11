@@ -1,6 +1,6 @@
 import { millimetersToPixels as _millimetersToPixels } from './math';
 
-export const reduce = (hash, fn) => Object.keys(hash).reduce((reduced, key) => {
+export const reduce = (hash, fn) => Object.keys(hash || {}).reduce((reduced, key) => {
   let value = fn(key, hash[key]);
   if(value !== undefined) {
     reduced[key] = value;

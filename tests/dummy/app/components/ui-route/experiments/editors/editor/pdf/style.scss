@@ -1,0 +1,26 @@
+.ui-route-experiments-editors-editor-pdf {
+  > .sketch {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  > .info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff;
+    padding: 5px;
+    > .row {
+      margin-bottom: 5px;
+      > .label {
+        font-size: 13px;
+      }
+      > .value {
+        font-size: 14px;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

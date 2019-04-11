@@ -46,7 +46,7 @@ module.exports = (() => {
     await page.emulateMedia('screen');
     await page.goto(url, { waitUntil: 'domcontentloaded' });
     await page.waitFor('.ui-block-sketch.ready');
-    await page.waitFor(1000);
+    // await page.waitFor(1000);
     return await page.pdf({
       scale: 1,
       printBackground: true,
@@ -59,6 +59,16 @@ module.exports = (() => {
         left: 0
       },
       pageRanges: range || '1'
+    });
+  });
+
+  const image = ({ url, width, height }) => withPage(async page => {
+    await page.setViewport({ width, height });
+    await page.goto(url, { waitUntil: 'domcontentloaded' });
+    await page.waitFor('.ui-block-sketch.ready');
+    return await page.screenshot({
+      type: 'png',
+      fullPage: true
     });
   });
 
@@ -76,6 +86,7 @@ module.exports = (() => {
     try {
       await fn({
         pdf,
+        image,
         save
       });
     } catch(err) {
