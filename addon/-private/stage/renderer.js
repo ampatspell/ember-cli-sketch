@@ -9,7 +9,7 @@ export default EmberObject.extend({
   _component: null,
 
   isAttached: bool('_component'),
-  size: readOnly('_component.size'),
+  size: readOnly('_component.elementSize'),
 
   attach(_component) {
     assert(`Stage ${this} is already attached to ${this._component}`, !this._component);

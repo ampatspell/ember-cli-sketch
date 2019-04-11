@@ -2,9 +2,8 @@ import Component from '@ember/component';
 import layout from './template';
 import { computed } from '@ember/object';
 import { readOnly, and } from '@ember/object/computed';
-import { htmlSafe } from '@ember/string';
 import EventsMixin from './-events-mixin';
-import { className } from './-computed';
+import { style, className } from './-computed';
 import { array } from '../../../-private/util/computed';
 import { schedule, cancel } from '@ember/runloop';
 import { Promise, resolve } from 'rsvp';
@@ -27,8 +26,10 @@ export default Component.extend(EventsMixin, {
 
   [isSketchComponent]: true,
 
-  fill: className('stage.fill', 'fill'),
   size: null,
+
+  fill: className('stage.fill', 'fill'),
+  elementSize: null,
 
   stage: computed({
     get() {
@@ -51,13 +52,18 @@ export default Component.extend(EventsMixin, {
 
   cursor: readOnly('stage.node.cursor.value'),
 
-  style: computed('cursor', function() {
-    let { cursor } = this;
-    if(!cursor) {
-      return;
+  style: style('cursor', 'size', function() {
+    let { cursor, size } = this;
+    let props = {
+      cursor
+    };
+    if(size) {
+      let px = key => `${Math.ceil(size[key])}px`;
+      props.width = px('width');
+      props.height = px('height');
     }
-    return htmlSafe(`cursor: ${cursor}`);
-  }).readOnly(),
+    return props;
+  }),
 
   didInsertElement() {
     this._super(...arguments);

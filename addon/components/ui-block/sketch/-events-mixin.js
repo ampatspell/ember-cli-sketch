@@ -69,7 +69,7 @@ export default Mixin.create({
       return;
     }
     let { width, height } = element.getBoundingClientRect();
-    this.set('size', { width, height });
+    this.set('elementSize', { width, height });
   },
 
   onWindowResize() {
