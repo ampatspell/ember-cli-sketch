@@ -1,0 +1,17 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 8
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "plugins": [
+    "node",
+    "promise"
+  ],
+  "extends": "eslint:recommended",
+  "rules": {
+    "no-console": "off"
+  }
+}

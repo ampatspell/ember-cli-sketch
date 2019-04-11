@@ -20,7 +20,7 @@
     "test": "ember test",
     "test:all": "ember try:each",
     "dist": "ember build -prod",
-    "deploy": "npm run dist && firebase deploy --only hosting",
+    "deploy": "npm run dist && firebase deploy",
     "tags": "git push --follow-tags",
     "bump": "npm version patch; npm run tags",
     "minor": "npm version minor; npm run tags"

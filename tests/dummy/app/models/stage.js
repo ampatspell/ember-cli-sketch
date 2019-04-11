@@ -125,6 +125,29 @@ export default EmberObject.extend({
     return this;
   },
 
+  async generate(type, opts) {
+    if(this.isGenerating) {
+      return;
+    }
+    this.setProperties({
+      isGenerating: true,
+      generated: null
+    });
+    try {
+      let { id } = this;
+      let generated = await this.firestore.call(type, assign({ id }, opts));
+      this.setProperties({
+        isGenerating: false,
+        generated
+      });
+    } catch(err) {
+      console.log(err.stack); // eslint-disable-line no-console
+      this.setProperties({
+        isGenerating: false,
+      });
+    }
+  },
+
   toStringExtension() {
     return this.id;
   }

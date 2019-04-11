@@ -89,7 +89,13 @@ export default Component.extend({
         background.update({ selectable: false });
         content.update({ visible: true });
       }
-    }
+    },
+    createPdf() {
+      this.stage.generate('pdf', { width: 210, height: 297 });
+    },
+    createImage() {
+      this.stage.generate('image', { width: 1024, height: 1024 });
+    },
   }
 
 });

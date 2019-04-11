@@ -28,3 +28,5 @@
 /standalone/node_modules/
 /standalone/*.pdf
 /standalone/*.png
+
+firebase-debug.log

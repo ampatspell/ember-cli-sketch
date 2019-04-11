@@ -26,6 +26,11 @@ export default Service.extend({
     let model = create(this, 'query', { ref, keys, props });
     await model.start();
     return model;
+  },
+
+  async call(name, props={}) {
+    let { data } = await window.firebase.functions().httpsCallable(name)(props);
+    return data;
   }
 
-})
+});

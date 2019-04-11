@@ -315,4 +315,21 @@
     </div>
   </div>
 
+<div class="block">
+    <div class="title">Create PDF or Image</div>
+    {{#if stage.isGenerating}}
+      <div class="actions">
+        Please wait…
+      </div>
+    {{else if stage.generated}}
+      <div class="actions">
+        <a href={{stage.generated.url}} target="top">{{stage.generated.url}}</a>
+      </div>
+    {{/if}}
+    <div class="actions">
+      {{ui-block/button disabled=stage.isGenerating value="PDF" action=(action "createPdf")}}
+      {{ui-block/button disabled=stage.isGenerating value="Image" action=(action "createImage")}}
+    </div>
+  </div>
+
 </div>
