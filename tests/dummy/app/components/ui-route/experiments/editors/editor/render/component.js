@@ -2,10 +2,18 @@ import Component from '@ember/component';
 import layout from './template';
 import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
+import { millimetersToPixels } from 'ember-cli-sketch/util/object';
 
 export default Component.extend({
   classNameBindings: [ ':ui-route-experiments-editors-editor-render' ],
   layout,
+
+  size: computed(function() {
+    return millimetersToPixels({
+      width: 210,
+      height: 297
+    });
+  }).readOnly(),
 
   borderStyle: computed('stage.node.renderer.size', function() {
     let size = this.get('stage.node.renderer.size');
