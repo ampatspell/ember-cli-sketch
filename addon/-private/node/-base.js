@@ -44,7 +44,16 @@ const included = arrayKey => computed(`${arrayKey}.[]`, function() {
 
 export default opts => {
 
-  const value = key => readOnly(`model.${opts.properties[key]}`);
+  const value = (key, defaultValue) => {
+    let path = `model.${opts.properties[key]}`;
+    return computed(path, function() {
+      let value = this.get(path);
+      if(value === undefined) {
+        value = defaultValue;
+      }
+      return value;
+    }).readOnly();
+  };
 
   return EmberObject.extend({
 
@@ -54,9 +63,9 @@ export default opts => {
     _parent:     value('parent'),
     _models:     value('nodes'),
     _visible:    value('visible'),
-    _selectable: value('selectable'),
+    _selectable: value('selectable', true),
 
-    type: value('type'),
+    type:        value('type'),
 
     isContainer:  prop('container', false),
     isAttached:   bool('parent'),

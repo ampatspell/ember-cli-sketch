@@ -121,7 +121,7 @@ export default EmberObject.extend({
   },
 
   prepareForRender({ width, height }) {
-    this.setProperties({ fill: '#fff', size: { width, height } });
+    this.setProperties({ fill: '#fff', size: { width, height }, selectable: false });
     return this;
   },
 

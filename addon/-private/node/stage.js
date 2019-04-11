@@ -1,6 +1,7 @@
 import create, { frame } from './-base';
 import { zoom, factory, self } from '../util/computed';
 import { assert } from '@ember/debug';
+import { and } from '@ember/object/computed';
 import CenterFitMixin from './stage/center-fit-mixin';
 
 const model = name => factory((factory, stage) => factory[name].call(factory, stage));
@@ -11,7 +12,6 @@ export default opts => create(opts).extend(CenterFitMixin, {
   isContainer: true,
   isAttached: true,
   isVisible: true,
-  isSelectable: true,
 
   stage: self(),
 
@@ -24,6 +24,8 @@ export default opts => create(opts).extend(CenterFitMixin, {
   selection:    model('selection'),
   tools:        model('tools'),
   cursor:       model('cursor'),
+
+  isSelectable: and('isAttached', '_selectable'),
 
   //
 

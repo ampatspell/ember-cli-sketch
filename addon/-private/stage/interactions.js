@@ -1,4 +1,5 @@
 import EmberObject from '@ember/object';
+import { readOnly } from '@ember/object/computed';
 import { factory } from '../util/computed';
 
 const medium = type => factory((factory, interactions) => factory.interactionMedium(type, interactions));
@@ -10,13 +11,16 @@ const handlers = () => factory((factory, interactions) => factory.interactionHan
 export default EmberObject.extend({
 
   stage: null,
+  isEnabled: readOnly('stage.isSelectable'),
 
   mouse: mouse(),
   keyboard: keyboard(),
-
   handlers: handlers(),
 
   invokeHandlers() {
+    if(!this.isEnabled) {
+      return;
+    }
     this.handlers.onEvent(...arguments);
   },
 
