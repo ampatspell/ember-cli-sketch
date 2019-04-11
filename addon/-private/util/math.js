@@ -1,14 +1,14 @@
+let {
+  min,
+  max
+} = Math;
+
 export const round = (value, decimals=2) => {
   if(!value) {
     return value;
   }
   return Number(Math.round(`${value}e${decimals}`) + `e-${decimals}`);
 };
-
-let {
-  min,
-  max
-} = Math;
 
 export const numberConstraints = opts => value => {
   if(typeof value !== 'number' || isNaN(value)) {
@@ -90,3 +90,5 @@ export const rotatedRectBounds = frame => {
     rotation: 0
   };
 }
+
+export const millimetersToPixels = mm => mm / 25.4 * 96;
