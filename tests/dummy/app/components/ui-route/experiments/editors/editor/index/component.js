@@ -8,7 +8,7 @@ const identifier = name => computed(`stage.nodes.@each.identifier`, function() {
 }).readOnly();
 
 export default Component.extend({
-  classNameBindings: [ ':ui-route-experiments-editors-editor' ],
+  classNameBindings: [ ':ui-route-experiments-editors-editor-index' ],
   layout,
 
   isAddingNode: equal('stage.node.tools.selected.type', 'node/add'),

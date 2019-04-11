@@ -1,0 +1,35 @@
+.ui-route-experiments-editors-editor-render {
+  > .sketch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 210mm;
+    height: 297mm;
+  }
+  > .info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff;
+    padding: 5px;
+    > .row {
+      margin-bottom: 5px;
+      > .label {
+        font-size: 13px;
+      }
+      > .value {
+        font-size: 14px;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  > .border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 2px solid #ddd;
+    display: none;
+  }
+}

@@ -1,12 +1,12 @@
 import Component from '@ember/component';
 import layout from './template';
 import { computed } from '@ember/object';
-import { readOnly, equal, and } from '@ember/object/computed';
+import { readOnly, and } from '@ember/object/computed';
 import { htmlSafe } from '@ember/string';
 import EventsMixin from './-events-mixin';
 import { className } from './-computed';
 import { array } from '../../../-private/util/computed';
-import { schedule, cancel, run, next } from '@ember/runloop';
+import { schedule, cancel } from '@ember/runloop';
 import { Promise, resolve } from 'rsvp';
 
 const isSketchComponent = '__isSketchComponent';
@@ -21,7 +21,7 @@ export const getSketchComponent = component => {
 };
 
 export default Component.extend(EventsMixin, {
-  classNameBindings: [ ':ui-block-sketch', 'fill', 'isReady:ready:loading' ],
+  classNameBindings: [ ':ui-block-sketch', 'fill', '_isReady:ready:loading' ],
   attributeBindings: [ 'style' ],
   layout,
 
@@ -96,7 +96,7 @@ export default Component.extend(EventsMixin, {
 
   _promises: array(),
   _promisesResolved: false,
-  isReady: and('stage', '_promisesResolved'),
+  _isReady: and('stage', '_promisesResolved'),
 
   _cancelSchedulePromisesResolved() {
     cancel(this.__updatePromisesResolved);

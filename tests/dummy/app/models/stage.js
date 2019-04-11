@@ -120,6 +120,11 @@ export default EmberObject.extend({
     return this;
   },
 
+  prepareForRender() {
+    this.setProperties({ fill: '#fff' });
+    return this;
+  },
+
   toStringExtension() {
     return this.id;
   }
