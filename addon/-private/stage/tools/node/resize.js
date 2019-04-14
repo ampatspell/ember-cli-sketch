@@ -47,10 +47,21 @@ export default Tool.extend({
     }
 
     if(aspect) {
-      let height = attributes.clamp('height', frame.width * aspect);
-      let width = attributes.clamp('width', height / aspect);
-      frame.height = height;
-      frame.width = width;
+      let height;
+      let width;
+
+      if(before.width !== frame.width) {
+        height = attributes.clamp('height', frame.width * aspect);
+        width = attributes.clamp('width', height / aspect);
+      } else if(before.height !== frame.height) {
+        width = attributes.clamp('width', frame.height / aspect);
+        height = attributes.clamp('height', width * aspect);
+      }
+
+      if(width && height) {
+        frame.height = height;
+        frame.width = width;
+      }
     }
 
     node.update(frame);
