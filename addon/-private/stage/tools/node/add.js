@@ -6,8 +6,8 @@ export default Tool.extend({
     let { model: { node }, mouse: { absolute }, zoom } = this;
     let parent = node.parent.frame.absolute;
     let calc = (prop, o) => (absolute[prop] - parent[prop] + (o / zoom));
-    let x = calc('x', 12);
-    let y = calc('y', 3);
+    let x = calc('x', 1);
+    let y = calc('y', 1);
     node.update({ x, y });
   },
 
