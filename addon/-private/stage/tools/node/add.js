@@ -2,12 +2,15 @@ import Tool from '../-base';
 
 export default Tool.extend({
 
+  cursor: 'none',
+
   update() {
-    let { model: { node }, mouse: { absolute }, zoom } = this;
+    let { model: { node }, mouse: { absolute } } = this;
     let parent = node.parent.frame.absolute;
-    let calc = (prop, o) => (absolute[prop] - parent[prop] + (o / zoom));
-    let x = calc('x', 1);
-    let y = calc('y', 1);
+    let frame = node.frame.absolute;
+    let calc = (prop, dimension) => absolute[prop] - parent[prop] - (frame[dimension] / 2);
+    let x = calc('x', 'width');
+    let y = calc('y', 'height');
     node.update({ x, y });
   },
 
