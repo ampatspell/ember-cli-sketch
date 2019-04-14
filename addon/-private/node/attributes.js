@@ -73,7 +73,6 @@ export default EmberObject.extend({
   },
 
   clamp:      attribute((attribute, value) => attribute.clamp(value)),
-  clampDelta: attribute((attribute, delta) => attribute.clampDelta(delta)),
-  transform:  attribute((attribute, value) => attribute.transformValue(value))
+  clampDelta: attribute((attribute, delta) => attribute.clampDelta(delta))
 
 });
