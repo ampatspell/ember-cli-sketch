@@ -55,7 +55,7 @@ export default EmberObject.extend({
       let value = props[key];
       let attribute = this.attribute(key, false);
       if(attribute) {
-        let { changed, transformed } = attribute.changed(value);
+        let { changed, transformed } = attribute.isChanged(value);
         if(changed) {
           result[key] = transformed;
         }
