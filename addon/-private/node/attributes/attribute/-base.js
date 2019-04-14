@@ -36,9 +36,15 @@ export default EmberObject.extend({
 
   //
 
-  isChanged(value) {
+  changed(value) {
     let transformed = this.transformValue(value);
-    return this.getValue() !== transformed;
+    let changed = this.getValue() !== transformed;
+    return { changed, transformed };
+  },
+
+  isChanged(value) {
+    let { changed } = this.changed(value);
+    return changed;
   },
 
   _invokeChanged(value) {
