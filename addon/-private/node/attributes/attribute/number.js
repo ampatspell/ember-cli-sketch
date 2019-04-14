@@ -27,12 +27,16 @@ export default Attribute.extend({
     return value;
   },
 
-  clampDelta(value) {
+  clamp(value) {
     if(this.immutable) {
-      return 0;
+      return this.getValue();
     }
+    return this.numberConstraints(value);
+  },
+
+  clampDelta(value) {
     let current = this.getValue();
-    return this.numberConstraints(current + value) - current;
+    return this.clamp(current + value) - current;
   }
 
 });

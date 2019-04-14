@@ -24,37 +24,33 @@ export default Tool.extend({
     let before = node.frame.properties;
     let frame = assign({}, node.frame.properties);
     let children = {};
+    let attributes = node.attributes;
 
     if(edge.vertical === 'bottom') {
-      let value = node.clampAttributeDelta('height', delta.y);
+      let value = attributes.clampDelta('height', delta.y);
       frame.height += value;
-      if(aspect) {
-        frame.width = frame.height / aspect;
-      }
     } else if(edge.vertical === 'top') {
-      let value = node.clampAttributeDelta('height', -delta.y);
+      let value = attributes.clampDelta('height', -delta.y);
       frame.y += -value;
       frame.height += value;
-      if(aspect) {
-        frame.width = frame.height / aspect;
-      }
       children.y = value;
     }
 
     if(edge.horizontal === 'right') {
-      let value = node.clampAttributeDelta('width', delta.x);
+      let value = attributes.clampDelta('width', delta.x);
       frame.width += value;
-      if(aspect) {
-        frame.height = frame.width * aspect;
-      }
     } else if(edge.horizontal === 'left') {
-      let value = node.clampAttributeDelta('width', -delta.x);
+      let value = attributes.clampDelta('width', -delta.x);
       frame.x += -value;
       frame.width += value;
-      if(aspect) {
-        frame.height = frame.width * aspect;
-      }
       children.x = value;
+    }
+
+    if(aspect) {
+      let height = attributes.clamp('height', frame.width * aspect);
+      let width = attributes.clamp('width', height / aspect);
+      frame.height = height;
+      frame.width = width;
     }
 
     node.update(frame);
