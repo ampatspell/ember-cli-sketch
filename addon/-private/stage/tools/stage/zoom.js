@@ -3,36 +3,46 @@ import Tool from '../-base';
 export default Tool.extend({
 
   update({ delta }) {
-    let zoom = this.zoom + delta;
+    let zoom = this.state.zoom + delta;
+    this.state.zoom = zoom;
+    // TODO: center
     this.stage.update({ zoom });
   },
 
+  begin() {
+    this.state = {
+      point: this.mouse.absolute,
+      zoom: this.stage.zoom
+    };
+  },
+
+  reset() {
+    this.state = null;
+  },
+
   onMouseDown() {
-    this.dragging = true;
+    this.begin();
   },
 
   onMouseUp() {
-    this.dragging = false;
+    this.reset();
   },
 
   onMouseMove({ delta }) {
-    if(!this.dragging) {
+    if(!this.state) {
       return;
     }
-
-    delta = delta.y / 500;
-    this.update({ delta });
-    return false;
+    this.update({ delta: delta.y / 500 });
   },
 
   onMouseWheel({ value }) {
-    let delta = value / 10;
-    this.update({ delta });
-    return false;
+    this.begin();
+    this.update({ delta: value / 10 });
+    this.reset();
   },
 
   deactivate() {
-    this.dragging = false;
+    this.reset();
   }
 
 });
