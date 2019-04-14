@@ -25,6 +25,10 @@ const attributes = () => factory((factory, attributes) => {
   }, {});
 });
 
+const attribute = fn => function(name, ...args) {
+  return fn(this.attribute(name, true), ...args);
+}
+
 export default EmberObject.extend({
 
   node: null,
@@ -66,6 +70,10 @@ export default EmberObject.extend({
       }
     }
     return result;
-  }
+  },
+
+  clamp:      attribute((attribute, value) => attribute.clamp(value)),
+  clampDelta: attribute((attribute, delta) => attribute.clampDelta(delta)),
+  transform:  attribute((attribute, value) => attribute.transformValue(value))
 
 });

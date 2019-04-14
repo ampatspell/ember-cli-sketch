@@ -99,10 +99,6 @@ export default opts => {
     isSelected: included('stage.selection.all'),
     isHovered: included('stage.hover.all'),
 
-    clampAttributeDelta(attribute, delta) {
-      return this.attributes.attribute(attribute, true, 'number').clampDelta(delta);
-    },
-
     containsNode(node) {
       return this.nodes.containsNode(node);
     },
