@@ -70,6 +70,7 @@ export default opts => {
     _selectable: value('selectable', true),
 
     type:        value('type'),
+    aspect:      readOnly('model.aspect'),
 
     isContainer:  prop('container', false),
     isAttached:   bool('parent'),
@@ -230,6 +231,19 @@ export default opts => {
 
     moveUp() {
       this._moveWithDelta(+1);
+    },
+
+    //
+
+    updateAspect() {
+      let { width, height } = this.frame.properties;
+
+      if(!width || !height) {
+        return;
+      }
+
+      let aspect = height / width;
+      this.update({ aspect });
     }
 
   });

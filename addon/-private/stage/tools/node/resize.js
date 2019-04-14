@@ -7,16 +7,11 @@ export default Tool.extend({
   node: null,
   edge: null,
 
-  aspect: computed('keyboard.isShift', 'node.frame.{width,height}', function() {
+  aspect: computed('keyboard.isShift', 'node.aspect', function() {
     if(!this.keyboard.isShift) {
       return;
     }
-    let { width, height } = this.node.frame;
-    if(!width || !height) {
-      return;
-    }
-    let aspect = height / width;
-    return aspect;
+    return this.node.aspect;
   }).readOnly(),
 
   update(delta) {
@@ -100,7 +95,17 @@ export default Tool.extend({
     this.done();
   },
 
+  onKeyDown(key) {
+    if(key.isShift) {
+      this.node.updateAspect();
+    }
+  },
+
   activate({ node }) {
+    if(this.keyboard.isShift) {
+      node.updateAspect();
+    }
+
     let edge = node.edge.serialized;
     this.setProperties({ node, edge });
     this.selection.removeExcept(node);
