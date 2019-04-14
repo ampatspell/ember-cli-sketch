@@ -34,17 +34,6 @@ export default EmberObject.extend({
     return values;
   },
 
-  changesForFrame(props) {
-    let delta = this.frameToDelta(props);
-    let changes = [];
-    keys(delta).forEach(key => {
-      if(delta[key] !== 0) {
-        changes.push(key);
-      }
-    });
-    return changes;
-  },
-
   convertPoint(point, frameKey) {
     let frame = this[frameKey];
     assert(`frame ${frameKey} not declared for ${this}`, !!frame);

@@ -9,6 +9,10 @@ export {
   frame
 };
 
+const {
+  keys
+} = Object;
+
 const factory = name => () => _factory((factory, node) => factory[name].call(factory, node));
 
 const nodes = factory('nodes');
@@ -66,6 +70,7 @@ export default opts => {
     _selectable: value('selectable', true),
 
     type:        value('type'),
+    aspect:      readOnly('model.aspect'),
 
     isContainer:  prop('container', false),
     isAttached:   bool('parent'),
@@ -104,8 +109,10 @@ export default opts => {
 
     _update(props) {
       assert(`update is required for ${this.model}`, !!this.model.update);
-      // props = this.willUpdate(props, this.frame.changesForFrame(props));
-      this.model.update(props);
+      let changed = this.attributes.changes(props);
+      if(keys(changed)) {
+        this.model.update(changed);
+      }
     },
 
     update(props, opts) {
@@ -224,6 +231,17 @@ export default opts => {
 
     moveUp() {
       this._moveWithDelta(+1);
+    },
+
+    //
+
+    updateAspect() {
+      let { width, height } = this.frame.properties;
+      if(!width || !height) {
+        return;
+      }
+      let aspect = height / width;
+      this.update({ aspect });
     }
 
   });

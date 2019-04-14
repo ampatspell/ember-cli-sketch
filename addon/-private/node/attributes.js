@@ -46,6 +46,26 @@ export default EmberObject.extend({
 
   setValue(key, value) {
     return this.attribute(key).setValue(value);
+  },
+
+  changes(props) {
+    let { model } = this;
+    let result = {};
+    for(let key in props) {
+      let value = props[key];
+      let attribute = this.attribute(key, false);
+      if(attribute) {
+        let { changed, transformed } = attribute.isChanged(value);
+        if(changed) {
+          result[key] = transformed;
+        }
+      } else {
+        if(model[key] !== value) {
+          result[key] = value;
+        }
+      }
+    }
+    return result;
   }
 
 });

@@ -1,5 +1,4 @@
-import Base, { node, x, y, rotation, visible, selectable, attr } from './-base';
-import { width, height, aspect } from './-aspect';
+import Base, { node, x, y, width, height, rotation, visible, selectable, aspect, attr } from './-base';
 
 export default Base.extend({
 

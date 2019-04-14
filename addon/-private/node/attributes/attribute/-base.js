@@ -38,7 +38,8 @@ export default EmberObject.extend({
 
   isChanged(value) {
     let transformed = this.transformValue(value);
-    return this.getValue() !== transformed;
+    let changed = this.getValue() !== transformed;
+    return { changed, transformed };
   },
 
   _invokeChanged(value) {
@@ -57,10 +58,10 @@ export default EmberObject.extend({
       return;
     }
     for(let key in deps) {
-      let value = deps[key];
       let attribute = this.attributes.attribute(key);
-      if(attribute.isChanged(value)) {
-        attribute.setValue(value, true);
+      let { changed, transformed } = attribute.isChanged(deps[key]);
+      if(changed) {
+        attribute.setValue(transformed, true);
       }
     }
   },
