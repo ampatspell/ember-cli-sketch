@@ -1,38 +1,64 @@
 import Tool from '../-base';
+import { assign } from '@ember/polyfills';
+import { computed } from '@ember/object';
 
 export default Tool.extend({
 
   node: null,
   edge: null,
 
+  aspect: computed('keyboard.isShift', 'node.frame.{width,height}', function() {
+    if(!this.keyboard.isShift) {
+      return;
+    }
+    let { width, height } = this.node.frame;
+    if(!width || !height) {
+      return;
+    }
+    let aspect = height / width;
+    return aspect;
+  }).readOnly(),
+
   update(delta) {
-    let { node, edge } = this;
+    let { node, edge, aspect } = this;
 
     let before = node.frame.properties;
-    let frame = {};
+    let frame = assign({}, node.frame.properties);
     let children = {};
 
     if(edge.vertical === 'bottom') {
       let value = node.clampAttributeDelta('height', delta.y);
-      frame.height = value;
+      frame.height += value;
+      if(aspect) {
+        frame.width = frame.height / aspect;
+      }
     } else if(edge.vertical === 'top') {
       let value = node.clampAttributeDelta('height', -delta.y);
-      frame.y = -value;
-      frame.height = value;
+      frame.y += -value;
+      frame.height += value;
+      if(aspect) {
+        frame.width = frame.height / aspect;
+      }
       children.y = value;
     }
 
     if(edge.horizontal === 'right') {
       let value = node.clampAttributeDelta('width', delta.x);
-      frame.width = value;
+      frame.width += value;
+      if(aspect) {
+        frame.height = frame.width * aspect;
+      }
     } else if(edge.horizontal === 'left') {
       let value = node.clampAttributeDelta('width', -delta.x);
-      frame.x = -value;
-      frame.width = value;
+      frame.x += -value;
+      frame.width += value;
+      if(aspect) {
+        frame.height = frame.width * aspect;
+      }
       children.x = value;
     }
 
-    node.update(frame, { delta: true });
+    node.update(frame);
     node.nodes.all.forEach(node => node.update(children, { delta: true }));
 
     let after = node.frame.properties;
@@ -77,9 +103,7 @@ export default Tool.extend({
   activate({ node }) {
     let edge = node.edge.serialized;
     this.setProperties({ node, edge });
-
     this.selection.removeExcept(node);
-
     node.isContainer && node.moveToTop();
   },
 
