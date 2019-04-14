@@ -9,6 +9,10 @@ export {
   frame
 };
 
+const {
+  keys
+} = Object;
+
 const factory = name => () => _factory((factory, node) => factory[name].call(factory, node));
 
 const nodes = factory('nodes');
@@ -104,8 +108,10 @@ export default opts => {
 
     _update(props) {
       assert(`update is required for ${this.model}`, !!this.model.update);
-      // props = this.willUpdate(props, this.frame.changesForFrame(props));
-      this.model.update(props);
+      let changed = this.attributes.changes(props);
+      if(keys(changed)) {
+        this.model.update(changed);
+      }
     },
 
     update(props, opts) {
