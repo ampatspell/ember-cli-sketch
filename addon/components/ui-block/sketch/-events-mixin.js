@@ -103,8 +103,9 @@ export default Mixin.create({
     this.setDeltaMouse(e);
   },
 
-  onMouseUp() {
-    this.interactions.onMouseUp();
+  onMouseUp(e) {
+    let { button } = e;
+    this.interactions.onMouseUp({ button });
   },
 
   overFromMouseEvent(e) {
