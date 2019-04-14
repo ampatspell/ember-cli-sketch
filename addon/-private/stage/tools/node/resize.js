@@ -11,7 +11,11 @@ export default Tool.extend({
     if(!this.keyboard.isShift) {
       return;
     }
-    return this.node.aspect;
+    let node = this.node;
+    if(!node) {
+      return;
+    }
+    return node.aspect;
   }).readOnly(),
 
   update(delta) {

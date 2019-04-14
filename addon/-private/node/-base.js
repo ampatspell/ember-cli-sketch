@@ -237,11 +237,9 @@ export default opts => {
 
     updateAspect() {
       let { width, height } = this.frame.properties;
-
       if(!width || !height) {
         return;
       }
-
       let aspect = height / width;
       this.update({ aspect });
     }
