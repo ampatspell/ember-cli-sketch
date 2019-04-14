@@ -1,8 +1,21 @@
 import Tool from '../-base';
+import { computed } from '@ember/object';
 
 export default Tool.extend({
 
+  delta: null,
+
+  cursor: computed('delta', function() {
+    return this.delta < 0 ? 'zoom-out' : 'zoom-in';
+  }).readOnly(),
+
   update({ delta }) {
+    if(delta === 0) {
+      return;
+    }
+
+    this.set('delta', delta);
+
     let zoom = this.state.zoom + delta;
     this.state.zoom = zoom;
     // TODO: center
@@ -17,7 +30,7 @@ export default Tool.extend({
   },
 
   reset() {
-    this.state = null;
+    this.setProperties({ state: null, delta: null });
   },
 
   onMouseDown() {
