@@ -8,7 +8,7 @@ export default Tool.extend({
     let { model: { node }, mouse: { absolute } } = this;
     let parent = node.parent.frame.absolute;
     let frame = node.frame.absolute;
-    let calc = (prop, dimension) => absolute[prop] - parent[prop] - (frame[dimension] / 2);
+    let calc = (dimension, size) => absolute[dimension] - parent[dimension] - (frame[size] / 2);
     let x = calc('x', 'width');
     let y = calc('y', 'height');
     node.update({ x, y });
