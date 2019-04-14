@@ -1,5 +1,4 @@
 import Tool from '../-base';
-import { assign } from '@ember/polyfills';
 
 export default Tool.extend({
 
