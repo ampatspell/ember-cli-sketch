@@ -2,9 +2,12 @@ import WebFont from 'webfontloader';
 import { Promise } from 'rsvp';
 import { assign } from '@ember/polyfills';
 
-const err = () => {
+export const err = errors => {
   let error = new Error('Fonts failed to load');
   error.code = 'webfont/load';
+  if(errors) {
+    error.errors = errors;
+  }
   return error;
 }
 

@@ -142,4 +142,8 @@ export default EmberObject.extend({
     return this._create('sketches/fonts/loader', { fonts, opts });
   },
 
+  fontLoaderCompound(fonts, loaders) {
+    return this._create('sketches/fonts/loader/compound', { fonts, loaders });
+  }
+
 });

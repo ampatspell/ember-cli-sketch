@@ -19,6 +19,13 @@ export default EmberObject.extend({
   isError: false,
   error: null,
 
+  includes(mod, family) {
+    mod = this.opts[mod];
+    if(mod) {
+      return mod.families.includes(family);
+    }
+  },
+
   onLoad: safe(function() {
     this.setProperties({
       isLoading: true,
@@ -43,8 +50,8 @@ export default EmberObject.extend({
   }),
 
   _load() {
-    let { opts: { spec } } = this;
-    return loadFonts(spec);
+    let { opts } = this;
+    return loadFonts(opts);
   },
 
   load() {
