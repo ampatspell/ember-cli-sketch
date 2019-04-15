@@ -108,7 +108,7 @@ export default Tool.extend({
     this.done();
   },
 
-  onKeyDown(key) {
+  onKeyDown() {
     if(!this.free) {
       this.node.updateAspectRatioBasedOnSize();
     }
