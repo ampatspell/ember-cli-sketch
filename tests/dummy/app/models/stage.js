@@ -101,7 +101,8 @@ export default EmberObject.extend({
         'cropMarks',
         'cropMarksInset',
         'identifier',
-        'aspect'
+        'aspect',
+        'padding'
       ], { stage: this })
     ]);
 

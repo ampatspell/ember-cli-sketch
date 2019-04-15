@@ -23,6 +23,7 @@ export default Base.extend({
   fontWeight: attr('fontWeight', { type: 'number', initial: 400 }),
   fontSize:   attr('fontSize', { type: 'number', initial: 16, min: 10, max: 96 }),
   fontStyle:  attr('fontStyle', { type: 'string', initial: 'normal' }),
+  padding:    attr('padding', { type: 'number', initial: 0, min: 0 }),
 
   align:         attr('align', { type: 'string', initial: 'left' }),
   verticalAlign: attr('verticalAlign', { type: 'string', initial: 'top' }),
@@ -37,6 +38,7 @@ export default Base.extend({
   hasFontSize: true,
   hasFontStyle: true,
   hasAlign: true,
-  hasVerticalAlign: true
+  hasVerticalAlign: true,
+  hasPadding: true,
 
 });

@@ -3,6 +3,13 @@ import layout from './template';
 import { style, className, fontLoader } from '../-computed';
 import { readOnly } from '@ember/object/computed';
 
+const px = (value, zoom) => {
+  if(!value) {
+    return;
+  }
+  return `${value * zoom}px`;
+};
+
 export default Component.extend({
   layout,
   classNameBindings: [ 'align', 'verticalAlign', 'fontStyle', 'isLoading:loading:loaded' ],
@@ -27,15 +34,16 @@ export default Component.extend({
 
   text: readOnly('model.text'),
 
-  style: style('model.{fill,color,opacity,fontFamily,fontWeight,fontSize}', 'zoom', function() {
-    let { model: { fill: background, color, opacity, fontFamily, fontWeight, fontSize }, zoom } = this;
+  style: style('model.{fill,color,opacity,fontFamily,fontWeight,fontSize,padding}', 'zoom', function() {
+    let { model: { fill: background, color, opacity, fontFamily, fontWeight, fontSize, padding }, zoom } = this;
     return {
       background,
       opacity,
       color,
       fontWeight,
       fontFamily: `"${fontFamily}"`,
-      fontSize: `${fontSize * zoom}px`,
+      fontSize: px(fontSize, zoom),
+      padding: px(padding, zoom)
     };
   })
 
