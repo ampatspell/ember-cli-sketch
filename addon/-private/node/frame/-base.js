@@ -51,6 +51,18 @@ export default EmberObject.extend({
     return assign({}, frame, this.convertPointFromAbsolute(frame));
   },
 
+  center(props) {
+    props = assign({}, props);
+    let calc = (dim, size) => {
+      if(props[size] && !props[dim]) {
+        props[dim] = this[dim] + ((this[size] - props[size]) / 2);
+      }
+    };
+    calc('y', 'height');
+    calc('x', 'width');
+    return props;
+  },
+
   includesPosition({ x, y }, frameKey) {
     let frame = this[frameKey];
     assert(`frame ${frameKey} not declared for ${this}`, !!frame);

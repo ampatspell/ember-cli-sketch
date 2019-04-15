@@ -108,13 +108,13 @@ export default Tool.extend({
 
   onKeyDown(key) {
     if(key.isShift) {
-      this.node.updateAspect();
+      this.node.updateAspectRatioBasedOnSize();
     }
   },
 
   activate({ node }) {
     if(this.keyboard.isShift) {
-      node.updateAspect();
+      node.updateAspectRatioBasedOnSize();
     }
 
     let edge = node.edge.serialized;

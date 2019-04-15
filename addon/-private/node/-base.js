@@ -105,17 +105,21 @@ export default opts => {
 
     _update(props) {
       assert(`update is required for ${this.model}`, !!this.model.update);
-      let changed = this.attributes.changes(props);
-      if(keys(changed)) {
-        this.model.update(changed);
-      }
+      this.model.update(props);
     },
 
     update(props, opts) {
       let { delta } = assign({ delta: false }, opts);
+
       if(delta) {
         props = this.frame.deltaToFrame(props);
       }
+
+      props = this.attributes.changes(props);
+      if(!keys(props)) {
+        return;
+      }
+
       this._update(props);
     },
 
@@ -231,13 +235,57 @@ export default opts => {
 
     //
 
-    updateAspect() {
+    calculateAspectRatioBasedOnSize() {
       let { width, height } = this.frame.properties;
       if(!width || !height) {
         return;
       }
-      let aspect = height / width;
+      return height / width;
+    },
+
+    updateAspectRatioBasedOnSize() {
+      let aspect = this.calculateAspectRatioBasedOnSize();
+      if(!aspect) {
+        return;
+      }
       this.update({ aspect });
+    },
+
+    calculateSizeBasedOnAspectRatio() {
+      let { aspect } = this;
+
+      if(!aspect) {
+        return;
+      }
+
+      let { width, height } = this.frame.properties;
+
+      let w = () => this.frame.center({ height: width * aspect });
+      let h = () => this.frame.center({ width: height / aspect });
+
+      if(width && height) {
+        if(width < height) {
+          return w();
+        } else {
+          return h();
+        }
+      }
+
+      if(width) {
+        return w();
+      }
+
+      if(height) {
+        return h();
+      }
+    },
+
+    updateSizeBasedOnAspectRatio() {
+      let props = this.calculateSizeBasedOnAspectRatio();
+      if(!props) {
+        return;
+      }
+      this.update(props, { center: true });
     }
 
   });

@@ -80,6 +80,9 @@ export default Component.extend({
     moveDown(node) {
       node.moveDown();
     },
+    updateSizeFromAspect(node) {
+      node.updateSizeBasedOnAspectRatio();
+    },
     toggleContentBackground() {
       let { content, background } = this;
       if(content.visible) {
