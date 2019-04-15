@@ -1,8 +1,22 @@
-import EmberObject from '@ember/object';
+import EmberObject, { computed } from '@ember/object';
 import { array } from '../util/computed';
 import { A } from '@ember/array';
 
 export default EmberObject.extend({
+
+  types: null,
+
+  families: computed('types', function() {
+    let { types } = this;
+    let array = [];
+    for(let key in types) {
+      let hash = types[key];
+      for(let name in hash) {
+        array.push(name);
+      }
+    }
+    return array;
+  }).readOnly(),
 
   _loaders: array(),
 
@@ -20,7 +34,35 @@ export default EmberObject.extend({
     return this._loaders.find(loader => loader.includes(mod, family));
   },
 
+  _normalizeModuleOptions(mod, opts) {
+    let types = this.types[mod];
+    if(!types) {
+      return opts;
+    }
+
+    let families = A(opts.families.map(name => {
+      let value = types[name];
+      if(value === true) {
+        return name;
+      }
+      return `${name}:${value}`;
+    })).compact();
+
+    return {
+      families
+    };
+  },
+
+  _normalizeOptions(opts) {
+    let normalized = {};
+    for(let mod in opts) {
+      normalized[mod] = this._normalizeModuleOptions(mod, opts[mod]);
+    }
+    return normalized;
+  },
+
   loaders(opts) {
+    opts = this._normalizeOptions(opts);
     let loaders = A();
     for(let mod in opts) {
       let families = opts[mod].families;

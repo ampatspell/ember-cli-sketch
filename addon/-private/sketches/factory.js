@@ -138,6 +138,25 @@ export default EmberObject.extend({
     return this._create(`stage/interactions/handlers/${type}`, { handlers });
   },
 
+  fonts(sketches) {
+    return this._create('sketches/fonts', {
+      sketches,
+      types: {
+        google: {
+          'Ubuntu Mono': '400,400i,700,700i',
+          'Pacifico': true,
+          'Montserrat': true,
+          'Bitter': true,
+          'Amatic SC': true,
+          'Chewy': true,
+          'Dokdo': true,
+          'Fredoka One': true,
+          'Raleway': '100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i:latin,latin-ext'
+        }
+      }
+    });
+  },
+
   fontsLoader(fonts, opts) {
     return this._create('sketches/fonts/loader', { fonts, opts });
   },

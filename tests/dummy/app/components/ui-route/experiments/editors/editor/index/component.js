@@ -2,20 +2,11 @@ import Component from '@ember/component';
 import layout from './template';
 import { computed } from '@ember/object';
 import { equal, and } from '@ember/object/computed';
+import sketches from 'ember-cli-sketch/sketches'
 
 const identifier = name => computed(`stage.nodes.@each.identifier`, function() {
   return this.stage.nodes.findBy('identifier', name);
 }).readOnly();
-
-const fonts = Object.freeze([
-  'Ubuntu Mono',
-  'Raleway',
-  'Montserrat',
-  'Bitter',
-  'Amatic SC',
-  'Chewy',
-  'Dokdo'
-]);
 
 export default Component.extend({
   classNameBindings: [ ':ui-route-experiments-editors-editor-index' ],
@@ -27,7 +18,9 @@ export default Component.extend({
     return this.stage;
   }),
 
-  fonts,
+  fonts: computed(function() {
+    return sketches(this).fonts.families;
+  }).readOnly(),
 
   background: identifier('background'),
   content: identifier('content'),
