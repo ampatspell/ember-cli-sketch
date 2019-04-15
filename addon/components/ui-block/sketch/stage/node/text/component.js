@@ -33,8 +33,8 @@ export default Component.extend({
       background,
       opacity,
       color,
-      fontFamily,
       fontWeight,
+      fontFamily: `"${fontFamily}"`,
       fontSize: `${fontSize * zoom}px`,
     };
   })
