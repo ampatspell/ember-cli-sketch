@@ -11,3 +11,11 @@ export const reduce = (hash, fn) => Object.keys(hash || {}).reduce((reduced, key
 export const compact = hash => reduce(hash, (key, value) => value);
 
 export const millimetersToPixels = hash => reduce(hash, (key, value) => _millimetersToPixels(value));
+
+export const pick = (hash, keys) => keys.reduce((reduced, key) => {
+  let value = hash[key];
+  if(value !== undefined) {
+    reduced[key] = value;
+  }
+  return reduced;
+}, {});

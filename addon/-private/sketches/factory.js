@@ -38,8 +38,25 @@ export default EmberObject.extend({
     return this._create(`node/edge`, { node });
   },
 
-  attributes(node) {
-    return this._create(`node/attributes`, { node });
+  attributes(node, opts) {
+    assert(`node is required`, !!node);
+    assert(`opts are required`, !!opts);
+
+    let { identifier, type } = opts;
+    assert(`identifier is required`, !!identifier);
+    assert(`type is required`, !!type);
+
+    let owner = getOwner(this);
+    let fullName = `sketch:node/${identifier}/${type}/attributes`;
+    let factory = owner.factoryFor(fullName);
+    if(!factory) {
+      factory = owner.factoryFor(`sketch:factory/attributes`);
+      factory = factory.class;
+      owner.register(fullName, factory({ modelClass: node.model.constructor }));
+      factory = owner.factoryFor(fullName);
+    }
+
+    return factory.create({ node });
   },
 
   attribute(attributes, type, opts) {
