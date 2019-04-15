@@ -1,6 +1,6 @@
 import EmberObject, { computed } from '@ember/object';
 import loadFonts from '../../util/load-fonts';
-import { reject } from 'rsvp';
+import { resolve, reject } from 'rsvp';
 import safe from '../../util/safe';
 
 export default EmberObject.extend({
@@ -13,6 +13,11 @@ export default EmberObject.extend({
   isLoaded: false,
   isError: false,
   error: null,
+
+  init() {
+    this._super(...arguments);
+    this._previous = this.fonts._loaders.lastObject;
+  },
 
   includes(mod, family) {
     mod = this.opts[mod];
@@ -44,9 +49,20 @@ export default EmberObject.extend({
     });
   }),
 
+  // https://github.com/typekit/webfontloader/issues/345
+  __loadPrevious() {
+    let previous = this._previous;
+    if(!previous) {
+      return resolve();
+    }
+    return previous.promise.then(() => {}, () => {});
+  },
+
   __load() {
-    let { opts } = this;
-    return loadFonts(opts);
+    return this.__loadPrevious().then(() => {
+      let { opts } = this;
+      return loadFonts(opts);
+    });
   },
 
   _load() {
