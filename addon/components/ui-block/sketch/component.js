@@ -69,7 +69,7 @@ export default Component.extend(EventsMixin, {
   didInsertElement() {
     this._super(...arguments);
     this.notifyReady(this.stage);
-    this._scheduleUpdatePromisesResolved();
+    this._scheduleUpdateIsReady();
   },
 
   notifyReady(stage) {
@@ -102,41 +102,44 @@ export default Component.extend(EventsMixin, {
   //
 
   _promises: array(),
-  _promisesResolved: false,
-  _isReady: and('stage', '_promisesResolved'),
+  _isReady: false,
 
-  _cancelSchedulePromisesResolved() {
-    cancel(this.__updatePromisesResolved);
+  _cancelScheduleIsReady() {
+    cancel(this.__updateIsReady);
+    cancel(this.__updateIsReadyActions);
   },
 
-  _updatePromisesResolved: safe(function() {
-    let _promisesResolved = this._promises.length === 0;
-    if(this._promisesResolved === _promisesResolved) {
+  _updateIsReady: safe(function() {
+    let resolved = this._promises.length === 0;
+    let stage = this.stage;
+    let _isReady = resolved && stage;
+    if(this._isReady === _isReady) {
       return;
     }
-    this.setProperties({ _promisesResolved });
+    this.setProperties({ _isReady });
   }),
 
-  _scheduleUpdatePromisesResolved() {
-    this._cancelSchedulePromisesResolved();
-    this.__updatePromisesResolved = schedule('afterRender', () => {
+  _scheduleUpdateIsReady() {
+    this._cancelScheduleIsReady();
+    this.__updateIsReady = schedule('afterRender', () => {
       if(this.isDestroying) {
         return;
       }
-      schedule('actions', () => this._updatePromisesResolved());
+      cancel(this.__updateIsReadyActions);
+      this.__updateIsReadyActions = schedule('actions', () => this._updateIsReady());
     });
   },
 
   registerRenderPromise(promise) {
-    this._cancelSchedulePromisesResolved();
+    this._cancelScheduleIsReady();
     this._promises.pushObject(promise);
-    this._updatePromisesResolved();
+    this._updateIsReady();
     resolve(promise).then(() => {}, () => {}).finally(() => {
       if(this.isDestroying) {
         return;
       }
       this._promises.removeObject(promise);
-      this._scheduleUpdatePromisesResolved();
+      this._scheduleUpdateIsReady();
     });
   }
 
