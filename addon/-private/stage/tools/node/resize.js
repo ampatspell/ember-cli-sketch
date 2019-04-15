@@ -7,10 +7,14 @@ export default Tool.extend({
   node: null,
   edge: null,
 
-  aspect: computed('keyboard.isShift', 'node.{aspect,attributes.aspect.locked}', function() {
+  free: computed('keyboard.isShift', 'node.attributes.aspect.locked', function() {
     let locked = !!this.get('node.attributes.aspect.locked');
     let shift = this.get('keyboard.isShift');
-    if(locked === shift) {
+    return locked === shift;
+  }).readOnly(),
+
+  aspect: computed('free', 'node.aspect', function() {
+    if(this.free) {
       return;
     }
     return this.node.aspect;
@@ -105,20 +109,20 @@ export default Tool.extend({
   },
 
   onKeyDown(key) {
-    if(key.isShift) {
+    if(!this.free) {
       this.node.updateAspectRatioBasedOnSize();
     }
   },
 
   activate({ node }) {
-    if(this.keyboard.isShift) {
-      node.updateAspectRatioBasedOnSize();
-    }
-
     let edge = node.edge.serialized;
     this.setProperties({ node, edge });
     this.selection.removeExcept(node);
     node.isContainer && node.moveToTop();
+
+    if(!this.free) {
+      node.updateAspectRatioBasedOnSize();
+    }
   },
 
   deactivate() {
