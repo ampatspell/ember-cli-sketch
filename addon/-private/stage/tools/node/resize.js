@@ -7,15 +7,13 @@ export default Tool.extend({
   node: null,
   edge: null,
 
-  aspect: computed('keyboard.isShift', 'node.aspect', function() {
-    if(!this.keyboard.isShift) {
+  aspect: computed('keyboard.isShift', 'node.{aspect,attributes.aspect.locked}', function() {
+    let locked = !!this.get('node.attributes.aspect.locked');
+    let shift = this.get('keyboard.isShift');
+    if(locked === shift) {
       return;
     }
-    let node = this.node;
-    if(!node) {
-      return;
-    }
-    return node.aspect;
+    return this.node.aspect;
   }).readOnly(),
 
   update(delta) {

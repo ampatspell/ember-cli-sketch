@@ -4,6 +4,7 @@ import { assert } from '@ember/debug';
 import { assign } from '@ember/polyfills';
 import { frame } from './frame/-base';
 import { factory as _factory } from '../util/computed';
+import { pick } from '../util/object';
 
 export {
   frame
@@ -13,10 +14,9 @@ const {
   keys
 } = Object;
 
-const factory = name => () => _factory((factory, node) => factory[name].call(factory, node));
+const factory = (name, opts) => () => _factory((factory, node) => factory[name].call(factory, node, opts));
 
 const nodes = factory('nodes');
-const attributes = factory('attributes');
 const edge = factory('edge');
 
 const parent = (prop, key) => computed(`parent.{${prop},${key}}`, function() {
@@ -47,6 +47,8 @@ const included = arrayKey => computed(`${arrayKey}.[]`, function() {
 }).readOnly();
 
 export default opts => {
+
+  const attributes = factory('attributes', pick(opts, [ 'identifier', 'type' ]));
 
   const value = (key, defaultValue) => {
     let path = `model.${opts.properties[key]}`;

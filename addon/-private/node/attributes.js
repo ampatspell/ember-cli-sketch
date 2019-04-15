@@ -5,10 +5,12 @@ import { assert } from '@ember/debug';
 import { factory } from '../util/computed';
 import { __sketch_attribute__ } from '../computed/attr';
 
+const isAttribute = meta => meta[__sketch_attribute__] === true;
+
 const definitions = () => computed(function() {
   let definitions = [];
   this.model.constructor.eachComputedProperty((key, meta) => {
-    if(meta[__sketch_attribute__] !== true) {
+    if(!isAttribute(meta)) {
       return;
     }
     definitions.push(assign({ key }, meta.opts));
@@ -29,50 +31,63 @@ const attribute = fn => function(name, ...args) {
   return fn(this.attribute(name, true), ...args);
 }
 
-export default EmberObject.extend({
+export default ({ modelClass }) => {
 
-  node: null,
-  model: readOnly('node.model'),
+  let attrs = {};
+  modelClass.eachComputedProperty((key, meta) => {
+    if(!isAttribute(meta)) {
+      return;
+    }
+    attrs[key] = computed(function() {
+      return this.attribute(key, true);
+    }).readOnly();
+  });
 
-  definitions: definitions(),
-  attributes: attributes(),
+  return EmberObject.extend(assign(attrs, {
 
-  attribute(key, required=true, requiredType) {
-    let attribute = this.attributes[key];
-    assert(`attribute '${key}' not defined for ${this.model}`, attribute || !required);
-    assert(`attribute ${key} must be ${requiredType} not ${attribute.type}`, !requiredType || attribute.type === requiredType);
-    return attribute;
-  },
+    node: null,
+    model: readOnly('node.model'),
 
-  getValue(key) {
-    return this.attribute(key).getValue();
-  },
+    definitions: definitions(),
+    attributes: attributes(),
 
-  setValue(key, value) {
-    return this.attribute(key).setValue(value);
-  },
+    attribute(key, required=true, requiredType) {
+      let attribute = this.attributes[key];
+      assert(`attribute '${key}' not defined for ${this.model}`, attribute || !required);
+      assert(`attribute ${key} must be ${requiredType} not ${attribute.type}`, !requiredType || attribute.type === requiredType);
+      return attribute;
+    },
 
-  changes(props) {
-    let { model } = this;
-    let result = {};
-    for(let key in props) {
-      let value = props[key];
-      let attribute = this.attribute(key, false);
-      if(attribute) {
-        let { changed, transformed } = attribute.isChanged(value);
-        if(changed) {
-          result[key] = transformed;
-        }
-      } else {
-        if(model[key] !== value) {
-          result[key] = value;
+    getValue(key) {
+      return this.attribute(key).getValue();
+    },
+
+    setValue(key, value) {
+      return this.attribute(key).setValue(value);
+    },
+
+    changes(props) {
+      let { model } = this;
+      let result = {};
+      for(let key in props) {
+        let value = props[key];
+        let attribute = this.attribute(key, false);
+        if(attribute) {
+          let { changed, transformed } = attribute.isChanged(value);
+          if(changed) {
+            result[key] = transformed;
+          }
+        } else {
+          if(model[key] !== value) {
+            result[key] = value;
+          }
         }
       }
-    }
-    return result;
-  },
+      return result;
+    },
 
-  clamp:      attribute((attribute, value) => attribute.clamp(value)),
-  clampDelta: attribute((attribute, delta) => attribute.clampDelta(delta))
+    clamp:      attribute((attribute, value) => attribute.clamp(value)),
+    clampDelta: attribute((attribute, delta) => attribute.clampDelta(delta))
 
-});
+  }));
+};

@@ -47,7 +47,7 @@ export default {
   initialize(container) {
     container.register('sketch:sketches', Sketches);
     container.register('sketch:sketches/factory', Factory);
-    container.register('sketch:node/attributes', Attributes);
+    container.register('sketch:factory/attributes', Attributes);
     container.register('sketch:node/attribute/noop', AttributeNoop);
     container.register('sketch:node/attribute/number', AttributeNumber);
     container.register('sketch:node/attribute/string', AttributeString);
