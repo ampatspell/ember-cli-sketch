@@ -122,7 +122,7 @@ export default Component.extend(EventsMixin, {
       if(this.isDestroying) {
         return;
       }
-      this._updatePromisesResolved();
+      schedule('actions', () => this._updatePromisesResolved());
     });
   },
 
