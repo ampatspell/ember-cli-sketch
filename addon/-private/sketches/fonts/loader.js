@@ -8,7 +8,6 @@ export default EmberObject.extend({
   fonts: null,
   opts: null,
 
-  promise: null,
   isLoading: true,
   isLoaded: false,
   isError: false,

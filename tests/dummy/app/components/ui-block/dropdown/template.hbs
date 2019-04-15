@@ -1,7 +1,7 @@
 <div class="selected">
   {{yield (hash
     item=selected
-    component=(component 'ui-block/dropdown/item' item=item selected=true select=(action 'toggle'))
+    component=(component "ui-block/dropdown/item" item=item selected=true select=(action "toggle"))
     selected=true
   )}}
 </div>
@@ -11,7 +11,7 @@
     {{#each items as |item|}}
       {{yield (hash
         item=item
-        component=(component 'ui-block/dropdown/item' item=item selected=(eq item selected) select=(action 'select' item))
+        component=(component "ui-block/dropdown/item" item=item selected=(eq item selected) select=(action "select" item))
         selected=(eq item selected)
       )}}
     {{/each}}
