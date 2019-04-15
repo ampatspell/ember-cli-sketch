@@ -8,6 +8,8 @@ module.exports = {
   name: pkg.name,
   included() {
     this._super.apply(this, arguments);
+    this.app.import('node_modules/webfontloader/webfontloader.js');
+    this.app.import('vendor/ember-cli-sketch/webfontloader-shim.js');
     this.app.import('vendor/ember-cli-sketch/versions.js');
   },
   treeForVendor(vendorTree) {

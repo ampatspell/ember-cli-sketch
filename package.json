@@ -27,12 +27,13 @@
     "minor": "npm version minor; npm run tags"
   },
   "dependencies": {
+    "broccoli-file-creator": "^2.1.1",
+    "broccoli-merge-trees": "^3.0.2",
     "ember-cli-babel": "^7.1.2",
     "ember-cli-htmlbars": "^3.0.0",
     "ember-cli-sass": "^10.0.0",
     "sass": "^1.17.3",
-    "broccoli-file-creator": "^2.1.1",
-    "broccoli-merge-trees": "^3.0.2"
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
     "@ember/optional-features": "^0.6.3",
