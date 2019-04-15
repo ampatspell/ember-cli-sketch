@@ -1,0 +1,57 @@
+.ui-block-dropdown {
+
+  $color: #000;
+
+  @mixin container($fade) {
+    border: 1px solid #eee;
+    background: #fff;
+    border-radius: 4px;
+    padding: 1px;
+  }
+
+  width: 100%;
+  position: relative;
+
+  > .selected {
+    @include container(0.8);
+  }
+
+  > .dropdown {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    @include container(0.6);
+    box-shadow: 0 1px 3px fade-out(#000, 0.8);
+  }
+
+  .ui-block-dropdown-item {
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 0 1px 0;
+    color: $color;
+    > .value {
+      line-height: 1;
+      font-size: 16px;
+      padding: 4px 7px;
+    }
+    &:hover {
+      background: fade-out($color, 0.95);
+    }
+    &.selected {
+      color: #fff;
+      background: $color;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  > .selected {
+    > .ui-block-dropdown-item {
+      background: #fff;
+      color: #000;
+    }
+  }
+}
