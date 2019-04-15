@@ -1,13 +1,7 @@
 import EmberObject, { computed } from '@ember/object';
 import loadFonts from '../../util/load-fonts';
 import { reject } from 'rsvp';
-
-const safe = fn => function(...args) {
-  if(this.isDestroying) {
-    return;
-  }
-  return fn.call(this, ...args);
-};
+import safe from '../../util/safe';
 
 export default EmberObject.extend({
 
