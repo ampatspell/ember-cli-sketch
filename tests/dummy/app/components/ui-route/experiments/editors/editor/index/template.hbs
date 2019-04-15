@@ -219,7 +219,9 @@
 
         {{#if node.model.hasFontFamily}}
           <div class="label">font family:</div>
-          {{ui-block/input value=node.model.fontFamily update=(action "updateNodeProperty" node "fontFamily")}}
+          {{#ui-block/dropdown items=fonts selected=node.model.fontFamily select=(action "updateNodeProperty" node "fontFamily") as |hash|}}
+            {{hash.component value=hash.item}}
+          {{/ui-block/dropdown}}
         {{/if}}
 
         {{#if node.model.hasFontWeight}}
