@@ -119,7 +119,6 @@ export default Tool.extend({
     this.setProperties({ node, edge });
     this.selection.removeExcept(node);
     node.isContainer && node.moveToTop();
-
     if(!this.free) {
       node.updateAspectRatioBasedOnSize();
     }
