@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-sketch",
-  "version": "0.1.35",
+  "version": "0.1.36",
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [
     "ember-addon"
