@@ -20,7 +20,7 @@ export const width = opts => size('width', opts);
 export const height = opts => size('height', opts);
 
 export const rotation = opts => attr('rotation', assign({ type: 'number', min: -360, max: 360, decimals: 2 }, opts));
-export const aspect = opts => attr('aspect', assign({ type: 'number', min: 0, decimals: 3, initial: 2/3 }, opts));
+export const aspect = opts => attr('aspect', assign({ type: 'number', min: 0, decimals: 3 }, opts));
 export const visible = () => attr('visible', { type: 'boolean', initial: true });
 export const selectable = () => attr('selectable', { type: 'boolean', initial: true });
 
