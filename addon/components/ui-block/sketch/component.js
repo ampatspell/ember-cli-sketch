@@ -7,6 +7,7 @@ import { style, className } from './-computed';
 import { array } from '../../../-private/util/computed';
 import { schedule, cancel } from '@ember/runloop';
 import { Promise, resolve } from 'rsvp';
+import safe from '../../../-private/util/safe';
 
 const isSketchComponent = '__isSketchComponent';
 
@@ -108,13 +109,13 @@ export default Component.extend(EventsMixin, {
     cancel(this.__updatePromisesResolved);
   },
 
-  _updatePromisesResolved() {
+  _updatePromisesResolved: safe(function() {
     let _promisesResolved = this._promises.length === 0;
     if(this._promisesResolved === _promisesResolved) {
       return;
     }
     this.setProperties({ _promisesResolved });
-  },
+  }),
 
   _scheduleUpdatePromisesResolved() {
     this._cancelSchedulePromisesResolved();
@@ -122,7 +123,7 @@ export default Component.extend(EventsMixin, {
       if(this.isDestroying) {
         return;
       }
-      this._updatePromisesResolved();
+      schedule('actions', () => this._updatePromisesResolved());
     });
   },
 

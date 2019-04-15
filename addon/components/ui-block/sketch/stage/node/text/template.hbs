@@ -1,1 +1,7 @@
 <div class="text">{{text}}</div>
+{{#if isLoading}}
+  <div class="overlay">
+    <div class="label">Loading font…</div>
+  </div>
+{{/if}}
+{{ui-block/sketch/stage/node/accessories/deferred promise=loader.promise}}

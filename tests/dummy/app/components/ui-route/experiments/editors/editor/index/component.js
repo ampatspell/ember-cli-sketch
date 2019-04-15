@@ -7,6 +7,16 @@ const identifier = name => computed(`stage.nodes.@each.identifier`, function() {
   return this.stage.nodes.findBy('identifier', name);
 }).readOnly();
 
+const fonts = Object.freeze([
+  'Ubuntu Mono',
+  'Raleway',
+  'Montserrat',
+  'Bitter',
+  'Amatic SC',
+  'Chewy',
+  'Dokdo'
+]);
+
 export default Component.extend({
   classNameBindings: [ ':ui-route-experiments-editors-editor-index' ],
   layout,
@@ -16,6 +26,8 @@ export default Component.extend({
   attached: computed(function() {
     return this.stage;
   }),
+
+  fonts,
 
   background: identifier('background'),
   content: identifier('content'),
