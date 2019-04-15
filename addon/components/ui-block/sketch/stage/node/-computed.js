@@ -1,9 +1,10 @@
-import { style as _style, className, imagePromise } from '../../-computed';
+import { style as _style, className, imagePromise, fontLoader } from '../../-computed';
 import { typeOf } from '@ember/utils';
 
 export {
   className,
-  imagePromise
+  imagePromise,
+  fontLoader
 };
 
 export const style = (...deps) => {

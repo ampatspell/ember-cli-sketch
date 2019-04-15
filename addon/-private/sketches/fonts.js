@@ -6,14 +6,9 @@ export default EmberObject.extend({
 
   _loaders: array(),
 
-  _load(loader) {
-    loader.load().then(() => {}, () => {});
-  },
-
   _createLoader(opts) {
     let loader = this.sketches.factory.fontsLoader(this, opts);
     this._loaders.pushObject(loader);
-    this._load(loader);
     return loader;
   },
 

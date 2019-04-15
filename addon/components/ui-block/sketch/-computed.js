@@ -3,6 +3,7 @@ import { typeOf } from '@ember/utils';
 import { htmlSafe, dasherize } from '@ember/string';
 import { assign } from '@ember/polyfills';
 import loadImage from '../../../-private/util/load-image';
+import sketches from '../../../-private/util/sketches';
 
 const normalizeInset = inset => {
   if(typeof inset !== 'object') {
@@ -110,3 +111,14 @@ export const imagePromise = urlKey => computed(urlKey, function() {
   }
   return loadImage(url);
 }).readOnly();
+
+export const fontLoader = (...deps) => {
+  let fn = deps.pop();
+  return computed(...deps, function() {
+    let opts = fn.call(this, this);
+    if(!opts) {
+      return;
+    }
+    return sketches(this).fonts.loader(opts);
+  }).readOnly();
+}

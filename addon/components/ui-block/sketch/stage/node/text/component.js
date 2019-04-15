@@ -1,11 +1,25 @@
 import Component from '../-component';
 import layout from './template';
-import { style, className } from '../-computed';
+import { style, className, fontLoader } from '../-computed';
 import { readOnly } from '@ember/object/computed';
 
 export default Component.extend({
   layout,
-  classNameBindings: [ 'align', 'verticalAlign', 'fontStyle' ],
+  classNameBindings: [ 'align', 'verticalAlign', 'fontStyle', 'isLoading:loading:loaded' ],
+
+  loader: fontLoader('model.fontFamily', function() {
+    let { model: { fontFamily } } = this;
+    if(!fontFamily) {
+      return;
+    }
+    return {
+      google: {
+        families: [ fontFamily ]
+      }
+    };
+  }),
+
+  isLoading: readOnly('loader.isLoading'),
 
   align:         className('model.align', 'align'),
   verticalAlign: className('model.verticalAlign', 'vertical'),

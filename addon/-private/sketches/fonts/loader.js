@@ -1,4 +1,4 @@
-import EmberObject from '@ember/object';
+import EmberObject, { computed } from '@ember/object';
 import loadFonts from '../../util/load-fonts';
 import { reject } from 'rsvp';
 
@@ -14,6 +14,7 @@ export default EmberObject.extend({
   fonts: null,
   opts: null,
 
+  promise: null,
   isLoading: true,
   isLoaded: false,
   isError: false,
@@ -49,20 +50,24 @@ export default EmberObject.extend({
     });
   }),
 
-  _load() {
+  __load() {
     let { opts } = this;
     return loadFonts(opts);
   },
 
-  load() {
+  _load() {
     this.onLoad();
-    return this._load().then(() => {
+    return this.__load().then(() => {
       this.onLoaded();
       return this;
     }, err => {
       this.onError(err);
       return reject(err);
     });
-  }
+  },
+
+  promise: computed(function() {
+    return this._load();
+  }).readOnly(),
 
 });
