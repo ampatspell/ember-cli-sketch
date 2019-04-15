@@ -109,6 +109,9 @@ export default Component.extend(EventsMixin, {
   },
 
   _updatePromisesResolved() {
+    if(this.isDestroying) {
+      return;
+    }
     let _promisesResolved = this._promises.length === 0;
     if(this._promisesResolved === _promisesResolved) {
       return;
