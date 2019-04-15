@@ -1,6 +1,7 @@
 import Sketches from 'ember-cli-sketch/-private/sketches';
 import Factory from 'ember-cli-sketch/-private/sketches/factory';
 import Fonts from 'ember-cli-sketch/-private/sketches/fonts';
+import FontsLoader from 'ember-cli-sketch/-private/sketches/fonts/loader';
 
 import Attributes from 'ember-cli-sketch/-private/node/attributes';
 import AttributeNoop from 'ember-cli-sketch/-private/node/attributes/attribute/noop';
@@ -49,6 +50,7 @@ export default {
     container.register('sketch:sketches', Sketches);
     container.register('sketch:sketches/factory', Factory);
     container.register('sketch:sketches/fonts', Fonts);
+    container.register('sketch:sketches/fonts/loader', FontsLoader);
     container.register('sketch:factory/attributes', Attributes);
     container.register('sketch:node/attribute/noop', AttributeNoop);
     container.register('sketch:node/attribute/number', AttributeNumber);

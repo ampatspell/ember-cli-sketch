@@ -136,6 +136,10 @@ export default EmberObject.extend({
 
   interactionHandler(type, handlers) {
     return this._create(`stage/interactions/handlers/${type}`, { handlers });
-  }
+  },
+
+  fontsLoader(fonts, opts) {
+    return this._create('sketches/fonts/loader', { fonts, opts });
+  },
 
 });
