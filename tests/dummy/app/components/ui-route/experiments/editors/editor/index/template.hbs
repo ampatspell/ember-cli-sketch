@@ -95,9 +95,9 @@
   </div>
 
   <div class="block">
-    <div class="title" role="button" {{action "performInteraction" stage.node "zoom" 1}}>Zoom: {{stage.zoom}}</div>
+    <div class="title" role="button" {{action "performActionValue" stage.node "zoom" 1}}>Zoom: {{stage.zoom}}</div>
     <div class="actions">
-      {{ui-block/slider min=0 max=10 step=0.01 value=stage.zoom update=(action "performInteraction" stage.node "zoom")}}
+      {{ui-block/slider min=0 max=10 step=0.01 value=stage.zoom update=(action "performActionValue" stage.node "zoom")}}
     </div>
   </div>
 

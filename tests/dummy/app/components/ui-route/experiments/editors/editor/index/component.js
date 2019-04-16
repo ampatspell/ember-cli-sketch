@@ -64,8 +64,8 @@ export default Component.extend({
     updateStageProperty(prop, value) {
       this.stage.node.update({ [prop]: value }, { interaction: true });
     },
-    performInteraction(node, name, ...args) {
-      console.log(node+'', name, args);
+    performActionValue(node, name, value) {
+      node.perform(name, { value });
     },
     resetPosition() {
       this.stage.node.update({ x: 0, y: 0 });
