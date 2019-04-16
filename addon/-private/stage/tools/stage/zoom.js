@@ -1,6 +1,5 @@
 import Tool from '../-base';
 import { computed } from '@ember/object';
-import { round } from '../../../util/math';
 
 export default Tool.extend({
 
@@ -11,18 +10,14 @@ export default Tool.extend({
   }).readOnly(),
 
   update({ delta }) {
+    delta = this.stage.attributes.clampDelta('zoom', delta);
+
     if(delta === 0) {
       return;
     }
 
-    delta = round(delta, 2);
-
     let prev = this.zoom;
     let zoom = prev + delta;
-
-    if(zoom <= 0) {
-      return;
-    }
 
     this.set('delta', delta);
 
