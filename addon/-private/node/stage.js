@@ -8,6 +8,8 @@ const model = name => factory((factory, stage) => factory[name].call(factory, st
 
 export default opts => create(opts).extend(CenterFitMixin, {
 
+  type: 'stage',
+
   isStage: true,
   isContainer: true,
   isAttached: true,

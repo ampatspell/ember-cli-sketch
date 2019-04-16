@@ -62,10 +62,13 @@ export default Component.extend({
       this.stage.node.tools.activate('node/add', { model, delegate });
     },
     updateStageProperty(prop, value) {
-      this.stage.update({ [prop]: value });
+      this.stage.node.update({ [prop]: value }, { interaction: true });
+    },
+    performActionValue(node, name, value) {
+      node.perform(name, { value });
     },
     resetPosition() {
-      this.stage.update({ x: 0, y: 0 });
+      this.stage.node.update({ x: 0, y: 0 });
     },
     updateNodeProperty(node, key, value) {
       node.update({ [key]: value });

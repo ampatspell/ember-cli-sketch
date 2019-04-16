@@ -163,6 +163,19 @@ export default EmberObject.extend({
 
   fontLoaderCompound(fonts, loaders) {
     return this._create('sketches/fonts/loader/compound', { fonts, loaders });
+  },
+
+  actions(sketches) {
+    return this._create('sketches/actions', {
+      sketches,
+      types: [
+        'stage/zoom'
+      ]
+    });
+  },
+
+  action(actions, type) {
+    return this._create(`actions/${type}`, { type, actions });
   }
 
 });

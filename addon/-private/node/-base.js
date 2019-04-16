@@ -118,11 +118,16 @@ export default opts => {
       }
 
       props = this.attributes.changes(props);
+
       if(!keys(props)) {
         return;
       }
 
       this._update(props);
+    },
+
+    perform(name, ...args) {
+      return this.sketches.actions.perform(name, this, ...args);
     },
 
     hide() {
