@@ -118,6 +118,7 @@ export default opts => {
       }
 
       props = this.attributes.changes(props);
+
       if(!keys(props)) {
         return;
       }
