@@ -35,7 +35,7 @@ export default Component.extend({
       }
     },
     ready(stage) {
-      stage.node.fit({ offset: 0, zoom: 1 });
+      stage.node.fit({ offset: 20, zoom: 3 });
     },
     center(type) {
       this.stage.node.center({ type });

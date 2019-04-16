@@ -1,5 +1,6 @@
 import Tool from '../-base';
 import { computed } from '@ember/object';
+import { round } from '../../../util/math';
 
 export default Tool.extend({
 
@@ -14,23 +15,29 @@ export default Tool.extend({
       return;
     }
 
-    this.set('delta', delta);
+    delta = round(delta, 2);
 
     let prev = this.zoom;
     let zoom = prev + delta;
 
-    let point = this.mouse.absolute;
+    if(zoom <= 0) {
+      return;
+    }
+
+    this.set('delta', delta);
+
+    let size = this.stage.renderer.size;
     let props = this.stage.frame.properties;
 
-    let calc = p => {
-      let a = point[p] / prev;
-      let b = point[p] / zoom;
-      let c = (a - b) * zoom;
-      return props[p] - c;
+    let calc = (d, s) => {
+      let point = size[s] / 2;
+      let p = point / prev;
+      let n = point / zoom;
+      return props[d] - (p - n);
     };
 
-    let x = calc('x');
-    let y = calc('y');
+    let x = calc('x', 'width');
+    let y = calc('y', 'height');
 
     this.stage.update({ zoom, x, y });
   },
@@ -55,7 +62,7 @@ export default Tool.extend({
     if(!this.state) {
       return;
     }
-    this.update({ delta: delta.y / 500 });
+    this.update({ delta: delta.y / 200 });
   },
 
   onMouseWheel({ value }) {
