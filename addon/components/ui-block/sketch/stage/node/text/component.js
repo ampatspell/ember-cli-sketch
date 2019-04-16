@@ -8,7 +8,7 @@ const px = (value, zoom) => {
   if(!value) {
     return;
   }
-  value = round(value * zoom, 1);
+  value = round(value * zoom, 4);
   return `${value}px`;
 };
 
