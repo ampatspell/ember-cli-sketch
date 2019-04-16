@@ -33,7 +33,8 @@ export default Tool.extend({
       let point = size[s] / 2;
       let p = point / prev;
       let n = point / zoom;
-      return props[d] - (p - n);
+      let v = p - n;
+      return props[d] - v;
     };
 
     let x = calc('x', 'width');
