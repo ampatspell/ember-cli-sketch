@@ -16,21 +16,17 @@ export default Tool.extend({
 
     this.set('delta', delta);
 
-    let zoom = this.state.zoom + delta;
-    this.state.zoom = zoom;
-    // TODO: center
+    let prev = this.zoom;
+    let zoom = prev + delta;
+
     this.stage.update({ zoom });
   },
 
   begin() {
-    this.state = {
-      point: this.mouse.absolute,
-      zoom: this.stage.zoom
-    };
   },
 
   reset() {
-    this.setProperties({ state: null, delta: null });
+    this.setProperties({ delta: null });
   },
 
   onMouseDown() {
