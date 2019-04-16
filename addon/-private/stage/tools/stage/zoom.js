@@ -19,14 +19,28 @@ export default Tool.extend({
     let prev = this.zoom;
     let zoom = prev + delta;
 
-    this.stage.update({ zoom });
+    let point = this.mouse.absolute;
+    let props = this.stage.frame.properties;
+
+    let calc = p => {
+      let a = point[p] / prev;
+      let b = point[p] / zoom;
+      let c = (a - b) * zoom;
+      return props[p] - c;
+    };
+
+    let x = calc('x');
+    let y = calc('y');
+
+    this.stage.update({ zoom, x, y });
   },
 
   begin() {
+    this.state = {};
   },
 
   reset() {
-    this.setProperties({ delta: null });
+    this.setProperties({ state: null, delta: null });
   },
 
   onMouseDown() {
