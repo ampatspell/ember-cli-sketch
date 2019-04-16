@@ -4,6 +4,9 @@ import Fonts from 'ember-cli-sketch/-private/sketches/fonts';
 import FontsLoader from 'ember-cli-sketch/-private/sketches/fonts/loader';
 import FontsLoaderCompound from 'ember-cli-sketch/-private/sketches/fonts/loader/compound';
 
+import Actions from 'ember-cli-sketch/-private/sketches/actions';
+import ActionStageZoom from 'ember-cli-sketch/-private/actions/stage/zoom';
+
 import Attributes from 'ember-cli-sketch/-private/node/attributes';
 import AttributeNoop from 'ember-cli-sketch/-private/node/attributes/attribute/noop';
 import AttributeNumber from 'ember-cli-sketch/-private/node/attributes/attribute/number';
@@ -53,6 +56,8 @@ export default {
     container.register('sketch:sketches/fonts', Fonts);
     container.register('sketch:sketches/fonts/loader', FontsLoader);
     container.register('sketch:sketches/fonts/loader/compound', FontsLoaderCompound);
+    container.register('sketch:sketches/actions', Actions);
+    container.register('sketch:actions/stage/zoom', ActionStageZoom);
     container.register('sketch:factory/attributes', Attributes);
     container.register('sketch:node/attribute/noop', AttributeNoop);
     container.register('sketch:node/attribute/number', AttributeNumber);

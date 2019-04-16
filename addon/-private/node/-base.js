@@ -126,6 +126,10 @@ export default opts => {
       this._update(props);
     },
 
+    perform(name, ...args) {
+      return this.sketches.actions.perform(name, this, ...args);
+    },
+
     hide() {
       this.update({ visible: false });
     },

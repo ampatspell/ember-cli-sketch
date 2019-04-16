@@ -10,40 +10,15 @@ export default Tool.extend({
   }).readOnly(),
 
   update({ delta }) {
-    delta = this.stage.attributes.clampDelta('zoom', delta);
-
-    if(delta === 0) {
-      return;
-    }
-
-    let prev = this.zoom;
-    let zoom = prev + delta;
-
-    this.set('delta', delta);
-
-    let size = this.stage.renderer.size;
-    let props = this.stage.frame.properties;
-
-    let calc = (d, s) => {
-      let point = size[s] / 2;
-      let p = point / prev;
-      let n = point / zoom;
-      let v = p - n;
-      return props[d] - v;
-    };
-
-    let x = calc('x', 'width');
-    let y = calc('y', 'height');
-
-    this.stage.update({ zoom, x, y });
+    this.stage.perform('zoom', { delta });
   },
 
   begin() {
-    this.state = {};
+    this.down = true;
   },
 
   reset() {
-    this.setProperties({ state: null, delta: null });
+    this.setProperties({ down: false, delta: null });
   },
 
   onMouseDown() {
@@ -55,7 +30,7 @@ export default Tool.extend({
   },
 
   onMouseMove({ delta }) {
-    if(!this.state) {
+    if(!this.down) {
       return;
     }
     this.update({ delta: delta.y / 200 });
