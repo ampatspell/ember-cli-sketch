@@ -2,12 +2,14 @@ import Component from '../-component';
 import layout from './template';
 import { style, className, fontLoader } from '../-computed';
 import { readOnly } from '@ember/object/computed';
+import { round } from '../../../../../../-private/util/math';
 
 const px = (value, zoom) => {
   if(!value) {
     return;
   }
-  return `${value * zoom}px`;
+  value = round(value * zoom, 1);
+  return `${value}px`;
 };
 
 export default Component.extend({
