@@ -169,7 +169,10 @@ export default EmberObject.extend({
     return this._create('sketches/actions', {
       sketches,
       types: [
-        'stage/zoom'
+        'stage/zoom',
+        'stage/reset',
+        'stage/center',
+        'stage/fit'
       ]
     });
   },

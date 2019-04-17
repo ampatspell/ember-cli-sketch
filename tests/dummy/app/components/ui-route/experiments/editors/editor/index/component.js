@@ -35,13 +35,13 @@ export default Component.extend({
       }
     },
     ready(stage) {
-      stage.node.fit({ offset: 20, zoom: 3 });
+      stage.node.perform('fit', { offset: 20, zoom: 3 });
     },
     center(type) {
-      this.stage.node.center({ type });
+      this.stage.node.perform('center', { type });
     },
     fit(type) {
-      this.stage.node.fit({ offset: 15, type, zoom: 3 });
+      this.stage.node.perform('fit', { offset: 15, type, zoom: 3 });
     },
     setGlobal(key, value){
       setGlobal({ [key]: value });
@@ -67,8 +67,8 @@ export default Component.extend({
     performActionValue(node, name, value) {
       node.perform(name, { value });
     },
-    resetPosition() {
-      this.stage.node.update({ x: 0, y: 0 });
+    performAction(node, name) {
+      node.perform(name);
     },
     updateNodeProperty(node, key, value) {
       node.update({ [key]: value });
