@@ -5,7 +5,7 @@ import ShowMixin from '../../-show-mixin';
 
 export default Component.extend(ShowMixin, {
   layout,
-  classNameBindings: [ ':ui-block-sketch-hovers-hover' ],
+  classNameBindings: [ ':ui-block-sketch-stage-hovers-hover' ],
   attributeBindings: [ 'style' ],
 
   frame: frame('model', 'hover', { inset: -1, index: false }),

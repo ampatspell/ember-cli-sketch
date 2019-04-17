@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { frame, style } from '../../-computed';
+import { frame, style } from '../-computed';
 import { readOnly } from '@ember/object/computed';
 
 export default Component.extend({

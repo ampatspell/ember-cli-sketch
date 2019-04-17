@@ -4,7 +4,7 @@ import { style, frameToObject } from '../-computed';
 
 export default Component.extend({
   layout,
-  classNameBindings: [ ':ui-block-sketch-frame' ],
+  classNameBindings: [ ':ui-block-sketch-stage-frame' ],
   attributeBindings: [ 'style' ],
 
   style: style('frame', ({ frame }) => {

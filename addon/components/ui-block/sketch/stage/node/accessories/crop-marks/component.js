@@ -1,10 +1,10 @@
 import Component from '@ember/component';
 import layout from './template';
-import { style } from '../../../../-computed';
+import { style } from '../../../-computed';
 
 export default Component.extend({
   layout,
-  classNameBindings: [ ':ui-block-sketch-stage-accessories-crop-marks', 'highlighted:highlighted' ],
+  classNameBindings: [ ':ui-block-sketch-stage-node-accessories-crop-marks', 'highlighted:highlighted' ],
   attributeBindings: 'style',
 
   highlighted: false,

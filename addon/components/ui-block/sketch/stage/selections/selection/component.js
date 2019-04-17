@@ -9,7 +9,7 @@ const height = () => or('height.immutable');
 
 export default Component.extend({
   layout,
-  classNameBindings: [ ':ui-block-sketch-selections-selection' ],
+  classNameBindings: [ ':ui-block-sketch-stage-selections-selection' ],
   attributeBindings: [ 'style' ],
 
   node: readOnly('model.node'),

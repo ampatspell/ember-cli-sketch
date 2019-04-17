@@ -3,5 +3,5 @@ import layout from './template';
 
 export default Component.extend({
   layout,
-  classNameBindings: [ ':ui-block-sketch-hovers' ],
+  classNameBindings: [ ':ui-block-sketch-stage-hovers' ],
 });

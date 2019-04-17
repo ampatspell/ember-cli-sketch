@@ -2,8 +2,8 @@ import { computed } from '@ember/object';
 import { typeOf } from '@ember/utils';
 import { htmlSafe, dasherize } from '@ember/string';
 import { assign } from '@ember/polyfills';
-import loadImage from '../../../-private/util/load-image';
-import sketches from '../../../-private/util/sketches';
+import loadImage from '../../../../-private/util/load-image';
+import sketches from '../../../../-private/util/sketches';
 
 const normalizeInset = inset => {
   if(typeof inset !== 'object') {

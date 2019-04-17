@@ -1,4 +1,17 @@
 .ui-block-sketch-stage {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  width: 100%;
+  height: 100%;
+  cursor: default;
+  &.fill-grey {
+    background: darken(#fff, 5%);
+  }
+}
+
+.ui-block-sketch-stage-content {
   position: absolute;
 }
 
@@ -6,7 +19,7 @@
   position: absolute;
 }
 
-.ui-block-sketch-frame {
+.ui-block-sketch-stage-frame {
   position: absolute;
   width: 10px;
   height: 10px;
