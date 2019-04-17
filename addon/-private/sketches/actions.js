@@ -1,22 +1,19 @@
-import EmberObject, { computed } from '@ember/object';
+import EmberObject from '@ember/object';
 import { A } from '@ember/array';
 import { assert } from '@ember/debug';
+import { factory } from '../util/computed';
+
+const all = () => factory((factory, actions) => A(actions.types.map(type => factory.action(type, actions))));
 
 export default EmberObject.extend({
 
-  sketches: null,
-  types: null,
-
-  instances: computed(function() {
-    let { sketches: { factory }, types } = this;
-    return A(types.map(type => factory.action(this, type)));
-  }).readOnly(),
+  all: all(),
 
   action(node, name) {
     let { type } = node;
-    let action = this.instances.findBy('type', `${type}/${name}`);
+    let action = this.all.findBy('type', `${type}/${name}`);
     if(!action) {
-      action = this.instances.findBy('type', `node/${name}`);
+      action = this.all.findBy('type', `node/${name}`);
     }
     assert(`action '${type}/${name}' is not registered`, !!action);
     return action;
