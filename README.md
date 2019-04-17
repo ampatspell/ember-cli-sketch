@@ -1,5 +1,7 @@
 ## ember-cli-sketch
 
+HTML-based design editor addon for Ember.js
+
 work in progress
 
 [Live demo](https://quatsch-e12c5.firebaseapp.com/experiments/editors)
