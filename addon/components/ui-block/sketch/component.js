@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import layout from './template';
 import { computed } from '@ember/object';
-import { readOnly, and } from '@ember/object/computed';
+import { readOnly } from '@ember/object/computed';
 import EventsMixin from './-events-mixin';
 import { style, className } from './-computed';
 import { array } from '../../../-private/util/computed';
