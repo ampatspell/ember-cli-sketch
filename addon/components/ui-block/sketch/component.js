@@ -68,6 +68,7 @@ export default Component.extend(EventsMixin, {
 
   didInsertElement() {
     this._super(...arguments);
+    this.focus();
     this.notifyReady(this.stage);
     this._scheduleUpdateIsReady();
   },
