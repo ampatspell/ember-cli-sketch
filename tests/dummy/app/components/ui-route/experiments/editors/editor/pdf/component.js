@@ -14,7 +14,7 @@ export default Component.extend({
 
   actions: {
     ready(stage) {
-      stage.node.fit({ offset: 0 });
+      stage.node.perform('fit', { offset: 0 });
     }
   }
 
