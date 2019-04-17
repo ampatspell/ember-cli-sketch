@@ -3,6 +3,7 @@ import { assign } from '@ember/polyfills';
 import { node, attr } from './-node';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
+import setGlobal from '../utils/set-global';
 
 export default EmberObject.extend({
 

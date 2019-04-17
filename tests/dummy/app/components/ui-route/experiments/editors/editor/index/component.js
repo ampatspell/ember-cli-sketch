@@ -3,6 +3,7 @@ import layout from './template';
 import { computed } from '@ember/object';
 import { equal, and } from '@ember/object/computed';
 import sketches from 'ember-cli-sketch/sketches'
+import setGlobal from '../../../../../../utils/set-global';
 
 const identifier = name => computed(`stage.nodes.@each.identifier`, function() {
   return this.stage.nodes.findBy('identifier', name);
