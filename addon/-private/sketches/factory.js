@@ -4,6 +4,8 @@ import { getOwner } from '@ember/application';
 
 export default EmberObject.extend({
 
+  opts: null,
+
   node(model, opts) {
     assert(`model is required`, !!model);
     assert(`opts are required`, !!opts);
@@ -96,18 +98,10 @@ export default EmberObject.extend({
   },
 
   tools(stage) {
+    let { opts: { tools: types } } = this;
     return this._create('stage/tools', {
       stage,
-      types: [
-        'selection',
-        'stage/drag',
-        'stage/zoom',
-        'node/add',
-        'node/resize',
-        'node/move',
-        'node/drag',
-        'node/remove'
-      ]
+      types
     });
   },
 
@@ -128,10 +122,8 @@ export default EmberObject.extend({
   },
 
   interactionHandlers(interactions) {
-    return this._create('stage/interactions/handlers', {
-      interactions,
-      types: [ 'tools' ]
-    });
+    let { opts: { interactions: types } } = this;
+    return this._create('stage/interactions/handlers', { interactions, types });
   },
 
   interactionHandler(type, handlers) {
@@ -139,22 +131,8 @@ export default EmberObject.extend({
   },
 
   fonts(sketches) {
-    return this._create('sketches/fonts', {
-      sketches,
-      types: {
-        google: {
-          'Ubuntu Mono': '400,400i,700,700i',
-          'Pacifico': true,
-          'Montserrat': '100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i:latin,latin-ext',
-          'Bitter': true,
-          'Amatic SC': true,
-          'Chewy': true,
-          'Dokdo': true,
-          'Fredoka One': true,
-          'Raleway': '100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i:latin,latin-ext'
-        }
-      }
-    });
+    let { opts: { fonts: types } } = this;
+    return this._create('sketches/fonts', { sketches, types });
   },
 
   fontsLoader(fonts, opts) {
@@ -166,15 +144,8 @@ export default EmberObject.extend({
   },
 
   actions(sketches) {
-    return this._create('sketches/actions', {
-      sketches,
-      types: [
-        'stage/zoom',
-        'stage/reset',
-        'stage/center',
-        'stage/fit'
-      ]
-    });
+    let { opts: { actions: types } } = this;
+    return this._create('sketches/actions', { sketches, types });
   },
 
   action(type, actions) {
