@@ -1,8 +1,10 @@
 import EmberObject, { computed } from '@ember/object';
 import { getOwner } from '@ember/application';
 import { factory } from '../-private/util/computed';
+import { assert } from '@ember/debug';
+import { assign } from '@ember/polyfills';
 
-let opts = {
+export const defaults = {
   interactions: [
     'tools'
   ],
@@ -23,31 +25,45 @@ let opts = {
     'stage/fit'
   ],
   fonts: {
-    google: {
-      'Ubuntu Mono': '400,400i,700,700i',
-      'Pacifico': true,
-      'Montserrat': '100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i:latin,latin-ext',
-      'Bitter': true,
-      'Amatic SC': true,
-      'Chewy': true,
-      'Dokdo': true,
-      'Fredoka One': true,
-      'Raleway': '100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i:latin,latin-ext'
-    }
   }
 };
 
 const create = () => computed(function() {
-  return getOwner(this).factoryFor(`sketch:sketches/factory`).create({ sketches: this, opts });
+  return getOwner(this).factoryFor(`sketch:sketches/factory`).create({ sketches: this, opts: this.mergedOptions });
 }).readOnly();
 
 const model = name => factory((factory, sketches) => factory[name].call(factory, sketches));
 
 export default EmberObject.extend({
 
+  options: null,
+  registrations: null,
+
   factory: create(),
 
   fonts:   model('fonts'),
-  actions: model('actions')
+  actions: model('actions'),
+
+  mergedOptions: computed(function() {
+    let { options, registrations } = this;
+    assert(`sketches.options are required`, !!options);
+
+    if(registrations) {
+      let merge = key => {
+        let arr = registrations[key];
+        if(arr) {
+          options[key] = [ ...options[key], ...arr ];
+        }
+      }
+
+      merge('interactions');
+      merge('actions');
+      merge('tools');
+
+      options.fonts = assign({}, options.fonts, registrations.fonts);
+    }
+
+    return options;
+  }).readOnly()
 
 });

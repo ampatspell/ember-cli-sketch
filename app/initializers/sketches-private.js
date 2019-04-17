@@ -1,4 +1,3 @@
-import Sketches from 'ember-cli-sketch/-private/sketches';
 import Factory from 'ember-cli-sketch/-private/sketches/factory';
 import Fonts from 'ember-cli-sketch/-private/sketches/fonts';
 import FontsLoader from 'ember-cli-sketch/-private/sketches/fonts/loader';
@@ -54,7 +53,6 @@ import HandlerTools from 'ember-cli-sketch/-private/stage/interactions/handlers/
 export default {
   name: 'sketch:internal',
   initialize(container) {
-    container.register('sketch:sketches', Sketches);
     container.register('sketch:sketches/factory', Factory);
     container.register('sketch:sketches/fonts', Fonts);
     container.register('sketch:sketches/fonts/loader', FontsLoader);
