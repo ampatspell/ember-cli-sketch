@@ -174,7 +174,7 @@ export default EmberObject.extend({
     });
   },
 
-  action(actions, type) {
+  action(type, actions) {
     return this._create(`actions/${type}`, { type, actions });
   }
 
