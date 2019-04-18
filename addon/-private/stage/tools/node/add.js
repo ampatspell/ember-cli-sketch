@@ -25,7 +25,7 @@ export default Tool.extend({
       y = calc('y', 'height');
     }
 
-    node.update({ x, y, width, height });
+    node.update({ x, y, width, height, visible: true });
   },
 
   commit() {
@@ -74,10 +74,7 @@ export default Tool.extend({
 
     let { node } = model;
 
-    node.show();
     node.hover();
-
-    this.update();
   },
 
   deactivate() {
