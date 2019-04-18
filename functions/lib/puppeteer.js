@@ -47,7 +47,7 @@ module.exports = (() => {
   const pdf = ({ url, width, height, range }) => withPage(url, async page => {
     await page.emulateMedia('screen');
     await page.goto(url, { waitUntil: 'domcontentloaded' });
-    await page.waitFor('.ui-block-sketch.ready');
+    await page.waitFor('.ui-block-sketch-stage.ready');
     return await page.pdf({
       scale: 1,
       printBackground: true,
