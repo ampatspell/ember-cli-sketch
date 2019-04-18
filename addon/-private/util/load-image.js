@@ -9,9 +9,11 @@ const error = (url, original) => {
   return err;
 }
 
-export default url => new Promise((resolve, reject) => {
+export default (url, crossOrigin) => new Promise((resolve, reject) => {
   let image = new Image(); // eslint-disable-line no-undef
-  image.crossOrigin = 'anonymous';
+  if(crossOrigin) {
+    image.crossOrigin = crossOrigin; // 'anonymous'
+  }
   image.addEventListener('load', () => run(() => resolve(image)));
   image.addEventListener('error', err => run(() => reject(error(url, err))));
   image.src = url;
