@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { getSketchComponent } from '../../../component';
+import { getSketchComponent } from '../component';
 
 export default Component.extend({
   tagName: '',
