@@ -1,0 +1,3 @@
+{{#each model.node.accessories as |accessory|}}
+  {{component (concat "ui-block/sketch/stage/node/" model.node.type "/accessories/" accessory.type) model=model accessory=accessory}}
+{{/each}}

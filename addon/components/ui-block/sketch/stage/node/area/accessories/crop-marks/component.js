@@ -1,14 +1,15 @@
 import Component from '@ember/component';
 import layout from './template';
 import { style } from '../../../-computed';
+import { readOnly } from '@ember/object/computed';
 
 export default Component.extend({
   layout,
-  classNameBindings: [ ':ui-block-sketch-stage-node-accessories-crop-marks', 'highlighted:highlighted' ],
+  classNameBindings: [ ':ui-block-sketch-stage-node-area-accessories-crop-marks', 'highlighted:highlighted' ],
   attributeBindings: 'style',
 
-  highlighted: false,
-  inset: 0,
+  highlighted: readOnly('model.node.isHovered'),
+  inset: readOnly('accessory.inset'),
 
   insetStyle: style('inset', function() {
     let { inset } = this;
