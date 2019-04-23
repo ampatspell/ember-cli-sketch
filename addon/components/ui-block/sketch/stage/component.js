@@ -100,6 +100,10 @@ export default Component.extend(EventsMixin, {
     }
   },
 
+  recalculateSize() {
+    this.elementSizeDidChange();
+  },
+
   //
 
   _promises: array(),
