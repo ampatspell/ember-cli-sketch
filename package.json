@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-sketch",
-  "version": "0.1.52",
+  "version": "0.1.53",
   "description": "HTML-based design editor addon for Ember.js",
   "keywords": [
     "ember-addon",
