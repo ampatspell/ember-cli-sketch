@@ -104,12 +104,21 @@ export const className = (valueKey, prefix) => computed(valueKey, function() {
   return `${prefix}-${value}`;
 }).readOnly();
 
-export const imagePromise = urlKey => computed(urlKey, function() {
+export const imagePromise = (urlKey, arg) => computed(urlKey, function() {
   let url = this.get(urlKey);
   if(!url) {
     return;
   }
-  return loadImage(url);
+  return loadImage(url).then(image => {
+    if(this.isDestroying || !arg) {
+      return;
+    }
+    if(typeof callback === 'function') {
+      arg.call(this, image);
+    } else {
+      this.set(arg, image);
+    }
+  });
 }).readOnly();
 
 export const fontLoader = (...deps) => {

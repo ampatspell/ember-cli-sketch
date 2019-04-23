@@ -1,4 +1,4 @@
-import { Promise } from 'rsvp';
+import { Promise, resolve } from 'rsvp';
 import { run } from '@ember/runloop';
 
 const error = (url, original) => {
@@ -10,6 +10,9 @@ const error = (url, original) => {
 }
 
 export default (url, crossOrigin) => new Promise((resolve, reject) => {
+  if(!url) {
+    return resolve();
+  }
   let image = new Image(); // eslint-disable-line no-undef
   if(crossOrigin) {
     image.crossOrigin = crossOrigin; // 'anonymous'
