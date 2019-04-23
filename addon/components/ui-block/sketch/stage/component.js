@@ -117,7 +117,7 @@ export default Component.extend(EventsMixin, {
   _updateIsReady: safe(function() {
     let resolved = this._promises.length === 0;
     let stage = this.stage;
-    let _isReady = resolved && stage;
+    let _isReady = resolved && !!stage;
     if(this._isReady === _isReady) {
       return;
     }
@@ -131,7 +131,7 @@ export default Component.extend(EventsMixin, {
         return;
       }
       cancel(this.__updateIsReadyActions);
-      this.__updateIsReadyActions = later(() => this._updateIsReady(), 10);
+      this.__updateIsReadyActions = schedule('actions', () => this._updateIsReady());
     });
   },
 
