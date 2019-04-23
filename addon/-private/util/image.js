@@ -9,7 +9,7 @@ const error = (url, original) => {
   return err;
 }
 
-export default (url, crossOrigin) => new Promise((resolve, reject) => {
+export const loadImage = (url, crossOrigin) => new Promise((resolve, reject) => {
   if(!url) {
     return resolve();
   }
@@ -21,3 +21,15 @@ export default (url, crossOrigin) => new Promise((resolve, reject) => {
   image.addEventListener('error', err => run(() => reject(error(url, err))));
   image.src = url;
 });
+
+export const imageToDataURL = image => {
+  if(!image) {
+    return;
+  }
+  let canvas = document.createElement('canvas');
+  let ctx = canvas.getContext('2d');
+  canvas.width = image.width;
+  canvas.height = image.height;
+  ctx.drawImage(image, 0, 0);
+  return canvas.toDataURL();
+}

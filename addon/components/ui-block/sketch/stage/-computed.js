@@ -2,8 +2,10 @@ import { computed } from '@ember/object';
 import { typeOf } from '@ember/utils';
 import { htmlSafe, dasherize } from '@ember/string';
 import { assign } from '@ember/polyfills';
-import loadImage from '../../../../-private/util/load-image';
+import { loadImage, imageToDataURL } from '../../../../-private/util/image';
 import sketches from '../../../../-private/util/sketches';
+import { next } from '../../../../-private/util/runloop';
+import { resolve } from 'rsvp';
 
 const normalizeInset = inset => {
   if(typeof inset !== 'object') {
@@ -106,18 +108,15 @@ export const className = (valueKey, prefix) => computed(valueKey, function() {
 
 export const imagePromise = (urlKey, arg) => computed(urlKey, function() {
   let url = this.get(urlKey);
-  if(!url) {
-    return;
-  }
-  return loadImage(url).then(image => {
-    if(this.isDestroying || !arg) {
-      return;
+  return loadImage(url, 'anonymous').then(image => imageToDataURL(image)).then(image => {
+    if(!this.isDestroying && arg) {
+      if(typeof arg === 'function') {
+        arg.call(this, image);
+      } else {
+        this.set(arg, image);
+      }
     }
-    if(typeof callback === 'function') {
-      arg.call(this, image);
-    } else {
-      this.set(arg, image);
-    }
+    return next();
   });
 }).readOnly();
 

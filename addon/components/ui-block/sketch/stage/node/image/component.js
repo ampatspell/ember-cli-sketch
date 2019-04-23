@@ -8,10 +8,15 @@ export default Component.extend({
   image: null,
   promise: imagePromise('model.url', 'image'),
 
-  style: style('model.{opacity,url}', function() {
-    let { model: { opacity } } = this;
+  style: style('model.opacity', 'image', function() {
+    let { model: { opacity }, image } = this;
+    let backgroundImage;
+    if(image) {
+      backgroundImage = `url(${image})`;
+    }
     return {
-      opacity
+      opacity,
+      backgroundImage
     };
   })
 
