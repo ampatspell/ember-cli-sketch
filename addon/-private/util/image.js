@@ -1,4 +1,4 @@
-import { Promise, resolve } from 'rsvp';
+import { Promise } from 'rsvp';
 import { run } from '@ember/runloop';
 
 const error = (url, original) => {
@@ -21,15 +21,3 @@ export const loadImage = (url, crossOrigin) => new Promise((resolve, reject) => 
   image.addEventListener('error', err => run(() => reject(error(url, err))));
   image.src = url;
 });
-
-export const imageToDataURL = image => {
-  if(!image) {
-    return;
-  }
-  let canvas = document.createElement('canvas');
-  let ctx = canvas.getContext('2d');
-  canvas.width = image.width;
-  canvas.height = image.height;
-  ctx.drawImage(image, 0, 0);
-  return canvas.toDataURL();
-}

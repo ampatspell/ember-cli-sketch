@@ -2,9 +2,9 @@ import { computed } from '@ember/object';
 import { typeOf } from '@ember/utils';
 import { htmlSafe, dasherize } from '@ember/string';
 import { assign } from '@ember/polyfills';
-import { loadImage, imageToDataURL } from '../../../../-private/util/image';
+import { loadImage } from '../../../../-private/util/image';
 import sketches from '../../../../-private/util/sketches';
-import { next } from '../../../../-private/util/runloop';
+import { later } from '../../../../-private/util/runloop';
 import { resolve } from 'rsvp';
 
 const normalizeInset = inset => {
@@ -108,16 +108,15 @@ export const className = (valueKey, prefix) => computed(valueKey, function() {
 
 export const imagePromise = (urlKey, arg) => computed(urlKey, function() {
   let url = this.get(urlKey);
-  return loadImage(url, 'anonymous').then(image => imageToDataURL(image)).then(image => {
+  return loadImage(url, 'anonymous').then(image => {
     if(!this.isDestroying && arg) {
       if(typeof arg === 'function') {
-        arg.call(this, image);
+        return resolve(arg.call(this, image));
       } else {
         this.set(arg, image);
       }
     }
-    return next();
-  });
+  }).then(() => later(100));
 }).readOnly();
 
 export const fontLoader = (...deps) => {

@@ -5,14 +5,13 @@ import { style, imagePromise } from '../-computed';
 export default Component.extend({
   layout,
 
-  image: null,
-  promise: imagePromise('model.url', 'image'),
+  promise: imagePromise('model.url'),
 
-  style: style('model.opacity', 'image', function() {
-    let { model: { opacity }, image } = this;
+  style: style('model.{opacity,url}', function() {
+    let { model: { opacity, url } } = this;
     let backgroundImage;
-    if(image) {
-      backgroundImage = `url(${image})`;
+    if(url) {
+      backgroundImage = `url(${url})`;
     }
     return {
       opacity,
