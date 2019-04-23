@@ -68,12 +68,14 @@ export default Component.extend(EventsMixin, ReadyMixin, {
   },
 
   notifyReady(stage) {
-    let { ready } = this;
-    if(!stage || !ready) {
+    if(!stage) {
       return;
     }
-    ready(stage);
-    this.registerAfterRenderPromise();
+    let { ready } = this;
+    if(ready) {
+      ready(stage);
+    }
+    this.scheduleReady();
   },
 
   detachStage(stage) {

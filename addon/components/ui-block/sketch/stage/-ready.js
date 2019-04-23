@@ -2,10 +2,8 @@ import Mixin from '@ember/object/mixin';
 import { array } from '../../../../-private/util/computed';
 import safe from '../../../../-private/util/safe';
 import { schedule, cancel } from '@ember/runloop';
-import { Promise, resolve } from 'rsvp';
+import { resolve } from 'rsvp';
 import { next } from '../../../../-private/util/runloop';
-
-const afterRender = () => new Promise(resolve => schedule('afterRender', resolve));
 
 export default Mixin.create({
   classNameBindings: [ '_isReady:ready:loading' ],
@@ -13,18 +11,13 @@ export default Mixin.create({
   _promises: array(),
   _isReady: false,
 
-  didInsertElement() {
-    this._super(...arguments);
-    this._scheduleUpdateIsReady();
-  },
-
   willDestroyElement() {
     this._super(...arguments);
     this._cancelScheduleIsReady();
   },
 
-  registerAfterRenderPromise: safe(function() {
-    this.registerRenderPromise(afterRender());
+  scheduleReady: safe(function() {
+    this.registerRenderPromise(next());
   }),
 
   _cancelScheduleIsReady() {
