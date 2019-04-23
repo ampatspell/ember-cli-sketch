@@ -16,7 +16,7 @@ export const getSketchComponent = component => {
 };
 
 export default Component.extend(EventsMixin, ReadyMixin, {
-  classNameBindings: [ ':ui-block-sketch-stage', 'fill', '_isReady:ready:loading' ],
+  classNameBindings: [ ':ui-block-sketch-stage', 'fill' ],
   attributeBindings: [ 'style' ],
   layout,
 

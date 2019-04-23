@@ -4,12 +4,15 @@ import safe from '../../../../-private/util/safe';
 import { schedule, cancel } from '@ember/runloop';
 import { resolve } from 'rsvp';
 import { next } from '../../../../-private/util/runloop';
+import { readOnly } from '@ember/object/computed';
 
 export default Mixin.create({
   classNameBindings: [ '_isReady:ready:loading' ],
 
   _promises: array(),
   _isReady: false,
+
+  isReady: readOnly('_isReady'),
 
   willDestroyElement() {
     this._super(...arguments);
