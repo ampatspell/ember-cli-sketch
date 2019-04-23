@@ -5,7 +5,7 @@ import { readOnly } from '@ember/object/computed';
 import EventsMixin from './-events-mixin';
 import { style, className } from './-computed';
 import { array } from '../../../../-private/util/computed';
-import { schedule, cancel } from '@ember/runloop';
+import { schedule, later, cancel } from '@ember/runloop';
 import { Promise, resolve } from 'rsvp';
 import safe from '../../../../-private/util/safe';
 
@@ -131,7 +131,7 @@ export default Component.extend(EventsMixin, {
         return;
       }
       cancel(this.__updateIsReadyActions);
-      this.__updateIsReadyActions = schedule('actions', () => this._updateIsReady());
+      this.__updateIsReadyActions = later(() => this._updateIsReady(), 10);
     });
   },
 
