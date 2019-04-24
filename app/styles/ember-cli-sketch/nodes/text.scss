@@ -3,6 +3,7 @@
   overflow: hidden;
   > .text {
     flex: 1;
+    line-height: 1;
   }
   &.align-left {
     > .text {
