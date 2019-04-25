@@ -10,6 +10,9 @@
   &.fill-grey {
     background: darken(#fff, 5%);
   }
+  > .ui-block-sketch-stage-ready {
+    visibility: hidden;
+  }
 }
 
 .ui-block-sketch-stage-content {
