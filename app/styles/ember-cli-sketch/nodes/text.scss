@@ -4,6 +4,7 @@
   > .text {
     flex: 1;
     line-height: 1;
+    white-space: pre-wrap;
   }
   &.align-left {
     > .text {
