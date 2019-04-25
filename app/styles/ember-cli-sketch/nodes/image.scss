@@ -4,4 +4,7 @@
     height: 100%;
     pointer-events: none;
   }
+  &.loading {
+    background: fade-out(#000, 0.75);
+  }
 }

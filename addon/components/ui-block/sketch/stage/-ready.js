@@ -41,7 +41,7 @@ export default Mixin.create({
     this._cancelScheduleIsReady();
     this.__updateIsReady = schedule('afterRender', () => {
       cancel(this.__updateIsReadyActions);
-      this.__updateIsReadyActions = later(() => this._updateIsReady(), 500);
+      this.__updateIsReadyActions = later(() => this._updateIsReady(), 10);
     });
   },
 

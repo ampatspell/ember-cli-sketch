@@ -3,39 +3,49 @@ import layout from './template';
 import { style } from '../-computed';
 import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
-import { defer } from 'rsvp';
+import { resolve } from 'rsvp';
+import safe from '../../../../../../-private/util/safe';
+
+const decode = url => {
+  if(!url) {
+    return resolve(null);
+  }
+  let image = new Image();
+  image.src = url;
+  return resolve(image.decode()).then(() => image);
+}
 
 export default Component.extend({
   layout,
+  classNameBindings: [ 'image:loaded:loading' ],
 
-  deferred: computed('model.url', function() {
-    let { model: { url } } = this;
-    if(!url) {
-      return;
-    }
-    let deferred = defer();
-    deferred.url = url;
-    return deferred;
+  url: readOnly('model.url'),
+  image: null,
+
+  promise: computed('url', function() {
+    let { url } = this;
+    return decode(url).then(image => this.didDecodeImage(image), () => this.didDecodeImage(null));
   }).readOnly(),
 
-  promise: readOnly('deferred.promise'),
+  setImage(next) {
+    let { image } = this;
+    if(image !== next) {
+      this.set('image', next);
+    }
+  },
 
-  style: style('model.{opacity}', function() {
+  didDecodeImage: safe(function(image) {
+    if(image && image.src !== this.url) {
+      return;
+    }
+    this.setImage(image);
+  }),
+
+  style: style('model.opacity', function() {
     let { model: { opacity } } = this;
     return {
       opacity
     };
-  }),
-
-  actions: {
-    imageDidLoad(e) {
-      let url = e.target.src;
-      let { deferred } = this;
-      if(deferred.url !== url) {
-        return;
-      }
-      deferred.resolve();
-    }
-  }
+  })
 
 });

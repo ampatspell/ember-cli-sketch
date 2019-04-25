@@ -2,7 +2,6 @@ import EmberObject, { computed } from '@ember/object';
 import loadFonts from '../../util/load-fonts';
 import { resolve, reject } from 'rsvp';
 import safe from '../../util/safe';
-import { later } from '../../util/runloop';
 
 export default EmberObject.extend({
 
