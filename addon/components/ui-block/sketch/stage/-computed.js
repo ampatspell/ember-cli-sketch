@@ -110,11 +110,7 @@ export const imagePromise = (urlKey, arg) => computed(urlKey, function() {
   let url = this.get(urlKey);
   return loadImage(url, 'anonymous').then(image => {
     if(!this.isDestroying && arg) {
-      if(typeof arg === 'function') {
-        return resolve(arg.call(this, image));
-      } else {
-        this.set(arg, image);
-      }
+      return resolve(arg.call(this, image));
     }
   }).then(() => later(100));
 }).readOnly();
