@@ -8,11 +8,11 @@ import safe from '../../../../../../-private/util/safe';
 
 const decode = url => {
   if(!url) {
-    return resolve();
+    return resolve(null);
   }
   let image = new Image();
   image.src = url;
-  return resolve().then(() => image.decode()).then(() => image);
+  return resolve(image.decode()).then(() => image);
 }
 
 export default Component.extend({
@@ -24,30 +24,18 @@ export default Component.extend({
 
   promise: computed('url', function() {
     let { url } = this;
-    this.setImage(null);
-    return decode(url).then(image => this.didDecodeImage(image), () => {});
+    return decode(url).then(image => this.didDecodeImage(image), () => this.didDecodeImage(null));
   }).readOnly(),
 
-  setImage(image) {
-    let { element } = this;
-    if(!element) {
-      return;
-    }
-    let current = this.image;
-    if(image === current) {
-      return;
-    }
-    if(current) {
-      current.remove();
-    }
-    this.set('image', image);
-    if(image) {
-      element.appendChild(image);
+  setImage(next) {
+    let { image } = this;
+    if(image !== next) {
+      this.set('image', next);
     }
   },
 
   didDecodeImage: safe(function(image) {
-    if(image.src !== this.url) {
+    if(image && image.src !== this.url) {
       return;
     }
     this.setImage(image);
