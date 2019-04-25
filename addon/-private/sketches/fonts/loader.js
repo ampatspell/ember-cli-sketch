@@ -2,7 +2,7 @@ import EmberObject, { computed } from '@ember/object';
 import loadFonts from '../../util/load-fonts';
 import { resolve, reject } from 'rsvp';
 import safe from '../../util/safe';
-import { next } from '../../util/runloop';
+import { later } from '../../util/runloop';
 
 export default EmberObject.extend({
 
@@ -77,7 +77,7 @@ export default EmberObject.extend({
   },
 
   promise: computed(function() {
-    return this._load().then(() => next());
+    return this._load().then(() => later(500));
   }).readOnly(),
 
 });

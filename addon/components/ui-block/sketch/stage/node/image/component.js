@@ -39,7 +39,7 @@ export default Component.extend({
 
   scheduleResolve(url) {
     cancel(this._scheduleResolve);
-    this._scheduleResolve = later(() => this.resolve(url), 100);
+    this._scheduleResolve = later(() => this.resolve(url), 500);
   },
 
   willDestroyElement() {

@@ -112,7 +112,7 @@ export const imagePromise = (urlKey, arg) => computed(urlKey, function() {
     if(!this.isDestroying && arg) {
       return resolve(arg.call(this, image));
     }
-  }).then(() => later(100));
+  }).then(() => later(500));
 }).readOnly();
 
 export const fontLoader = (...deps) => {
