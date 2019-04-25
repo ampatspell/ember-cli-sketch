@@ -1,7 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import { array } from '../../../../-private/util/computed';
 import safe from '../../../../-private/util/safe';
-import { schedule, cancel } from '@ember/runloop';
+import { schedule, later, cancel } from '@ember/runloop';
 import { resolve } from 'rsvp';
 import { next } from '../../../../-private/util/runloop';
 import { readOnly } from '@ember/object/computed';
@@ -41,7 +41,7 @@ export default Mixin.create({
     this._cancelScheduleIsReady();
     this.__updateIsReady = schedule('afterRender', () => {
       cancel(this.__updateIsReadyActions);
-      this.__updateIsReadyActions = schedule('actions', () => this._updateIsReady());
+      this.__updateIsReadyActions = later(() => this._updateIsReady(), 500);
     });
   },
 

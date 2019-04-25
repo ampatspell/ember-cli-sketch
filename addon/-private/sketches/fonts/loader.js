@@ -77,7 +77,7 @@ export default EmberObject.extend({
   },
 
   promise: computed(function() {
-    return this._load().then(() => later(500));
+    return this._load();
   }).readOnly(),
 
 });

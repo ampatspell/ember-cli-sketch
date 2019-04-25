@@ -4,7 +4,6 @@ import { htmlSafe, dasherize } from '@ember/string';
 import { assign } from '@ember/polyfills';
 import { loadImage } from '../../../../-private/util/image';
 import sketches from '../../../../-private/util/sketches';
-import { later } from '../../../../-private/util/runloop';
 import { resolve } from 'rsvp';
 
 const normalizeInset = inset => {
@@ -112,7 +111,7 @@ export const imagePromise = (urlKey, arg) => computed(urlKey, function() {
     if(!this.isDestroying && arg) {
       return resolve(arg.call(this, image));
     }
-  }).then(() => later(500));
+  });
 }).readOnly();
 
 export const fontLoader = (...deps) => {
