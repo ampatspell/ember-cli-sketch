@@ -7,7 +7,6 @@ import { next } from '../../../../-private/util/runloop';
 import { readOnly } from '@ember/object/computed';
 
 export default Mixin.create({
-  classNameBindings: [ '_isReady:ready:loading' ],
 
   _promises: array(),
   _isReady: false,
