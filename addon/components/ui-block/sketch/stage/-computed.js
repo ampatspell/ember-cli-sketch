@@ -80,7 +80,7 @@ export const style = (...deps) => {
     }
     let array = Object.keys(hash).reduce((array, key) => {
       let value = hash[key];
-      if(value !== undefined) {
+      if(value !== undefined && value !== null && value !== '') {
         array.push(`${dasherize(key)}: ${value}`);
       }
       return array;
