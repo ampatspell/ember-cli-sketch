@@ -21,6 +21,7 @@ export default EmberObject.extend({
   zoom: attr('_zoom', { type: 'number', initial: 1, min: 0.5, max: 10, decimals: 2 }),
 
   fill: attr('_fill', { type: 'string', initial: 'grey' }),
+  selectable: true,
 
   // thing: attr('thing', { type: 'number', initial: 0, min: prop('thingMin'), max: prop('thingMax') }),
   // thingMin: 0,

@@ -22,7 +22,8 @@ export const defaults = {
     'stage/zoom',
     'stage/reset',
     'stage/center',
-    'stage/fit'
+    'stage/fit',
+    'stage/selectable'
   ],
   fonts: {
   }

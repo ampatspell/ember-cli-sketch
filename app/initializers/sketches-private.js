@@ -8,6 +8,7 @@ import ActionStageZoom from 'ember-cli-sketch/-private/actions/stage/zoom';
 import ActionStageReset from 'ember-cli-sketch/-private/actions/stage/reset';
 import ActionStageCenter from 'ember-cli-sketch/-private/actions/stage/center';
 import ActionStageFit from 'ember-cli-sketch/-private/actions/stage/fit';
+import ActionStageSelectable from 'ember-cli-sketch/-private/actions/stage/selectable';
 
 import Attributes from 'ember-cli-sketch/-private/node/attributes';
 import AttributeNoop from 'ember-cli-sketch/-private/node/attributes/attribute/noop';
@@ -61,6 +62,7 @@ export default {
     container.register('sketch:actions/stage/zoom', ActionStageZoom);
     container.register('sketch:actions/stage/reset', ActionStageReset);
     container.register('sketch:actions/stage/center', ActionStageCenter);
+    container.register('sketch:actions/stage/selectable', ActionStageSelectable);
     container.register('sketch:actions/stage/fit', ActionStageFit);
     container.register('sketch:factory/attributes', Attributes);
     container.register('sketch:node/attribute/noop', AttributeNoop);

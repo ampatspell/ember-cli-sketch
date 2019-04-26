@@ -38,6 +38,11 @@ export default Component.extend({
     ready(stage) {
       stage.node.perform('fit', { offset: 20, zoom: 3 });
     },
+    toggleSelectable() {
+      let { stage } = this;
+      let value = !stage.selectable;
+      this.stage.node.perform('selectable', { value });
+    },
     center(type) {
       this.stage.node.perform('center', { type });
     },

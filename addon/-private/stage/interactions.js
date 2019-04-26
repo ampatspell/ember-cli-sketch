@@ -18,9 +18,6 @@ export default EmberObject.extend({
   handlers: handlers(),
 
   invokeHandlers() {
-    if(!this.isEnabled) {
-      return;
-    }
     this.handlers.onEvent(...arguments);
   },
 
