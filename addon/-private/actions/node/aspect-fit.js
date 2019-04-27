@@ -26,6 +26,8 @@ export default Action.extend({
   },
 
   perform(node) {
+    // TODO: maybe previous -> next aspect
+    // now it's making nodes smaller on each run if aspect doesn't change
     let size = this.calculateSize(node);
     let frame = this.calculateFrame(node, size);
     node.update(frame);
