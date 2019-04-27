@@ -24,10 +24,10 @@
   </div>
 
   <div class="block">
-      <div class="label">Selectable: {{if stage.selectable 'selectable' 'not selectable'}}</div>
-      <div class="actions">
-        {{ui-block/button class="small" value="Toggle" action=(action "toggleSelectable")}}
-      </div>
+    <div class="label">Selectable: {{if stage.selectable "selectable" "not selectable"}}</div>
+    <div class="actions">
+      {{ui-block/button class="small" value="Toggle" action=(action "toggleSelectable")}}
+    </div>
   </div>
 
   {{#if backgroundAndContent}}
