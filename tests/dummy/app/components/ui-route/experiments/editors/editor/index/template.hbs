@@ -207,7 +207,8 @@
 
         <div class="label">aspect: {{if node.model.aspect node.model.aspect "Not set"}}</div>
         {{ui-block/slider min=0 max=2 step=0.01 value=node.model.aspect update=(action "updateNodeProperty" node "aspect")}}
-        {{ui-block/button value="Fit in aspect ratio" action=(action "updateSizeFromAspect" node)}}
+        {{ui-block/button class="small" value="Fit in aspect ratio" action=(action "fitAspect" node false)}}
+        {{ui-block/button class="small" value="Toggle & Fit" action=(action "fitAspect" node true)}}
 
         {{#if node.model.hasFill}}
           <div class="label" role="button" {{action "updateNodeProperty" node "fill" "red"}}>fill: {{node.model.fill}}</div>

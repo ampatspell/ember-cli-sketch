@@ -94,8 +94,15 @@ export default Component.extend({
     moveDown(node) {
       node.moveDown();
     },
-    updateSizeFromAspect(node) {
-      node.updateSizeBasedOnAspectRatio();
+    fitAspect(node, toggle) {
+      if(toggle) {
+        if(node.model.aspect > 1) {
+          node.update({ aspect: 0.666 });
+        } else {
+          node.update({ aspect: 1.5 });
+        }
+      }
+      node.perform('aspect-fit');
     },
     toggleContentBackground() {
       let { content, background } = this;
