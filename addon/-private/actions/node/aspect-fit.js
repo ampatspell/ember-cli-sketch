@@ -2,22 +2,21 @@ import Action from '../-base';
 
 export default Action.extend({
 
-  calculateSize(node) {
-    let { aspect, frame } = node;
+  calculateSize(node, aspect) {
+    let { frame: { properties: { width, height } } } = node;
 
-    if(!aspect) {
-      return;
-    }
+    let current = height / width;
 
-    let { properties } = frame;
-
-    let w = { width:  properties.height, height: properties.height * aspect };
-    let h = { height: properties.width, width:   properties.width / aspect };
-
-    if(w.width * w.height < h.width * h.height) {
-      return w;
+    if(current > aspect) {
+      return {
+        width,
+        height: width * aspect
+      };
     } else {
-      return h;
+      return {
+        height,
+        width: height / aspect
+      };
     }
   },
 
@@ -25,10 +24,11 @@ export default Action.extend({
     return node.frame.center(size);
   },
 
-  perform(node) {
-    // TODO: maybe previous -> next aspect
-    // now it's making nodes smaller on each run if aspect doesn't change
-    let size = this.calculateSize(node);
+  perform(node, { aspect }) {
+    if(!aspect) {
+      return;
+    }
+    let size = this.calculateSize(node, aspect);
     let frame = this.calculateFrame(node, size);
     node.update(frame);
   }

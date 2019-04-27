@@ -94,15 +94,11 @@ export default Component.extend({
     moveDown(node) {
       node.moveDown();
     },
-    fitAspect(node, toggle) {
-      if(toggle) {
-        if(node.model.aspect > 1) {
-          node.update({ aspect: 0.666 });
-        } else {
-          node.update({ aspect: 1.5 });
-        }
-      }
-      node.perform('aspect-fit');
+    fitAspect(node, value) {
+      // if(value) {
+      //   node.update({ aspect: value });
+      // }
+      node.perform('aspect-fit', { aspect: value });
     },
     toggleContentBackground() {
       let { content, background } = this;
