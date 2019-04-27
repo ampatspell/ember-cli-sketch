@@ -260,43 +260,6 @@ export default opts => {
         return;
       }
       this.update({ aspect });
-    },
-
-    calculateSizeBasedOnAspectRatio() {
-      let { aspect } = this;
-
-      if(!aspect) {
-        return;
-      }
-
-      let { width, height } = this.frame.properties;
-
-      let w = () => this.frame.center({ height: width * aspect });
-      let h = () => this.frame.center({ width: height / aspect });
-
-      if(width && height) {
-        if(width < height) {
-          return w();
-        } else {
-          return h();
-        }
-      }
-
-      if(width) {
-        return w();
-      }
-
-      if(height) {
-        return h();
-      }
-    },
-
-    updateSizeBasedOnAspectRatio() {
-      let props = this.calculateSizeBasedOnAspectRatio();
-      if(!props) {
-        return;
-      }
-      this.update(props, { center: true });
     }
 
   });
