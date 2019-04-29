@@ -242,24 +242,6 @@ export default opts => {
 
     moveUp() {
       this._moveWithDelta(+1);
-    },
-
-    //
-
-    calculateAspectRatioBasedOnSize() {
-      let { width, height } = this.frame.properties;
-      if(!width || !height) {
-        return;
-      }
-      return height / width;
-    },
-
-    updateAspectRatioBasedOnSize() {
-      let aspect = this.calculateAspectRatioBasedOnSize();
-      if(!aspect) {
-        return;
-      }
-      this.update({ aspect });
     }
 
   });

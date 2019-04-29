@@ -20,6 +20,10 @@ export default Tool.extend({
     return this.node.aspect;
   }).readOnly(),
 
+  updateAspect() {
+    this.node.perform('aspect-update');
+  },
+
   update(delta) {
     let { node, edge, aspect } = this;
 
@@ -53,11 +57,11 @@ export default Tool.extend({
       let width;
 
       if(before.width !== frame.width) {
-        height = attributes.clamp('height', frame.width * aspect);
-        width = attributes.clamp('width', height / aspect);
+        height = attributes.clamp('height', frame.width / aspect);
+        width = attributes.clamp('width', height * aspect);
       } else if(before.height !== frame.height) {
-        width = attributes.clamp('width', frame.height / aspect);
-        height = attributes.clamp('height', width * aspect);
+        width = attributes.clamp('width', frame.height * aspect);
+        height = attributes.clamp('height', width / aspect);
       }
 
       if(width && height) {
@@ -86,6 +90,10 @@ export default Tool.extend({
 
     node.update(frame, { delta: true });
 
+    if(!aspect) {
+      this.updateAspect();
+    }
+
     return true;
   },
 
@@ -110,7 +118,7 @@ export default Tool.extend({
 
   onKeyDown() {
     if(!this.free) {
-      this.node.updateAspectRatioBasedOnSize();
+      this.updateAspect();
     }
   },
 
@@ -120,7 +128,7 @@ export default Tool.extend({
     this.selection.removeExcept(node);
     node.isContainer && node.moveToTop();
     if(!this.free) {
-      node.updateAspectRatioBasedOnSize();
+      this.updateAspect();
     }
   },
 

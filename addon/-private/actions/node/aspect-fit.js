@@ -10,12 +10,12 @@ export default Action.extend({
     if(current > aspect) {
       return {
         width,
-        height: width * aspect
+        height: width / aspect
       };
     } else {
       return {
         height,
-        width: height / aspect
+        width: height * aspect
       };
     }
   },
