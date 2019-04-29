@@ -3,17 +3,8 @@ import layout from './template';
 import { style } from '../-computed';
 import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
-import { resolve } from 'rsvp';
 import safe from '../../../../../../-private/util/safe';
-
-const decode = url => {
-  if(!url) {
-    return resolve(null);
-  }
-  let image = new Image();
-  image.src = url;
-  return resolve(image.decode()).then(() => image);
-}
+import { decode, withImageData } from '../../../../../../-private/util/image';
 
 export default Component.extend({
   layout,
@@ -22,9 +13,15 @@ export default Component.extend({
   url: readOnly('model.url'),
   image: null,
 
-  promise: computed('url', function() {
-    let { url } = this;
-    return decode(url).then(image => this.didDecodeImage(image), () => this.didDecodeImage(null));
+  postprocess: null,
+
+  promise: computed('url', 'postprocess', async function() {
+    let { url, postprocess } = this;
+    if(url && postprocess) {
+      let result = await withImageData(url, postprocess);
+      url = result.toDataURL('image/png');
+    }
+    return await decode(url).then(image => this.didDecodeImage(image));
   }).readOnly(),
 
   setImage(next) {
@@ -35,9 +32,6 @@ export default Component.extend({
   },
 
   didDecodeImage: safe(function(image) {
-    if(image && image.src !== this.url) {
-      return;
-    }
     this.setImage(image);
   }),
 
