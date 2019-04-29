@@ -53,7 +53,9 @@ export default Mixin.create({
     this._promises.pushObject(promise);
     this._updateIsReady();
 
-    resolve(promise).then(() => {}, () => {}).finally(() => {
+    resolve(promise).then(() => {}, err => {
+      console.error('Render promise rejection', err);
+    }).finally(() => {
       if(this.isDestroying) {
         return;
       }

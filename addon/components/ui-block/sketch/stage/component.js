@@ -83,7 +83,13 @@ export default Component.extend(EventsMixin, ReadyMixin, {
   },
 
   attachStage(stage) {
-    stage.node.attach(this);
+    try {
+      stage.node.attach(this);
+    } catch(err) {
+      console.log(err.stack);
+      return;
+    }
+
     if(this.element) {
       this.notifyReady(stage);
     }
