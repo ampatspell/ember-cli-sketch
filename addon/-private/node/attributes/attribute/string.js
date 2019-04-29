@@ -4,7 +4,7 @@ export default Attribute.extend({
 
   transformValue(value) {
     if(value === undefined) {
-      value = this.opts.initial;
+      value = this.opts.initial || '';
     }
 
     if(typeof value !== 'string') {
