@@ -72,6 +72,7 @@ export default Tool.extend({
 
     this.setProperties({ model, delegate });
 
+    this.update();
     model.node.hover();
   },
 
