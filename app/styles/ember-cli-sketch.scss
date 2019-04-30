@@ -1,6 +1,18 @@
 $color-hover: #60befd !default;
 $font-family: 'Ubuntu Mono', monospace !default;
 
+@mixin stripes() {
+  $from: fade-out(#000, 0.95);
+  $to: fade-out(#000, 0.98);
+  background: repeating-linear-gradient(
+    45deg,
+    $from,
+    $from 10px,
+    $to 10px,
+    $to 20px
+  );
+}
+
 @import "ember-cli-sketch/base";
 @import "ember-cli-sketch/stage";
 @import "ember-cli-sketch/nodes";

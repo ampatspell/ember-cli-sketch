@@ -51,6 +51,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    @include stripes;
     > .label {
       font-family: $font-family;
       font-size: 16px;

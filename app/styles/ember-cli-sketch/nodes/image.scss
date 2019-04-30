@@ -5,6 +5,6 @@
     pointer-events: none;
   }
   &.loading {
-    background: fade-out(#000, 0.95);
+    @include stripes;
   }
 }

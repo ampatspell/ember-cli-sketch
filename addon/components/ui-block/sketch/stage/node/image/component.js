@@ -4,7 +4,7 @@ import { style } from '../-computed';
 import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import safe from '../../../../../../-private/util/safe';
-import { decode, withImageData } from '../../../../../../-private/util/image';
+import decodeImage from '../../../../../../-private/util/decode-image';
 
 export default Component.extend({
   layout,
@@ -13,26 +13,20 @@ export default Component.extend({
   url: readOnly('model.url'),
   image: null,
 
-  postprocess: null,
-
-  promise: computed('url', 'postprocess', async function() {
-    let { url, postprocess } = this;
-    if(url && postprocess) {
-      let result = await withImageData(url, postprocess);
-      url = result.toDataURL('image/png');
-    }
-    return await decode(url).then(image => this.didDecodeImage(image));
+  promise: computed('url', function() {
+    let { url } = this;
+    return this.decode(url);
   }).readOnly(),
 
-  setImage(next) {
+  didDecodeImage: safe(function(next) {
     let { image } = this;
     if(image !== next) {
       this.set('image', next);
     }
-  },
+  }),
 
-  didDecodeImage: safe(function(image) {
-    this.setImage(image);
+  decode: safe(function(url) {
+    return decodeImage(url).then(image => this.didDecodeImage(image));
   }),
 
   style: style('model.opacity', function() {

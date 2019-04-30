@@ -86,7 +86,7 @@ export default Component.extend(EventsMixin, ReadyMixin, {
     try {
       stage.node.attach(this);
     } catch(err) {
-      console.log(err.stack);
+      console.error(err); // eslint-disable-line no-console
       return;
     }
 

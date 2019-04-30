@@ -54,7 +54,7 @@ export default Mixin.create({
     this._updateIsReady();
 
     resolve(promise).then(() => {}, err => {
-      console.error('Render promise rejection', err);
+      console.error('Render promise rejection', err); // eslint-disable-line no-console
     }).finally(() => {
       if(this.isDestroying) {
         return;
