@@ -1,7 +1,7 @@
 import Component from '../-component';
 import layout from './template';
-import { style } from '../-computed';
 import { readOnly } from '@ember/object/computed';
+import { style } from '../-computed';
 import decodeImage from '../../../../../../-private/util/decode-image';
 import TaskMixin, { task } from '../../../../../../-private/task';
 
