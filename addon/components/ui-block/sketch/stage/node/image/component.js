@@ -3,17 +3,8 @@ import layout from './template';
 import { style } from '../-computed';
 import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
-import { resolve } from 'rsvp';
 import safe from '../../../../../../-private/util/safe';
-
-const decode = url => {
-  if(!url) {
-    return resolve(null);
-  }
-  let image = new Image();
-  image.src = url;
-  return resolve(image.decode()).then(() => image);
-}
+import decodeImage from '../../../../../../-private/util/decode-image';
 
 export default Component.extend({
   layout,
@@ -24,21 +15,18 @@ export default Component.extend({
 
   promise: computed('url', function() {
     let { url } = this;
-    return decode(url).then(image => this.didDecodeImage(image), () => this.didDecodeImage(null));
+    return this.decode(url);
   }).readOnly(),
 
-  setImage(next) {
+  didDecodeImage: safe(function(next) {
     let { image } = this;
     if(image !== next) {
       this.set('image', next);
     }
-  },
+  }),
 
-  didDecodeImage: safe(function(image) {
-    if(image && image.src !== this.url) {
-      return;
-    }
-    this.setImage(image);
+  decode: safe(function(url) {
+    return decodeImage(url).then(image => this.didDecodeImage(image));
   }),
 
   style: style('model.opacity', function() {
