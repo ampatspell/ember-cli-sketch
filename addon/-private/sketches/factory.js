@@ -150,6 +150,10 @@ export default EmberObject.extend({
 
   action(type, actions) {
     return this._create(`actions/${type}`, { type, actions });
+  },
+
+  task(owner, opts) {
+    return this._create('task', { owner, opts });
   }
 
 });

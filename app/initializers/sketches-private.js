@@ -53,6 +53,8 @@ import Handlers from 'ember-cli-sketch/-private/stage/interactions/handlers';
 
 import HandlerTools from 'ember-cli-sketch/-private/stage/interactions/handlers/tools';
 
+import Task from 'ember-cli-sketch/-private/task/task';
+
 export default {
   name: 'sketch:internal',
   initialize(container) {
@@ -100,5 +102,6 @@ export default {
     container.register('sketch:stage/interactions/mediums/keyboard/key', Key);
     container.register('sketch:stage/interactions/handlers', Handlers);
     container.register('sketch:stage/interactions/handlers/tools', HandlerTools);
+    container.register('sketch:task', Task);
   }
 }
