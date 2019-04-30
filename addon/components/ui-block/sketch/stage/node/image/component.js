@@ -2,10 +2,8 @@ import Component from '../-component';
 import layout from './template';
 import { readOnly } from '@ember/object/computed';
 import { style } from '../-computed';
-import decodeImage from '../../../../../../-private/util/decode-image';
-import TaskMixin, { task } from '../../../../../../-private/task';
 
-export default Component.extend(TaskMixin, {
+export default Component.extend({
   layout,
   classNameBindings: [ 'task.status' ],
 
@@ -16,18 +14,6 @@ export default Component.extend(TaskMixin, {
     };
   }),
 
-  url: readOnly('model.url'),
-
-  task: task('url', async function() {
-    let { url } = this;
-    let image = await this.decode(url);
-    return {
-      image
-    };
-  }),
-
-  decode(arg) {
-    return decodeImage(arg);
-  }
+  task: readOnly('model.task')
 
 });

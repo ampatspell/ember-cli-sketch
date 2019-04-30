@@ -1,4 +1,6 @@
 import Base, { node, x, y, width, height, rotation, visible, selectable, aspect, attr } from './-base';
+import { decodeImage } from 'ember-cli-sketch/util/image';
+import { task } from 'ember-cli-sketch/task';
 
 export default Base.extend({
 
@@ -16,6 +18,12 @@ export default Base.extend({
 
   opacity:  attr('opacity', { type: 'number', min: 0, max: 1, decimals: 2 }),
   url:  attr('url', { type: 'string' }),
+
+  task: task('url', 'opacity', async function() {
+    return {
+      image: await decodeImage(this.url)
+    };
+  }).cached(model => model.url),
 
   hasAspect: true,
   hasRotation: true,

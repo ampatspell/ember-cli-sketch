@@ -44,7 +44,7 @@ export default EmberObject.extend({
 
   _invoke: safe(function() {
     let { opts: { fn }, owner } = this;
-    resolve(fn.call(owner, this)).then(result => this._didInvoke(result), err => this._invokeDidFail(err));
+    resolve(fn.call(owner, this, owner)).then(result => this._didInvoke(result), err => this._invokeDidFail(err));
   }),
 
   _scheduleInvoke() {
