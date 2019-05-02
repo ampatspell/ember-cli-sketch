@@ -3,32 +3,33 @@ import Action from '../-base';
 export default Action.extend({
 
   perform(node) {
-    let stage = node.stage;
+    let { isContainer, stage, parent: container } = node;
 
-    if(!stage) {
+    if(isContainer || !stage || !container) {
       return;
     }
 
-    if(node.isContainer) {
-      return;
-    }
-
-    let target = stage.nodes.containers.selectable.find(container => {
-      return container !== node && container.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds');
+    let findTarget = () => stage.nodes.containers.selectable.find(container => {
+      return container.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds');
     });
 
-    if(target) {
-      if(node.parent === target) {
-        return;
-      }
-    } else if(node.parent !== stage) {
-      target = stage;
-    } else {
-      return;
+    let move = target => {
+      node.moveTo(target);
+      return target;
     }
 
-    node.moveTo(target);
-    return true;
+    if(container.isStage) {
+      let target = findTarget();
+      if(target) {
+        return move(target);
+      }
+    } else {
+      let outside = container.frame.excludesFrame(node.frame.absoluteBounds, 'absoluteBounds');
+      if(outside) {
+        let target = findTarget() || stage;
+        return move(target);
+      }
+    }
   }
 
 });

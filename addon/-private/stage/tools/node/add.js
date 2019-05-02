@@ -29,9 +29,9 @@ export default Tool.extend({
   },
 
   commit() {
-    let { stage, model, model: { node }, delegate } = this;
+    let { model, model: { node }, delegate } = this;
 
-    stage.moveNodeToOverlappingContainer(node);
+    node.perform('move-to-container');
     node.select();
     delegate.commit && delegate.commit(model);
 

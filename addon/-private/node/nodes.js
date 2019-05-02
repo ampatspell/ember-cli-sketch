@@ -24,7 +24,7 @@ export default EmberObject.extend({
 
   nodesForPosition(position, type) {
     return this.selectable.reduce((nodes, node) => {
-      if(node.frame.includesPosition(position, type)) {
+      if(node.frame.containsPosition(position, type)) {
         nodes.push(node);
       }
       nodes.push(...node.nodes.nodesForPosition(position, type));

@@ -63,21 +63,33 @@ export default EmberObject.extend({
     return props;
   },
 
-  includesPosition({ x, y }, frameKey) {
+  _frame(frameKey) {
     let frame = this[frameKey];
     assert(`frame ${frameKey} not declared for ${this}`, !!frame);
+    return frame;
+  },
+
+  // point is inside this frame
+  containsPosition({ x, y }, frameKey) {
+    let frame = this._frame(frameKey);
     return frame.x <= x && frame.y <= y && frame.x + frame.width >= x && frame.y + frame.height >= y;
   },
 
-  includesFrame({ x, y, width, height }, frameKey) {
-    let frame = this[frameKey];
-    assert(`frame ${frameKey} not declared for ${this}`, !!frame);
+  // frame is completely out of this frame
+  excludesFrame({ x, y, width, height }, frameKey) {
+    let frame = this._frame(frameKey);
+    return x + width < frame.x || x > frame.x + frame.width || y + height < frame.y || y > frame.y + frame.height;
+  },
+
+  // frame is fully inside this frame
+  containsFrame({ x, y, width, height }, frameKey) {
+    let frame = this._frame(frameKey);
     return x >= frame.x && y >= frame.y && x + width <= frame.x + frame.width && y + height <= frame.y + frame.height;
   },
 
+  // frame is at least partially inside this frame
   overlapsFrame({ x, y, width, height }, frameKey) {
-    let frame = this[frameKey];
-    assert(`frame ${frameKey} not declared for ${this}`, !!frame);
+    let frame = this._frame(frameKey);
     return x < frame.x + frame.width && x + width > frame.x && y < frame.y + frame.height && y + height > frame.y;
   }
 
