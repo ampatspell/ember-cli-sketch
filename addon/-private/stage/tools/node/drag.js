@@ -13,7 +13,7 @@ export default Tool.extend({
     }
 
     nodes.forEach(node => node.update(point, { delta: true }));
-    stage.moveNodesToOverlappingContainers(nodes);
+    stage.nodesPerform(nodes, 'move-to-container');
   },
 
   onMouseMove({ delta }) {
