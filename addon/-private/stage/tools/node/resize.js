@@ -94,6 +94,8 @@ export default Tool.extend({
       this.updateAspect();
     }
 
+    node.perform('move-to-container');
+
     return true;
   },
 
