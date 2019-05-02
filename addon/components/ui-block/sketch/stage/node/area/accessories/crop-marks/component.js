@@ -6,7 +6,6 @@ import { readOnly } from '@ember/object/computed';
 export default Component.extend({
   layout,
   classNameBindings: [ ':ui-block-sketch-stage-node-area-accessories-crop-marks', 'highlighted:highlighted' ],
-  attributeBindings: 'style',
 
   highlighted: readOnly('model.node.isHovered'),
   inset: readOnly('accessory.inset'),

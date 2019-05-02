@@ -63,27 +63,34 @@ export const frame = (modelKey, frameKey, opts={}) => computed(`${modelKey}.node
   return hash;
 }).readOnly();
 
+export const objectToStyle = hash => {
+  if(!hash) {
+    return;
+  }
+
+  if(typeOf(hash) === 'array') {
+    hash = hash.reduce((result, hash) => {
+      result = assign(result, hash);
+      return result;
+    }, {});
+  }
+
+  let array = Object.keys(hash).reduce((array, key) => {
+    let value = hash[key];
+    if(value !== undefined && value !== null && value !== '') {
+      array.push(`${dasherize(key)}: ${value}`);
+    }
+    return array;
+  }, []);
+
+  return htmlSafe(array.join('; '));
+}
+
 export const style = (...deps) => {
   let fn = deps.pop();
   return computed(...deps, function() {
     let hash = fn.call(this, this);
-    if(!hash) {
-      return;
-    }
-    if(typeOf(hash) === 'array') {
-      hash = hash.reduce((result, hash) => {
-        result = assign(result, hash);
-        return result;
-      }, {});
-    }
-    let array = Object.keys(hash).reduce((array, key) => {
-      let value = hash[key];
-      if(value !== undefined && value !== null && value !== '') {
-        array.push(`${dasherize(key)}: ${value}`);
-      }
-      return array;
-    }, []);
-    return htmlSafe(array.join('; '));
+    return objectToStyle(hash);
   }).readOnly();
 };
 
