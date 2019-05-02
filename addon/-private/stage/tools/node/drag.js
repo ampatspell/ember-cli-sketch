@@ -6,7 +6,6 @@ export default Tool.extend({
     let { stage, selection, zoom } = this;
 
     let nodes = selection.selectable;
-    nodes.forEach(node => node.isContainer && node.moveToTop());
 
     let point = {
       x: delta.x / zoom,
@@ -14,7 +13,7 @@ export default Tool.extend({
     }
 
     nodes.forEach(node => node.update(point, { delta: true }));
-    stage.moveNodesToOverlappingContainers(nodes);
+    stage.nodesPerform(nodes, 'move-to-container');
   },
 
   onMouseMove({ delta }) {

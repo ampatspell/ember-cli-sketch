@@ -56,37 +56,17 @@ export default opts => create(opts).extend({
     this.model.handle(action);
   },
 
+  nodesPerform(nodes, name, ...args) {
+    if(!nodes) {
+      return;
+    }
+    nodes = nodes.slice();
+    let actions = this.sketches.actions;
+    return nodes.map(node => actions.perform(name, node, ...args));
+  },
+
   nodesForPosition(position, type) {
     return this.nodes.nodesForPosition(position, type);
-  },
-
-  //
-
-  moveNodeToOverlappingContainer(node) {
-    if(node.isContainer) {
-      return;
-    }
-
-    let target = this.nodes.containers.selectable.find(container => {
-      return container !== node && container.frame.overlapsFrame(node.frame.absoluteBounds, 'absoluteBounds');
-    });
-
-    if(target) {
-      if(node.parent === target) {
-        return;
-      }
-    } else if(node.parent !== this) {
-      target = this;
-    } else {
-      return;
-    }
-
-    node.moveTo(target);
-    return true;
-  },
-
-  moveNodesToOverlappingContainers(nodes) {
-    return nodes.filter(node => this.moveNodeToOverlappingContainer(node));
   }
 
 });
