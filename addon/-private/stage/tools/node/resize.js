@@ -126,7 +126,6 @@ export default Tool.extend({
     let edge = node.edge.serialized;
     this.setProperties({ node, edge });
     this.selection.removeExcept(node);
-    node.isContainer && node.moveToTop();
     if(!this.free) {
       this.updateAspect();
     }
