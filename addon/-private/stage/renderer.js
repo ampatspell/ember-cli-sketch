@@ -20,6 +20,10 @@ export default EmberObject.extend({
     this.setProperties({ _component: null });
   },
 
+  isAttachedTo(component) {
+    return this._component === component;
+  },
+
   recalculateSize() {
     let { isAttached, _component } = this;
     if(!isAttached) {

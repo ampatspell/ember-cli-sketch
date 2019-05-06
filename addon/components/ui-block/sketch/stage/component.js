@@ -67,8 +67,17 @@ export default Component.extend(EventsMixin, ReadyMixin, {
     this.notifyReady(this.stage);
   },
 
+  willDestroyElement() {
+    this._super(...arguments);
+    this.detachStage(this._stage);
+  },
+
+  isStageAttachedToSelf(stage) {
+    return stage && stage.node.renderer.isAttachedTo(this);
+  },
+
   notifyReady(stage) {
-    if(!stage) {
+    if(!this.isStageAttachedToSelf(stage)) {
       return;
     }
     let { ready } = this;
@@ -79,7 +88,7 @@ export default Component.extend(EventsMixin, ReadyMixin, {
   },
 
   detachStage(stage) {
-    stage.node.detach();
+    stage && stage.node.detach();
   },
 
   attachStage(stage) {
