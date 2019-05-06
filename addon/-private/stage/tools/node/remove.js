@@ -5,8 +5,17 @@ export default Tool.extend({
   perform() {
     let { stage, selection } = this;
 
-    let nodes = selection.copy();
-    let perform = () => nodes.forEach(node => node.remove());
+    selection = selection.copy();
+
+    let perform = filter => {
+      let array = selection;
+      if(filter) {
+        array = array.filter(node => filter(node.model));
+      }
+      array.forEach(node => node.remove());
+    };
+
+    let nodes = selection.map(node => node.model);
 
     stage.handle({
       type: 'remove-nodes',
