@@ -13,15 +13,19 @@ export default EmberObject.extend({
   promise: readOnly('deferred.promise'),
 
   isBusy: true,
+  isEmpty: true,
   error: null,
 
-  status: computed('isBusy', 'error', function() {
-    let { isBusy, error } = this;
+  status: computed('isBusy', 'isEmpty', 'error', function() {
+    let { isBusy, isEmpty, error } = this;
     if(isBusy) {
       return 'loading';
     }
     if(error) {
       return 'error';
+    }
+    if(isEmpty) {
+      return 'empty';
     }
     return 'loaded';
   }).readOnly(),
@@ -33,7 +37,7 @@ export default EmberObject.extend({
   },
 
   _didInvoke: safe(function(result) {
-    this.setProperties(assign({ isBusy: false }, result));
+    this.setProperties(assign({ isBusy: false, isEmpty: !result }, result));
     this.deferred.resolve(this);
   }),
 
