@@ -27,6 +27,22 @@ export default Frame.extend({
       x: value('x'),
       y: value('y')
     };
+  },
+
+  pointForMouseEvent(e) {
+    let screen = this.parent.renderer.screenPointFromMouseEvent(e);
+    if(!screen) {
+      return;
+    }
+
+    let point = this.convertPointFromScreen(screen);
+
+    let calc = prop => point[prop] - this[prop];
+
+    return {
+      x: calc('x'),
+      y: calc('y')
+    };
   }
 
 });

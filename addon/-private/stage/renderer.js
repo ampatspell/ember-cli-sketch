@@ -38,6 +38,14 @@ export default EmberObject.extend({
       return;
     }
     _component.focus();
+  },
+
+  screenPointFromMouseEvent(e) {
+    let { isAttached, _component } = this;
+    if(!isAttached) {
+      return;
+    }
+    return _component.screenPointFromMouseEvent(e);
   }
 
 });

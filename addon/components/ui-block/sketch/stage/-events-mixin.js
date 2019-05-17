@@ -184,6 +184,15 @@ export default Mixin.create({
 
   onSelectStart() {
     return false;
-  }
+  },
+
+  screenPointFromMouseEvent(e) {
+    let { clientX, clientY } = e;
+    let rect = this.element.getBoundingClientRect();
+    return {
+      x: clientX - rect.left + window.scrollX,
+      y: clientY - rect.top  + window.scrollX
+    };
+  },
 
 });
