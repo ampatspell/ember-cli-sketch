@@ -100,8 +100,6 @@ export default EmberObject.extend({
         'verticalAlign',
         'visible',
         'selectable',
-        'cropMarks',
-        'cropMarksInset',
         'identifier',
         'aspect',
         'padding'
