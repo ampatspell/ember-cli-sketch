@@ -283,16 +283,6 @@
           <div class="label" role="button" {{action "updateNodeProperty" node "url" ""}}>URL:</div>
           {{ui-block/input value=node.model.url update=(action "updateNodeProperty" node "url")}}
         {{/if}}
-
-        {{#if node.model.hasCropMarks}}
-          <div class="label">Crop Marks: {{node.model.cropMarks}}</div>
-          <div class="row">
-            {{ui-block/button value="Enabled" action=(action "updateNodeProperty" node "cropMarks" true)}}
-            {{ui-block/button value="Disabled" action=(action "updateNodeProperty" node "cropMarks" false)}}
-          </div>
-          <div class="label" role="button" {{action "updateNodeProperty" node "cropMarksInset" 0}}>crop marks inset: {{node.model.cropMarksInset}}</div>
-          {{ui-block/slider min=0 max=25 step=1 value=node.model.cropMarksInset update=(action "updateNodeProperty" node "cropMarksInset")}}
-        {{/if}}
       </div>
     </div>
   {{else}}
