@@ -19,3 +19,9 @@ $ ember install ember-cli-sass
 // app/styles/app.scss
 @import "ember-cli-sketch";
 ```
+
+### Apps
+
+Apps built using ember-cli-sketch:
+
+* [bain ×](https://getbain.com/)
