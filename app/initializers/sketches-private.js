@@ -35,6 +35,7 @@ import Renderer from 'ember-cli-sketch/-private/stage/renderer';
 import Hover from 'ember-cli-sketch/-private/stage/hover';
 import Selection from 'ember-cli-sketch/-private/stage/selection';
 import Cursor from 'ember-cli-sketch/-private/stage/cursor';
+import Guidelines from 'ember-cli-sketch/-private/stage/guidelines';
 
 import Tools from 'ember-cli-sketch/-private/stage/tools';
 import ToolSelection from 'ember-cli-sketch/-private/stage/tools/selection';
@@ -90,6 +91,7 @@ export default {
     container.register('sketch:stage/selection', Selection);
     container.register('sketch:stage/tools', Tools);
     container.register('sketch:stage/cursor', Cursor);
+    container.register('sketch:stage/guidelines', Guidelines);
     container.register('sketch:stage/tools/selection', ToolSelection);
     container.register('sketch:stage/tools/stage/drag', ToolStageDrag);
     container.register('sketch:stage/tools/stage/zoom', ToolStageZoom);
