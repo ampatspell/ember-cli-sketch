@@ -7,10 +7,14 @@ export default EmberObject.extend({
   stage: null,
   enabled: readOnly('stage.tools.selected.guidelines'),
 
+  // iterate selection nodes
+  // lookup related nodes
+  // emit guidelines
+
   lines: computed(function() {
     return [
       { type: 'horizontal', x: 630, y: 425, length: 500 },
-      { type: 'vertical', x: 630, y: 425, length: 500 }
+      { type: 'vertical',   x: 630, y: 425, length: 500 }
     ];
   }),
 
