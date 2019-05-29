@@ -8,7 +8,9 @@ export default EmberObject.extend({
   enabled: readOnly('stage.tools.selected.guidelines'),
 
   // iterate selection nodes
-  // lookup related nodes
+  // nodes has lines/edges v-left, v-middle, v-right, h-top, ...
+  // edges are in two groups -- vertical and horizontal. those are evaluated separately
+  // lookup related nodes based on edges (v and h)
   // emit guidelines
 
   lines: computed(function() {
