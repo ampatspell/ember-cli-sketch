@@ -4,6 +4,8 @@ import { computed } from '@ember/object';
 
 export default Tool.extend({
 
+  guidelines: true,
+
   node: null,
   edge: null,
 

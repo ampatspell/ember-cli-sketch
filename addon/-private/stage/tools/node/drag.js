@@ -2,6 +2,8 @@ import Tool from '../-base';
 
 export default Tool.extend({
 
+  guidelines: true,
+
   update({ delta }) {
     let { stage, selection, zoom } = this;
 

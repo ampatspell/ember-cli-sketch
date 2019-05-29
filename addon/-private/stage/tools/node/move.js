@@ -2,6 +2,8 @@ import Tool from '../-base';
 
 export default Tool.extend({
 
+  guidelines: true,
+
   perform({ key }) {
     let { stage, selection, keyboard } = this;
 

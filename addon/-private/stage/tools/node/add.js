@@ -6,6 +6,7 @@ export default Tool.extend({
   model: null,
   delegate: null,
 
+  guidelines: true,
   cursor: 'none',
 
   update({ delta }={}) {
