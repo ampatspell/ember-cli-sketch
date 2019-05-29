@@ -94,6 +94,17 @@
   </div>
 
   <div class="block">
+    <div class="title">Guidelines</div>
+    <div class="actions">
+      {{#each stage.node.guidelines.content as |line|}}
+        <div>{{line.type}}: {{line.x}},{{line.y}},{{line.length}}</div>
+      {{else}}
+        No guidelines
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="block">
     <div class="title" role="button" {{action "performAction" stage.node "reset"}}>Position: {{stage.x}}×{{stage.y}}</div>
     <div class="actions">
       {{ui-block/slider min=-1000 max=1000 step=1 value=stage.x update=(action "updateStageProperty" "x")}}
