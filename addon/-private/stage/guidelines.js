@@ -1,5 +1,6 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
+import { round } from '../util/math';
 
 export default EmberObject.extend({
 
@@ -17,7 +18,7 @@ export default EmberObject.extend({
     let { lines, stage: { frame } } = this;
     return lines.map(line => {
       let { type, length } = line;
-      let calc = prop => (frame[prop] + line[prop]) * frame.zoom;
+      let calc = prop => round(frame[prop] * frame.zoom, 0) + round(line[prop] * frame.zoom, 0);
       return {
         type,
         x: calc('x'),

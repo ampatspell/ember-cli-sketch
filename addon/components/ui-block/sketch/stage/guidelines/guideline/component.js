@@ -8,10 +8,24 @@ export default Component.extend({
   attributeBindings: [ 'style' ],
 
   style: style('guideline.{type,x,y,length}', function() {
-    let { guideline: { x, y } } = this;
+    let { guideline: { type, x, y, length } } = this;
+
+    let width;
+    let height;
+
+    if(type === 'vertical') {
+      width = 1;
+      height = length;
+    } else if(type === 'horizontal') {
+      width = length;
+      height = 1;
+    }
+
     return {
       top: `${y}px`,
       left: `${x}px`,
+      width: `${width}px`,
+      height: `${height}px`
     };
   }).readOnly(),
 
