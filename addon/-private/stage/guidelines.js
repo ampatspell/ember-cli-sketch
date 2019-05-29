@@ -6,19 +6,33 @@ export default EmberObject.extend({
   stage: null,
   enabled: readOnly('stage.tools.selected.guidelines'),
 
-  _content: computed(function() {
+  lines: computed(function() {
     return [
-      { type: 'horizontal', x: 10, y: 10, length: 500 },
-      { type: 'vertical', x: 10, y: 10, length: 500 }
+      { type: 'horizontal', x: 630, y: 425, length: 500 },
+      { type: 'vertical', x: 630, y: 425, length: 500 }
     ];
   }),
 
-  content: computed('enabled', '_content', function() {
-    let { enabled, _content } = this;
+  absolute: computed('lines', 'stage.frame.{zoom,x,y}', function() {
+    let { lines, stage: { frame } } = this;
+    return lines.map(line => {
+      let { type, length } = line;
+      let calc = prop => (frame[prop] + line[prop]) * frame.zoom;
+      return {
+        type,
+        x: calc('x'),
+        y: calc('y'),
+        length
+      };
+    });
+  }).readOnly(),
+
+  content: computed('enabled', 'absolute', function() {
+    let { enabled, absolute } = this;
     if(!enabled) {
       return;
     }
-    return _content;
+    return absolute;
   }).readOnly()
 
 });
