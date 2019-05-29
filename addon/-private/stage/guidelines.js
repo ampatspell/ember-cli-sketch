@@ -16,16 +16,15 @@ export default EmberObject.extend({
 
   absolute: computed('lines', 'stage.frame.{zoom,x,y}', function() {
     let { lines, stage: { frame } } = this;
-    return lines.map(line => {
-      let { type, length } = line;
-      let calc = prop => round(frame[prop] * frame.zoom, 0) + round(line[prop] * frame.zoom, 0);
-      return {
-        type,
-        x: calc('x'),
-        y: calc('y'),
-        length
-      };
-    });
+    let { zoom } = frame;
+    let pos = (line, prop) => round(frame[prop] * zoom, 0) + round(line[prop] * zoom, 0);
+    let length = line => round(line.length * zoom, 0);
+    return lines.map(line => ({
+      type:   line.type,
+      x:      pos(line, 'x'),
+      y:      pos(line, 'y'),
+      length: length(line)
+    }));
   }).readOnly(),
 
   content: computed('enabled', 'absolute', function() {
