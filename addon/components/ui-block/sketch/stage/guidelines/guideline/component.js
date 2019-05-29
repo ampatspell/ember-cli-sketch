@@ -19,6 +19,8 @@ export default Component.extend({
     } else if(type === 'horizontal') {
       width = length;
       height = 1;
+    } else {
+      return;
     }
 
     return {
