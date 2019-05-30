@@ -6,7 +6,7 @@ export default EmberObject.extend({
   node: null,
   opts: null,
 
-  edges: computed(function() {
+  all: computed(function() {
     let { opts: { edges } } = this;
     let factory = sketches(this).factory;
     return edges.map(recompute => factory.guidelinesEdge(this, { recompute }));

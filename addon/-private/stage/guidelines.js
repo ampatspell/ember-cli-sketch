@@ -16,17 +16,20 @@ export default EmberObject.extend({
 
   // TODO: final lines has to be kept the same for rerenders. This kills performance
 
-  lines: computed('selection.@each.edges', function() {
-    let { selection } = this;
-    return selection.reduce((array, node) => {
-      let { edges } = node;
-      setGlobal({ edges });
-      // edges.forEach(edge => {
-      //   let { x, y } = edge;
-      //   array.push({ type: 'horizontal', x, y, length: 500 });
-      // });
-      return array;
+  // TODO: temp
+  edges: computed('selection.@each.edges', function() {
+    return this.selection.reduce((arr, node) => {
+      arr.push(...node.edges.all);
+      return arr;
     }, []);
+  }).readOnly(),
+
+  // TODO: temp
+  lines: computed('edges.@each.point', function() {
+    return this.edges.map(edge => {
+      let { point: { x, y } } = edge;
+      return { type: 'horizontal', x, y, length: 500 };
+    });
   }).readOnly(),
 
   // lines: computed(function() {
