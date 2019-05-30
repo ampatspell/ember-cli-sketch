@@ -14,6 +14,8 @@ export default EmberObject.extend({
   // lookup related nodes based on edges (v and h)
   // emit guidelines
 
+  // TODO: final lines has to be kept the same for rerenders. This kills performance
+
   lines: computed('selection.@each.edges', function() {
     let { selection } = this;
     return selection.reduce((array, node) => {
