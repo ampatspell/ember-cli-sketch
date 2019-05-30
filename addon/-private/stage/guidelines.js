@@ -6,6 +6,7 @@ export default EmberObject.extend({
 
   stage: null,
   enabled: readOnly('stage.tools.selected.guidelines'),
+  selection: readOnly('stage.selection.attached'),
 
   // iterate selection nodes
   // nodes has lines/edges v-left, v-middle, v-right, h-top, ...
@@ -13,17 +14,29 @@ export default EmberObject.extend({
   // lookup related nodes based on edges (v and h)
   // emit guidelines
 
-  lines: computed(function() {
-    return [
-      { type: 'horizontal', x: 630, y: 425, length: 500 },
-      { type: 'vertical',   x: 630, y: 425, length: 500 }
-    ];
-  }),
+  lines: computed('selection.@each.edges', function() {
+    let { selection } = this;
+    return selection.reduce((array, node) => {
+      let { edges } = node;
+      edges.forEach(edge => {
+        let { x, y } = edge;
+        array.push({ type: 'horizontal', x, y, length: 500 });
+      });
+      return array;
+    }, []);
+  }).readOnly(),
+
+  // lines: computed(function() {
+  //   return [
+  //     { type: 'horizontal', x: 630, y: 425, length: 500 },
+  //     { type: 'vertical',   x: 630, y: 425, length: 500 }
+  //   ];
+  // }),
 
   absolute: computed('lines', 'stage.frame.{zoom,x,y}', function() {
     let { lines, stage: { frame } } = this;
     let { zoom } = frame;
-    let pos = (line, prop) => round(frame[prop] * zoom, 0) + round(line[prop] * zoom, 0);
+    let pos = (line, prop) => round(line[prop], 0);
     let length = line => round(line.length * zoom, 0);
     return lines.map(line => ({
       type:   line.type,

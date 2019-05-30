@@ -77,6 +77,7 @@ export default opts => {
     type:        value('type'),
     aspect:      readOnly('model.aspect'),
     accessories: readOnly('model.accessories'),
+    edges:       readOnly('model.edges'),
 
     isContainer:  prop('container', false),
     isAttached:   bool('parent'),
