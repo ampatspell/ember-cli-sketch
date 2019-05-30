@@ -20,23 +20,27 @@ export default Base.extend({
   edges: edges(frame => {
     // TODO: have this as a default
     let { x, y, width, height } = frame;
-    let half = {
-      width:  width / 2,
-      height: height / 2
+    let mid = {
+      x: x + (width / 2),
+      y: y + (height / 2)
+    };
+    let max = {
+      x: x + width,
+      y: y + height
     };
     return [
       // top
-      { x: x,              y: y },
-      { x: x + half.width, y: y },
-      { x: x + width,      y: y },
+      { x: x,     y: y },
+      { x: mid.x, y: y },
+      { x: max.x, y: y },
       // middle
-      { x: x,              y: y + half.height },
-      { x: x + half.width, y: y + half.height },
-      { x: x + width,      y: y + half.height },
+      { x: x,     y: mid.y },
+      { x: mid.x, y: mid.y },
+      { x: max.x, y: mid.y },
       // bottom
-      { x: x,              y: y + height },
-      { x: x + half.width, y: y + height },
-      { x: x + width,      y: y + height },
+      { x: x,     y: max.y },
+      { x: mid.x, y: max.y },
+      { x: max.x, y: max.y },
     ];
   }),
 
