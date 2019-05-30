@@ -26,6 +26,8 @@ import NodeStage from 'ember-cli-sketch/-private/node/stage';
 import NodeSized from 'ember-cli-sketch/-private/node/sized';
 
 import Edge from 'ember-cli-sketch/-private/node/edge';
+import GuidelinesEdges from 'ember-cli-sketch/-private/node/guidelines/edges';
+import GuidelinesEdge from 'ember-cli-sketch/-private/node/guidelines/edge';
 
 import FrameStage from 'ember-cli-sketch/-private/node/frame/stage';
 import FrameNodes from 'ember-cli-sketch/-private/node/frame/nodes';
@@ -80,6 +82,8 @@ export default {
     container.register('sketch:node/attribute/boolean', AttributeBoolean);
     container.register('sketch:node/edge', Edge);
     container.register('sketch:node/nodes', Nodes);
+    container.register('sketch:node/guidelines/edges', GuidelinesEdges);
+    container.register('sketch:node/guidelines/edge', GuidelinesEdge);
     container.register('sketch:node/nodes/containers', NodesContainers);
     container.register('sketch:factory/node/stage', NodeStage);
     container.register('sketch:factory/node/sized', NodeSized);
