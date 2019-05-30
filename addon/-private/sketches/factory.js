@@ -93,8 +93,8 @@ export default EmberObject.extend({
     return this._create('node/guidelines/edges', { node, opts });
   },
 
-  guidelinesEdge(edges) {
-    return this._create('node/guidelines/edge', { edges });
+  guidelinesEdge(edges, opts) {
+    return this._create('node/guidelines/edge', { edges, opts });
   },
 
   hover(stage) {
