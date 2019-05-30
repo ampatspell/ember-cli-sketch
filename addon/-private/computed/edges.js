@@ -1,4 +1,5 @@
 import { computed } from '@ember/object';
+import { assign } from '@ember/polyfills';
 import sketches from '../util/sketches';
 
 // const _fn = frame => {
@@ -30,6 +31,8 @@ import sketches from '../util/sketches';
 //   ];
 // };
 
-export default () => computed(function() {
-  return sketches(this).factory.guidelinesEdges(this);
+export default fn => computed(function() {
+  let edges = fn.call(this);
+  let { node } = this;
+  return sketches(this).factory.guidelinesEdges(node, { edges });
 }).readOnly();

@@ -20,7 +20,7 @@ export default EmberObject.extend({
     let { selection } = this;
     return selection.reduce((array, node) => {
       let { edges } = node;
-      console.log(edges+'');
+      setGlobal({ edges });
       // edges.forEach(edge => {
       //   let { x, y } = edge;
       //   array.push({ type: 'horizontal', x, y, length: 500 });
