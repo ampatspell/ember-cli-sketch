@@ -29,6 +29,6 @@ export default Component.extend({
       width: `${width}px`,
       height: `${height}px`
     };
-  }).readOnly(),
+  }).readOnly()
 
 });

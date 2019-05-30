@@ -12,6 +12,6 @@ export default EmberObject.extend({
   point: computed('frame', function() {
     let { frame, opts: { recompute } } = this;
     return recompute(frame);
-  }).readOnly(),
+  }).readOnly()
 
 });
