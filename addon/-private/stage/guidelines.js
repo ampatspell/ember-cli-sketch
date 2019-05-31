@@ -1,15 +1,18 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 
-const edges = key => computed(`${key}.@each.edges`, function() {
+const guidelines = key => computed(`${key}.@each._guidelines`, function() {
   let nodes = this.get(key);
-  return nodes.reduce((arr, node) => {
-    let { edges } = node;
-    if(edges) {
-      arr.push(...edges.all);
-    }
-    return arr;
+  return nodes.reduce((guidelines, node) => {
+    guidelines.push(...node._guidelines);
+    return guidelines;
   }, []);
+}).readOnly();
+
+const enabled = key => computed('enabled', key, function() {
+  if(this.enabled) {
+    return this.get(key);
+  }
 }).readOnly();
 
 export default EmberObject.extend({
@@ -17,23 +20,7 @@ export default EmberObject.extend({
   stage: null,
   enabled: readOnly('stage.tools.selected.guidelines'),
 
-  recursive: readOnly('stage.recursive'),
-  selection: readOnly('stage.selection.attached'),
-
-  edges:    edges('recursive'),
-  selected: edges('selection'),
-
-  // TODO: tmp
-  all: computed('edges', function() {
-    let { edges } = this;
-    return edges;
-  }).readOnly(),
-
-  visible: computed('enabled', 'all', function() {
-    let { enabled, all } = this;
-    if(enabled) {
-      return all;
-    }
-  }).readOnly()
+  selection: guidelines('stage.selection.attached'),
+  visible: enabled('selection')
 
 });

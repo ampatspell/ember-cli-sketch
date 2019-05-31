@@ -95,6 +95,7 @@ export default opts => {
     edge:       edge(),
     guidelines: guidelines(),
 
+    _guidelines: readOnly('guidelines.all'),
     _rotatedFrame: readOnly('frame.rotated'),
     _hasEdge: readOnly('edge.has'),
 
