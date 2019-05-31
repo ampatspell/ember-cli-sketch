@@ -95,6 +95,11 @@ export default opts => {
     _rotatedFrame: readOnly('frame.rotated'),
     _hasEdge: readOnly('edge.has'),
 
+    recursive: computed('nodes.recursive', function() {
+      let { nodes: { recursive } } = this;
+      return [ this, ...recursive ];
+    }).readOnly(),
+
     index: computed('parent.nodes.all.[]', function() {
       let nodes = this.get('parent.nodes.all');
       if(!nodes) {
