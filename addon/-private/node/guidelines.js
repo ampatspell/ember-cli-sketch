@@ -15,6 +15,6 @@ export default EmberObject.extend({
       * nearby guidelines -- those which are say 5px away and needs to be snapped to
       * equal -- when snapping happens or just postion/size is identical to another edge
 
-  /*
+  */
 
 });
