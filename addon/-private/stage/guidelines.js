@@ -1,17 +1,19 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
-import { round } from '../util/math';
 
 export default EmberObject.extend({
 
   stage: null,
   enabled: readOnly('stage.tools.selected.guidelines'),
-  selection: readOnly('stage.selection.attached'),
+  nodes: readOnly('stage.selection.attached'),
 
   // TODO: temp
-  edges: computed('selection.@each.edges', function() {
-    return this.selection.reduce((arr, node) => {
-      arr.push(...node.edges.all);
+  edges: computed('nodes.@each.edges', function() {
+    return this.nodes.reduce((arr, node) => {
+      let { edges } = node;
+      if(edges) {
+        arr.push(...edges.all);
+      }
       return arr;
     }, []);
   }).readOnly(),

@@ -1,15 +1,46 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
-import { node, attr, prop, edges } from '../-node';
+import { node, attr, prop, edges as _edges } from '../-node';
 import { A } from '@ember/array';
 import { guidFor } from '@ember/object/internals';
+
+export const edges = arg => {
+  if(arg) {
+    return _edges(arg);
+  }
+
+  const edge = fn => frame => {
+    let { x, y, width, height } = frame;
+    let mid = {
+      x: x + (width / 2),
+      y: y + (height / 2)
+    };
+    let max = {
+      x: x + width,
+      y: y + height
+    };
+    return fn({ x, y, width, height, mid, max });
+  };
+
+  return _edges({
+    horizontal: () => ([
+      edge(({ x, y,   width })  => ({ x, y,        length: width })),
+      edge(({ x, mid, width })  => ({ x, y: mid.y, length: width })),
+      edge(({ x, max, width })  => ({ x, y: max.y, length: width })),
+    ]),
+    vertical: () => ([
+      edge(({ x,   y, height }) => ({ x,        y, length: height })),
+      edge(({ mid, y, height }) => ({ x: mid.x, y, length: height })),
+      edge(({ max, y, height }) => ({ x: max.x, y, length: height })),
+    ])
+  });
+}
 
 export {
   node,
   attr,
-  prop,
-  edges
+  prop
 };
 
 export const position = (target, opts) => attr(target, assign({ type: 'number', decimals: 2 }, opts));
