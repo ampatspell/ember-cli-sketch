@@ -1,15 +1,23 @@
 import EmberObject, { computed } from '@ember/object';
 import sketches from '../../util/sketches';
 
+const edges = direction => computed(`opts.${direction}`,function() {
+  let edges = this.get(`opts.${direction}`);
+  let factory = sketches(this).factory;
+  return edges.map(recompute => factory.guidelinesEdge(this, { direction, recompute }));
+}).readOnly();
+
 export default EmberObject.extend({
 
   node: null,
   opts: null,
 
-  all: computed(function() {
-    let { opts: { edges } } = this;
-    let factory = sketches(this).factory;
-    return edges.map(recompute => factory.guidelinesEdge(this, { recompute }));
+  horizontal: edges('horizontal'),
+  vertical:   edges('vertical'),
+
+  all: computed('horizontal', 'vertical', function() {
+    let { horizontal, vertical } = this;
+    return [ ...horizontal, ...vertical ];
   }).readOnly()
 
 });

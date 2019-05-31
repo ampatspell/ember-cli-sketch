@@ -11,9 +11,19 @@ export default EmberObject.extend({
   node: readOnly('edges.node'),
   frame: readOnly('node.frame.hover'),
 
-  point: computed('frame', function() {
+  recomputed: computed('frame', function() {
     let { frame, opts: { recompute } } = this;
     return recompute(frame);
-  }).readOnly()
+  }).readOnly(),
+
+  point: computed('recomputed', function() {
+    let { recomputed: { x, y } } = this;
+    return { x, y };
+  }).readOnly(),
+
+  length: computed('recomputed', function() {
+    let { recomputed: { length } } = this;
+    return length;
+  }).readOnly(),
 
 });

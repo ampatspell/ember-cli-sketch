@@ -10,7 +10,7 @@ const edge = fn => frame => {
     x: x + width,
     y: y + height
   };
-  return fn({ x, y, mid, max });
+  return fn({ x, y, width, height, mid, max });
 };
 
 export default Base.extend({
@@ -30,20 +30,18 @@ export default Base.extend({
   fill:     attr('fill'),
   opacity:  attr('opacity', { type: 'number', min: 0, max: 1, decimals: 2 }),
 
-  edges: edges(() => ([
-    // top
-    edge(({ x, y })     => ({ x, y })),
-    edge(({ y, mid })   => ({ x: mid.x, y })),
-    edge(({ y, max })   => ({ x: max.x, y })),
-    // middle
-    edge(({ x, mid })   => ({ x, y: mid.y })),
-    edge(({ mid })      => ({ x: mid.x, y: mid.y })),
-    edge(({ mid, max }) => ({ x: max.x, y: mid.y })),
-    // bottom
-    edge(({ x, max })   => ({ x, y: max.y })),
-    edge(({ mid, max }) => ({ x: mid.x, y: max.y })),
-    edge(({ max })      => ({ x: max.x, y: max.y })),
-  ])),
+  edges: edges({
+    horizontal: () => ([
+      edge(({ x, y, width })    => ({ x, y,        length: width })),
+      edge(({ x, mid, width })  => ({ x, y: mid.y, length: width })),
+      edge(({ x, max, width })  => ({ x, y: max.y, length: width })),
+    ]),
+    vertical: () => ([
+      edge(({ x, y, height })   => ({ x, y, length: height })),
+      edge(({ mid, y, height }) => ({ x: mid.x, y, length: height })),
+      edge(({ max, y, height }) => ({ x: max.x, y, length: height })),
+    ])
+  }),
 
   hasRotation: true,
   hasFill: true,

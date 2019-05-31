@@ -7,16 +7,16 @@ export default Component.extend({
   classNameBindings: [ ':ui-block-sketch-stage-guidelines-guideline' ],
   attributeBindings: [ 'style' ],
 
-  style: style('guideline.{type,x,y,length}', function() {
-    let { guideline: { type, x, y, length } } = this;
+  style: style('guideline.{direction,x,y,length}', function() {
+    let { guideline: { direction, x, y, length } } = this;
 
     let width;
     let height;
 
-    if(type === 'vertical') {
+    if(direction === 'vertical') {
       width = 1;
       height = length;
-    } else if(type === 'horizontal') {
+    } else if(direction === 'horizontal') {
       width = length;
       height = 1;
     } else {

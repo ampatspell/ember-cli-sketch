@@ -29,10 +29,10 @@ export default EmberObject.extend({
   }).readOnly(),
 
   // TODO: temp
-  lines: computed('edges.@each.point', function() {
+  lines: computed('edges.@each.{point,length}', function() {
     return this.edges.map(edge => {
-      let { point: { x, y } } = edge;
-      return { type: 'horizontal', x, y, length: 500 };
+      let { direction, point: { x, y }, length } = edge;
+      return { direction, x, y, length };
     });
   }).readOnly(),
 
@@ -43,13 +43,12 @@ export default EmberObject.extend({
   //   ];
   // }),
 
-  absolute: computed('lines', 'stage.frame.{zoom,x,y}', function() {
-    let { lines, stage: { frame } } = this;
-    let { zoom } = frame;
+  absolute: computed('lines', function() {
+    let { lines } = this;
     let pos = (line, prop) => round(line[prop], 0);
-    let length = line => round(line.length * zoom, 0);
+    let length = line => round(line.length, 0);
     return lines.map(line => ({
-      type:   line.type,
+      direction: line.direction,
       x:      pos(line, 'x'),
       y:      pos(line, 'y'),
       length: length(line)
