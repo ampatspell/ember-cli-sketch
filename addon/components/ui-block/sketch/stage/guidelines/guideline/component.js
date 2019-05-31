@@ -24,8 +24,7 @@ export default Component.extend({
     }
 
     return {
-      top: `${y}px`,
-      left: `${x}px`,
+      transform: `translate(${x}px, ${y}px)`,
       width: `${width}px`,
       height: `${height}px`
     };

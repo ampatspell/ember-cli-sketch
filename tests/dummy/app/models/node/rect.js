@@ -32,12 +32,12 @@ export default Base.extend({
 
   edges: edges({
     horizontal: () => ([
-      edge(({ x, y, width })    => ({ x, y,        length: width })),
+      edge(({ x, y,   width })  => ({ x, y,        length: width })),
       edge(({ x, mid, width })  => ({ x, y: mid.y, length: width })),
       edge(({ x, max, width })  => ({ x, y: max.y, length: width })),
     ]),
     vertical: () => ([
-      edge(({ x, y, height })   => ({ x, y, length: height })),
+      edge(({ x,   y, height }) => ({ x,        y, length: height })),
       edge(({ mid, y, height }) => ({ x: mid.x, y, length: height })),
       edge(({ max, y, height }) => ({ x: max.x, y, length: height })),
     ])
