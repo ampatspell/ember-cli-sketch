@@ -28,6 +28,7 @@ import NodeSized from 'ember-cli-sketch/-private/node/sized';
 import Edge from 'ember-cli-sketch/-private/node/edge';
 import GuidelinesEdges from 'ember-cli-sketch/-private/node/guidelines/edges';
 import GuidelinesEdge from 'ember-cli-sketch/-private/node/guidelines/edge';
+import NodeGuidelines from 'ember-cli-sketch/-private/node/guidelines';
 
 import FrameStage from 'ember-cli-sketch/-private/node/frame/stage';
 import FrameNodes from 'ember-cli-sketch/-private/node/frame/nodes';
@@ -37,7 +38,7 @@ import Renderer from 'ember-cli-sketch/-private/stage/renderer';
 import Hover from 'ember-cli-sketch/-private/stage/hover';
 import Selection from 'ember-cli-sketch/-private/stage/selection';
 import Cursor from 'ember-cli-sketch/-private/stage/cursor';
-import Guidelines from 'ember-cli-sketch/-private/stage/guidelines';
+import StageGuidelines from 'ember-cli-sketch/-private/stage/guidelines';
 
 import Tools from 'ember-cli-sketch/-private/stage/tools';
 import ToolSelection from 'ember-cli-sketch/-private/stage/tools/selection';
@@ -82,6 +83,7 @@ export default {
     container.register('sketch:node/attribute/boolean', AttributeBoolean);
     container.register('sketch:node/edge', Edge);
     container.register('sketch:node/nodes', Nodes);
+    container.register('sketch:node/guidelines', NodeGuidelines);
     container.register('sketch:node/guidelines/edges', GuidelinesEdges);
     container.register('sketch:node/guidelines/edge', GuidelinesEdge);
     container.register('sketch:node/nodes/containers', NodesContainers);
@@ -95,7 +97,7 @@ export default {
     container.register('sketch:stage/selection', Selection);
     container.register('sketch:stage/tools', Tools);
     container.register('sketch:stage/cursor', Cursor);
-    container.register('sketch:stage/guidelines', Guidelines);
+    container.register('sketch:stage/guidelines', StageGuidelines);
     container.register('sketch:stage/tools/selection', ToolSelection);
     container.register('sketch:stage/tools/stage/drag', ToolStageDrag);
     container.register('sketch:stage/tools/stage/zoom', ToolStageZoom);

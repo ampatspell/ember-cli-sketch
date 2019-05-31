@@ -45,6 +45,8 @@ const included = arrayKey => computed(`${arrayKey}.[]`, function() {
   return array.includes(this);
 }).readOnly();
 
+const guidelines = factory('nodeGuidelines');
+
 export default opts => {
 
   const attributes = () => _factory((factory, node) => {
@@ -88,9 +90,10 @@ export default opts => {
     stage:     parent('isStage', 'stage'),
     container: parent('isContainer', 'container'),
 
-    nodes: nodes(),
+    nodes:      nodes(),
     attributes: attributes(),
-    edge: edge(),
+    edge:       edge(),
+    guidelines: guidelines(),
 
     _rotatedFrame: readOnly('frame.rotated'),
     _hasEdge: readOnly('edge.has'),

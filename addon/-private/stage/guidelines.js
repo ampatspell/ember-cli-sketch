@@ -20,7 +20,7 @@ export default EmberObject.extend({
   recursive: readOnly('stage.recursive'),
   selection: readOnly('stage.selection.attached'),
 
-  edges: edges('recursive'),
+  edges:    edges('recursive'),
   selected: edges('selection'),
 
   // TODO: tmp

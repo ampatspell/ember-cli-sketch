@@ -25,7 +25,7 @@ export default opts => create(opts).extend({
   selection:    model('selection'),
   tools:        model('tools'),
   cursor:       model('cursor'),
-  guidelines:   model('guidelines'),
+  guidelines:   model('stageGuidelines'),
 
   isSelectable: and('isAttached', '_selectable'),
 
