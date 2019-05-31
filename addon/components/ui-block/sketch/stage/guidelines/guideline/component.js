@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import layout from './template';
 import { style } from '../../-computed';
+import { round } from '../../../../../../-private/util/math';
 
 export default Component.extend({
   layout,
@@ -22,6 +23,9 @@ export default Component.extend({
     } else {
       return;
     }
+
+    x = round(x, 0);
+    y = round(y, 0);
 
     return {
       transform: `translate(${x}px, ${y}px)`,
