@@ -5,7 +5,7 @@ export default EmberObject.extend({
 
   stage: null,
   enabled: readOnly('stage.tools.selected.guidelines'),
-  nodes: readOnly('stage.selection.attached'),
+  nodes: readOnly('stage.recursive'),
 
   // TODO: temp
   edges: computed('nodes.@each.edges', function() {
