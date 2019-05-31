@@ -18,10 +18,11 @@ export default EmberObject.extend({
 
   // TODO: temp
   lines: computed('edges.@each.{point,length}', function() {
-    return this.edges.map(edge => {
-      let { direction, point: { x, y }, length } = edge;
-      return { direction, x, y, length };
-    });
+    return this.edges;
+    // return this.edges.map(edge => {
+    //   let { direction, point: { x, y }, length } = edge;
+    //   return { direction, x, y, length };
+    // });
   }).readOnly(),
 
   absolute: computed('lines', function() {

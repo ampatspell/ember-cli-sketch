@@ -21,6 +21,10 @@ export default EmberObject.extend({
     return { x, y };
   }).readOnly(),
 
+  // TODO: tmp
+  x: readOnly('point.x'),
+  y: readOnly('point.y'),
+
   length: computed('recomputed', function() {
     let { recomputed: { length } } = this;
     return length;
