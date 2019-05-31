@@ -94,12 +94,12 @@
   </div>
 
   <div class="block">
-    <div class="title">Guidelines</div>
+    <div class="title">Selection edges</div>
     <div class="actions">
-      {{#each stage.node.guidelines.content as |line|}}
-        <div>{{line.type}}: {{line.x}},{{line.y}},{{line.length}}</div>
-      {{else}}
-        No guidelines
+      {{#each stage.node.selection.attached as |node|}}
+        {{#each node.edges.all as |edge|}}
+          <div>{{edge.direction}}: {{edge.point.x}},{{edge.point.y}}</div>
+        {{/each}}
       {{/each}}
     </div>
   </div>

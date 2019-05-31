@@ -16,6 +16,10 @@ export default EmberObject.extend({
 
   // TODO: final lines has to be kept the same for rerenders. This kills performance
 
+  // list of edges of non-selected nodes
+  // list of edges of selected nodes
+  // of edge - edge passes threshold, it becomes a gudeline
+
   // TODO: temp
   edges: computed('selection.@each.edges', function() {
     return this.selection.reduce((arr, node) => {

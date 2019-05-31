@@ -6,6 +6,8 @@ export default EmberObject.extend({
   edges: null,
   opts: null,
 
+  direction: readOnly('opts.direction'),
+
   node: readOnly('edges.node'),
   frame: readOnly('node.frame.hover'),
 
