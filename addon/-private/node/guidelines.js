@@ -1,16 +1,25 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 
+const source = key => readOnly(key);
+
+const target = key => computed(`${key}.[]`, function() {
+  let { node } = this;
+  let array = this.get(key);
+  return array.filter(edge => edge.node !== node);
+}).readOnly();
+
 export default EmberObject.extend({
 
   node: null,
 
-  stage: readOnly('node.stage.guidelines'), // edges of all nodes, including this one's
-  edges: readOnly('node.edges.all'),        // edges for this node
+  source: source('node.edges.all'),              // own edges
+  target: target('node.stage.guidelines.edges'), // all other edges
 
   // TODO: create guidelines instead of returning edges
-  all: computed('stage.edges.[]', function() {
-    return this.stage.edges;
+  // take source edges, match to targets, if threshold is met, create (reuse) guideline
+  all: computed('target.[]', function() {
+    return this.source;
   }).readOnly(),
 
   /*
