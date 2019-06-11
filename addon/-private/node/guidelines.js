@@ -22,6 +22,10 @@ export default EmberObject.extend({
   all: computed('source.[]', 'target.[]', function() {
     let { source: sources, target: targets } = this;
 
+    if(!sources) {
+      return;
+    }
+
     let array = this.__all;
     if(!array) {
       array = A();
