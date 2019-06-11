@@ -19,10 +19,6 @@ export default EmberObject.extend({
   source: source('node.edges.all'),              // own edges
   target: target('node.stage.guidelines.edges'), // all other edges
 
-  // all: connects all sources to targets
-  // matched: filters out matched only
-  // nearby: filters out close ones
-
   all: computed('source.[]', 'target.[]', function() {
     let { source: sources, target: targets } = this;
 
