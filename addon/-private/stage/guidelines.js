@@ -1,10 +1,10 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 
-const guidelines = key => computed(`${key}.@each._guidelines`, function() {
+const guidelines = key => computed(`${key}.@each._matchedGuidelines`, function() {
   let nodes = this.get(key);
   return nodes.reduce((guidelines, node) => {
-    guidelines.push(...node._guidelines);
+    guidelines.push(...node._matchedGuidelines);
     return guidelines;
   }, []);
 }).readOnly();
