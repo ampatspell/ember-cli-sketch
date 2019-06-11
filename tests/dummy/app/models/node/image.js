@@ -1,4 +1,4 @@
-import Base, { node, x, y, width, height, rotation, visible, selectable, aspect, attr } from './-base';
+import Base, { node, x, y, width, height, rotation, visible, selectable, aspect, attr, edges } from './-base';
 import { decodeImage } from 'ember-cli-sketch/util/image';
 import { task } from 'ember-cli-sketch/task';
 
@@ -15,6 +15,7 @@ export default Base.extend({
 
   visible:    visible(),
   selectable: selectable(),
+  edges:      edges(),
 
   opacity:  attr('opacity', { type: 'number', min: 0, max: 1, decimals: 2 }),
   url:  attr('url', { type: 'string' }),
