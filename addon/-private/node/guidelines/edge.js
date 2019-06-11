@@ -9,12 +9,13 @@ export default EmberObject.extend({
   opts: null,
 
   direction: readOnly('opts.direction'),
+  recompute: readOnly('opts.recompute'),
 
   node:  readOnly('edges.node'),
   frame: readOnly('node.frame.hover'),
 
   properties: computed('frame', function() {
-    let { frame, opts: { recompute } } = this;
+    let { frame, recompute } = this;
     return recompute(frame);
   }).readOnly(),
 
