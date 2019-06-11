@@ -14,6 +14,9 @@ export default Guideline.extend({
     if(source.x < target.x) {
       x = source.x;
       length = target.x - source.x + target.length;
+    } else if (source.x + source.length < target.x + target.length) {
+      x = target.x;
+      length = target.length;
     } else {
       x = target.x;
       length = source.x - target.x + source.length;
