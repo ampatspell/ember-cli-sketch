@@ -1,6 +1,8 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 
+const property = key => readOnly(`properties.${key}`);
+
 export default EmberObject.extend({
 
   edges: null,
@@ -8,26 +10,16 @@ export default EmberObject.extend({
 
   direction: readOnly('opts.direction'),
 
-  node: readOnly('edges.node'),
+  node:  readOnly('edges.node'),
   frame: readOnly('node.frame.hover'),
 
-  recomputed: computed('frame', function() {
+  properties: computed('frame', function() {
     let { frame, opts: { recompute } } = this;
     return recompute(frame);
   }).readOnly(),
 
-  point: computed('recomputed', function() {
-    let { recomputed: { x, y } } = this;
-    return { x, y };
-  }).readOnly(),
-
-  // TODO: tmp
-  x: readOnly('point.x'),
-  y: readOnly('point.y'),
-
-  length: computed('recomputed', function() {
-    let { recomputed: { length } } = this;
-    return length;
-  }).readOnly()
+  x:      property('x'),
+  y:      property('y'),
+  length: property('length')
 
 });

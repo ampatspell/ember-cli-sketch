@@ -10,29 +10,16 @@ export const edges = arg => {
     return _edges(arg);
   }
 
-  const edge = fn => frame => {
-    let { x, y, width, height } = frame;
-    let mid = {
-      x: x + (width / 2),
-      y: y + (height / 2)
-    };
-    let max = {
-      x: x + width,
-      y: y + height
-    };
-    return fn({ x, y, width, height, mid, max });
-  };
-
   return _edges({
     horizontal: () => ([
-      edge(({ x, y,   width })  => ({ x, y,        length: width })),
-      edge(({ x, mid, width })  => ({ x, y: mid.y, length: width })),
-      edge(({ x, max, width })  => ({ x, y: max.y, length: width })),
+      ({ x, y,   width         })  => ({ x, y,                   length: width }),
+      ({ x, y,   width, height })  => ({ x, y: y + (height / 2), length: width }),
+      ({ x, y,   width, height })  => ({ x, y: y + height,       length: width }),
     ]),
     vertical: () => ([
-      edge(({ x,   y, height }) => ({ x,        y, length: height })),
-      edge(({ mid, y, height }) => ({ x: mid.x, y, length: height })),
-      edge(({ max, y, height }) => ({ x: max.x, y, length: height })),
+      ({ x, y, height        }) => ({ x,                  y, length: height }),
+      ({ x, y, width, height }) => ({ x: x + (width / 2), y, length: height }),
+      ({ x, y, width, height }) => ({ x: x + width,       y, length: height }),
     ])
   });
 }
