@@ -4,7 +4,7 @@ import sketches from '../../util/sketches';
 const edges = direction => computed(`opts.${direction}`,function() {
   let edges = this.get(`opts.${direction}`);
   let factory = sketches(this).factory;
-  return edges.map(recompute => factory.guidelinesEdge(this, { direction, recompute }));
+  return edges.map(name => factory.guidelinesEdge(this, direction, name));
 }).readOnly();
 
 export default EmberObject.extend({

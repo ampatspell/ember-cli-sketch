@@ -14,7 +14,7 @@ export default EmberObject.extend({
 
   node: null,
 
-  source: source('node.edges.all'),              // own edges
+  source: source('node.edges.all'),              // own edges, contains vertical and horizontal. split those out
   target: target('node.stage.guidelines.edges'), // all other edges
 
   all: computed('source.[]', 'target.[]', function() {

@@ -26,8 +26,14 @@ import NodeStage from 'ember-cli-sketch/-private/node/stage';
 import NodeSized from 'ember-cli-sketch/-private/node/sized';
 
 import Edge from 'ember-cli-sketch/-private/node/edge';
+
 import GuidelinesEdges from 'ember-cli-sketch/-private/node/guidelines/edges';
-import GuidelinesEdge from 'ember-cli-sketch/-private/node/guidelines/edge';
+import GuidelinesEdgeHorizontalTop from 'ember-cli-sketch/-private/node/guidelines/edge/horizontal/top';
+import GuidelinesEdgeHorizontalMiddle from 'ember-cli-sketch/-private/node/guidelines/edge/horizontal/middle';
+import GuidelinesEdgeHorizontalBottom from 'ember-cli-sketch/-private/node/guidelines/edge/horizontal/bottom';
+import GuidelinesEdgeVerticalLeft from 'ember-cli-sketch/-private/node/guidelines/edge/vertical/left';
+import GuidelinesEdgeVerticalMiddle from 'ember-cli-sketch/-private/node/guidelines/edge/vertical/middle';
+import GuidelinesEdgeVerticalRight from 'ember-cli-sketch/-private/node/guidelines/edge/vertical/right';
 import NodeGuidelines from 'ember-cli-sketch/-private/node/guidelines';
 import NodeGuidelineHorizontal from 'ember-cli-sketch/-private/node/guidelines/guideline/horizontal';
 import NodeGuidelineVertical from 'ember-cli-sketch/-private/node/guidelines/guideline/vertical';
@@ -87,7 +93,12 @@ export default {
     container.register('sketch:node/nodes', Nodes);
     container.register('sketch:node/guidelines', NodeGuidelines);
     container.register('sketch:node/guidelines/edges', GuidelinesEdges);
-    container.register('sketch:node/guidelines/edge', GuidelinesEdge);
+    container.register('sketch:node/guidelines/edge/horizontal/top', GuidelinesEdgeHorizontalTop);
+    container.register('sketch:node/guidelines/edge/horizontal/middle', GuidelinesEdgeHorizontalMiddle);
+    container.register('sketch:node/guidelines/edge/horizontal/bottom', GuidelinesEdgeHorizontalBottom);
+    container.register('sketch:node/guidelines/edge/vertical/left', GuidelinesEdgeVerticalLeft);
+    container.register('sketch:node/guidelines/edge/vertical/middle', GuidelinesEdgeVerticalMiddle);
+    container.register('sketch:node/guidelines/edge/vertical/right', GuidelinesEdgeVerticalRight);
     container.register('sketch:node/guidelines/guideline/horizontal', NodeGuidelineHorizontal);
     container.register('sketch:node/guidelines/guideline/vertical', NodeGuidelineVertical);
     container.register('sketch:node/nodes/containers', NodesContainers);

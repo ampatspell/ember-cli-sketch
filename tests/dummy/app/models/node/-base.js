@@ -9,18 +9,9 @@ export const edges = arg => {
   if(arg) {
     return _edges(arg);
   }
-
   return _edges({
-    horizontal: () => ([
-      ({ x, y,   width         })  => ({ x, y,                   length: width }),
-      ({ x, y,   width, height })  => ({ x, y: y + (height / 2), length: width }),
-      ({ x, y,   width, height })  => ({ x, y: y + height,       length: width }),
-    ]),
-    vertical: () => ([
-      ({ x, y, height        }) => ({ x,                  y, length: height }),
-      ({ x, y, width, height }) => ({ x: x + (width / 2), y, length: height }),
-      ({ x, y, width, height }) => ({ x: x + width,       y, length: height }),
-    ])
+    horizontal: () => ([ 'top', 'middle', 'bottom' ]),
+    vertical:   () => ([ 'left', 'middle', 'right' ])
   });
 }
 

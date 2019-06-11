@@ -97,8 +97,8 @@ export default EmberObject.extend({
     return this._create('node/guidelines/edges', { node, opts });
   },
 
-  guidelinesEdge(edges, opts) {
-    return this._create('node/guidelines/edge', { edges, opts });
+  guidelinesEdge(edges, direction, name) {
+    return this._create(`node/guidelines/edge/${direction}/${name}`, { edges, direction });
   },
 
   guideline(direction, source, target) {
