@@ -1,8 +1,6 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly, filterBy } from '@ember/object/computed';
-import { A } from '@ember/array';
 import sketches from '../util/sketches';
-import { diff } from '../util/array';
 
 const source = key => readOnly(key);
 
@@ -26,36 +24,26 @@ export default EmberObject.extend({
       return;
     }
 
-    let array = this.__all;
-    if(!array) {
-      array = A();
-      this.__all = array;
-    }
-
-    let objects = [];
-    sources.forEach(source => {
-      targets.forEach(target => {
-        if(source.direction === target.direction) {
-          objects.push({ source, target });
-        }
-      });
-    });
-
-    let find = ({ source, target }) => array.find(guideline => {
-      return guideline.source === source && guideline.target === target;
-    });
-
     let factory = sketches(this).factory;
-    let create = ({ source, target }) => {
+
+    let create = (source, target) => {
       let { direction } = source;
       return factory.guideline(direction, source, target);
     };
 
-    diff({ array, objects, find, create });
+    let array = [];
+
+    sources.forEach(source => {
+      targets.forEach(target => {
+        if(source.direction === target.direction) {
+          array.push(create(source, target));
+        }
+      });
+    });
 
     return array;
   }).readOnly(),
 
-  matched: filterBy('all', 'matches', true),
+  matched: filterBy('all', 'matches', true)
 
 });
