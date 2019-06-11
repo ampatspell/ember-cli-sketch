@@ -12,7 +12,7 @@ export default EmberObject.extend({
   recompute: readOnly('opts.recompute'),
 
   node:  readOnly('edges.node'),
-  frame: readOnly('node.frame.hover'),
+  frame: readOnly('node.frame.hover'), // TODO: hover is zoom-dependent
 
   properties: computed('frame', function() {
     let { frame, recompute } = this;
