@@ -9,11 +9,11 @@ const guidelines = key => computed(`${key}.@each._matchedGuidelines`, function()
   }, []);
 }).readOnly();
 
-const edges = key => computed(`${key}.@each.edges`, function() {
+const edges = key => computed(`${key}.@each.{isVisible,edges}`, function() {
   let nodes = this.get(key);
   return nodes.reduce((arr, node) => {
-    let { edges } = node;
-    if(edges) {
+    let { isVisible, edges } = node;
+    if(isVisible && edges) {
       arr.push(...edges.all);
     }
     return arr;
