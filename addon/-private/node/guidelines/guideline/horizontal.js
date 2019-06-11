@@ -1,8 +1,11 @@
+import { computed } from '@ember/object';
 import Guideline from './-base';
 
 export default Guideline.extend({
 
-  calculate(source, target) {
+  properties: computed('source.{x,y,length}', 'target.{x,length}', function() {
+    let { source, target } = this;
+
     if(source.y !== target.y) {
       return;
     }
@@ -28,6 +31,6 @@ export default Guideline.extend({
       length,
       matches: true
     };
-  }
+  }).readOnly()
 
 });
