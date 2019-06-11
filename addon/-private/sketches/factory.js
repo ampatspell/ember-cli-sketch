@@ -101,6 +101,10 @@ export default EmberObject.extend({
     return this._create('node/guidelines/edge', { edges, opts });
   },
 
+  guideline(direction, source, target) {
+    return this._create(`node/guidelines/guideline/${direction}`, { direction, source, target });
+  },
+
   hover(stage) {
     return this._create('stage/hover', { stage });
   },

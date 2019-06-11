@@ -28,6 +28,6 @@ export default EmberObject.extend({
   length: computed('recomputed', function() {
     let { recomputed: { length } } = this;
     return length;
-  }).readOnly(),
+  }).readOnly()
 
 });

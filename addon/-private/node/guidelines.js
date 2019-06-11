@@ -1,5 +1,8 @@
 import EmberObject, { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
+import { readOnly, filterBy } from '@ember/object/computed';
+import { A } from '@ember/array';
+import sketches from '../util/sketches';
+import { diff } from '../util/array';
 
 const source = key => readOnly(key);
 
@@ -16,18 +19,43 @@ export default EmberObject.extend({
   source: source('node.edges.all'),              // own edges
   target: target('node.stage.guidelines.edges'), // all other edges
 
-  // TODO: create guidelines instead of returning edges
-  // take source edges, match to targets, if threshold is met, create (reuse) guideline
-  all: computed('target.[]', function() {
-    return this.source;
+  // all: connects all sources to targets
+  // matched: filters out matched only
+  // nearby: filters out close ones
+
+  all: computed('source.[]', 'target.[]', function() {
+    let { source: sources, target: targets } = this;
+
+    let array = this.__all;
+    if(!array) {
+      array = A();
+      this.__all = array;
+    }
+
+    let objects = [];
+    sources.forEach(source => {
+      targets.forEach(target => {
+        if(source.direction === target.direction) {
+          objects.push({ source, target });
+        }
+      });
+    });
+
+    let find = ({ source, target }) => array.find(guideline => {
+      return guideline.source === source && guideline.target === target;
+    });
+
+    let factory = sketches(this).factory;
+    let create = ({ source, target }) => {
+      let { direction } = source;
+      return factory.guideline(direction, source, target);
+    };
+
+    diff({ array, objects, find, create });
+
+    return array;
   }).readOnly(),
 
-  /*
-
-    So, guidelines has two stages:
-      * nearby guidelines -- those which are say 5px away and needs to be snapped to
-      * equal -- when snapping happens or just postion/size is identical to another edge
-
-  */
+  matched: filterBy('all', 'matches', true),
 
 });
