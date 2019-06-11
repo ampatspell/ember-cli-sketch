@@ -24,19 +24,13 @@ export default EmberObject.extend({
       return;
     }
 
-    let factory = sketches(this).factory;
-
-    let create = (source, target) => {
-      let { direction } = source;
-      return factory.guideline(direction, source, target);
-    };
-
     let array = [];
 
+    let factory = sketches(this).factory;
     sources.forEach(source => {
       targets.forEach(target => {
         if(source.direction === target.direction) {
-          array.push(create(source, target));
+          array.push(factory.guideline(source.direction, source, target));
         }
       });
     });
