@@ -3,6 +3,15 @@ import sketches from '../util/sketches';
 import { diff } from '../util/array';
 import { A } from '@ember/array';
 
+const _array = (owner, key) => {
+  let array = owner[key];
+  if(!array) {
+    array = A();
+    owner[key] = array;
+  }
+  return array;
+}
+
 export default EmberObject.extend({
 
   node: null,
@@ -12,12 +21,7 @@ export default EmberObject.extend({
     let source = this.node;
     let objects = source.stage.recursive.filter(target => target !== source && target.isVisible);
 
-    let array = this._pairs;
-    if(!array) {
-      array = A();
-      this._pairs = array;
-    }
-
+    let array = _array(this, '_pairs');
     let factory = sketches(this).factory;
 
     diff({
@@ -32,13 +36,15 @@ export default EmberObject.extend({
   }).readOnly(),
 
   matched: computed('pairs.@each.matched', function() {
-    return this.pairs.reduce((array, pair) => {
+    let array = [];
+    this.pairs.forEach(pair => {
       let matched = pair.matched;
-      if(matched) {
-        array.push(...matched);
+      if(!matched) {
+        return;
       }
-      return array;
-    }, A());
+      array.push(...matched);
+    });
+    return array;
   }).readOnly()
 
 });
