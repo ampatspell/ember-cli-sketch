@@ -9,9 +9,14 @@ export default EmberObject.extend({
 
   all: computed('nodes.@each._guidelines', function() {
     let { nodes } = this;
-    let guidelines = [];
-    nodes.forEach(node => guidelines.push(...node._guidelines));
-    return guidelines;
+    let all = [];
+    nodes.forEach(node => {
+      let guidelines = node._guidelines;
+      if(guidelines) {
+        all.push(...guidelines);
+      }
+    });
+    return all;
   }).readOnly(),
 
   visible: computed('all', 'enabled', function() {

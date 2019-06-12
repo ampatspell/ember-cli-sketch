@@ -79,7 +79,7 @@ export default opts => {
     type:        value('type'),
     aspect:      readOnly('model.aspect'),
     accessories: readOnly('model.accessories'),
-    edges:       readOnly('model.edges'),
+    guidelines:  readOnly('model.guidelines'),
 
     isContainer:  prop('container', false),
     isAttached:   bool('parent'),
@@ -93,10 +93,8 @@ export default opts => {
     nodes:      nodes(),
     attributes: attributes(),
     edge:       edge(),
-    guidelines: guidelines(),
 
     _guidelines: readOnly('guidelines.matched'),
-
     _rotatedFrame: readOnly('frame.rotated'),
     _hasEdge: readOnly('edge.has'),
 

@@ -1,15 +1,15 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
-import { node, attr, prop, edges as _edges } from '../-node';
+import { node, attr, prop, guidelines as _guidelines } from '../-node';
 import { A } from '@ember/array';
 import { guidFor } from '@ember/object/internals';
 
-export const edges = arg => {
+export const guidelines = arg => {
   if(arg) {
-    return _edges(arg);
+    return _guidelines(arg);
   }
-  return _edges((source, target) => {
+  return _guidelines((source, target) => {
     let lines = [];
 
     // horizontal
