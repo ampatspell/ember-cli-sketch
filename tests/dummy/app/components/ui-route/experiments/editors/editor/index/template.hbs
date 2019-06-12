@@ -93,17 +93,21 @@
     </div>
   </div>
 
-  <div class="block">
-    <div class="title">Guidelines</div>
-    <div class="actions">
-      {{#each stage.node.guidelines.vertical as |guideline|}}
-        <div>{{guideline.direction}}: {{guideline.x}},{{guideline.y}},{{guideline.length}}</div>
-      {{/each}}
-      {{#each stage.node.guidelines.horizontal as |guideline|}}
-        <div>{{guideline.direction}}: {{guideline.x}},{{guideline.y}},{{guideline.length}}</div>
-      {{/each}}
+  {{#let stage.node.guidelines.all as |guidelines|}}
+
+    <div class="block">
+      <div class="title">Guidelines</div>
+      <div>
+        {{#if guidelines}}
+          {{#each guidelines as |guideline|}}
+            <div>{{guideline.direction}}: {{guideline.x}},{{guideline.y}},{{guideline.length}}</div>
+          {{/each}}
+        {{else}}
+          <div>None</div>
+        {{/if}}
+      </div>
     </div>
-  </div>
+  {{/let}}
 
   <div class="block">
     <div class="title" role="button" {{action "performAction" stage.node "reset"}}>Position: {{stage.x}}×{{stage.y}}</div>
