@@ -24,14 +24,10 @@ export default EmberObject.extend({
 
   guidelines: computed('matches', function() {
     let { matches, source, target } = this;
-
     if(!matches) {
       return;
     }
-
-    return [
-      { direction: 'horizontal', x: 10, y: 10, length: 100 }
-    ];
+    return source.guidelines(target);
   }).readOnly(),
 
 });
