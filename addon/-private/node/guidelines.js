@@ -30,13 +30,11 @@ export default EmberObject.extend({
     return array;
   }).readOnly(),
 
-  matched: computed('pairs.[]', function() {
-    return [];
-  }).readOnly(),
-
-  init() {
-    this._super(...arguments);
-    setGlobal({ guidelines: this });
-  }
+  matched: computed('pairs.@each.guidelines', function() {
+    return this.pairs.reduce((array, pair) => {
+      array.push(...pair.guidelines);
+      return array;
+    }, A());
+  }).readOnly()
 
 });
