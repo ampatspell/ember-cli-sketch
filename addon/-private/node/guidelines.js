@@ -1,8 +1,7 @@
 import EmberObject, { computed } from '@ember/object';
-// import { filterBy } from '@ember/object/computed';
 import sketches from '../util/sketches';
-
-// const matched = key => filterBy(key, 'matches', true);
+import { diff } from '../util/array';
+import { A } from '@ember/array';
 
 export default EmberObject.extend({
 
@@ -10,25 +9,34 @@ export default EmberObject.extend({
 
   pairs: computed('node.edges', 'node.stage.recursive.@each.edges', function() {
     let source = this.node;
-    let targets = source.stage.recursive;
-    let array = [];
+    let objects = source.stage.recursive.filter(target => target !== source)
+
+    let array = this._pairs;
+    if(!array) {
+      array = A();
+      this._pairs = array;
+    }
+
     let factory = sketches(this).factory;
-    targets.forEach(target => {
-      if(target === source) {
-        return;
-      }
-      array.push(factory.guidelinesEdgesPair(source.edges, target.edges));
+
+    diff({
+      array,
+      objects,
+      find: target => array.findBy('target', target.edges),
+      create: target => factory.guidelinesEdgesPair(source.edges, target.edges),
+      destroy: pair => pair.destroy()
     });
+
     return array;
   }).readOnly(),
 
-  // matched: computed(function() {
-  //   return [];
-  // }).readOnly(),
+  matched: computed('pairs.[]', function() {
+    return [];
+  }).readOnly(),
 
-  // init() {
-  //   this._super(...arguments);
-  //   setGlobal({ guidelines: this });
-  // }
+  init() {
+    this._super(...arguments);
+    setGlobal({ guidelines: this });
+  }
 
 });
