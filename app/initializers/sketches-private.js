@@ -36,8 +36,6 @@ import GuidelinesEdgeVerticalLeft from 'ember-cli-sketch/-private/node/guideline
 import GuidelinesEdgeVerticalMiddle from 'ember-cli-sketch/-private/node/guidelines/edge/vertical/middle';
 import GuidelinesEdgeVerticalRight from 'ember-cli-sketch/-private/node/guidelines/edge/vertical/right';
 import NodeGuidelines from 'ember-cli-sketch/-private/node/guidelines';
-import NodeGuidelineHorizontal from 'ember-cli-sketch/-private/node/guidelines/guideline/horizontal';
-import NodeGuidelineVertical from 'ember-cli-sketch/-private/node/guidelines/guideline/vertical';
 
 import FrameStage from 'ember-cli-sketch/-private/node/frame/stage';
 import FrameNodes from 'ember-cli-sketch/-private/node/frame/nodes';
@@ -101,8 +99,6 @@ export default {
     container.register('sketch:node/guidelines/edge/vertical/left', GuidelinesEdgeVerticalLeft);
     container.register('sketch:node/guidelines/edge/vertical/middle', GuidelinesEdgeVerticalMiddle);
     container.register('sketch:node/guidelines/edge/vertical/right', GuidelinesEdgeVerticalRight);
-    container.register('sketch:node/guidelines/guideline/horizontal', NodeGuidelineHorizontal);
-    container.register('sketch:node/guidelines/guideline/vertical', NodeGuidelineVertical);
     container.register('sketch:node/nodes/containers', NodesContainers);
     container.register('sketch:factory/node/stage', NodeStage);
     container.register('sketch:factory/node/sized', NodeSized);
