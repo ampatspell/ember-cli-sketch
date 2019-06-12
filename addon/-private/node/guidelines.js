@@ -31,8 +31,12 @@ export default EmberObject.extend({
   }).readOnly(),
 
   matched: computed('pairs.@each.guidelines', function() {
+    // console.log('matched', this+'');
     return this.pairs.reduce((array, pair) => {
-      array.push(...pair.guidelines);
+      let guidelines = pair.guidelines;
+      if(guidelines) {
+        array.push(...guidelines);
+      }
       return array;
     }, A());
   }).readOnly()
