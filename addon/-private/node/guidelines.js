@@ -7,9 +7,9 @@ export default EmberObject.extend({
 
   node: null,
 
-  pairs: computed('node.edges', 'node.stage.recursive.@each.edges', function() {
+  pairs: computed('node.edges', 'node.stage.recursive.@each.{isVisible,edges}', function() {
     let source = this.node;
-    let objects = source.stage.recursive.filter(target => target !== source)
+    let objects = source.stage.recursive.filter(target => target !== source && target.isVisible);
 
     let array = this._pairs;
     if(!array) {
