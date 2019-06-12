@@ -8,36 +8,24 @@ export default EmberObject.extend({
 
   node: null,
 
-  all: computed('node.edges.all', 'node.stage.recursive.@each._edges', function() {
-    let node = this.node;
-    let sources = node.edges.all;
-    let nodes = node.stage.recursive;
-
-    let factory = sketches(this).factory;
-
+  pairs: computed('node.edges', 'node.stage.recursive.@each.edges', function() {
+    let source = this.node;
+    let targets = source.stage.recursive;
     let array = [];
-    sources.forEach(source => {
-      let direction = source.direction;
-      nodes.forEach(target => {
-        if(target === node) {
-          return;
-        }
-        let targets = target._edges;
-        if(!targets) {
-          return;
-        }
-        targets.forEach(edge => {
-          if(edge.direction !== direction) {
-            return;
-          }
-          array.push(factory.guideline(direction, source, edge));
-        });
-      });
+    targets.forEach(target => {
+      if(target === source) {
+        return;
+      }
+      array.push({ source: source.edges, target: target.edges });
     });
-
     return array;
   }).readOnly(),
 
-  matched: matched('all')
+  matched: matched('all'),
+
+  init() {
+    this._super(...arguments);
+    setGlobal({ guidelines: this });
+  }
 
 });
