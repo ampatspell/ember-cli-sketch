@@ -6,11 +6,10 @@ export default EmberObject.extend({
   target: null, // edges
 
   matches: computed('source.frame', 'target.frame', function() {
-    let source = this.source.frame;
-    let target = this.target.frame;
-
-    let { x: sx, y: sy, width: sw, height: sh } = source;
-    let { x: tx, y: ty, width: tw, height: th } = target;
+    let {
+      source: { frame: { x: sx, y: sy, width: sw, height: sh } },
+      target: { frame: { x: tx, y: ty, width: tw, height: th } }
+    } = this;
 
     let tyh = ty + th;
     let txw = tx + tw;
