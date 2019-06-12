@@ -1,4 +1,5 @@
 import EmberObject, { computed } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
 import { A } from '@ember/array';
 import sketches from '../../util/sketches';
 
@@ -7,9 +8,7 @@ export default EmberObject.extend({
   node: null,
   opts: null,
 
-  bounds: computed('node.frame.{x,y,width,height}', function() {
-    return this.node.frame.hover;
-  }).readOnly(),
+  frame: readOnly('node.frame.hover'),
 
   all: computed('opts.edges', function() {
     let { opts: { edges } } = this;
