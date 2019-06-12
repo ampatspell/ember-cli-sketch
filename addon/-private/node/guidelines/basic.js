@@ -1,47 +1,48 @@
 import Guidelines from '../guidelines';
 
+const isApprox = (a, b, diff) => a - diff < b && a + diff > b;
+
 export default Guidelines.extend({
 
-  recompute(source, target) {
+  _buildPointsForFrame(frame, positionKey, sizeKey) {
+    let position = frame[positionKey];
+    let size = frame[sizeKey];
+    return [
+      position,
+      position + (size / 2),
+      position + size
+    ];
+  },
+
+  _buildPoints(source, target, positionKey, sizeKey) {
+    return {
+      source: this._buildPointsForFrame(source, positionKey, sizeKey),
+      target: this._buildPointsForFrame(target, positionKey, sizeKey)
+    };
+  },
+
+  _recompute(source, target, direction, positionKey, sizeKey, approx) {
+    let points = this._buildPoints(source, target, positionKey, sizeKey);
     let lines = [];
-
-    // horizontal
-
-    // TODO: this needs top-middle, top-bottom and so on permutations
-
-    // top - top
-    if(source.y === target.y) {
-      lines.push({ direction: 'horizontal', y: source.y });
-    }
-
-    // middle - middle
-    if(source.y + (source.height / 2) === target.y + (target.height / 2)) {
-      lines.push({ direction: 'horizontal', y: source.y + (source.height / 2) });
-    }
-
-    // bottom - bottom
-    if(source.y + source.height === target.y + target.height) {
-      lines.push({ direction: 'horizontal', y: source.y + source.height });
-    }
-
-    // vertical
-
-    // left - left
-    if(source.x === target.x) {
-      lines.push({ direction: 'vertical', x: source.x });
-    }
-
-    // middle - middle
-    if(source.x + (source.width / 2) === target.x + (target.width / 2)) {
-      lines.push({ direction: 'vertical', x: source.x + (source.width / 2) });
-    }
-
-    // right - right
-    if(source.x + source.width === target.x + target.width) {
-      lines.push({ direction: 'vertical', x: source.x + source.width });
-    }
-
+    points.source.forEach(sourcePoint => {
+      points.target.forEach(targetPoint => {
+        if(sourcePoint === targetPoint) {
+          lines.push({ direction, [positionKey]: sourcePoint });
+        } else if(isApprox(sourcePoint, targetPoint, 5) && approx) {
+          lines.push({ direction, [positionKey]: sourcePoint, approx: true });
+          lines.push({ direction, [positionKey]: targetPoint, approx: true });
+        }
+      });
+    });
     return lines;
+  },
+
+  recompute(source, target) {
+    let approx = true;
+    return [
+      ...this._recompute(source, target, 'horizontal', 'y', 'height', approx),
+      ...this._recompute(source, target, 'vertical', 'x', 'width', approx)
+    ];
   }
 
 });

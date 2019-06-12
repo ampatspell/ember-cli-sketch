@@ -44,7 +44,7 @@ export default EmberObject.extend({
     let vl = Math.max(source.y + source.height, target.y + target.height) - vy;
 
     return array.map(def => {
-      let { direction, x, y } = def;
+      let { direction, x, y, approx } = def;
       let length;
 
       if(direction === 'horizontal') {
@@ -59,7 +59,8 @@ export default EmberObject.extend({
         direction,
         x,
         y,
-        length
+        length,
+        approx
       };
     });
   },

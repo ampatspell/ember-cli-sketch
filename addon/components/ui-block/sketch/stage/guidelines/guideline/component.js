@@ -5,7 +5,7 @@ import { round } from '../../../../../../-private/util/math';
 
 export default Component.extend({
   layout,
-  classNameBindings: [ ':ui-block-sketch-stage-guidelines-guideline' ],
+  classNameBindings: [ ':ui-block-sketch-stage-guidelines-guideline', 'guideline.approx:approx' ],
   attributeBindings: [ 'style' ],
 
   style: style('guideline.{direction,x,y,length}', function() {
