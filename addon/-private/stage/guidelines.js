@@ -1,31 +1,23 @@
 import EmberObject, { computed } from '@ember/object';
-import { readOnly, mapBy } from '@ember/object/computed';
-
-const guidelines = key => computed('enabled', `_${key}`, function() {
-  if(!this.enabled) {
-    return;
-  }
-  let guidelines = [];
-  let arr = this[`_${key}`];
-  arr.forEach(item => guidelines.push(...item));
-  return guidelines;
-}).readOnly();
-
-const enabled = key => computed('enabled', key, function() {
-  if(this.enabled) {
-    return this.get(key);
-  }
-}).readOnly();
+import { readOnly } from '@ember/object/computed';
 
 export default EmberObject.extend({
 
   stage: null,
   enabled: readOnly('stage.tools.selected.guidelines'),
+  nodes: readOnly('stage.selection.attached'),
 
-  _horizontal: mapBy('stage.selection.attached', '_horizontalGuidelines'),
-  _vertical:   mapBy('stage.selection.attached', '_verticalGuidelines'),
+  all: computed('nodes.@each._guidelines', function() {
+    let { nodes } = this;
+    let guidelines = [];
+    nodes.forEach(node => guidelines.push(...node._guidelines));
+    return guidelines;
+  }).readOnly(),
 
-  horizontal: guidelines('horizontal'),
-  vertical:   guidelines('vertical'),
+  visible: computed('all', 'enabled', function() {
+    if(this.enabled) {
+      return this.all;
+    }
+  }).readOnly()
 
 });

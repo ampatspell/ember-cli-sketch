@@ -1,6 +1,3 @@
-{{#each guidelines.vertical as |guideline|}}
-  {{ui-block/sketch/stage/guidelines/guideline stage=stage guidelines=guidelines guideline=guideline}}
-{{/each}}
-{{#each guidelines.horizontal as |guideline|}}
+{{#each guidelines.visible as |guideline|}}
   {{ui-block/sketch/stage/guidelines/guideline stage=stage guidelines=guidelines guideline=guideline}}
 {{/each}}

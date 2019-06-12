@@ -9,11 +9,11 @@ export default opts => computed(function() {
 
   let build = direction => {
     let fn = opts[direction];
-    return (fn && fn.call(this)) || [];
+    let names = (fn && fn.call(this)) || [];
+    return names.map(name => `${direction}/${name}`);
   };
 
-  let horizontal = build('horizontal');
-  let vertical   = build('vertical');
+  let edges = [ ...build('horizontal'), ...build('vertical' )];
 
-  return factory.guidelinesEdges(this.node, { horizontal, vertical });
+  return factory.guidelinesEdges(this.node, { edges });
 }).readOnly();

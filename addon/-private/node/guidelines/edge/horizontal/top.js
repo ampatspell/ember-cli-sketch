@@ -1,4 +1,4 @@
-import Edge, { frame } from '../-base';
+import Edge, { frame } from './-base';
 
 export default Edge.extend({
 
