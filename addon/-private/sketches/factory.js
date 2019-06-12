@@ -101,10 +101,6 @@ export default EmberObject.extend({
     return this._create('node/guidelines/edges', { node, opts });
   },
 
-  guidelinesEdge(edges, name) {
-    return this._create(`node/guidelines/edge/${name}`, { edges });
-  },
-
   hover(stage) {
     return this._create('stage/hover', { stage });
   },
