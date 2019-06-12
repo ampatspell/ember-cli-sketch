@@ -14,6 +14,8 @@ export const edges = arg => {
 
     // horizontal
 
+    // TODO: this needs top-middle, top-bottom and so on permutations
+
     // top - top
     if(source.y === target.y) {
       lines.push({ direction: 'horizontal', y: source.y });
