@@ -1,43 +1,49 @@
 import EmberObject, { computed } from '@ember/object';
-import { readOnly, filterBy } from '@ember/object/computed';
+import { filterBy } from '@ember/object/computed';
 import sketches from '../util/sketches';
 
-const source = key => readOnly(key);
-
-const target = key => computed(`${key}.[]`, function() {
+const guidelines = direction => computed(`node.edges.${direction}`, `node.stage.recursive.@each._${direction}Edges`, function() {
   let { node } = this;
-  let array = this.get(key);
-  return array.filter(edge => edge.node !== node);
+
+  let sources = node.get(`edges.${direction}`);
+  if(!sources) {
+    return;
+  }
+
+  let nodes = this.get(`node.stage.recursive`);
+
+  let array = [];
+  let factory = sketches(this).factory;
+
+  sources.forEach(source => {
+    nodes.forEach(target => {
+      if(target === node) {
+        return;
+      }
+
+      let targets = target.get(`_${direction}Edges`);
+      if(!targets) {
+        return;
+      }
+      targets.forEach(edge => {
+        array.push(factory.guideline(direction, source, edge));
+      });
+    });
+  });
+
+  return array;
 }).readOnly();
+
+const matched = key => filterBy(key, 'matches', true);
 
 export default EmberObject.extend({
 
   node: null,
 
-  source: source('node.edges.all'),              // own edges, contains vertical and horizontal. split those out
-  target: target('node.stage.guidelines.edges'), // all other edges, split those into horizontal and vertical
+  allHorizontal: guidelines('horizontal'),
+  allVertical:   guidelines('vertical'),
 
-  all: computed('source.[]', 'target.[]', function() {
-    let { source: sources, target: targets } = this;
-
-    if(!sources) {
-      return;
-    }
-
-    let array = [];
-
-    let factory = sketches(this).factory;
-    sources.forEach(source => {
-      targets.forEach(target => {
-        if(source.direction === target.direction) {
-          array.push(factory.guideline(source.direction, source, target));
-        }
-      });
-    });
-
-    return array;
-  }).readOnly(),
-
-  matched: filterBy('all', 'matches', true)
+  horizontal: matched('allHorizontal'),
+  vertical:   matched('allVertical')
 
 });

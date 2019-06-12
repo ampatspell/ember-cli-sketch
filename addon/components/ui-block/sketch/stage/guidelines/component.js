@@ -6,7 +6,6 @@ export default Component.extend({
   layout,
   classNameBindings: [ ':ui-block-sketch-stage-guidelines' ],
 
-  guidelines: readOnly('stage.node.guidelines'),
-  visible: readOnly('guidelines.visible')
+  guidelines: readOnly('stage.node.guidelines')
 
 });

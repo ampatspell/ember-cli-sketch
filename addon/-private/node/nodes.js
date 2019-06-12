@@ -19,7 +19,7 @@ export default EmberObject.extend({
     return this.all.reduce((nested, node) => {
       nested.push(...node.recursive);
       return nested;
-    }, []);
+    }, A());
   }).readOnly(),
 
   visible: filterBy('all', 'isVisible', true),

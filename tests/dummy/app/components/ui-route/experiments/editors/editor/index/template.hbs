@@ -96,7 +96,10 @@
   <div class="block">
     <div class="title">Guidelines</div>
     <div class="actions">
-      {{#each stage.node.guidelines.selection as |guideline|}}
+      {{#each stage.node.guidelines.vertical as |guideline|}}
+        <div>{{guideline.direction}}: {{guideline.x}},{{guideline.y}},{{guideline.length}}</div>
+      {{/each}}
+      {{#each stage.node.guidelines.horizontal as |guideline|}}
         <div>{{guideline.direction}}: {{guideline.x}},{{guideline.y}},{{guideline.length}}</div>
       {{/each}}
     </div>
