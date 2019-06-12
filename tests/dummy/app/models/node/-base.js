@@ -1,61 +1,15 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
-import { node, attr, prop, guidelines as _guidelines } from '../-node';
+import { node, attr, prop, guidelines } from '../-node';
 import { A } from '@ember/array';
 import { guidFor } from '@ember/object/internals';
-
-export const guidelines = arg => {
-  if(arg) {
-    return _guidelines(arg);
-  }
-  return _guidelines((source, target) => {
-    let lines = [];
-
-    // horizontal
-
-    // TODO: this needs top-middle, top-bottom and so on permutations
-
-    // top - top
-    if(source.y === target.y) {
-      lines.push({ direction: 'horizontal', y: source.y });
-    }
-
-    // middle - middle
-    if(source.y + (source.height / 2) === target.y + (target.height / 2)) {
-      lines.push({ direction: 'horizontal', y: source.y + (source.height / 2) });
-    }
-
-    // bottom - bottom
-    if(source.y + source.height === target.y + target.height) {
-      lines.push({ direction: 'horizontal', y: source.y + source.height });
-    }
-
-    // vertical
-
-    // left - left
-    if(source.x === target.x) {
-      lines.push({ direction: 'vertical', x: source.x });
-    }
-
-    // middle - middle
-    if(source.x + (source.width / 2) === target.x + (target.width / 2)) {
-      lines.push({ direction: 'vertical', x: source.x + (source.width / 2) });
-    }
-
-    // right - right
-    if(source.x + source.width === target.x + target.width) {
-      lines.push({ direction: 'vertical', x: source.x + source.width });
-    }
-
-    return lines;
-  });
-}
 
 export {
   node,
   attr,
-  prop
+  prop,
+  guidelines
 };
 
 export const position = (target, opts) => attr(target, assign({ type: 'number', decimals: 2 }, opts));

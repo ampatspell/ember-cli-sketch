@@ -10,8 +10,6 @@ export default EmberObject.extend({
   source: null, // node
   target: null, // node
 
-  _recompute: readOnly('guidelines.opts.recompute'),
-
   _source: frame('source'),
   _target: frame('target'),
 
@@ -33,7 +31,7 @@ export default EmberObject.extend({
   }).readOnly(),
 
   recompute(source, target) {
-    let array = this._recompute(source, target);
+    let array = this.guidelines.recompute(source, target);
 
     if(!array) {
       return;
