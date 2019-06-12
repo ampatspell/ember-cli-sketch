@@ -5,20 +5,10 @@ const guidelines = key => computed('enabled', `_${key}`, function() {
   if(!this.enabled) {
     return;
   }
-
   let guidelines = [];
   let arr = this[`_${key}`];
   arr.forEach(item => guidelines.push(...item));
   return guidelines;
-
-  // let guidelines = [];
-
-  // let prop = `_${key}Guidelines`;
-  // let nodes = this.stage.selection.attached;
-
-  // nodes.forEach(node => guidelines.push(...node[prop]));
-
-  // return guidelines;
 }).readOnly();
 
 const enabled = key => computed('enabled', key, function() {
