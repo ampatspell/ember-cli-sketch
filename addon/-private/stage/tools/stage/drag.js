@@ -3,6 +3,7 @@ import Tool from '../-base';
 export default Tool.extend({
 
   cursor: 'pointer',
+  guidelines: true,
 
   update({ delta }) {
     let frame = this.stage.frame.deltaToFrame(delta);
