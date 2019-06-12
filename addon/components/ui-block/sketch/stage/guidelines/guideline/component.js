@@ -1,10 +1,8 @@
 import Component from '@ember/component';
-import layout from './template';
 import { style } from '../../-computed';
 import { round } from '../../../../../../-private/util/math';
 
 export default Component.extend({
-  layout,
   classNameBindings: [ ':ui-block-sketch-stage-guidelines-guideline', 'guideline.approx:approx' ],
   attributeBindings: [ 'style' ],
 

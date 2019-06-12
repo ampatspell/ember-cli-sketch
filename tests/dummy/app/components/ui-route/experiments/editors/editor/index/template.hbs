@@ -99,7 +99,7 @@
       <div class="title">Guidelines</div>
       <div>
         {{#if guidelines}}
-          {{#each guidelines as |guideline|}}
+          {{#each guidelines key="@index" as |guideline|}}
             <div>{{guideline.direction}}: {{guideline.x}},{{guideline.y}},{{guideline.length}}</div>
           {{/each}}
         {{else}}

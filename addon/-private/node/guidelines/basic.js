@@ -28,7 +28,7 @@ export default Guidelines.extend({
       points.target.forEach(targetPoint => {
         if(sourcePoint === targetPoint) {
           lines.push({ direction, [positionKey]: sourcePoint });
-        } else if(isApprox(sourcePoint, targetPoint, 5) && approx) {
+        } else if(approx && isApprox(sourcePoint, targetPoint, approx)) {
           lines.push({ direction, [positionKey]: sourcePoint, approx: true });
           lines.push({ direction, [positionKey]: targetPoint, approx: true });
         }
@@ -38,7 +38,7 @@ export default Guidelines.extend({
   },
 
   recompute(source, target) {
-    let approx = true;
+    let approx = 10;
     return [
       ...this._recompute(source, target, 'horizontal', 'y', 'height', approx),
       ...this._recompute(source, target, 'vertical', 'x', 'width', approx)
