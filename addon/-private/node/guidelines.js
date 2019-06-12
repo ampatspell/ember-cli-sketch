@@ -1,8 +1,8 @@
 import EmberObject, { computed } from '@ember/object';
-import { filterBy } from '@ember/object/computed';
+// import { filterBy } from '@ember/object/computed';
 import sketches from '../util/sketches';
 
-const matched = key => filterBy(key, 'matches', true);
+// const matched = key => filterBy(key, 'matches', true);
 
 export default EmberObject.extend({
 
@@ -12,20 +12,23 @@ export default EmberObject.extend({
     let source = this.node;
     let targets = source.stage.recursive;
     let array = [];
+    let factory = sketches(this).factory;
     targets.forEach(target => {
       if(target === source) {
         return;
       }
-      array.push({ source: source.edges, target: target.edges });
+      array.push(factory.guidelinesEdgesPair(source.edges, target.edges));
     });
     return array;
   }).readOnly(),
 
-  matched: matched('all'),
+  // matched: computed(function() {
+  //   return [];
+  // }).readOnly(),
 
-  init() {
-    this._super(...arguments);
-    setGlobal({ guidelines: this });
-  }
+  // init() {
+  //   this._super(...arguments);
+  //   setGlobal({ guidelines: this });
+  // }
 
 });

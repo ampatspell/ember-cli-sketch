@@ -28,6 +28,7 @@ import NodeSized from 'ember-cli-sketch/-private/node/sized';
 import Edge from 'ember-cli-sketch/-private/node/edge';
 
 import GuidelinesEdges from 'ember-cli-sketch/-private/node/guidelines/edges';
+import GuidelinesEdgesPair from 'ember-cli-sketch/-private/node/guidelines/edges-pair';
 import GuidelinesEdgeHorizontalTop from 'ember-cli-sketch/-private/node/guidelines/edge/horizontal/top';
 import GuidelinesEdgeHorizontalMiddle from 'ember-cli-sketch/-private/node/guidelines/edge/horizontal/middle';
 import GuidelinesEdgeHorizontalBottom from 'ember-cli-sketch/-private/node/guidelines/edge/horizontal/bottom';
@@ -93,6 +94,7 @@ export default {
     container.register('sketch:node/nodes', Nodes);
     container.register('sketch:node/guidelines', NodeGuidelines);
     container.register('sketch:node/guidelines/edges', GuidelinesEdges);
+    container.register('sketch:node/guidelines/edges/pair', GuidelinesEdgesPair);
     container.register('sketch:node/guidelines/edge/horizontal/top', GuidelinesEdgeHorizontalTop);
     container.register('sketch:node/guidelines/edge/horizontal/middle', GuidelinesEdgeHorizontalMiddle);
     container.register('sketch:node/guidelines/edge/horizontal/bottom', GuidelinesEdgeHorizontalBottom);

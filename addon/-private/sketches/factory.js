@@ -93,6 +93,10 @@ export default EmberObject.extend({
     return this._create('stage/guidelines', { stage });
   },
 
+  guidelinesEdgesPair(source, target) {
+    return this._create('node/guidelines/edges/pair', { source, target });
+  },
+
   guidelinesEdges(node, opts) {
     return this._create('node/guidelines/edges', { node, opts });
   },
