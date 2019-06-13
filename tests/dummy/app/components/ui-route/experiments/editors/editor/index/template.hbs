@@ -95,7 +95,7 @@
 
   {{#let stage.node.guidelines.visible as |guidelines|}}
     <div class="block">
-      <div class="title">Guidelines: {{if stage.guidelines 'enabled' 'disabled'}}</div>
+      <div class="title">Guidelines: {{if stage.guidelines "enabled" "disabled"}}</div>
       <div class="actions">
         {{ui-block/button class="small" value="Toggle" action=(action "toggleGuidelines")}}
       </div>

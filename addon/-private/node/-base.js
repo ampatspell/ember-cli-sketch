@@ -45,8 +45,6 @@ const included = arrayKey => computed(`${arrayKey}.[]`, function() {
   return array.includes(this);
 }).readOnly();
 
-const guidelines = factory('nodeGuidelines');
-
 export default opts => {
 
   const attributes = () => _factory((factory, node) => {
