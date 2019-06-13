@@ -1,7 +1,7 @@
 import create, { frame } from './-base';
 import { zoom, factory, self } from '../util/computed';
 import { assert } from '@ember/debug';
-import { and } from '@ember/object/computed';
+import { readOnly, and } from '@ember/object/computed';
 
 const model = name => factory((factory, stage) => factory[name].call(factory, stage));
 
@@ -25,8 +25,11 @@ export default opts => create(opts).extend({
   selection:    model('selection'),
   tools:        model('tools'),
   cursor:       model('cursor'),
+  guidelines:   model('stageGuidelines'),
 
   isSelectable: and('isAttached', '_selectable'),
+
+  recursive:    readOnly('nodes.recursive'),
 
   //
 

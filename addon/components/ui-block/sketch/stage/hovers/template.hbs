@@ -1,4 +1,4 @@
-{{#each stage.node.hover.deselected as |node|}}
+{{#each stage.node.hover.deselected key="isVisible" as |node|}}
   {{#if node.isVisible}}
     {{ui-block/sketch/stage/hovers/hover model=node.model}}
   {{/if}}

@@ -27,6 +27,9 @@ import NodeSized from 'ember-cli-sketch/-private/node/sized';
 
 import Edge from 'ember-cli-sketch/-private/node/edge';
 
+import GuidelinesPair from 'ember-cli-sketch/-private/node/guidelines/pair';
+import NodeGuidelinesBasic from 'ember-cli-sketch/-private/node/guidelines/basic';
+
 import FrameStage from 'ember-cli-sketch/-private/node/frame/stage';
 import FrameNodes from 'ember-cli-sketch/-private/node/frame/nodes';
 import FrameSized from 'ember-cli-sketch/-private/node/frame/sized';
@@ -35,6 +38,7 @@ import Renderer from 'ember-cli-sketch/-private/stage/renderer';
 import Hover from 'ember-cli-sketch/-private/stage/hover';
 import Selection from 'ember-cli-sketch/-private/stage/selection';
 import Cursor from 'ember-cli-sketch/-private/stage/cursor';
+import StageGuidelines from 'ember-cli-sketch/-private/stage/guidelines';
 
 import Tools from 'ember-cli-sketch/-private/stage/tools';
 import ToolSelection from 'ember-cli-sketch/-private/stage/tools/selection';
@@ -79,6 +83,8 @@ export default {
     container.register('sketch:node/attribute/boolean', AttributeBoolean);
     container.register('sketch:node/edge', Edge);
     container.register('sketch:node/nodes', Nodes);
+    container.register('sketch:node/guidelines/types/basic', NodeGuidelinesBasic);
+    container.register('sketch:node/guidelines/pair', GuidelinesPair);
     container.register('sketch:node/nodes/containers', NodesContainers);
     container.register('sketch:factory/node/stage', NodeStage);
     container.register('sketch:factory/node/sized', NodeSized);
@@ -90,6 +96,7 @@ export default {
     container.register('sketch:stage/selection', Selection);
     container.register('sketch:stage/tools', Tools);
     container.register('sketch:stage/cursor', Cursor);
+    container.register('sketch:stage/guidelines', StageGuidelines);
     container.register('sketch:stage/tools/selection', ToolSelection);
     container.register('sketch:stage/tools/stage/drag', ToolStageDrag);
     container.register('sketch:stage/tools/stage/zoom', ToolStageZoom);

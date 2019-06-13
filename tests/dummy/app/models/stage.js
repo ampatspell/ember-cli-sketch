@@ -22,6 +22,7 @@ export default EmberObject.extend({
 
   fill: attr('_fill', { type: 'string', initial: 'grey' }),
   selectable: true,
+  guidelines: true,
 
   // thing: attr('thing', { type: 'number', initial: 0, min: prop('thingMin'), max: prop('thingMax') }),
   // thingMin: 0,

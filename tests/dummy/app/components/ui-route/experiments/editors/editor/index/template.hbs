@@ -93,6 +93,24 @@
     </div>
   </div>
 
+  {{#let stage.node.guidelines.visible as |guidelines|}}
+    <div class="block">
+      <div class="title">Guidelines: {{if stage.guidelines "enabled" "disabled"}}</div>
+      <div class="actions">
+        {{ui-block/button class="small" value="Toggle" action=(action "toggleGuidelines")}}
+      </div>
+      <div>
+        {{#if guidelines}}
+          {{#each guidelines key="@index" as |guideline|}}
+            <div>{{guideline.direction}}: {{guideline.x}},{{guideline.y}},{{guideline.length}}</div>
+          {{/each}}
+        {{else}}
+          <div>None</div>
+        {{/if}}
+      </div>
+    </div>
+  {{/let}}
+
   <div class="block">
     <div class="title" role="button" {{action "performAction" stage.node "reset"}}>Position: {{stage.x}}×{{stage.y}}</div>
     <div class="actions">

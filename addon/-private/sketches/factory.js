@@ -85,6 +85,18 @@ export default EmberObject.extend({
     return this._create('stage/cursor', { stage });
   },
 
+  stageGuidelines(stage) {
+    return this._create('stage/guidelines', { stage });
+  },
+
+  guidelinesPair(guidelines, source, target) {
+    return this._create('node/guidelines/pair', { guidelines, source, target });
+  },
+
+  nodeGuidelines(node, type, opts) {
+    return this._create(`node/guidelines/types/${type}`, { node, opts });
+  },
+
   hover(stage) {
     return this._create('stage/hover', { stage });
   },

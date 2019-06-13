@@ -1,4 +1,4 @@
-import EmberObject from '@ember/object';
+import EmberObject, { computed } from '@ember/object';
 import { readOnly, map, filterBy } from '@ember/object/computed';
 import { frame } from './frame/-base';
 import { factory } from '../util/computed';
@@ -14,6 +14,13 @@ export default EmberObject.extend({
   stage: readOnly('parent.stage'),
 
   all: nodes('parent._models'),
+
+  recursive: computed('all.@each.recursive', function() {
+    return this.all.reduce((nested, node) => {
+      nested.push(...node.recursive);
+      return nested;
+    }, A());
+  }).readOnly(),
 
   visible: filterBy('all', 'isVisible', true),
   selectable: filterBy('all', 'isSelectable', true),

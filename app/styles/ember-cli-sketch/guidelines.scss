@@ -1,0 +1,14 @@
+.ui-block-sketch-stage-guidelines {
+  position: absolute;
+  z-index: 10003;
+}
+
+.ui-block-sketch-stage-guidelines-guideline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: $color-guidelines;
+  &.approx {
+    opacity: 0.2;
+  }
+}

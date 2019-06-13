@@ -77,6 +77,7 @@ export default opts => {
     type:        value('type'),
     aspect:      readOnly('model.aspect'),
     accessories: readOnly('model.accessories'),
+    guidelines:  readOnly('model.guidelines'),
 
     isContainer:  prop('container', false),
     isAttached:   bool('parent'),
@@ -87,12 +88,18 @@ export default opts => {
     stage:     parent('isStage', 'stage'),
     container: parent('isContainer', 'container'),
 
-    nodes: nodes(),
+    nodes:      nodes(),
     attributes: attributes(),
-    edge: edge(),
+    edge:       edge(),
 
+    _guidelines: readOnly('guidelines.matched'),
     _rotatedFrame: readOnly('frame.rotated'),
     _hasEdge: readOnly('edge.has'),
+
+    recursive: computed('nodes.recursive', function() {
+      let { nodes: { recursive } } = this;
+      return [ this, ...recursive ];
+    }).readOnly(),
 
     index: computed('parent.nodes.all.[]', function() {
       let nodes = this.get('parent.nodes.all');

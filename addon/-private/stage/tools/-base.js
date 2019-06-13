@@ -11,6 +11,9 @@ export default EmberObject.extend({
   mouse: readOnly('stage.interactions.mouse'),
   keyboard: readOnly('stage.interactions.keyboard'),
 
+  guidelines: false,
+  cursor:     null,
+
   done() {
     this.tools._deactivate(this);
   },

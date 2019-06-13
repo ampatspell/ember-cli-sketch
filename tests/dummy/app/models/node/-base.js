@@ -1,14 +1,15 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
-import { node, attr, prop } from '../-node';
+import { node, attr, prop, guidelines } from '../-node';
 import { A } from '@ember/array';
 import { guidFor } from '@ember/object/internals';
 
 export {
   node,
   attr,
-  prop
+  prop,
+  guidelines
 };
 
 export const position = (target, opts) => attr(target, assign({ type: 'number', decimals: 2 }, opts));

@@ -1,4 +1,4 @@
-import Base, { node, x, y, width, height, visible, selectable, aspect, attr } from './-base';
+import Base, { node, x, y, width, height, visible, selectable, aspect, attr, guidelines } from './-base';
 
 export default Base.extend({
 
@@ -14,6 +14,8 @@ export default Base.extend({
   selectable: selectable(),
 
   fill: attr('fill', { type: 'string', initial: '#fff' }),
+
+  guidelines: guidelines(),
 
   hasFill: true
 
