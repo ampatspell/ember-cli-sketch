@@ -93,10 +93,12 @@
     </div>
   </div>
 
-  {{#let stage.node.guidelines.all as |guidelines|}}
-
+  {{#let stage.node.guidelines.visible as |guidelines|}}
     <div class="block">
-      <div class="title">Guidelines</div>
+      <div class="title">Guidelines: {{if stage.guidelines 'enabled' 'disabled'}}</div>
+      <div class="actions">
+        {{ui-block/button class="small" value="Toggle" action=(action "toggleGuidelines")}}
+      </div>
       <div>
         {{#if guidelines}}
           {{#each guidelines key="@index" as |guideline|}}

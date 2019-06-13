@@ -43,6 +43,11 @@ export default Component.extend({
       let value = !stage.selectable;
       this.stage.node.perform('selectable', { value });
     },
+    toggleGuidelines() {
+      let { stage } = this;
+      let guidelines = !stage.guidelines;
+      this.stage.update({ guidelines });
+    },
     center(type) {
       this.stage.node.perform('center', { type });
     },

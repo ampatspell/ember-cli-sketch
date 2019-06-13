@@ -29,7 +29,7 @@ export default opts => create(opts).extend({
 
   isSelectable: and('isAttached', '_selectable'),
 
-  recursive: readOnly('nodes.recursive'),
+  recursive:    readOnly('nodes.recursive'),
 
   //
 

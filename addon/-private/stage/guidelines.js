@@ -4,7 +4,12 @@ import { readOnly } from '@ember/object/computed';
 export default EmberObject.extend({
 
   stage: null,
-  enabled: readOnly('stage.tools.selected.guidelines'),
+
+  enabled: computed('stage.{tools.selected.guidelines,model.guidelines}', function() {
+    let { stage } = this;
+    return stage.model.guidelines && stage.tools.selected.guidelines;
+  }).readOnly(),
+
   nodes: readOnly('stage.selection.attached'),
 
   all: computed('nodes.@each._guidelines', function() {
