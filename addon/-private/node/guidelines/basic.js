@@ -41,7 +41,7 @@ export default Guidelines.extend({
   recompute(source, target, approx) {
     return [
       ...this._recompute(source, target, 'horizontal', 'y', 'height', approx),
-      ...this._recompute(source, target, 'vertical', 'x', 'width', approx)
+      ...this._recompute(source, target, 'vertical',   'x', 'width',  approx)
     ];
   }
 
