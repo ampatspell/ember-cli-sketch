@@ -12,11 +12,7 @@ export default Action.extend({
 
     guidelines.forEach(guideline => {
       let { direction, approx } = guideline;
-      if(approx) {
-        resolved[direction] = guideline;
-      } else {
-        resolved[direction] = null;
-      }
+      resolved[direction] = approx ? guideline : null;
     });
 
     // TODO: delta should not be zoomed
