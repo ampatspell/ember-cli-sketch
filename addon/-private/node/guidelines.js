@@ -54,36 +54,26 @@ export default EmberObject.extend({
     let { matched } = this;
 
     let resolved = {
-      horizontal: {},
-      vertical:   {}
+      horizontal: 0,
+      vertical: 0
     };
 
     matched.forEach(guideline => {
-      let { direction, approx } = guideline;
-      let hash = resolved[direction];
+      let { direction, approx, delta } = guideline;
       if(approx) {
-        hash.approx = hash.approx || guideline;
+        resolved[direction] = Math.min(resolved[direction], delta);
       } else {
-        hash.snapped = true;
+        resolved[direction] = 0;
       }
     });
 
     let props;
     let snap = (direction, prop) => {
-      let hash = resolved[direction];
-      if(hash.snapped) {
-        return;
+      let delta = resolved[direction];
+      if(delta) {
+        props = props || {};
+        props[prop] = delta;
       }
-
-      let { approx: guideline } = hash;
-      if(!guideline) {
-        return;
-      }
-
-      let { delta } = guideline;
-
-      props = props || {};
-      props[prop] = delta;
     }
 
     snap('horizontal', 'y');
