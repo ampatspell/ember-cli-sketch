@@ -15,6 +15,7 @@ export default Tool.extend({
     }
 
     nodes.forEach(node => node.update(point, { delta: true }));
+    stage.nodesPerform(nodes, 'snap-to-guidelines');
     stage.nodesPerform(nodes, 'move-to-container');
   },
 

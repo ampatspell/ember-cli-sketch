@@ -26,7 +26,8 @@ export const defaults = {
     'stage/selectable',
     'node/aspect-fit',
     'node/aspect-update',
-    'node/move-to-container'
+    'node/move-to-container',
+    'node/snap-to-guidelines'
   ],
   fonts: {
   }
