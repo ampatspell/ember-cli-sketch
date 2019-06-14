@@ -15,7 +15,7 @@ export default Component.extend({
     let width;
     let height;
 
-    let zoom = value => round(value * _zoom, 1);
+    let zoom = value => round(value * _zoom, 0);
 
     x = zoom(x);
     y = zoom(y);

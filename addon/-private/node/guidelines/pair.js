@@ -1,5 +1,6 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
+import { round } from '../../../util/math';
 
 const frame = key => readOnly(`${key}.frame.guidelines`);
 
@@ -55,6 +56,8 @@ export default EmberObject.extend({
         length = vl;
       }
 
+      delta = round(delta, 5);
+
       return {
         direction,
         x,
@@ -71,7 +74,7 @@ export default EmberObject.extend({
     if(!matches) {
       return;
     }
-    let approx = 3;
+    let approx = 1.5;
     return this.recompute(_source, _target, approx);
   }).readOnly(),
 
