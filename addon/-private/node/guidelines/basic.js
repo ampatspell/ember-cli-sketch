@@ -29,7 +29,6 @@ export default Guidelines.extend({
         if(sourcePoint === targetPoint) {
           lines.push({ direction, [positionKey]: sourcePoint });
         } else if(approx && isApprox(sourcePoint, targetPoint, approx)) {
-          lines.push({ direction, [positionKey]: sourcePoint, approx: true });
           lines.push({ direction, [positionKey]: targetPoint, approx: true });
         }
       });
