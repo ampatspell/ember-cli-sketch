@@ -89,10 +89,6 @@ export default EmberObject.extend({
     snap('horizontal', 'y');
     snap('vertical',   'x');
 
-    if(props) {
-      console.log(props);
-    }
-
     return props;
   }
 
