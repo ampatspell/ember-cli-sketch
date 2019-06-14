@@ -51,13 +51,18 @@ export default EmberObject.extend({
     let { matched, node } = this;
 
     let resolved = {
-      horizontal: null,
-      vertical:   null
+      horizontal: {},
+      vertical:   {}
     };
 
     matched.forEach(guideline => {
       let { direction, approx } = guideline;
-      resolved[direction] = approx ? guideline : null;
+      let hash = resolved[direction];
+      if(approx) {
+        hash.approx = hash.approx || guideline;
+      } else {
+        hash.snapped = true;
+      }
     });
 
     // TODO: delta should not be zoomed
@@ -65,7 +70,12 @@ export default EmberObject.extend({
 
     let props;
     let snap = (direction, prop) => {
-      let guideline = resolved[direction];
+      let hash = resolved[direction];
+      if(hash.snapped) {
+        return;
+      }
+
+      let { approx: guideline } = hash;
       if(!guideline) {
         return;
       }
