@@ -45,6 +45,41 @@ export default EmberObject.extend({
       array.push(...matched);
     });
     return array;
-  }).readOnly()
+  }).readOnly(),
+
+  snapping() {
+    let { matched, node } = this;
+
+    let resolved = {
+      horizontal: null,
+      vertical:   null
+    };
+
+    matched.forEach(guideline => {
+      let { direction, approx } = guideline;
+      resolved[direction] = approx ? guideline : null;
+    });
+
+    // TODO: delta should not be zoomed
+    let zoom = node.frame.zoom;
+
+    let props;
+    let snap = (direction, prop) => {
+      let guideline = resolved[direction];
+      if(!guideline) {
+        return;
+      }
+
+      let { delta } = guideline;
+
+      props = props || {};
+      props[prop] = delta / zoom;
+    }
+
+    snap('horizontal', 'y');
+    snap('vertical',   'x');
+
+    return props;
+  }
 
 });
