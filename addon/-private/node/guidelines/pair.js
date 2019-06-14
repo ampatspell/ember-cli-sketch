@@ -1,7 +1,7 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 
-const frame = key => readOnly(`${key}.frame.hover`);
+const frame = key => readOnly(`${key}.frame.guidelines`);
 
 export default EmberObject.extend({
 

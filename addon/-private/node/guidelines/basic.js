@@ -31,8 +31,6 @@ export default Guidelines.extend({
         if(sourcePoint === targetPoint) {
           lines.push({ direction, [positionKey]: sourcePoint });
         } else if(approx && this._approx(sourcePoint, targetPoint, approx)) {
-          // TODO: delta should not be zoomed
-          // or better yet guidelines in general
           let delta = targetPoint - sourcePoint;
           lines.push({ direction, [positionKey]: targetPoint, delta, approx: true });
         }

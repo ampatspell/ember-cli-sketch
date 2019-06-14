@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { readOnly } from '@ember/object/computed';
 import { style } from '../../-computed';
 import { round } from '../../../../../../-private/util/math';
 
@@ -6,11 +7,20 @@ export default Component.extend({
   classNameBindings: [ ':ui-block-sketch-stage-guidelines-guideline', 'guideline.approx:approx' ],
   attributeBindings: [ 'style' ],
 
-  style: style('guideline.{direction,x,y,length}', function() {
-    let { guideline: { direction, x, y, length } } = this;
+  zoom: readOnly('stage.node.zoom'),
+
+  style: style('guideline.{direction,x,y,length}', 'zoom', function() {
+    let { guideline: { direction, x, y, length }, zoom: _zoom } = this;
 
     let width;
     let height;
+
+    let zoom = value => round(value * _zoom, 1);
+
+    x = zoom(x);
+    y = zoom(y);
+
+    length = zoom(length);
 
     if(direction === 'vertical') {
       width = 1;
@@ -21,9 +31,6 @@ export default Component.extend({
     } else {
       return;
     }
-
-    x = round(x, 0);
-    y = round(y, 0);
 
     return {
       transform: `translate(${x}px, ${y}px)`,

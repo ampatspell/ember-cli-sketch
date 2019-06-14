@@ -48,7 +48,7 @@ export default EmberObject.extend({
   }).readOnly(),
 
   snapping() {
-    let { matched, node } = this;
+    let { matched } = this;
 
     let resolved = {
       horizontal: null,
@@ -60,9 +60,6 @@ export default EmberObject.extend({
       resolved[direction] = approx ? guideline : null;
     });
 
-    // TODO: delta should not be zoomed
-    let zoom = node.frame.zoom;
-
     let props;
     let snap = (direction, prop) => {
       let guideline = resolved[direction];
@@ -73,7 +70,7 @@ export default EmberObject.extend({
       let { delta } = guideline;
 
       props = props || {};
-      props[prop] = delta / zoom;
+      props[prop] = delta;
     }
 
     snap('horizontal', 'y');
