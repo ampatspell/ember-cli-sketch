@@ -30,8 +30,8 @@ export default EmberObject.extend({
            (sxw >= tx && sxw <= txw);
   }).readOnly(),
 
-  recompute(source, target) {
-    let array = this.guidelines.recompute(source, target);
+  recompute(source, target, approx) {
+    let array = this.guidelines.recompute(source, target, approx);
 
     if(!array) {
       return;
@@ -70,7 +70,8 @@ export default EmberObject.extend({
     if(!matches) {
       return;
     }
-    return this.recompute(_source, _target);
+    let approx = 10;
+    return this.recompute(_source, _target, approx);
   }).readOnly(),
 
 });
