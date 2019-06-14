@@ -24,6 +24,7 @@ export default Guidelines.extend({
   },
 
   _recompute(source, target, direction, positionKey, sizeKey, approx) {
+    let { zoom } = this;
     let points = this._buildPoints(source, target, positionKey, sizeKey);
     let lines = [];
     points.source.forEach(sourcePoint => {
@@ -31,9 +32,7 @@ export default Guidelines.extend({
         if(sourcePoint === targetPoint) {
           lines.push({ direction, [positionKey]: sourcePoint });
         } else if(approx && this._approx(sourcePoint, targetPoint, approx)) {
-          // TODO: delta should not be zoomed
-          // or better yet guidelines in general
-          let delta = targetPoint - sourcePoint;
+          let delta = (targetPoint - sourcePoint) / zoom;
           lines.push({ direction, [positionKey]: targetPoint, delta, approx: true });
         }
       });

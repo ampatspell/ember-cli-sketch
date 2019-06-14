@@ -1,4 +1,5 @@
 import EmberObject, { computed } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
 import sketches from '../util/sketches';
 import { diff } from '../util/array';
 import { A } from '@ember/array';
@@ -16,6 +17,8 @@ export default EmberObject.extend({
 
   node: null,
   opts: null,
+
+  zoom: readOnly('node.stage.zoom'),
 
   pairs: computed('node', 'node.stage.recursive.@each.isVisible', function() {
     let source = this.node;
@@ -48,7 +51,7 @@ export default EmberObject.extend({
   }).readOnly(),
 
   snapping() {
-    let { matched, node } = this;
+    let { matched } = this;
 
     let resolved = {
       horizontal: {},
@@ -65,9 +68,6 @@ export default EmberObject.extend({
       }
     });
 
-    // TODO: delta should not be zoomed
-    let zoom = node.frame.zoom;
-
     let props;
     let snap = (direction, prop) => {
       let hash = resolved[direction];
@@ -83,7 +83,7 @@ export default EmberObject.extend({
       let { delta } = guideline;
 
       props = props || {};
-      props[prop] = delta / zoom;
+      props[prop] = delta;
     }
 
     snap('horizontal', 'y');
