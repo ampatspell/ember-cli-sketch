@@ -7,8 +7,8 @@
     border: 1px solid fade-out(#000, 0.5);
     background: fade-out(#fff, 0.2);
     box-shadow: 0 1px 2px fade-out(#000, 0.7);
-    width: 10px;
-    height: 10px;
+    width: 11px;
+    height: 11px;
     transition:
       border-color 0.2s ease-in-out,
       background-color 0.2s ease-in-out;
@@ -21,16 +21,16 @@
     }
   }
   > .top {
-    top: -5px;
+    top: -6px;
   }
   > .bottom {
-    bottom: -5px;
+    bottom: -6px;
   }
   > .left {
-    left: -5px;
+    left: -6px;
   }
   > .right {
-    right: -5px;
+    right: -6px;
   }
   > .top,
   > .bottom {
@@ -43,7 +43,7 @@
   > .right {
     &.middle {
       top: 50%;
-      transform: translateY(-5px);
+      transform: translateY(-6px);
     }
   }
 }
