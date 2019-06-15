@@ -102,7 +102,7 @@
       <div>
         {{#if guidelines}}
           {{#each guidelines key="@index" as |guideline|}}
-            <div>{{guideline.direction}}: {{guideline.x}},{{guideline.y}},{{guideline.length}} {{if guideline.approx 'approx' 'match'}}</div>
+            <div>{{guideline.direction}}: {{guideline.x}},{{guideline.y}},{{guideline.length}} {{if guideline.approx "approx" "match"}}</div>
           {{/each}}
         {{else}}
           <div>None</div>
