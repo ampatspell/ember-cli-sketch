@@ -71,6 +71,7 @@ export default EmberObject.extend({
     if(!matches) {
       return;
     }
+    // Approx should be based on zoom level
     let approx = 3;
     return this.recompute(_source, _target, approx);
   }).readOnly(),
