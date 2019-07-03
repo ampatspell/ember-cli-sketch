@@ -18,7 +18,13 @@ export default EmberObject.extend({
   node: null,
   opts: null,
 
-  zoom: readOnly('node.stage.zoom'),
+  stage: readOnly('node.stage'),
+  zoom: readOnly('stage.zoom'),
+
+  approx: computed('zoom', function() {
+    let { zoom } = this;
+    return zoom * 5;
+  }).readOnly(),
 
   pairs: computed('node', 'node.stage.recursive.@each.isVisible', function() {
     let source = this.node;
