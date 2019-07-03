@@ -71,7 +71,7 @@ export default EmberObject.extend({
     if(!matches) {
       return;
     }
-    let approx = 1;
+    let approx = 3;
     return this.recompute(_source, _target, approx);
   }).readOnly(),
 
