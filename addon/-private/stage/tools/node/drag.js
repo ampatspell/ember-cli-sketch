@@ -12,7 +12,7 @@ export default Tool.extend({
     let point = {
       x: delta.x / zoom,
       y: delta.y / zoom
-    }
+    };
 
     nodes.forEach(node => node.update(point, { delta: true }));
     stage.nodesPerform(nodes, 'snap-to-guidelines');
