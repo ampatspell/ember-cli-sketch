@@ -64,24 +64,6 @@ export default EmberObject.extend({
       over: null,
       stage: null
     });
-  },
-
-  //
-
-  delta(previous) {
-    let { absolute } = this;
-
-    let calc = prop => absolute[prop] - previous[prop];
-
-    let delta = {
-      x: calc('x'),
-      y: calc('y')
-    };
-
-    return {
-      delta,
-      absolute
-    };
   }
 
 });
