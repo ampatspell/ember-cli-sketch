@@ -18,9 +18,6 @@ export default Tool.extend({
   },
 
   onMouseMove({ delta }) {
-    if(!this.mouse.isLeftButton) {
-      return;
-    }
     this.hover.reset();
     this.update({ delta });
   },
