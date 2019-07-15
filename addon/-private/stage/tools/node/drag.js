@@ -12,13 +12,7 @@ export default Tool.extend({
       y: delta.y / zoom
     };
 
-    this.state.forEach(state => {
-      let { node, point } = state;
-      let add = prop => point[prop] = point[prop] + zoomed[prop];
-      add('x');
-      add('y');
-      node.perform('drag', { point });
-    });
+    this.state.forEach(state => state.perform({ delta: zoomed }));
   },
 
   onMouseMove({ delta }) {
@@ -31,11 +25,7 @@ export default Tool.extend({
   },
 
   activate() {
-    this.state = this.selection.selectable.map(node => {
-      let { x, y } = node.frame;
-      let point = { x, y };
-      return { node, point };
-    });
+    this.state = this.selection.selectable.map(node => node.action('drag').begin(node));
   },
 
   deactivate() {

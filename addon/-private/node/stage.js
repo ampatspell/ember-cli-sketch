@@ -65,7 +65,7 @@ export default opts => create(opts).extend({
     }
     nodes = nodes.slice();
     let actions = this.sketches.actions;
-    return nodes.map(node => actions.perform(name, node, ...args));
+    return nodes.map(node => actions.perform(node, name, ...args));
   },
 
   nodesForPosition(position, type) {
