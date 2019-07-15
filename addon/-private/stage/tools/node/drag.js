@@ -7,15 +7,17 @@ export default Tool.extend({
   update({ delta }) {
     let { zoom } = this;
 
-    let point = {
+    let zoomed = {
       x: delta.x / zoom,
       y: delta.y / zoom
     };
 
     this.state.forEach(state => {
-      let { node } = state;
-      let result = node.perform('drag', { delta: point });
-      // clamped result
+      let { node, point } = state;
+      let add = prop => point[prop] = point[prop] + zoomed[prop];
+      add('x');
+      add('y');
+      node.perform('drag', { point });
     });
   },
 
@@ -30,7 +32,9 @@ export default Tool.extend({
 
   activate() {
     this.state = this.selection.selectable.map(node => {
-      return { node };
+      let { x, y } = node.frame;
+      let point = { x, y };
+      return { node, point };
     });
   },
 
