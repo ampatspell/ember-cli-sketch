@@ -7,6 +7,7 @@ export const round = (value, decimals=2) => {
   if(!value) {
     return value;
   }
+  value = value.toFixed(decimals + 1);
   return Number(Math.round(`${value}e${decimals}`) + `e-${decimals}`);
 };
 

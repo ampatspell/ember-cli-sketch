@@ -12,6 +12,8 @@ import ActionStageSelectable from 'ember-cli-sketch/-private/actions/stage/selec
 import ActionNodeAspectFit from 'ember-cli-sketch/-private/actions/node/aspect-fit';
 import ActionNodeAspectUpdate from 'ember-cli-sketch/-private/actions/node/aspect-update';
 import ActionNodeMoveToContainer from 'ember-cli-sketch/-private/actions/node/move-to-container';
+import ActionNodeSnapToGuidelines from 'ember-cli-sketch/-private/actions/node/snap-to-guidelines';
+import ActionNodeDrag from 'ember-cli-sketch/-private/actions/node/drag';
 
 import Attributes from 'ember-cli-sketch/-private/node/attributes';
 import AttributeNoop from 'ember-cli-sketch/-private/node/attributes/attribute/noop';
@@ -76,6 +78,8 @@ export default {
     container.register('sketch:actions/node/aspect-fit', ActionNodeAspectFit);
     container.register('sketch:actions/node/aspect-update', ActionNodeAspectUpdate);
     container.register('sketch:actions/node/move-to-container', ActionNodeMoveToContainer);
+    container.register('sketch:actions/node/snap-to-guidelines', ActionNodeSnapToGuidelines);
+    container.register('sketch:actions/node/drag', ActionNodeDrag);
     container.register('sketch:factory/attributes', Attributes);
     container.register('sketch:node/attribute/noop', AttributeNoop);
     container.register('sketch:node/attribute/number', AttributeNumber);

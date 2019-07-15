@@ -24,7 +24,7 @@ export default Component.extend({
   isHeightDisabled: height(),
   isWidthDisabled:  width(),
 
-  frame: frame('model', 'selection', { inset: -1, index: false }),
+  frame: frame('model', 'selection', { index: false }),
   style: style('frame', ({ frame }) => frame)
 
 });

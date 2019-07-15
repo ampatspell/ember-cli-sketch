@@ -1,11 +1,13 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 
-const frame = key => readOnly(`${key}.frame.hover`);
+const frame = key => readOnly(`${key}.frame.guidelines`);
 
 export default EmberObject.extend({
 
   guidelines: null,
+
+  approx: readOnly('guidelines.approx'),
 
   source: null, // node
   target: null, // node
@@ -30,8 +32,8 @@ export default EmberObject.extend({
            (sxw >= tx && sxw <= txw);
   }).readOnly(),
 
-  recompute(source, target) {
-    let array = this.guidelines.recompute(source, target);
+  recompute(source, target, approx) {
+    let array = this.guidelines.recompute(source, target, approx);
 
     if(!array) {
       return;
@@ -44,7 +46,7 @@ export default EmberObject.extend({
     let vl = Math.max(source.y + source.height, target.y + target.height) - vy;
 
     return array.map(def => {
-      let { direction, x, y, approx } = def;
+      let { direction, x, y, approx, delta } = def;
       let length;
 
       if(direction === 'horizontal') {
@@ -60,17 +62,18 @@ export default EmberObject.extend({
         x,
         y,
         length,
-        approx
+        approx,
+        delta
       };
     });
   },
 
-  matched: computed('matches', function() {
-    let { matches, _source, _target } = this;
+  matched: computed('matches', 'approx', function() {
+    let { matches, _source, _target, approx } = this;
     if(!matches) {
       return;
     }
-    return this.recompute(_source, _target);
+    return this.recompute(_source, _target, approx);
   }).readOnly(),
 
 });

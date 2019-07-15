@@ -23,7 +23,7 @@ export const rotated = frameKey => computed(frameKey, function() {
   return rotatedRectBounds(frame);
 }).readOnly();
 
-export const absolute = (frameKey, parentFrameKey) => computed(frameKey, parentFrameKey, function() {
+export const absolute = (frameKey, parentFrameKey, rounding=true) => computed(frameKey, parentFrameKey, function() {
   let parent = this.get(parentFrameKey);
   if(!parent) {
     return;
@@ -36,7 +36,7 @@ export const absolute = (frameKey, parentFrameKey) => computed(frameKey, parentF
 
   let { x, y, width, height, rotation } = frame;
 
-  let r = value => round(value, 0);
+  let r = value => rounding ? round(value, 0) : value;
 
   let result = {
     x:      r(parent.x + x),

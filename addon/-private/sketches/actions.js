@@ -19,7 +19,7 @@ export default EmberObject.extend({
     return action;
   },
 
-  perform(name, node, ...args) {
+  perform(node, name, ...args) {
     let action = this.action(node, name);
     return action.perform(node, ...args);
   }
