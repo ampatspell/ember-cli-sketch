@@ -18,7 +18,7 @@ export default EmberObject.extend({
 
   x:    attr('_x', { type: 'number', initial: 0, decimals: 2 }),
   y:    attr('_y', { type: 'number', initial: 0, decimals: 2 }),
-  zoom: attr('_zoom', { type: 'number', initial: 1, min: 0.5, max: 10, decimals: 2 }),
+  zoom: attr('_zoom', { type: 'number', initial: 1, min: 0.1, max: 10, decimals: 2 }),
 
   fill: attr('_fill', { type: 'string', initial: 'grey' }),
   selectable: true,

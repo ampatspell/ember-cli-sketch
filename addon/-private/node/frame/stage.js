@@ -18,6 +18,7 @@ export default Frame.extend({
 
   rounded: rounded('_zoomed'),
   hover: readOnly('rounded'),
+  guidelines: readOnly('rounded'),
   selection: readOnly('rounded'),
   guidelines: readOnly('properties'),
 

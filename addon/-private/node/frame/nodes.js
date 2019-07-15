@@ -13,6 +13,7 @@ export default Frame.extend(BoundsMixin, {
   _zoomedRotated: zoomed('rotated'),
 
   hover: absolute('_zoomedRotated', 'parent.parent.frame.hover'),
+  guidelines: absolute('_zoomedRotated', 'parent.parent.frame.guidelines', false),
   selection: absolute('_zoomedRotated', 'parent.parent.frame.selection')
 
 });

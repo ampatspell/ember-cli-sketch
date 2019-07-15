@@ -23,6 +23,11 @@ export default Guidelines.extend({
     };
   },
 
+  _delta(source, target) {
+    let { zoom } = this;
+    return (target - source) / zoom;
+  },
+
   _recompute(source, target, direction, positionKey, sizeKey, approx) {
     let points = this._buildPoints(source, target, positionKey, sizeKey);
     let lines = [];
@@ -31,7 +36,7 @@ export default Guidelines.extend({
         if(sourcePoint === targetPoint) {
           lines.push({ direction, [positionKey]: sourcePoint });
         } else if(approx && this._approx(sourcePoint, targetPoint, approx)) {
-          let delta = targetPoint - sourcePoint;
+          let delta = this._delta(sourcePoint, targetPoint);
           lines.push({ direction, [positionKey]: targetPoint, delta, approx: true });
         }
       });

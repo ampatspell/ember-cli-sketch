@@ -32,5 +32,6 @@ export default Frame.extend({
   hover: absolute('_zoomedRotated', 'parent.parent.frame.hover'),
   selection: absolute('_zoomedRotated', 'parent.parent.frame.selection'),
   guidelines: absolute('rotated', 'parent.parent.frame.guidelines', false),
+  selection: absolute('_zoomedRotated', 'parent.parent.frame.selection')
 
 });

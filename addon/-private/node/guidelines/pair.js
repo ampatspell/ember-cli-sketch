@@ -8,6 +8,8 @@ export default EmberObject.extend({
 
   guidelines: null,
 
+  approx: readOnly('guidelines.approx'),
+
   source: null, // node
   target: null, // node
 
@@ -69,12 +71,11 @@ export default EmberObject.extend({
     });
   },
 
-  matched: computed('matches', function() {
-    let { matches, _source, _target } = this;
+  matched: computed('matches', 'approx', function() {
+    let { matches, _source, _target, approx } = this;
     if(!matches) {
       return;
     }
-    let approx = 1.5;
     return this.recompute(_source, _target, approx);
   }).readOnly(),
 

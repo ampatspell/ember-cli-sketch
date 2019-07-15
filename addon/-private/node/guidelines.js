@@ -1,4 +1,5 @@
 import EmberObject, { computed } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
 import sketches from '../util/sketches';
 import { diff } from '../util/array';
 import { A } from '@ember/array';
@@ -16,6 +17,11 @@ export default EmberObject.extend({
 
   node: null,
   opts: null,
+
+  stage: readOnly('node.stage'),
+  zoom: readOnly('stage.zoom'),
+
+  approx: 5,
 
   pairs: computed('node', 'node.stage.recursive.@each.isVisible', function() {
     let source = this.node;
@@ -51,26 +57,26 @@ export default EmberObject.extend({
     let { matched } = this;
 
     let resolved = {
-      horizontal: null,
-      vertical:   null
+      horizontal: 0,
+      vertical: 0
     };
 
     matched.forEach(guideline => {
-      let { direction, approx } = guideline;
-      resolved[direction] = approx ? guideline : null;
+      let { direction, approx, delta } = guideline;
+      if(approx) {
+        resolved[direction] = Math.min(resolved[direction], delta);
+      } else {
+        resolved[direction] = 0;
+      }
     });
 
     let props;
     let snap = (direction, prop) => {
-      let guideline = resolved[direction];
-      if(!guideline) {
-        return;
+      let delta = resolved[direction];
+      if(delta) {
+        props = props || {};
+        props[prop] = delta;
       }
-
-      let { delta } = guideline;
-
-      props = props || {};
-      props[prop] = delta;
     }
 
     snap('horizontal', 'y');

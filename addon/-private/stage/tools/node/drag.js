@@ -5,24 +5,17 @@ export default Tool.extend({
   guidelines: true,
 
   update({ delta }) {
-    let { stage, selection, zoom } = this;
+    let { zoom } = this;
 
-    let nodes = selection.selectable;
-
-    let point = {
+    let zoomed = {
       x: delta.x / zoom,
       y: delta.y / zoom
-    }
+    };
 
-    nodes.forEach(node => node.update(point, { delta: true }));
-    stage.nodesPerform(nodes, 'snap-to-guidelines');
-    stage.nodesPerform(nodes, 'move-to-container');
+    this.state.forEach(state => state.perform({ delta: zoomed }));
   },
 
   onMouseMove({ delta }) {
-    if(!this.mouse.isLeftButton) {
-      return;
-    }
     this.hover.reset();
     this.update({ delta });
   },
@@ -32,6 +25,7 @@ export default Tool.extend({
   },
 
   activate() {
+    this.state = this.selection.selectable.map(node => node.action('drag').begin(node));
   },
 
   deactivate() {
@@ -39,6 +33,7 @@ export default Tool.extend({
   },
 
   reset() {
+    this.state = null;
   }
 
 });
