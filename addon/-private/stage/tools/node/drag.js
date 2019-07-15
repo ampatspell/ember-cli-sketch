@@ -14,10 +14,7 @@ export default Tool.extend({
       y: delta.y / zoom
     };
 
-    nodes.forEach(node => node.update(point, { delta: true }));
-    stage.nodesPerform(nodes, 'drag');
-    stage.nodesPerform(nodes, 'snap-to-guidelines');
-    stage.nodesPerform(nodes, 'move-to-container');
+    stage.nodesPerform(nodes, 'drag', { delta: point });
   },
 
   onMouseMove({ delta }) {

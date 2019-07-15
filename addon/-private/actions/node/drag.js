@@ -2,8 +2,10 @@ import Action from '../-base';
 
 export default Action.extend({
 
-  perform(node) {
-    console.log('node/drag', node+'');
+  perform(node, { delta }) {
+    node.update(delta, { delta: true });
+    node.perform('snap-to-guidelines');
+    node.perform('move-to-container');
   }
 
 });
