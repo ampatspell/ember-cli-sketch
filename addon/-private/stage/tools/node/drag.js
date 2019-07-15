@@ -5,16 +5,18 @@ export default Tool.extend({
   guidelines: true,
 
   update({ delta }) {
-    let { stage, selection, zoom } = this;
-
-    let nodes = selection.selectable;
+    let { zoom } = this;
 
     let point = {
       x: delta.x / zoom,
       y: delta.y / zoom
     };
 
-    stage.nodesPerform(nodes, 'drag', { delta: point });
+    this.state.forEach(state => {
+      let { node } = state;
+      let result = node.perform('drag', { delta: point });
+      // clamped result
+    });
   },
 
   onMouseMove({ delta }) {
@@ -27,6 +29,9 @@ export default Tool.extend({
   },
 
   activate() {
+    this.state = this.selection.selectable.map(node => {
+      return { node };
+    });
   },
 
   deactivate() {
@@ -34,6 +39,7 @@ export default Tool.extend({
   },
 
   reset() {
+    this.state = null;
   }
 
 });
