@@ -9,111 +9,117 @@ export default Tool.extend({
   node: null,
   edge: null,
 
-  free: computed('keyboard.isShift', 'node.attributes.aspect.locked', function() {
-    let locked = !!this.get('node.attributes.aspect.locked');
-    let shift = this.get('keyboard.isShift');
-    return locked === shift;
-  }).readOnly(),
+  // free: computed('keyboard.isShift', 'node.attributes.aspect.locked', function() {
+  //   let locked = !!this.get('node.attributes.aspect.locked');
+  //   let shift = this.get('keyboard.isShift');
+  //   return locked === shift;
+  // }).readOnly(),
 
-  aspect: computed('free', 'node.aspect', function() {
-    if(this.free) {
-      return;
-    }
-    return this.node.aspect;
-  }).readOnly(),
+  // aspect: computed('free', 'node.aspect', function() {
+  //   if(this.free) {
+  //     return;
+  //   }
+  //   return this.node.aspect;
+  // }).readOnly(),
 
-  updateAspect() {
-    this.node.perform('aspect-update');
-  },
+  // updateAspect() {
+  //   this.node.perform('aspect-update');
+  // },
 
-  update(delta) {
-    let { node, edge, aspect } = this;
+  // update(delta) {
+  //   let { node, edge, aspect } = this;
 
-    let before = node.frame.properties;
-    let frame = assign({}, node.frame.properties);
-    let children = {};
-    let attributes = node.attributes;
+  //   let before = node.frame.properties;
+  //   let frame = assign({}, node.frame.properties);
+  //   let children = {};
+  //   let attributes = node.attributes;
 
-    if(edge.vertical === 'bottom') {
-      let value = attributes.clampDelta('height', delta.y);
-      frame.height += value;
-    } else if(edge.vertical === 'top') {
-      let value = attributes.clampDelta('height', -delta.y);
-      frame.y += -value;
-      frame.height += value;
-      children.y = value;
-    }
+  //   if(edge.vertical === 'bottom') {
+  //     let value = attributes.clampDelta('height', delta.y);
+  //     frame.height += value;
+  //   } else if(edge.vertical === 'top') {
+  //     let value = attributes.clampDelta('height', -delta.y);
+  //     frame.y += -value;
+  //     frame.height += value;
+  //     children.y = value;
+  //   }
 
-    if(edge.horizontal === 'right') {
-      let value = attributes.clampDelta('width', delta.x);
-      frame.width += value;
-    } else if(edge.horizontal === 'left') {
-      let value = attributes.clampDelta('width', -delta.x);
-      frame.x += -value;
-      frame.width += value;
-      children.x = value;
-    }
+  //   if(edge.horizontal === 'right') {
+  //     let value = attributes.clampDelta('width', delta.x);
+  //     frame.width += value;
+  //   } else if(edge.horizontal === 'left') {
+  //     let value = attributes.clampDelta('width', -delta.x);
+  //     frame.x += -value;
+  //     frame.width += value;
+  //     children.x = value;
+  //   }
 
-    if(aspect) {
-      let height;
-      let width;
+  //   if(aspect) {
+  //     let height;
+  //     let width;
 
-      if(before.width !== frame.width) {
-        height = attributes.clamp('height', frame.width / aspect);
-        width = attributes.clamp('width', height * aspect);
-      } else if(before.height !== frame.height) {
-        width = attributes.clamp('width', frame.height * aspect);
-        height = attributes.clamp('height', width / aspect);
-      }
+  //     if(before.width !== frame.width) {
+  //       height = attributes.clamp('height', frame.width / aspect);
+  //       width = attributes.clamp('width', height * aspect);
+  //     } else if(before.height !== frame.height) {
+  //       width = attributes.clamp('width', frame.height * aspect);
+  //       height = attributes.clamp('height', width / aspect);
+  //     }
 
-      if(width && height) {
-        frame.height = height;
-        frame.width = width;
-      }
-    }
+  //     if(width && height) {
+  //       frame.height = height;
+  //       frame.width = width;
+  //     }
+  //   }
 
-    node.update(frame);
-    node.nodes.all.forEach(node => node.update(children, { delta: true }));
+  //   node.update(frame);
+  //   node.nodes.all.forEach(node => node.update(children, { delta: true }));
 
-    let after = node.frame.properties;
-    frame = {};
+  //   let after = node.frame.properties;
+  //   frame = {};
 
-    if(edge.horizontal === 'left') {
-      frame.x = (before.x + before.width) - (after.x + after.width);
-    } else if(edge.horizontal === 'middle') {
-      frame.x = ((before.x + before.width) - (after.x + after.width)) / 2;
-    }
+  //   if(edge.horizontal === 'left') {
+  //     frame.x = (before.x + before.width) - (after.x + after.width);
+  //   } else if(edge.horizontal === 'middle') {
+  //     frame.x = ((before.x + before.width) - (after.x + after.width)) / 2;
+  //   }
 
-    if(edge.vertical === 'top') {
-      frame.y = (before.y + before.height) - (after.y + after.height);
-    } else if(edge.vertical === 'middle') {
-      frame.y = ((before.y + before.height) - (after.y + after.height)) / 2;
-    }
+  //   if(edge.vertical === 'top') {
+  //     frame.y = (before.y + before.height) - (after.y + after.height);
+  //   } else if(edge.vertical === 'middle') {
+  //     frame.y = ((before.y + before.height) - (after.y + after.height)) / 2;
+  //   }
 
-    node.update(frame, { delta: true });
+  //   node.update(frame, { delta: true });
 
-    if(!aspect) {
-      this.updateAspect();
-    }
+  //   if(!aspect) {
+  //     this.updateAspect();
+  //   }
 
-    node.perform('move-to-container');
+  //   node.perform('move-to-container');
 
-    return true;
+  //   return true;
+  // },
+
+  update({ delta }) {
+    let { zoom } = this;
+
+    let zoomed = {
+      x: delta.x / zoom,
+      y: delta.y / zoom
+    };
+
+    this.state.perform({ delta: zoomed });
   },
 
   onMouseMove({ delta }) {
-    let { mouse: { isLeftButton }, zoom } = this;
+    let { mouse: { isLeftButton } } = this;
 
     if(!isLeftButton) {
       return;
     }
 
-    delta = {
-      x: delta.x / zoom,
-      y: delta.y / zoom
-    };
-
-    this.update(delta);
+    this.update({ delta });
   },
 
   onMouseUp() {
@@ -121,18 +127,15 @@ export default Tool.extend({
   },
 
   onKeyDown() {
-    if(!this.free) {
-      this.updateAspect();
-    }
+    // if(!this.free) {
+    //   this.updateAspect();
+    // }
   },
 
   activate({ node }) {
     let edge = node.edge.serialized;
-    this.setProperties({ node, edge });
     this.selection.removeExcept(node);
-    if(!this.free) {
-      this.updateAspect();
-    }
+    this.state = node.action('resize').begin(node, edge);
   },
 
   deactivate() {
@@ -140,7 +143,8 @@ export default Tool.extend({
   },
 
   reset() {
-    this.setProperties({ node: null, edge: null });
+    this.state = null;
   }
+
 
 });

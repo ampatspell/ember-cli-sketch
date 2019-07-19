@@ -30,8 +30,7 @@ export default Action.extend({
 
   perform(node, { point }) {
     node.update(point);
-
-    node.perform('snap-to-guidelines');
+    // node.perform('snap-to-guidelines');
     node.perform('move-to-container');
   },
 
