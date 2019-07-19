@@ -12,11 +12,11 @@ export {
   guidelines
 };
 
-export const position = (target, opts) => attr(target, assign({ type: 'number', decimals: 17 }, opts));
+export const position = (target, opts) => attr(target, assign({ type: 'number', decimals: 0 }, opts));
 export const x = opts => position('x', opts);
 export const y = opts => position('y', opts);
 
-export const size = (target, opts) => attr(target, assign({ type: 'number', min: 0, decimals: 17 }, opts));
+export const size = (target, opts) => attr(target, assign({ type: 'number', min: 0, decimals: 0 }, opts));
 export const width = opts => size('width', opts);
 export const height = opts => size('height', opts);
 
