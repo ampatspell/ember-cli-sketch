@@ -12,7 +12,7 @@ export default Tool.extend({
       y: delta.y / zoom
     };
 
-    this.state.forEach(state => state.perform({ delta: zoomed }));
+    this.state.update({ delta: zoomed });
   },
 
   onMouseMove({ delta }) {
@@ -25,7 +25,8 @@ export default Tool.extend({
   },
 
   activate() {
-    this.state = this.selection.selectable.map(node => node.action('drag').begin(node));
+    let state = this.stateModel('state');
+    this.setProperties({ state });
   },
 
   deactivate() {
@@ -33,7 +34,11 @@ export default Tool.extend({
   },
 
   reset() {
-    this.state = null;
+    let { state } = this;
+    if(state) {
+      this.setProperties({ state });
+      state.destroy();
+    }
   }
 
 });

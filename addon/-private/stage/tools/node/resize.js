@@ -9,22 +9,22 @@ export default Tool.extend({
   node: null,
   edge: null,
 
-  // free: computed('keyboard.isShift', 'node.attributes.aspect.locked', function() {
-  //   let locked = !!this.get('node.attributes.aspect.locked');
-  //   let shift = this.get('keyboard.isShift');
-  //   return locked === shift;
-  // }).readOnly(),
+  free: computed('keyboard.isShift', 'state.node.attributes.aspect.locked', function() {
+    let locked = !!this.get('state.node.attributes.aspect.locked');
+    let shift = this.get('keyboard.isShift');
+    return locked === shift;
+  }).readOnly(),
 
-  // aspect: computed('free', 'node.aspect', function() {
-  //   if(this.free) {
-  //     return;
-  //   }
-  //   return this.node.aspect;
-  // }).readOnly(),
+  aspect: computed('free', 'state.node.aspect', function() {
+    if(this.free) {
+      return;
+    }
+    return this.state.node.aspect;
+  }).readOnly(),
 
-  // updateAspect() {
-  //   this.node.perform('aspect-update');
-  // },
+  updateAspect() {
+    this.state.node.perform('aspect-update');
+  },
 
   // update(delta) {
   //   let { node, edge, aspect } = this;
@@ -102,14 +102,14 @@ export default Tool.extend({
   // },
 
   update({ delta }) {
-    let { zoom } = this;
+    let { zoom, aspect } = this;
 
     let zoomed = {
       x: delta.x / zoom,
       y: delta.y / zoom
     };
 
-    this.state.perform({ delta: zoomed });
+    this.state.perform({ delta: zoomed, aspect });
   },
 
   onMouseMove({ delta }) {
@@ -127,15 +127,15 @@ export default Tool.extend({
   },
 
   onKeyDown() {
-    // if(!this.free) {
-    //   this.updateAspect();
-    // }
+    if(!this.free) {
+      this.updateAspect();
+    }
   },
 
   activate({ node }) {
     let edge = node.edge.serialized;
     this.selection.removeExcept(node);
-    this.state = node.action('resize').begin(node, edge);
+    this.set('state', node.action('resize').begin(node, edge));
   },
 
   deactivate() {
@@ -143,7 +143,7 @@ export default Tool.extend({
   },
 
   reset() {
-    this.state = null;
+    this.set('state', null);
   }
 
 

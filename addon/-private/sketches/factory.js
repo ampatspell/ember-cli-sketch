@@ -1,6 +1,7 @@
 import EmberObject from '@ember/object';
 import { assert } from '@ember/debug';
 import { getOwner } from '@ember/application';
+import { assign } from '@ember/polyfills';
 
 export default EmberObject.extend({
 
@@ -119,6 +120,10 @@ export default EmberObject.extend({
 
   tool(type, tools) {
     return this._create(`stage/tools/${type}`, { type, tools });
+  },
+
+  toolState(tool, type, opts) {
+    return this._create(`stage/tools/${tool.type}/${type}`, assign({ tool, type }, opts));
   },
 
   interactions(stage) {
