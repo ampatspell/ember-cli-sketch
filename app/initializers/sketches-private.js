@@ -13,7 +13,6 @@ import ActionNodeAspectFit from 'ember-cli-sketch/-private/actions/node/aspect-f
 import ActionNodeAspectUpdate from 'ember-cli-sketch/-private/actions/node/aspect-update';
 import ActionNodeMoveToContainer from 'ember-cli-sketch/-private/actions/node/move-to-container';
 import ActionNodeSnapToGuidelines from 'ember-cli-sketch/-private/actions/node/snap-to-guidelines';
-import ActionNodeResize from 'ember-cli-sketch/-private/actions/node/resize';
 
 import Attributes from 'ember-cli-sketch/-private/node/attributes';
 import AttributeNoop from 'ember-cli-sketch/-private/node/attributes/attribute/noop';
@@ -48,6 +47,7 @@ import ToolStageDrag from 'ember-cli-sketch/-private/stage/tools/stage/drag';
 import ToolStageZoom from 'ember-cli-sketch/-private/stage/tools/stage/zoom';
 import ToolNodeAdd from 'ember-cli-sketch/-private/stage/tools/node/add';
 import ToolNodeResize from 'ember-cli-sketch/-private/stage/tools/node/resize';
+import ToolNodeResizeState from 'ember-cli-sketch/-private/stage/tools/node/resize/state';
 import ToolNodeDrag from 'ember-cli-sketch/-private/stage/tools/node/drag';
 import ToolNodeDragState from 'ember-cli-sketch/-private/stage/tools/node/drag/state';
 import ToolNodeDragNodeState from 'ember-cli-sketch/-private/stage/tools/node/drag/node-state';
@@ -81,7 +81,6 @@ export default {
     container.register('sketch:actions/node/aspect-update', ActionNodeAspectUpdate);
     container.register('sketch:actions/node/move-to-container', ActionNodeMoveToContainer);
     container.register('sketch:actions/node/snap-to-guidelines', ActionNodeSnapToGuidelines);
-    container.register('sketch:actions/node/resize', ActionNodeResize);
     container.register('sketch:factory/attributes', Attributes);
     container.register('sketch:node/attribute/noop', AttributeNoop);
     container.register('sketch:node/attribute/number', AttributeNumber);
@@ -108,6 +107,7 @@ export default {
     container.register('sketch:stage/tools/stage/zoom', ToolStageZoom);
     container.register('sketch:stage/tools/node/add', ToolNodeAdd);
     container.register('sketch:stage/tools/node/resize', ToolNodeResize);
+    container.register('sketch:stage/tools/node/resize/state', ToolNodeResizeState);
     container.register('sketch:stage/tools/node/drag', ToolNodeDrag);
     container.register('sketch:stage/tools/node/drag/state', ToolNodeDragState);
     container.register('sketch:stage/tools/node/drag/node-state', ToolNodeDragNodeState);

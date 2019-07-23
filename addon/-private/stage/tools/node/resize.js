@@ -109,7 +109,7 @@ export default Tool.extend({
       y: delta.y / zoom
     };
 
-    this.state.perform({ delta: zoomed, aspect });
+    this.state.update({ delta: zoomed, aspect });
   },
 
   onMouseMove({ delta }) {
@@ -135,7 +135,8 @@ export default Tool.extend({
   activate({ node }) {
     let edge = node.edge.serialized;
     this.selection.removeExcept(node);
-    this.set('state', node.action('resize').begin(node, edge));
+    let state = this.stateModel('state', { node, edge });
+    this.setProperties({ state });
   },
 
   deactivate() {
@@ -143,8 +144,11 @@ export default Tool.extend({
   },
 
   reset() {
-    this.set('state', null);
+    let { state } = this;
+    if(state) {
+      this.setProperties({ state });
+      state.destroy();
+    }
   }
-
 
 });

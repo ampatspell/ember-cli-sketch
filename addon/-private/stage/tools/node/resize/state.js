@@ -1,8 +1,9 @@
-import EmberObject from '@ember/object';
+import EmberObject, { computed } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
 
 export default EmberObject.extend({
 
-  action: null,
+  tool: null,
   node: null,
   edge: null,
 
@@ -22,7 +23,7 @@ export default EmberObject.extend({
   //   return point;
   // }
 
-  perform({ delta, aspect }) {
+  update({ delta, aspect }) {
     console.log(this.node+'', this.edge, delta, aspect);
     // let { action, node } = this;
     // let point = this.addDelta(delta);
