@@ -1,23 +1,26 @@
 import Tool from '../-base';
+import StateDeltaMixin from './-state-delta-mixin';
 
-export default Tool.extend({
+export default Tool.extend(StateDeltaMixin, {
 
   guidelines: true,
 
-  update({ delta }) {
-    let { zoom } = this;
+  update(delta) {
+    delta = this.zoomedDelta(delta);
 
-    delta = {
-      x: delta.x / zoom,
-      y: delta.y / zoom
-    };
-
-    this.nodes.forEach(node => node.update({ delta }));
+    this.state.forEach(state => {
+      let { node } = state;
+      state.invoke(delta, point => {
+        node.update(point);
+        node.perform('snap-to-guidelines');
+      });
+      node.perform('move-to-container');
+    });
   },
 
   onMouseMove({ delta }) {
     this.hover.reset();
-    this.update({ delta });
+    this.update(delta);
   },
 
   onMouseUp() {
@@ -25,7 +28,7 @@ export default Tool.extend({
   },
 
   activate() {
-    this.nodes = this.selection.selectable.map(node => this.model('state', { node }));
+    this.state = this.createStateForNodes(this.selection.selectable);
   },
 
   deactivate() {
@@ -33,7 +36,7 @@ export default Tool.extend({
   },
 
   reset() {
-    this.nodes = null;
+    this.state = null;
   }
 
 });

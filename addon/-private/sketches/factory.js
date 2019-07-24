@@ -122,10 +122,6 @@ export default EmberObject.extend({
     return this._create(`stage/tools/${type}`, { type, tools });
   },
 
-  toolState(tool, type, opts) {
-    return this._create(`stage/tools/${tool.type}/${type}`, assign({ tool, type }, opts));
-  },
-
   interactions(stage) {
     return this._create('stage/interactions', { stage });
   },

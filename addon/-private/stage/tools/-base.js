@@ -1,6 +1,5 @@
 import EmberObject from '@ember/object';
 import { readOnly } from '@ember/object/computed';
-import sketches from '../../util/sketches';
 
 export default EmberObject.extend({
 
@@ -15,12 +14,18 @@ export default EmberObject.extend({
   guidelines: false,
   cursor:     null,
 
-  model(type, opts) {
-    return sketches(this).factory.toolState(this, type, opts);
-  },
-
   done() {
     this.tools._deactivate(this);
+  },
+
+  //
+
+  zoomedDelta(delta) {
+    let { zoom } = this;
+    return {
+      x: delta.x / zoom,
+      y: delta.y / zoom
+    };
   },
 
   //
