@@ -7,7 +7,6 @@ export default Tool.extend(StateDeltaMixin, {
 
   update(delta) {
     delta = this.zoomedDelta(delta);
-
     this.state.forEach(state => {
       let { node } = state;
       state.invoke(delta, point => {
