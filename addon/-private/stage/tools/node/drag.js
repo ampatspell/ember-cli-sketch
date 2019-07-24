@@ -8,7 +8,7 @@ class DragNodeState {
   }
 
   invoke(delta, cb) {
-    let _delta = this.delta || { x: 0, y: 0 };
+    let _delta = this.delta;
 
     let frame = this.node.frame;
 
