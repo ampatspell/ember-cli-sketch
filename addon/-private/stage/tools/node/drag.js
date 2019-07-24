@@ -44,7 +44,7 @@ export default Tool.extend({
       let { node } = state;
       state.invoke(delta, point => {
         node.update(point);
-        node.perform('snap-to-guidelines');
+        // node.perform('snap-to-guidelines');
       });
       node.perform('move-to-container');
     });

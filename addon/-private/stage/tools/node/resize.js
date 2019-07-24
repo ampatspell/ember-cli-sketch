@@ -6,7 +6,9 @@ export default Tool.extend({
 
   guidelines: true,
 
-  state: null,
+  node: null,
+  edge: null,
+  delta: null,
 
   free: computed('keyboard.isShift', 'node.attributes.aspect.locked', function() {
     let locked = !!this.get('node.attributes.aspect.locked');
@@ -28,6 +30,11 @@ export default Tool.extend({
 
   update({ delta }) {
     delta = this.zoomedDelta(delta);
+
+    delta = {
+      x: this.delta.x + delta.x,
+      y: this.delta.y + delta.y
+    };
 
     let { node, edge, aspect } = this;
 
@@ -98,7 +105,19 @@ export default Tool.extend({
       this.updateAspect();
     }
 
-    // node.perform('snap-to-guidelines');
+    let result = node.frame.properties;
+
+    if(edge.horizontal === 'right') {
+      this.delta.x = before.width + delta.x - result.width;
+    } else if(edge.horizontal === 'left') {
+      this.delta.x = before.x + delta.x - result.x;
+    }
+
+    if(edge.vertical === 'top') {
+      this.delta.y = before.y + delta.y - result.y;
+    } else if(edge.vertical === 'bottom') {
+      this.delta.y = before.height + delta.y - result.height;
+    }
 
     node.perform('move-to-container');
   },
@@ -126,8 +145,8 @@ export default Tool.extend({
   activate({ node }) {
     this.selection.removeExcept(node);
     let edge = node.edge.serialized;
-    let state = null;
-    this.setProperties({ node, edge, state });
+    let delta = { x: 0, y: 0 };
+    this.setProperties({ node, edge, delta });
   },
 
   deactivate() {
@@ -135,7 +154,7 @@ export default Tool.extend({
   },
 
   reset() {
-    this.state = null;
+    this.setProperties({ node: null, edge: null, delta: null });
   }
 
 });
