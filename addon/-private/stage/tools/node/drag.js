@@ -7,12 +7,12 @@ export default Tool.extend({
   update({ delta }) {
     let { zoom } = this;
 
-    let zoomed = {
+    delta = {
       x: delta.x / zoom,
       y: delta.y / zoom
     };
 
-    this.state.update({ delta: zoomed });
+    this.state.update({ delta });
   },
 
   onMouseMove({ delta }) {

@@ -11,8 +11,8 @@ export default EmberObject.extend({
     return nodes.map(node => tool.stateModel('node-state', { node }));
   }).readOnly(),
 
-  update({ delta }) {
-    this.states.forEach(state => state.update({ delta }));
+  update(props) {
+    this.states.forEach(state => state.update(props));
   }
 
 });

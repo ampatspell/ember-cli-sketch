@@ -4,10 +4,9 @@ export default Action.extend({
 
   perform(node) {
     let props = node.guidelines.snapping();
-    if(!props) {
-      return;
+    if(props) {
+      node.update(props, { delta: true });
     }
-    node.update(props, { delta: true });
   }
 
 });

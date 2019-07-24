@@ -4,28 +4,38 @@ export default EmberObject.extend({
 
   node: null,
 
-  point: null,
+  withDelta(node, delta, cb) {
+    let { _delta } = this;
 
-  init() {
-    this._super(...arguments);
-    let { node: { frame: { x, y } } } = this;
-    this.set('point', { x, y });
-  },
+    if(!_delta) {
+      _delta = { x: 0, y: 0 };
+    }
 
-  addDelta(delta) {
-    let { point } = this;
-    let add = prop => point[prop] = point[prop] + delta[prop];
-    add('x');
-    add('y');
-    return point;
+    let { frame } = node;
+
+    let point = {
+      x: frame.x + _delta.x + delta.x,
+      y: frame.y + _delta.y + delta.y
+    };
+
+    cb(point);
+
+    _delta = {
+      x: point.x - frame.x,
+      y: point.y - frame.y
+    };
+
+    this._delta = _delta;
   },
 
   update({ delta }) {
     let { node } = this;
-    let point = this.addDelta(delta);
 
-    node.update(point);
-    // node.perform('snap-to-guidelines');
+    this.withDelta(node, delta, point => {
+      node.update(point);
+      node.perform('snap-to-guidelines');
+    });
+
     node.perform('move-to-container');
   }
 

@@ -14,8 +14,7 @@ export default EmberObject.extend({
 
   init() {
     this._super(...arguments);
-    let { node: { frame: { x, y } } } = this;
-    this.set('point', { x, y });
+    this.point = { x: 0, y: 0 };
   },
 
   free: computed('keyboard.isShift', 'node.attributes.aspect.locked', function() {
@@ -107,8 +106,6 @@ export default EmberObject.extend({
     }
 
     node.perform('move-to-container');
-
-    return true;
   }
 
 });
