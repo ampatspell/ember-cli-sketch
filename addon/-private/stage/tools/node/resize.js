@@ -1,6 +1,5 @@
 import Tool from '../-base';
 import { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
 
 export default Tool.extend({
@@ -99,6 +98,8 @@ export default Tool.extend({
       this.updateAspect();
     }
 
+    // node.perform('snap-to-guidelines');
+
     node.perform('move-to-container');
   },
 
@@ -125,7 +126,7 @@ export default Tool.extend({
   activate({ node }) {
     this.selection.removeExcept(node);
     let edge = node.edge.serialized;
-    let state = null; // TODO: state
+    let state = null;
     this.setProperties({ node, edge, state });
   },
 

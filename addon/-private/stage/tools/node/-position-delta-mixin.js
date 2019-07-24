@@ -1,6 +1,6 @@
 import Mixin from '@ember/object/mixin';
 
-class NodeDeltaState {
+class PositionDeltaMixinState {
 
   constructor(node) {
     this.node = node;
@@ -12,9 +12,14 @@ class NodeDeltaState {
 
     let frame = this.node.frame;
 
+    delta = {
+      x: _delta.x + delta.x,
+      y: _delta.y + delta.y
+    };
+
     let point = {
-      x: frame.x + _delta.x + delta.x,
-      y: frame.y + _delta.y + delta.y
+      x: frame.x + delta.x,
+      y: frame.y + delta.y
     };
 
     cb(point);
@@ -32,7 +37,7 @@ class NodeDeltaState {
 export default Mixin.create({
 
   createStateForNode(node) {
-    return new NodeDeltaState(node);
+    return new PositionDeltaMixinState(node);
   },
 
   createStateForNodes(nodes) {

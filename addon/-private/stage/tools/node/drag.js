@@ -1,7 +1,7 @@
 import Tool from '../-base';
-import StateDeltaMixin from './-state-delta-mixin';
+import PositionDeltaMixin from './-position-delta-mixin';
 
-export default Tool.extend(StateDeltaMixin, {
+export default Tool.extend(PositionDeltaMixin, {
 
   guidelines: true,
 
