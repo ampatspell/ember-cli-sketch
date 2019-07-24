@@ -1,18 +1,42 @@
-import EmberObject, { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
+import EmberObject from '@ember/object';
 
 export default EmberObject.extend({
 
-  tool: null,
-  nodes: readOnly('tool.selection.selectable'),
+  node: null,
 
-  states: computed('nodes', function() {
-    let { tool, nodes } = this;
-    return nodes.map(node => tool.stateModel('node-state', { node }));
-  }).readOnly(),
+  withDelta(node, delta, cb) {
+    let { _delta } = this;
 
-  update(props) {
-    this.states.forEach(state => state.update(props));
+    if(!_delta) {
+      _delta = { x: 0, y: 0 };
+    }
+
+    let { frame } = node;
+
+    let point = {
+      x: frame.x + _delta.x + delta.x,
+      y: frame.y + _delta.y + delta.y
+    };
+
+    cb(point);
+
+    _delta = {
+      x: point.x - frame.x,
+      y: point.y - frame.y
+    };
+
+    this._delta = _delta;
+  },
+
+  update({ delta }) {
+    let { node } = this;
+
+    this.withDelta(node, delta, point => {
+      node.update(point);
+      node.perform('snap-to-guidelines');
+    });
+
+    node.perform('move-to-container');
   }
 
 });

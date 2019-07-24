@@ -15,7 +15,7 @@ export default EmberObject.extend({
   guidelines: false,
   cursor:     null,
 
-  stateModel(type, opts) {
+  model(type, opts) {
     return sketches(this).factory.toolState(this, type, opts);
   },
 

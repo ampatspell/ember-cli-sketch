@@ -50,7 +50,6 @@ import ToolNodeResize from 'ember-cli-sketch/-private/stage/tools/node/resize';
 import ToolNodeResizeState from 'ember-cli-sketch/-private/stage/tools/node/resize/state';
 import ToolNodeDrag from 'ember-cli-sketch/-private/stage/tools/node/drag';
 import ToolNodeDragState from 'ember-cli-sketch/-private/stage/tools/node/drag/state';
-import ToolNodeDragNodeState from 'ember-cli-sketch/-private/stage/tools/node/drag/node-state';
 import ToolNodeRemove from 'ember-cli-sketch/-private/stage/tools/node/remove';
 import ToolNodeMove from 'ember-cli-sketch/-private/stage/tools/node/move';
 
@@ -110,7 +109,6 @@ export default {
     container.register('sketch:stage/tools/node/resize/state', ToolNodeResizeState);
     container.register('sketch:stage/tools/node/drag', ToolNodeDrag);
     container.register('sketch:stage/tools/node/drag/state', ToolNodeDragState);
-    container.register('sketch:stage/tools/node/drag/node-state', ToolNodeDragNodeState);
     container.register('sketch:stage/tools/node/move', ToolNodeMove);
     container.register('sketch:stage/tools/node/remove', ToolNodeRemove);
     container.register('sketch:stage/interactions', Interactions);

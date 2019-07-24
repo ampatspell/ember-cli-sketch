@@ -40,7 +40,7 @@ export default Tool.extend({
   activate({ node }) {
     this.selection.removeExcept(node);
     let edge = node.edge.serialized;
-    let state = this.stateModel('state', { node, edge });
+    let state = this.model('state', { node, edge });
     this.setProperties({ state });
   },
 

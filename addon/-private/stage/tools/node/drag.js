@@ -12,7 +12,7 @@ export default Tool.extend({
       y: delta.y / zoom
     };
 
-    this.state.update({ delta });
+    this.nodes.forEach(node => node.update({ delta }));
   },
 
   onMouseMove({ delta }) {
@@ -25,8 +25,7 @@ export default Tool.extend({
   },
 
   activate() {
-    let state = this.stateModel('state');
-    this.setProperties({ state });
+    this.nodes = this.selection.selectable.map(node => this.model('state', { node }));
   },
 
   deactivate() {
@@ -34,11 +33,7 @@ export default Tool.extend({
   },
 
   reset() {
-    let { state } = this;
-    if(state) {
-      this.setProperties({ state });
-      state.destroy();
-    }
+    this.nodes = null;
   }
 
 });
