@@ -1,7 +1,40 @@
 import Tool from '../-base';
-import PositionDeltaMixin from './-position-delta-mixin';
 
-export default Tool.extend(PositionDeltaMixin, {
+class DragNodeState {
+
+  constructor(node) {
+    this.node = node;
+    this.delta = { x: 0, y: 0 };
+  }
+
+  invoke(delta, cb) {
+    let _delta = this.delta || { x: 0, y: 0 };
+
+    let frame = this.node.frame;
+
+    delta = {
+      x: _delta.x + delta.x,
+      y: _delta.y + delta.y
+    };
+
+    let point = {
+      x: frame.x + delta.x,
+      y: frame.y + delta.y
+    };
+
+    cb(point);
+
+    _delta = {
+      x: point.x - frame.x,
+      y: point.y - frame.y
+    };
+
+    this.delta = _delta;
+  }
+
+}
+
+export default Tool.extend({
 
   guidelines: true,
 
@@ -27,7 +60,7 @@ export default Tool.extend(PositionDeltaMixin, {
   },
 
   activate() {
-    this.state = this.createStateForNodes(this.selection.selectable);
+    this.state = this.selection.selectable.map(node => new DragNodeState(node));
   },
 
   deactivate() {
