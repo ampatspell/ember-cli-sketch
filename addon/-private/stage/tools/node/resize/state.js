@@ -2,6 +2,8 @@ import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
 
+// TODO: remove state
+
 export default EmberObject.extend({
 
   tool: null,
