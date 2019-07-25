@@ -103,20 +103,23 @@ export default Tool.extend({
 
     if(!aspect) {
       this.updateAspect();
-    }
 
-    let result = node.frame.properties;
+      let result = node.frame.properties;
 
-    if(edge.horizontal === 'right') {
-      this.delta.x = before.width + delta.x - result.width;
-    } else if(edge.horizontal === 'left') {
-      this.delta.x = before.x + delta.x - result.x;
-    }
+      if(edge.horizontal === 'right') {
+        this.delta.x = before.width + delta.x - result.width;
+      } else if(edge.horizontal === 'left') {
+        this.delta.x = before.x + delta.x - result.x;
+      }
 
-    if(edge.vertical === 'top') {
-      this.delta.y = before.y + delta.y - result.y;
-    } else if(edge.vertical === 'bottom') {
-      this.delta.y = before.height + delta.y - result.height;
+      if(edge.vertical === 'top') {
+        this.delta.y = before.y + delta.y - result.y;
+      } else if(edge.vertical === 'bottom') {
+        this.delta.y = before.height + delta.y - result.height;
+      }
+
+    } else {
+      this.delta = { x: 0, y: 0 };
     }
 
     node.perform('move-to-container');
