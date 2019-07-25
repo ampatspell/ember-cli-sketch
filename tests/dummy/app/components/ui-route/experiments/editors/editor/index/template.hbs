@@ -213,10 +213,10 @@
         {{ui-block/slider min=-1000 max=1000 step=1 value=node.model.y update=(action "updateNodeProperty" node "y")}}
 
         <div class="label" role="button" {{action "updateNodeProperty" node "width" 100}}>width: {{node.model.width}}</div>
-        {{ui-block/slider min=-1000 max=1000 step=1 value=node.model.width update=(action "updateNodeProperty" node "width")}}
+        {{ui-block/slider min=0 max=1000 step=1 value=node.model.width update=(action "updateNodeProperty" node "width")}}
 
         <div class="label" role="button" {{action "updateNodeProperty" node "height" 100}}>height: {{node.model.height}}</div>
-        {{ui-block/slider min=-1000 max=1000 step=1 value=node.model.height update=(action "updateNodeProperty" node "height")}}
+        {{ui-block/slider min=0 max=1000 step=1 value=node.model.height update=(action "updateNodeProperty" node "height")}}
 
         {{#if node.model.hasRotation}}
           <div class="label" role="button" {{action "updateNodeProperty" node "rotation" 0}}>rotation: {{node.model.rotation}}</div>

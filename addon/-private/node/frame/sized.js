@@ -30,7 +30,7 @@ export default Frame.extend({
 
   rounded: rounded('_zoomed'),
   hover: absolute('_zoomedRotated', 'parent.parent.frame.hover'),
-  guidelines: absolute('_zoomedRotated', 'parent.parent.frame.guidelines', false),
+  guidelines: absolute('_zoomedRotated', 'parent.parent.frame.guidelines'),
   selection: absolute('_zoomedRotated', 'parent.parent.frame.selection')
 
 });

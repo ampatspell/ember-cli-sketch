@@ -2,8 +2,6 @@ import Tool from '../-base';
 
 export default Tool.extend({
 
-  guidelines: true,
-
   perform({ key }) {
     let { stage, selection, keyboard } = this;
 
@@ -13,8 +11,6 @@ export default Tool.extend({
     };
 
     let d = keyboard.isShift ? 15 : 1;
-
-    d = d / this.zoom;
 
     if(key.isArrowUp) {
       delta.y = -d;

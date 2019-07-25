@@ -1,6 +1,6 @@
 import Tool from '../-base';
-import { assign } from '@ember/polyfills';
 import { computed } from '@ember/object';
+import { assign } from '@ember/polyfills';
 
 export default Tool.extend({
 
@@ -8,6 +8,7 @@ export default Tool.extend({
 
   node: null,
   edge: null,
+  delta: null,
 
   free: computed('keyboard.isShift', 'node.attributes.aspect.locked', function() {
     let locked = !!this.get('node.attributes.aspect.locked');
@@ -16,17 +17,25 @@ export default Tool.extend({
   }).readOnly(),
 
   aspect: computed('free', 'node.aspect', function() {
-    if(this.free) {
+    let { free, node } = this;
+    if(free) {
       return;
     }
-    return this.node.aspect;
+    return node.aspect;
   }).readOnly(),
 
   updateAspect() {
     this.node.perform('aspect-update');
   },
 
-  update(delta) {
+  update({ delta }) {
+    delta = this.zoomedDelta(delta);
+
+    delta = {
+      x: this.delta.x + delta.x,
+      y: this.delta.y + delta.y
+    };
+
     let { node, edge, aspect } = this;
 
     let before = node.frame.properties;
@@ -94,26 +103,36 @@ export default Tool.extend({
 
     if(!aspect) {
       this.updateAspect();
+
+      let result = node.frame.properties;
+
+      if(edge.horizontal === 'right') {
+        this.delta.x = before.width + delta.x - result.width;
+      } else if(edge.horizontal === 'left') {
+        this.delta.x = before.x + delta.x - result.x;
+      }
+
+      if(edge.vertical === 'top') {
+        this.delta.y = before.y + delta.y - result.y;
+      } else if(edge.vertical === 'bottom') {
+        this.delta.y = before.height + delta.y - result.height;
+      }
+
+    } else {
+      this.delta = { x: 0, y: 0 };
     }
 
     node.perform('move-to-container');
-
-    return true;
   },
 
   onMouseMove({ delta }) {
-    let { mouse: { isLeftButton }, zoom } = this;
+    let { mouse: { isLeftButton } } = this;
 
     if(!isLeftButton) {
       return;
     }
 
-    delta = {
-      x: delta.x / zoom,
-      y: delta.y / zoom
-    };
-
-    this.update(delta);
+    this.update({ delta });
   },
 
   onMouseUp() {
@@ -127,12 +146,10 @@ export default Tool.extend({
   },
 
   activate({ node }) {
-    let edge = node.edge.serialized;
-    this.setProperties({ node, edge });
     this.selection.removeExcept(node);
-    if(!this.free) {
-      this.updateAspect();
-    }
+    let edge = node.edge.serialized;
+    let delta = { x: 0, y: 0 };
+    this.setProperties({ node, edge, delta });
   },
 
   deactivate() {
@@ -140,7 +157,7 @@ export default Tool.extend({
   },
 
   reset() {
-    this.setProperties({ node: null, edge: null });
+    this.setProperties({ node: null, edge: null, delta: null });
   }
 
 });

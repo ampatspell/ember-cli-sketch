@@ -27,8 +27,7 @@ export const defaults = {
     'node/aspect-fit',
     'node/aspect-update',
     'node/move-to-container',
-    'node/snap-to-guidelines',
-    'node/drag'
+    'node/snap-to-guidelines'
   ],
   fonts: {
   }

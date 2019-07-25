@@ -20,6 +20,16 @@ export default EmberObject.extend({
 
   //
 
+  zoomedDelta(delta) {
+    let { zoom } = this;
+    return {
+      x: delta.x / zoom,
+      y: delta.y / zoom
+    };
+  },
+
+  //
+
   onMouseDown() {
   },
 

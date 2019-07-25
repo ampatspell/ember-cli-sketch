@@ -1,7 +1,7 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { assign } from '@ember/polyfills';
-import { node, attr, prop, guidelines } from '../-node';
+import { node, attr, prop, position, size, guidelines } from '../-node';
 import { A } from '@ember/array';
 import { guidFor } from '@ember/object/internals';
 
@@ -12,11 +12,9 @@ export {
   guidelines
 };
 
-export const position = (target, opts) => attr(target, assign({ type: 'number', decimals: 17 }, opts));
 export const x = opts => position('x', opts);
 export const y = opts => position('y', opts);
 
-export const size = (target, opts) => attr(target, assign({ type: 'number', min: 0, decimals: 17 }, opts));
 export const width = opts => size('width', opts);
 export const height = opts => size('height', opts);
 
