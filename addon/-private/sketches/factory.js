@@ -1,7 +1,6 @@
 import EmberObject from '@ember/object';
 import { assert } from '@ember/debug';
 import { getOwner } from '@ember/application';
-import { assign } from '@ember/polyfills';
 
 export default EmberObject.extend({
 
