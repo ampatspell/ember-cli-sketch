@@ -12,7 +12,7 @@ export default Guidelines.extend({
     return [
       position,
       position + (size / 2),
-      position + size
+      position + size - 1
     ];
   },
 
