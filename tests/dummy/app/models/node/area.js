@@ -15,7 +15,7 @@ export default Base.extend({
 
   fill: attr('fill', { type: 'string', initial: '#fff' }),
 
-  guidelines: guidelines(),
+  guidelines: guidelines('area'),
 
   hasFill: true
 
