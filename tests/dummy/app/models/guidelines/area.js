@@ -1,10 +1,11 @@
 import Guidelines, { points } from 'ember-cli-sketch/-private/node/guidelines/basic';
+import { round } from 'ember-cli-sketch/util/math';
 
 export default Guidelines.extend({
 
   points: points('zoom', function({ x, y, width, height }) {
     let { zoom } = this;
-    let crop = Math.round(50 * zoom);
+    let crop = round(50 * zoom, 1);
     return {
       vertical: [
         x,
