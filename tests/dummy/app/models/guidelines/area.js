@@ -2,19 +2,23 @@ import Guidelines from 'ember-cli-sketch/-private/node/guidelines/basic';
 
 export default Guidelines.extend({
 
-  _buildPointsForFrame(frame, positionKey, sizeKey) {
-    let points = this._super(...arguments);
-
-    let position = frame[positionKey];
-    let size = frame[sizeKey];
-
-    let offset = 50;
-
-    return [
-      ...points,
-      position + offset,
-      position + size - offset
-    ];
+  calculatePointsForFrame({ x, y, width, height }) {
+    return {
+      vertical: [
+        x,
+        x + 50,
+        x + (width / 2),
+        x + width - 50,
+        x + width - 1
+      ],
+      horizontal: [
+        y,
+        y + 50,
+        y + (height / 2),
+        y + height - 50,
+        y + height - 1
+      ]
+    };
   }
 
 });

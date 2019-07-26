@@ -13,6 +13,8 @@ const _array = (owner, key) => {
   return array;
 }
 
+const frame = key => readOnly(`${key}.frame.guidelines`);
+
 export default EmberObject.extend({
 
   node: null,
@@ -21,7 +23,13 @@ export default EmberObject.extend({
   stage: readOnly('node.stage'),
   zoom: readOnly('stage.zoom'),
 
+  frame: frame('node'),
+
   approx: 5,
+
+  points: computed('frame', function() {
+    return this.calculatePointsForFrame(this.frame);
+  }).readOnly(),
 
   pairs: computed('node', 'node.stage.recursive.@each.isVisible', function() {
     let source = this.node;
