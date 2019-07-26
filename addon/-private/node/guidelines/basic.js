@@ -1,54 +1,24 @@
-import Guidelines from '../guidelines';
+import Guidelines, { points } from '../guidelines';
+
+export {
+  points
+}
 
 export default Guidelines.extend({
 
-  _approx(a, b, approx) {
-    return a - approx < b && a + approx > b;
-  },
-
-  _buildPointsForFrame(frame, positionKey, sizeKey) {
-    let position = frame[positionKey];
-    let size = frame[sizeKey];
-    return [
-      position,
-      position + (size / 2),
-      position + size - 1
-    ];
-  },
-
-  _buildPoints(source, target, positionKey, sizeKey) {
+  points: points(function({ x, y, width, height }) {
     return {
-      source: this._buildPointsForFrame(source, positionKey, sizeKey),
-      target: this._buildPointsForFrame(target, positionKey, sizeKey)
+      vertical: [
+        x,
+        x + (width / 2),
+        x + width - 1
+      ],
+      horizontal: [
+        y,
+        y + (height / 2),
+        y + height - 1
+      ]
     };
-  },
-
-  _delta(source, target) {
-    let { zoom } = this;
-    return (target - source) / zoom;
-  },
-
-  _recompute(source, target, direction, positionKey, sizeKey, approx) {
-    let points = this._buildPoints(source, target, positionKey, sizeKey);
-    let lines = [];
-    points.source.forEach(sourcePoint => {
-      points.target.forEach(targetPoint => {
-        if(sourcePoint === targetPoint) {
-          lines.push({ direction, [positionKey]: sourcePoint });
-        } else if(approx && this._approx(sourcePoint, targetPoint, approx)) {
-          let delta = this._delta(sourcePoint, targetPoint);
-          lines.push({ direction, [positionKey]: targetPoint, delta, approx: true });
-        }
-      });
-    });
-    return lines;
-  },
-
-  recompute(source, target, approx) {
-    return [
-      ...this._recompute(source, target, 'horizontal', 'y', 'height', approx),
-      ...this._recompute(source, target, 'vertical',   'x', 'width',  approx)
-    ];
-  }
+  }),
 
 });
