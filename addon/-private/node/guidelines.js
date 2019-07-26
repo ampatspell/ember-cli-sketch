@@ -13,9 +13,16 @@ const _array = (owner, key) => {
   return array;
 }
 
-const frame = key => readOnly(`${key}.frame.guidelines`);
+export const points = (...args) => {
+  let fn = args.pop();
+  return computed('frame', ...args, function() {
+    return fn.call(this, this.frame);
+  }).readOnly();
+};
 
 export default EmberObject.extend({
+
+  approx: 5,
 
   node: null,
   opts: null,
@@ -23,13 +30,7 @@ export default EmberObject.extend({
   stage: readOnly('node.stage'),
   zoom: readOnly('stage.zoom'),
 
-  frame: frame('node'),
-
-  approx: 5,
-
-  points: computed('frame', function() {
-    return this.calculatePointsForFrame(this.frame);
-  }).readOnly(),
+  frame: readOnly(`node.frame.guidelines`),
 
   pairs: computed('node', 'node.stage.recursive.@each.isVisible', function() {
     let source = this.node;

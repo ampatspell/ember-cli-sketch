@@ -1,7 +1,7 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 
-const frame = key => readOnly(`${key}.frame.guidelines`);
+const guidelines = key => readOnly(`${key}.guidelines`);
 
 const _delta = (source, target, zoom) => (target - source) / zoom;
 const _approx = (a, b, approx) => a - approx < b && a + approx > b;
@@ -16,14 +16,18 @@ export default EmberObject.extend({
   source: null, // node
   target: null, // node
 
-  _source: frame('source'), // TODO: this should be source.guidelines
-  _target: frame('target'),
+  _source: guidelines('source'),
+  _target: guidelines('target'),
 
-  matches: computed('_source', '_target', function() {
-    let {
-      _source: { x: sx, y: sy, width: sw, height: sh },
-      _target: { x: tx, y: ty, width: tw, height: th }
-    } = this;
+  matches: computed('_source.frame', '_target.frame', function() {
+    let { _source, _target } = this;
+
+    if(!_source || !_target) {
+      return;
+    }
+
+    let { frame: { x: sx, y: sy, width: sw, height: sh } } = _source;
+    let { frame: {x: tx, y: ty, width: tw, height: th } } = _target;
 
     let tyh = ty + th;
     let txw = tx + tw;
@@ -53,34 +57,21 @@ export default EmberObject.extend({
   },
 
   _recompute() {
-    let { source, target, _source, _target, approx } = this;
-
-    let pack = (node, frame) => {
-      let { guidelines } = node;
-      let points = (guidelines && guidelines.points) || [];
-      return {
-        points,
-        frame
-      };
-    }
-
-    source = pack(source, _source);
-    target = pack(target, _target);
+    let { _source: source, _target: target, approx } = this;
 
     let array = [
       ...this._recomputeLinesForDirection(source, target, 'horizontal', 'y', approx),
       ...this._recomputeLinesForDirection(source, target, 'vertical',   'x', approx)
     ];
 
-    if(!array) {
-      return;
+    let minmax = ({ frame: source }, { frame: target }, positionKey, sizeKey) => {
+      let min = Math.min(source[positionKey], target[positionKey]);
+      let max = Math.max(source[positionKey] + source[sizeKey], target[positionKey] + target[sizeKey]) - min;
+      return [ min, max ];
     }
 
-    let hx = Math.min(source.frame.x, target.frame.x);
-    let hl = Math.max(source.frame.x + source.frame.width, target.frame.x + target.frame.width) - hx;
-
-    let vy = Math.min(source.frame.y, target.frame.y);
-    let vl = Math.max(source.frame.y + source.frame.height, target.frame.y + target.frame.height) - vy;
+    let [ hx, hl ] = minmax(source, target, 'x', 'width');
+    let [ vy, vl ] = minmax(source, target, 'y', 'height');
 
     return array.map(def => {
       let { direction, x, y, approx, delta } = def;

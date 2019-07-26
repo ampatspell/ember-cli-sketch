@@ -1,24 +1,26 @@
-import Guidelines from 'ember-cli-sketch/-private/node/guidelines/basic';
+import Guidelines, { points } from 'ember-cli-sketch/-private/node/guidelines/basic';
 
 export default Guidelines.extend({
 
-  calculatePointsForFrame({ x, y, width, height }) {
+  points: points('zoom', function({ x, y, width, height }) {
+    let { zoom } = this;
+    let crop = Math.round(50 * zoom);
     return {
       vertical: [
         x,
-        x + 50,
+        x + crop,
         x + (width / 2),
-        x + width - 50,
+        x + width - crop,
         x + width - 1
       ],
       horizontal: [
         y,
-        y + 50,
+        y + crop,
         y + (height / 2),
-        y + height - 50,
+        y + height - crop,
         y + height - 1
       ]
     };
-  }
+  })
 
 });

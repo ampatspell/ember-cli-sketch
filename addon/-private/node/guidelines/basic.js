@@ -1,8 +1,12 @@
-import Guidelines from '../guidelines';
+import Guidelines, { points } from '../guidelines';
+
+export {
+  points
+}
 
 export default Guidelines.extend({
 
-  calculatePointsForFrame({ x, y, width, height }) {
+  points: points(function({ x, y, width, height }) {
     return {
       vertical: [
         x,
@@ -15,6 +19,6 @@ export default Guidelines.extend({
         y + height - 1
       ]
     };
-  }
+  }),
 
 });
