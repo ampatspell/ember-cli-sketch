@@ -42,7 +42,10 @@ export default Tool.extend({
     delta = this.zoomedDelta(delta);
     this.state.forEach(state => {
       let { node } = state;
-      state.invoke(delta, point => node.update(point));
+      state.invoke(delta, point => {
+        node.update(point);
+        node.update(node.guidelines.snapping(), { delta: true });
+      });
       node.perform('move-to-container');
     });
   },
