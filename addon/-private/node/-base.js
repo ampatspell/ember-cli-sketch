@@ -122,6 +122,10 @@ export default opts => {
     },
 
     update(props, opts) {
+      if(!props) {
+        return;
+      }
+
       let { delta } = assign({ delta: false }, opts);
 
       if(delta) {
