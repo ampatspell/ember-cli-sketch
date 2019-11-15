@@ -21,6 +21,11 @@
       text-align: right;
     }
   }
+  &.align-justify {
+    > .text {
+      text-align: justify;
+    }
+  }
   &.vertical-top {
     align-items: flex-start;
   }
