@@ -58,6 +58,10 @@ export default Tool.extend({
     }
   },
 
+  onMouseDoubleClick() {
+    this.tools.activate('node/edit');
+  },
+
   onKeyDown(key) {
     if(key.isBody) {
       this.tools.activate('node/move', { key });
@@ -68,10 +72,6 @@ export default Tool.extend({
     if(key.isBody && key.isBackspaceOrDelete) {
       this.tools.activate('node/remove', { key });
     }
-  },
-
-  onMouseDoubleClick() {
-    console.log(this+'');
   },
 
   activate() {

@@ -49,6 +49,7 @@ import ToolNodeResize from 'ember-cli-sketch/-private/stage/tools/node/resize';
 import ToolNodeDrag from 'ember-cli-sketch/-private/stage/tools/node/drag';
 import ToolNodeRemove from 'ember-cli-sketch/-private/stage/tools/node/remove';
 import ToolNodeMove from 'ember-cli-sketch/-private/stage/tools/node/move';
+import ToolNodeEdit from 'ember-cli-sketch/-private/stage/tools/node/edit';
 
 import Interactions from 'ember-cli-sketch/-private/stage/interactions';
 import Mouse from 'ember-cli-sketch/-private/stage/interactions/mediums/mouse';
@@ -105,6 +106,7 @@ export default {
     container.register('sketch:stage/tools/node/drag', ToolNodeDrag);
     container.register('sketch:stage/tools/node/move', ToolNodeMove);
     container.register('sketch:stage/tools/node/remove', ToolNodeRemove);
+    container.register('sketch:stage/tools/node/edit', ToolNodeEdit);
     container.register('sketch:stage/interactions', Interactions);
     container.register('sketch:stage/interactions/mediums/mouse', Mouse);
     container.register('sketch:stage/interactions/mediums/keyboard', Keyboard);
