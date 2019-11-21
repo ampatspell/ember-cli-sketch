@@ -1,6 +1,6 @@
 import Component from '../-component';
 import layout from './template';
-import { style, className, fontLoader } from '../-computed';
+import { style, className, fontLoader, editing } from '../-computed';
 import { readOnly } from '@ember/object/computed';
 import { round } from '../../../../../../-private/util/math';
 
@@ -29,6 +29,7 @@ export default Component.extend({
   }),
 
   isLoading: readOnly('loader.isLoading'),
+  isEditing: editing('model'),
 
   align:         className('model.align', 'align'),
   verticalAlign: className('model.verticalAlign', 'vertical'),

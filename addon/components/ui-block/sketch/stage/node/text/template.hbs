@@ -1,4 +1,7 @@
 <div class="text">{{text}}</div>
+{{#if isEditing}}
+  <div class="editing">Editing</div>
+{{/if}}
 {{#if isLoading}}
   <div class="overlay">
     <div class="label">Loading font…</div>

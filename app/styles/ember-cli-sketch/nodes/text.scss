@@ -6,6 +6,15 @@
     line-height: 1;
     white-space: pre-wrap;
   }
+  > .editing {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 3px 5px;
+  }
   &.align-left {
     > .text {
       text-align: left;

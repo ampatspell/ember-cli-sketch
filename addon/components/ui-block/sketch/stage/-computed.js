@@ -120,3 +120,19 @@ export const fontLoader = (...deps) => {
     return sketches(this).fonts.loader(opts);
   }).readOnly();
 }
+
+export const editing = modelKey => computed(`${modelKey}.stage.node.tools.selected.{type,node}`, function() {
+  let model = this.get(modelKey);
+  if(!model) {
+    return;
+  }
+  let { node, stage } = model;
+  let tool = stage.node.tools.selected;
+  if(tool.type !== 'node/edit') {
+    return false;
+  }
+  if(tool.node !== node) {
+    return false;
+  }
+  return true;
+}).readOnly();
