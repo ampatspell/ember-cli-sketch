@@ -28,6 +28,7 @@ export default EmberObject.extend({
     if(this.enabled) {
       return this.all;
     }
+    return;
   }).readOnly()
 
 });

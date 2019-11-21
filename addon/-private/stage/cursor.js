@@ -25,6 +25,8 @@ export default EmberObject.extend({
     } else if(vertical === 'middle') {
       return 'ew-resize';
     }
+
+    return;
   }).readOnly(),
 
   tool: readOnly('stage.tools.selected.cursor'),
