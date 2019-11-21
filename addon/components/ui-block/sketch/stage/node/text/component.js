@@ -77,7 +77,7 @@ export default Component.extend({
     dependentKeys: [ 'isEditing'],
     fn() {
       this.cancelEditingDidChange();
-      this.__editingDidChange = later(() => this.editingDidChange(), 100);
+      this.__editingDidChange = later(() => this.editingDidChange(), 50);
     },
     sync: false
   }),
