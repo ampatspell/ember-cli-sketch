@@ -70,6 +70,10 @@ export default Tool.extend({
     }
   },
 
+  onMouseDoubleClick() {
+    console.log(this+'');
+  },
+
   activate() {
     if(!this.mouse.absolute) {
       return;
