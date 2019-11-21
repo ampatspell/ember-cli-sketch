@@ -5,7 +5,7 @@ export default Tool.extend({
   node: null,
 
   onMouseClick() {
-    this.done();
+    // this.done();
   },
 
   activate() {

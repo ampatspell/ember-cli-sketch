@@ -5,15 +5,19 @@
     flex: 1;
     line-height: 1;
     white-space: pre-wrap;
+    user-select: text;
+    outline: none;
   }
-  > .editing {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: #fff;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 3px 5px;
+  &.editing {
+    > .editing {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      border: 1px solid fade-out(#000, 0.3);
+      pointer-events: none;
+    }
   }
   &.align-left {
     > .text {

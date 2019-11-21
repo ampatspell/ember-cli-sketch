@@ -1,5 +1,5 @@
 import EmberObject, { computed } from '@ember/object';
-import { readOnly, bool, and } from '@ember/object/computed';
+import { readOnly, bool, and, not } from '@ember/object/computed';
 import { assert } from '@ember/debug';
 import { assign } from '@ember/polyfills';
 import { frame } from './frame/-base';
@@ -64,6 +64,11 @@ export default opts => {
     }).readOnly();
   };
 
+  const isEditing = () => computed('stage.tools.selected.{type,node}', function() {
+    let tool = this.stage.tools.selected;
+    return tool.type === 'node/edit' && tool.node === this;
+  }).readOnly();
+
   return EmberObject.extend({
 
     model: null,
@@ -82,7 +87,9 @@ export default opts => {
     isContainer:  prop('container', false),
     isAttached:   bool('parent'),
     isVisible:    and('isAttached', '_visible', 'parent.isVisible'),
-    isSelectable: and('isAttached', 'isVisible', '_selectable', 'parent.isSelectable'),
+    isEditing:    isEditing(),
+    isNotEditing: not('isEditing'),
+    isSelectable: and('isAttached', 'isVisible', 'isNotEditing', '_selectable', 'parent.isSelectable'),
 
     parent:    readOnly('_parent.node'),
     stage:     parent('isStage', 'stage'),

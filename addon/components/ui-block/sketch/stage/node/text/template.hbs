@@ -1,6 +1,6 @@
-<div class="text">{{text}}</div>
+<div class="text" contenteditable={{if isEditing 'true' 'false'}}>{{text}}</div>
 {{#if isEditing}}
-  <div class="editing">Editing</div>
+  <div class="editing"></div>
 {{/if}}
 {{#if isLoading}}
   <div class="overlay">
