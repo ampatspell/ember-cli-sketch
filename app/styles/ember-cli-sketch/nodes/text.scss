@@ -19,11 +19,11 @@
     }
     > .editing {
       position: absolute;
-      top: -2px;
-      left: -2px;
-      bottom: -2px;
-      right: -1px;
-      border: 1px solid fade-out($color-guidelines, 0.5);
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      border: 1px solid fade-out($color-guidelines, 0.7);
       pointer-events: none;
     }
   }
