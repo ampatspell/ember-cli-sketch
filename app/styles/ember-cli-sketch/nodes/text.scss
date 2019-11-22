@@ -1,25 +1,28 @@
 .ui-block-sketch-stage-node.text {
-  overflow: hidden;
+  display: flex;
+  flex-direction: row;
   > .text {
+    flex: 1;
     line-height: 1;
     white-space: pre-wrap;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
   }
   &.editing {
     > .text {
+      outline: none;
       overflow: auto;
-    }
-    > .editing {
       position: absolute;
       top: 0;
       left: 0;
       bottom: 0;
       right: 0;
-      border: 1px solid fade-out(#000, 0.3);
+    }
+    > .editing {
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      bottom: -2px;
+      right: -1px;
+      border: 1px solid fade-out($color-guidelines, 0.5);
       pointer-events: none;
     }
   }
