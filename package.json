@@ -43,7 +43,8 @@
     "ember-cli-htmlbars": "^4.0.5",
     "ember-cli-sass": "^10.0.1",
     "sass": "^1.22.4",
-    "webfontloader": "^1.6.28"
+    "webfontloader": "^1.6.28",
+    "ember-content-editable": "^1.0.5"
   },
   "devDependencies": {
     "@ember/optional-features": "^1.0.0",
@@ -57,7 +58,6 @@
     "ember-cli-sri": "^2.1.1",
     "ember-cli-template-lint": "^1.0.0-beta.3",
     "ember-cli-uglify": "^3.0.0",
-    "ember-content-editable": "^1.0.5",
     "ember-disable-prototype-extensions": "^1.1.3",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^2.1.0",
