@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { computed } from '@ember/object';
 import layout from './template';
 import { readOnly, or } from '@ember/object/computed';
 import { frame, style, attribute } from '../../-computed';
@@ -25,6 +26,17 @@ export default Component.extend({
   isWidthDisabled:  width(),
 
   isEditable: readOnly('node.isEditable'),
+
+  isEditableVisible: computed('isEditable', 'node.frame.selection', function() {
+    if(!this.isEditable) {
+      return;
+    }
+    let { node: { frame: { selection: frame } } } = this;
+    if(frame.width < 90 || frame.height < 45) {
+      return false;
+    }
+    return true;
+  }).readOnly(),
 
   frame: frame('model', 'selection', { index: false }),
   style: style('frame', ({ frame }) => frame)
