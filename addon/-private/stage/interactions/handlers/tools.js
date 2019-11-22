@@ -19,20 +19,29 @@ export default Handler.extend({
   tools: readOnly('stage.tools'),
 
   onKeyDown(key) {
-    let tool = map(key);
-    if(tool) {
-      this.tools.activate(tool);
+    // TODO: isSpace and isAlt should be handled in selected tool instead of this sticky thing
+    if(!this.tools.selected.sticky) {
+      let tool = map(key);
+      if(tool) {
+        this.tools.activate(tool);
+      }
     }
+
     this.tools.selected.onKeyDown(key);
   },
 
   onKeyUp(key) {
-    let tool = map(key);
-    if(tool) {
-      this.tools.deactivate(tool);
-    } else if(key.isEscape) {
+    if(!this.tools.selected.sticky) {
+      let tool = map(key);
+      if(tool) {
+        this.tools.deactivate(tool);
+      }
+    }
+
+    if(key.isEscape) {
       this.tools.activate(this.tools.default.type);
     }
+
     this.tools.selected.onKeyUp(key);
   },
 

@@ -16,7 +16,8 @@ export const defaults = {
     'node/resize',
     'node/move',
     'node/drag',
-    'node/remove'
+    'node/remove',
+    'node/edit'
   ],
   actions: [
     'stage/zoom',

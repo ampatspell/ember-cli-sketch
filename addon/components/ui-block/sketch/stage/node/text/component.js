@@ -1,6 +1,7 @@
 import Component from '../-component';
+import { computed } from '@ember/object';
 import layout from './template';
-import { style, className, fontLoader } from '../-computed';
+import { style, className, fontLoader, editing } from '../-computed';
 import { readOnly } from '@ember/object/computed';
 import { round } from '../../../../../../-private/util/math';
 
@@ -14,7 +15,7 @@ const px = (value, zoom) => {
 
 export default Component.extend({
   layout,
-  classNameBindings: [ 'align', 'verticalAlign', 'fontStyle', 'isLoading:loading:loaded' ],
+  classNameBindings: [ 'align', 'verticalAlign', 'fontStyle', 'isLoading:loading:loaded', 'isEditing:editing' ],
 
   loader: fontLoader('model.fontFamily', function() {
     let { model: { fontFamily } } = this;
@@ -29,6 +30,7 @@ export default Component.extend({
   }),
 
   isLoading: readOnly('loader.isLoading'),
+  isEditing: editing('model'),
 
   align:         className('model.align', 'align'),
   verticalAlign: className('model.verticalAlign', 'vertical'),
@@ -47,6 +49,16 @@ export default Component.extend({
       fontSize: px(fontSize, zoom),
       padding: px(padding, zoom)
     };
+  }),
+
+  editable: computed('text', {
+    get() {
+      return this.text;
+    },
+    set(key, text) {
+      this.model.update({ text });
+      return text;
+    }
   })
 
 });

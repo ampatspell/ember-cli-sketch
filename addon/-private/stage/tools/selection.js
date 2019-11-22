@@ -2,13 +2,13 @@ import Tool from './-base';
 
 export default Tool.extend({
 
-  nodesForPosition() {
+  nodesForMousePosition() {
     let { stage, mouse: { absolute } } = this;
     return stage.nodesForPosition(absolute, 'absoluteBounds');
   },
 
   updateHover() {
-    let nodes = this.nodesForPosition();
+    let nodes = this.nodesForMousePosition();
     this.hover.replace(nodes);
   },
 
@@ -56,6 +56,14 @@ export default Tool.extend({
         this.tools.activate('node/drag');
       }
     }
+  },
+
+  onMouseDoubleClick() {
+    let node = this.selection.find(node => node.isHovered);
+    if(!node) {
+      return;
+    }
+    this.tools.activate('node/edit', { node });
   },
 
   onKeyDown(key) {

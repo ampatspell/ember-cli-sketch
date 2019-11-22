@@ -4,6 +4,8 @@ export default Base.extend({
 
   node: node({ type: 'sized' }),
 
+  isEditable: true,
+
   x:          x(),
   y:          y(),
   width:      width(),

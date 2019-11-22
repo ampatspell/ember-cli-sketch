@@ -1,9 +1,10 @@
-import { style as _style, className, fontLoader } from '../-computed';
+import { style as _style, className, fontLoader, editing } from '../-computed';
 import { typeOf } from '@ember/utils';
 
 export {
   className,
-  fontLoader
+  fontLoader,
+  editing
 };
 
 export const style = (...deps) => {

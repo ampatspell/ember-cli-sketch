@@ -6,3 +6,6 @@
 {{ui-block/sketch/stage/selections/selection/marker vertical="bottom" horizontal="middle" edge=edge disabled=isHeightDisabled}}
 {{ui-block/sketch/stage/selections/selection/marker vertical="middle" horizontal="left"   edge=edge disabled=isWidthDisabled}}
 {{ui-block/sketch/stage/selections/selection/marker vertical="middle" horizontal="right"  edge=edge disabled=isWidthDisabled}}
+{{#if isEditableVisible}}
+  {{ui-block/sketch/stage/selections/selection/edit model=model}}
+{{/if}}

@@ -1,4 +1,9 @@
-<div class="text">{{text}}</div>
+{{#if isEditing}}
+  {{content-editable value=editable autofocus=true class="text"}}
+  <div class="editing"></div>
+{{else}}
+  <div class="text">{{text}}</div>
+{{/if}}
 {{#if isLoading}}
   <div class="overlay">
     <div class="label">Loading font…</div>
