@@ -61,8 +61,20 @@ export default Component.extend(EventsMixin, ReadyMixin, {
     return props;
   }),
 
+  disableSpellcheck() {
+    let { body } = document;
+    if(!body) {
+      return;
+    }
+    if(typeof body.setAttribute !== 'function') {
+      return;
+    }
+    document.body.setAttribute('spellcheck', false);
+  },
+
   didInsertElement() {
     this._super(...arguments);
+    this.disableSpellcheck();
     this.focus();
     this.notifyReady(this.stage);
   },
