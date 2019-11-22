@@ -1,14 +1,19 @@
 .ui-block-sketch-stage-node.text {
-  display: flex;
   overflow: hidden;
+  position: relative;
   > .text {
-    flex: 1;
     line-height: 1;
     white-space: pre-wrap;
-    user-select: text;
-    outline: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
   }
   &.editing {
+    > .text {
+      overflow: auto;
+    }
     > .editing {
       position: absolute;
       top: 0;
