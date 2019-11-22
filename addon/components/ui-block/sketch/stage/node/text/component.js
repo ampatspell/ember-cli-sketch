@@ -30,7 +30,6 @@ export default Component.extend({
   }),
 
   isLoading: readOnly('loader.isLoading'),
-  isSelected: readOnly('model.node.isSelected'),
   isEditing: editing('model'),
 
   align:         className('model.align', 'align'),
@@ -51,12 +50,6 @@ export default Component.extend({
       padding: px(padding, zoom)
     };
   }),
-
-  actions: {
-    edit() {
-      this.model.stage.node.tools.activate('node/edit');
-    }
-  },
 
   editable: computed('text', {
     get() {

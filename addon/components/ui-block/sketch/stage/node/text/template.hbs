@@ -3,9 +3,6 @@
   <div class="editing"></div>
 {{else}}
   <div class="text">{{text}}</div>
-  {{#if isSelected}}
-    <div class="edit" {{action "edit"}}>Edit</div>
-  {{/if}}
 {{/if}}
 {{#if isLoading}}
   <div class="overlay">
