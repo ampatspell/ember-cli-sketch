@@ -6,7 +6,8 @@ export default Component.extend({
   classNameBindings: [ ':edit' ],
 
   click() {
-    this.model.node.stage.tools.activate('node/edit');
+    let { model: { node } } = this;
+    this.model.node.stage.tools.activate('node/edit', { node });
   }
 
 });

@@ -90,6 +90,7 @@ export default opts => {
     isEditing:    isEditing(),
     isNotEditing: not('isEditing'),
     isSelectable: and('isAttached', 'isVisible', 'isNotEditing', '_selectable', 'parent.isSelectable'),
+    isEditable:   and('model.isEditable', 'isSelectable'),
 
     parent:    readOnly('_parent.node'),
     stage:     parent('isStage', 'stage'),

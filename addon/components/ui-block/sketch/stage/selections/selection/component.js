@@ -24,6 +24,8 @@ export default Component.extend({
   isHeightDisabled: height(),
   isWidthDisabled:  width(),
 
+  isEditable: readOnly('node.isEditable'),
+
   frame: frame('model', 'selection', { index: false }),
   style: style('frame', ({ frame }) => frame)
 

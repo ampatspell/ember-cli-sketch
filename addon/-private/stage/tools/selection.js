@@ -59,7 +59,11 @@ export default Tool.extend({
   },
 
   onMouseDoubleClick() {
-    this.tools.activate('node/edit');
+    let node = this.selection.find(node => node.isHovered);
+    if(!node) {
+      return;
+    }
+    this.tools.activate('node/edit', { node });
   },
 
   onKeyDown(key) {

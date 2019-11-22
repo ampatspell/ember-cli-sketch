@@ -17,10 +17,10 @@ export default Tool.extend({
     this.done();
   },
 
-  activate() {
-    let node = this.selection.selectable.firstObject;
+  activate({ node }) {
     if(!node) {
       this.done();
+      return;
     }
     this.set('node', node);
   },
