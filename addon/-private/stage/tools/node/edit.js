@@ -5,8 +5,16 @@ export default Tool.extend({
   node: null,
   sticky: true,
 
+  isMouseOver() {
+    let { node, mouse: { absolute } } = this;
+    return node.frame.containsPosition(absolute, 'absoluteBounds');
+  },
+
   onMouseClick() {
-    // this.done();
+    if(this.isMouseOver()) {
+      return;
+    }
+    this.done();
   },
 
   activate() {
