@@ -18,7 +18,7 @@ export default Tool.extend({
   },
 
   activate({ node }) {
-    if(!node) {
+    if(!node || !node.isEditable) {
       this.done();
       return;
     }
