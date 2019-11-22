@@ -3,6 +3,7 @@ import Tool from '../-base';
 export default Tool.extend({
 
   node: null,
+  sticky: true,
 
   onMouseClick() {
     // this.done();
