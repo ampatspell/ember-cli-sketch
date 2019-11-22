@@ -10,7 +10,8 @@
   &.editing {
     > .text {
       outline: none;
-      overflow: auto;
+      overflow-y: auto;
+      overflow-x: hidden;
       position: absolute;
       top: 0;
       left: 0;
@@ -27,40 +28,42 @@
       pointer-events: none;
     }
   }
-  &.align-left {
-    > .text {
-      text-align: left;
+  &.rendering {
+    &.align-left {
+      > .text {
+        text-align: left;
+      }
     }
-  }
-  &.align-center {
-    > .text {
-      text-align: center;
+    &.align-center {
+      > .text {
+        text-align: center;
+      }
     }
-  }
-  &.align-right {
-    > .text {
-      text-align: right;
+    &.align-right {
+      > .text {
+        text-align: right;
+      }
     }
-  }
-  &.align-justify {
-    > .text {
-      text-align: justify;
+    &.align-justify {
+      > .text {
+        text-align: justify;
+      }
     }
-  }
-  &.vertical-top {
-    align-items: flex-start;
-  }
-  &.vertical-middle {
-    align-items: center;
-  }
-  &.vertical-bottom {
-    align-items: flex-end;
-  }
-  &.style-normal {
-    font-style: normal;
-  }
-  &.style-italic {
-    font-style: italic;
+    &.vertical-top {
+      align-items: flex-start;
+    }
+    &.vertical-middle {
+      align-items: center;
+    }
+    &.vertical-bottom {
+      align-items: flex-end;
+    }
+    &.style-normal {
+      font-style: normal;
+    }
+    &.style-italic {
+      font-style: italic;
+    }
   }
   &.loading {
     > .text {

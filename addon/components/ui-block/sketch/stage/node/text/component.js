@@ -15,7 +15,7 @@ const px = (value, zoom) => {
 
 export default Component.extend({
   layout,
-  classNameBindings: [ 'align', 'verticalAlign', 'fontStyle', 'isLoading:loading:loaded', 'isEditing:editing' ],
+  classNameBindings: [ 'align', 'verticalAlign', 'fontStyle', 'isLoading:loading:loaded', 'isEditing:editing:rendering' ],
 
   loader: fontLoader('model.fontFamily', function() {
     let { model: { fontFamily } } = this;
