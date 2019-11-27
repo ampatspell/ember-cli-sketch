@@ -11,7 +11,7 @@ export default Base.extend({
   width:      width(),
   height:     height(),
   rotation:   rotation(),
-  aspect:     aspect(),
+  aspect:     aspect({ free: true }),
 
   visible:    visible(),
   selectable: selectable(),
