@@ -10,19 +10,32 @@ export default Tool.extend({
   edge: null,
   delta: null,
 
-  free: computed('keyboard.isShift', 'node.attributes.aspect.locked', function() {
-    let locked = !!this.get('node.attributes.aspect.locked');
-    let shift = this.get('keyboard.isShift');
-    return locked === shift;
-  }).readOnly(),
+  aspectForEdge(edge) {
+    let { node, node: { attributes: { aspect } } } = this;
 
-  aspect: computed('free', 'node.aspect', function() {
-    let { free, node } = this;
-    if(free) {
+    if(aspect.free) {
       return;
     }
+
+    let middle = edge.vertical === 'middle' || edge.horizontal === 'middle';
+
+    let shift = this.get('keyboard.isShift');
+    if(shift) {
+      middle = !middle;
+    }
+
+    let { locked } = aspect;
+
+    if(shift) {
+      locked = false;
+    }
+
+    if(!locked && middle) {
+      return;
+    }
+
     return node.aspect;
-  }).readOnly(),
+  },
 
   updateAspect() {
     this.node.perform('aspect-update');
@@ -36,7 +49,9 @@ export default Tool.extend({
       y: this.delta.y + delta.y
     };
 
-    let { node, edge, aspect } = this;
+    let { node, edge } = this;
+
+    let aspect = this.aspectForEdge(edge);
 
     let before = node.frame.properties;
     let frame = assign({}, node.frame.properties);

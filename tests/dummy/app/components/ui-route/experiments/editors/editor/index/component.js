@@ -100,10 +100,10 @@ export default Component.extend({
       node.moveDown();
     },
     fitAspect(node, value) {
-      // if(value) {
-      //   node.update({ aspect: value });
-      // }
       node.perform('aspect-fit', { aspect: value });
+      if(value) {
+        node.update({ aspect: value });
+      }
     },
     toggleContentBackground() {
       let { content, background } = this;
