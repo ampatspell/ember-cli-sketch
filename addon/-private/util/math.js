@@ -3,6 +3,10 @@ let {
   max
 } = Math;
 
+export const pi = {
+  div_180: Math.PI / 180
+};
+
 export const round = (value, decimals=2) => {
   if(!value) {
     return value;
@@ -47,7 +51,7 @@ export const rotatedRectBounds = frame => {
     { x: x + width, y: y + height },
   ];
 
-  let rad = rotation * (Math.PI / 180);
+  let rad = rotation * pi.div_180;
   let cos = Math.cos(rad);
   let sin = Math.sin(rad);
 

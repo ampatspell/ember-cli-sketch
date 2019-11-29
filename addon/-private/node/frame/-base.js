@@ -3,7 +3,7 @@ import { readOnly } from '@ember/object/computed';
 import { assert } from '@ember/debug';
 import { assign } from '@ember/polyfills';
 import { factory } from '../../util/computed';
-import { round } from '../../util/math';
+import { round, pi } from '../../util/math';
 
 export const frame = type => factory((factory, node) => factory.frame(type, node));
 
@@ -78,7 +78,7 @@ export default EmberObject.extend({
       y: frame.y + (frame.height / 2)
     };
 
-    let rad = -frame.rotation * (Math.PI / 180);
+    let rad = -frame.rotation * pi.div_180;
     let cos = Math.cos(rad);
     let sin = Math.sin(rad);
 
