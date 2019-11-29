@@ -146,6 +146,10 @@ export default Tool.extend({
       return;
     }
 
+    // use mouse x, y instead of delta
+    // rotate mouse in node's coordinate system
+    // calculate delta from that
+
     this.update({ delta });
   },
 
