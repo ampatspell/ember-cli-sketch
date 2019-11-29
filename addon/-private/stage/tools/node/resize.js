@@ -7,6 +7,7 @@ export default Tool.extend({
 
   node: null,
   edge: null,
+  point: null,
   delta: null,
 
   aspectForEdge(edge) {
@@ -41,13 +42,6 @@ export default Tool.extend({
   },
 
   update({ delta }) {
-    delta = this.zoomedDelta(delta);
-
-    delta = {
-      x: this.delta.x + delta.x,
-      y: this.delta.y + delta.y
-    };
-
     let { node, edge } = this;
 
     let aspect = this.aspectForEdge(edge);
@@ -115,6 +109,8 @@ export default Tool.extend({
 
     node.update(frame, { delta: true });
 
+    this.delta = { x: 0, y: 0 };
+
     if(!aspect) {
       this.updateAspect();
 
@@ -132,24 +128,33 @@ export default Tool.extend({
         this.delta.y = before.height + delta.y - result.height;
       }
 
-    } else {
-      this.delta = { x: 0, y: 0 };
     }
 
     node.perform('move-to-container');
   },
 
-  onMouseMove({ delta }) {
-    let { mouse: { isLeftButton } } = this;
+  onMouseMove() {
+    let { node: { frame }, mouse: { absolute, isLeftButton } } = this;
 
     if(!isLeftButton) {
       return;
     }
 
-    // use mouse x, y instead of delta
-    // rotate mouse in node's coordinate system
-    // calculate delta from that
+    let point = frame.rotatedPosition(absolute, 'absolute');
 
+    if(!this.point) {
+      this.point = point;
+      return;
+    }
+
+    let delta = {
+      x: this.delta.x + (point.x - this.point.x),
+      y: this.delta.y + (point.y - this.point.y)
+    };
+
+    this.point = point;
+
+    // TODO: get rid of delta, use absolute point
     this.update({ delta });
   },
 
@@ -166,8 +171,9 @@ export default Tool.extend({
   activate({ node }) {
     this.selection.removeExcept(node);
     let edge = node.edge.serialized;
+    let point = null;
     let delta = { x: 0, y: 0 };
-    this.setProperties({ node, edge, delta });
+    this.setProperties({ node, edge, delta, point });
   },
 
   deactivate() {
@@ -175,7 +181,7 @@ export default Tool.extend({
   },
 
   reset() {
-    this.setProperties({ node: null, edge: null, delta: null });
+    this.setProperties({ node: null, edge: null, point: null });
   }
 
 });
