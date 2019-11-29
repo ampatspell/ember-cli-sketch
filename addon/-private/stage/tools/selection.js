@@ -4,7 +4,7 @@ export default Tool.extend({
 
   nodesForMousePosition() {
     let { stage, mouse: { absolute } } = this;
-    return stage.nodesForPosition(absolute, 'absoluteBounds');
+    return stage.nodesForAbsolutePosition(absolute);
   },
 
   updateHover() {
