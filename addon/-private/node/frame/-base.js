@@ -3,7 +3,7 @@ import { readOnly } from '@ember/object/computed';
 import { assert } from '@ember/debug';
 import { assign } from '@ember/polyfills';
 import { factory } from '../../util/computed';
-import { round, pi } from '../../util/math';
+import { round, pi, rotatePosition } from '../../util/math';
 
 export const frame = type => factory((factory, node) => factory.frame(type, node));
 
@@ -72,24 +72,8 @@ export default EmberObject.extend({
 
   rotatedPosition({ x, y }, frameKey) {
     let frame = this._frame(frameKey);
-
-    let center = {
-      x: frame.x + (frame.width / 2),
-      y: frame.y + (frame.height / 2)
-    };
-
-    let rad = -frame.rotation * pi.div_180;
-    let cos = Math.cos(rad);
-    let sin = Math.sin(rad);
-
-    let r = value => round(value, 0);
-
-    let point = {
-      x: r(cos * (x - center.x) - sin * (y - center.y) + center.x),
-      y: r(sin * (x - center.x) + cos * (y - center.y) + center.y)
-    };
-
-    return point;
+    let rotation = -frame.rotation;
+    return rotatePosition({x, y }, frame, rotation);
   },
 
   // point is inside this frame

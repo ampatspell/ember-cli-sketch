@@ -1,3 +1,5 @@
+import { assign } from '@ember/polyfills';
+
 let {
   min,
   max
@@ -41,7 +43,7 @@ export const rotatedRectBounds = frame => {
   let { x, y, width, height, rotation } = frame;
 
   if(!rotation) {
-    return frame;
+    return assign({}, frame);
   }
 
   let points = [
@@ -94,6 +96,26 @@ export const rotatedRectBounds = frame => {
     height: box.max.y - box.min.y,
     rotation: 0
   };
+}
+
+export const rotatePosition = ({ x, y }, frame, rotation) => {
+  let center = {
+    x: frame.x + (frame.width / 2),
+    y: frame.y + (frame.height / 2)
+  };
+
+  let rad = rotation * pi.div_180;
+  let cos = Math.cos(rad);
+  let sin = Math.sin(rad);
+
+  let r = value => round(value, 0);
+
+  let point = {
+    x: r(cos * (x - center.x) - sin * (y - center.y) + center.x),
+    y: r(sin * (x - center.x) + cos * (y - center.y) + center.y)
+  };
+
+  return point;
 }
 
 export const millimetersToPixels = mm => mm / 25.4 * 96;
