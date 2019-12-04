@@ -56,36 +56,6 @@ export default Tool.extend({
     return delta;
   },
 
-  // normalize() {
-  //   let edges = {
-  //     'left-top': 0,
-  //     'middle-top': 0,
-  //     'right-top': 0,
-  //     'left-middle': 0,
-  //     'right-middle': 0,
-  //     'left-bottom': 0,
-  //     'middle-bottom': 0,
-  //     'right-bottom': 0
-  //   };
-
-  //   let edge = this.edge;
-  //   console.log(edge.horizontal, edge.vertical);
-
-  // },
-
-  normalized() {
-    let { edge, properties } = this;
-    edge = assign({}, edge);
-
-
-
-    if(inRange(180 - 45, 180 + 45)) {
-
-    }
-
-    return { edge ,delta };
-  },
-
   update() {
     let { edge, node } = this;
 
