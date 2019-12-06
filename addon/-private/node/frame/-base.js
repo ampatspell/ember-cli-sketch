@@ -73,7 +73,7 @@ export default EmberObject.extend({
   rotatedPosition({ x, y }, frameKey) {
     let frame = this._frame(frameKey);
     let rotation = -frame.rotation;
-    return rotatePosition({x, y }, frame, rotation);
+    return rotatePosition({ x, y }, frame, rotation);
   },
 
   // point is inside this frame

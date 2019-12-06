@@ -84,10 +84,10 @@ export default Tool.extend({
     // let rotation = ((properties.rotation % 360) + 360) % 360;
     // let inRange = (base, delta=45) => base - delta <= rotation && rotation < base + delta;
 
-    if(edge.vertical === 'bottom') {
-      rect.bottom.y += delta.y;
-    } else if(edge.vertical === 'top') {
+    if(edge.vertical === 'top') {
       rect.top.y += delta.y;
+    } else if(edge.vertical === 'bottom') {
+      rect.bottom.y += delta.y;
     }
 
     if(edge.horizontal === 'left') {
