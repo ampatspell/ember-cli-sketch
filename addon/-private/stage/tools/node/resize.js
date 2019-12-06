@@ -41,10 +41,9 @@ export default Tool.extend({
   },
 
   rotatedPoint() {
-    return this.mouse.absolute;
-  //   let properties = this.properties;
-  //   let rotation = -properties.rotation;
-  //   return rotatePosition(this.mouse.absolute, properties, rotation);
+    let properties = this.properties;
+    let rotation = -properties.rotation;
+    return rotatePosition(this.mouse.absolute, properties, rotation);
   },
 
   calculateDelta(target) {
@@ -72,13 +71,29 @@ export default Tool.extend({
         properties.y += delta.y;
         properties.height -= delta.y;
       }
+    } else if(inRange(90)) {
+      if(edge.vertical === 'bottom') {
+        properties.y -= delta.y;
+        properties.height += delta.y;
+      } else if(edge.vertical === 'top') {
+        properties.y -= delta.y;
+        properties.height -= delta.y;
+      }
     } else if(inRange(180)) {
       if(edge.vertical === 'bottom') {
-        properties.y += delta.y;
-        properties.height -= delta.y;
-      } else if(edge.vertical === 'top') {
-        properties.y += delta.y;
+        properties.y -= delta.y;
         properties.height += delta.y;
+      } else if(edge.vertical === 'top') {
+        properties.y -= delta.y;
+        properties.height -= delta.y;
+      }
+    } else if(inRange(270)) {
+      if(edge.vertical === 'bottom') {
+        properties.y -= delta.y;
+        properties.height += delta.y;
+      } else if(edge.vertical === 'top') {
+        properties.y -= delta.y;
+        properties.height -= delta.y;
       }
     }
 
