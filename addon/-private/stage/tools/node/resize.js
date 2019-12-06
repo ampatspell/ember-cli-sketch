@@ -1,6 +1,6 @@
 import Tool from '../-base';
 import { assign } from '@ember/polyfills';
-import { rotatePosition, rotatedRectBounds } from '../../../util/math';
+import { round, rotatePosition, rotatedRectBounds } from '../../../util/math';
 
 export default Tool.extend({
 
@@ -61,48 +61,21 @@ export default Tool.extend({
     let point = this.rotatedPoint();
     let delta = this.calculateDelta(point);
     let properties = assign({}, this.properties);
-    let rotation = ((properties.rotation % 360) + 360) % 360;
-    let inRange = (base, delta=45) => base - delta <= rotation && rotation < base + delta;
 
-    if(inRange(0)) {
-      if(edge.vertical === 'bottom') {
-        properties.height += delta.y;
-      } else if(edge.vertical === 'top') {
-        properties.y += delta.y;
-        properties.height -= delta.y;
-      }
-    } else if(inRange(90)) {
-      if(edge.vertical === 'bottom') {
-        properties.y -= delta.y;
-        properties.height += delta.y;
-      } else if(edge.vertical === 'top') {
-        properties.y -= delta.y;
-        properties.height -= delta.y;
-      }
-    } else if(inRange(180)) {
-      if(edge.vertical === 'bottom') {
-        properties.y -= delta.y;
-        properties.height += delta.y;
-      } else if(edge.vertical === 'top') {
-        properties.y -= delta.y;
-        properties.height -= delta.y;
-      }
-    } else if(inRange(270)) {
-      if(edge.vertical === 'bottom') {
-        properties.y -= delta.y;
-        properties.height += delta.y;
-      } else if(edge.vertical === 'top') {
-        properties.y -= delta.y;
-        properties.height -= delta.y;
-      }
+    // let rotation = ((properties.rotation % 360) + 360) % 360;
+    // let inRange = (base, delta=45) => base - delta <= rotation && rotation < base + delta;
+
+    if(edge.vertical === 'bottom') {
+      properties.height += delta.y;
+    } else if(edge.vertical === 'top') {
+      properties.height -= delta.y;
     }
 
-
-    if(edge.horizontal === 'middle') {
-
+    if(edge.horizontal === 'left') {
+      properties.width -= delta.x;
+    } else if(edge.horizontal === 'right') {
+      properties.width += delta.x;
     }
-
-
 
     node.update(properties);
 
