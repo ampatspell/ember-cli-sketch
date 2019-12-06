@@ -2,6 +2,24 @@ import Tool from '../-base';
 import { assign } from '@ember/polyfills';
 import { round, rotatePosition, rotatedRectBounds } from '../../../util/math';
 
+const toRect = props => ({
+  top: {
+    x: props.x,
+    y: props.y
+  },
+  bottom: {
+    x: props.x + props.width,
+    y: props.y + props.height
+  }
+});
+
+const fromRect = rect => ({
+  x:      rect.top.x,
+  y:      rect.top.y,
+  width:  rect.bottom.x - rect.top.x,
+  height: rect.bottom.y - rect.top.y
+});
+
 export default Tool.extend({
 
   guidelines: true,
@@ -60,23 +78,25 @@ export default Tool.extend({
 
     let point = this.rotatedPoint();
     let delta = this.calculateDelta(point);
-    let properties = assign({}, this.properties);
+
+    let rect = toRect(this.properties);
 
     // let rotation = ((properties.rotation % 360) + 360) % 360;
     // let inRange = (base, delta=45) => base - delta <= rotation && rotation < base + delta;
 
     if(edge.vertical === 'bottom') {
-      properties.height += delta.y;
+      rect.bottom.y += delta.y;
     } else if(edge.vertical === 'top') {
-      properties.height -= delta.y;
+      rect.top.y += delta.y;
     }
 
     if(edge.horizontal === 'left') {
-      properties.width -= delta.x;
+      rect.top.x += delta.x;
     } else if(edge.horizontal === 'right') {
-      properties.width += delta.x;
+      rect.bottom.x += delta.x;
     }
 
+    let properties = fromRect(rect);
     node.update(properties);
 
     // let aspect = this.aspectForEdge(edge);
