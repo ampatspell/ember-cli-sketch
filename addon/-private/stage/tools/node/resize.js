@@ -1,6 +1,7 @@
 import Tool from '../-base';
 import { assign } from '@ember/polyfills';
 import { round, rotatePosition, rotatedRectBounds } from '../../../util/math';
+import AffineTransform from '../../../util/affine-transform';
 
 const toRect = props => ({
   top: {
@@ -73,16 +74,23 @@ export default Tool.extend({
     return delta;
   },
 
+  // let rotation = ((properties.rotation % 360) + 360) % 360;
+  // let inRange = (base, delta=45) => base - delta <= rotation && rotation < base + delta;
+
   update() {
     let { edge, node } = this;
 
     let point = this.rotatedPoint();
     let delta = this.calculateDelta(point);
 
-    let rect = toRect(this.properties);
+    let rotation = this.properties.rotation;
 
-    // let rotation = ((properties.rotation % 360) + 360) % 360;
-    // let inRange = (base, delta=45) => base - delta <= rotation && rotation < base + delta;
+    let transform = new AffineTransform();
+    transform.rotateDeg(-rotation);
+    let rotated = transform.transformRect({ x: 0, y: 0, width: this.properties.width, height: this.properties.height });
+    console.log(rotated);
+
+    let rect = toRect(this.properties);
 
     if(edge.vertical === 'top') {
       rect.top.y += delta.y;
@@ -95,6 +103,10 @@ export default Tool.extend({
     } else if(edge.horizontal === 'right') {
       rect.bottom.x += delta.x;
     }
+
+    // transform = new AffineTransform();
+    // transform.rotateDeg(rotation);
+    // let properties = transform.transformRect(fromRect(rect));
 
     let properties = fromRect(rect);
     node.update(properties);
