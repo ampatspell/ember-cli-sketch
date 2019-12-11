@@ -147,6 +147,8 @@ export default Tool.extend({
     this.pin(pin, properties, this.properties);
 
     node.update(properties);
+
+    // delta since previous child update
     // node.nodes.all.forEach(node => node.update(children, { delta: true }));
 
     if(!aspect) {
