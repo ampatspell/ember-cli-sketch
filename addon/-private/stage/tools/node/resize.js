@@ -78,6 +78,8 @@ export default Tool.extend({
   },
 
   pin(pin, frame, properties) {
+    // pin should be { x: true, y: false } -- true means max
+
     let { rotation } = properties;
     let initial = rotatePosition(pin, properties, rotation);
     let updated = rotatePosition(pin, frame, rotation);
