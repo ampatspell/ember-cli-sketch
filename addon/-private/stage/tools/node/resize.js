@@ -58,6 +58,10 @@ export default Tool.extend({
     this.node.perform('aspect-update');
   },
 
+  moveToContainer() {
+    this.node.perform('move-to-container');
+  },
+
   rotatedPoint() {
     let properties = this.properties;
     let rotation = -properties.rotation;
@@ -79,6 +83,31 @@ export default Tool.extend({
     let updated = rotatePosition(pin, frame, rotation);
     frame.x += (initial.x - updated.x);
     frame.y += (initial.y - updated.y);
+    return frame;
+  },
+
+  aspect(aspect, attributes, frame, properties) {
+    if(!aspect) {
+      return;
+    }
+
+    let height;
+    let width;
+
+    // aspect should be based on edge
+    // am i resizing width or height
+
+    if(properties.width !== frame.width) {
+      height = attributes.clamp('height', frame.width / aspect);
+      width = attributes.clamp('width', height * aspect);
+    } else {
+      width = attributes.clamp('width', frame.height * aspect);
+      height = attributes.clamp('height', width / aspect);
+    }
+
+    frame.height = height;
+    frame.width = width;
+
     return frame;
   },
 
@@ -112,71 +141,27 @@ export default Tool.extend({
       properties.width = clamped;
     }
 
+    let aspect = this.aspectForEdge(edge);
+    this.aspect(aspect, attributes, properties, this.properties);
+
     this.pin(pin, properties, this.properties);
+
     node.update(properties);
     // node.nodes.all.forEach(node => node.update(children, { delta: true }));
 
-    // let aspect = this.aspectForEdge(edge);
+    if(!aspect) {
+      this.updateAspect();
+    }
 
-
-
-    // if(aspect) {
-    //   let height;
-    //   let width;
-
-    //   if(before.width !== frame.width) {
-    //     height = attributes.clamp('height', frame.width / aspect);
-    //     width = attributes.clamp('width', height * aspect);
-    //   } else if(before.height !== frame.height) {
-    //     width = attributes.clamp('width', frame.height * aspect);
-    //     height = attributes.clamp('height', width / aspect);
-    //   }
-
-    //   if(width && height) {
-    //     frame.height = height;
-    //     frame.width = width;
-    //   }
-    // }
-
-    // node.update(frame);
-    // node.nodes.all.forEach(node => node.update(children, { delta: true }));
-
-    // let after = node.frame.properties;
-    // frame = {};
-
-    // node.update(frame, { delta: true });
-
-    // this.delta = { x: 0, y: 0 };
-
-    // if(!aspect) {
-    //   this.updateAspect();
-
-    //   let result = node.frame.properties;
-
-    //   if(edge.horizontal === 'right') {
-    //     this.delta.x = before.width + delta.x - result.width;
-    //   } else if(edge.horizontal === 'left') {
-    //     this.delta.x = before.x + delta.x - result.x;
-    //   }
-
-    //   if(edge.vertical === 'top') {
-    //     this.delta.y = before.y + delta.y - result.y;
-    //   } else if(edge.vertical === 'bottom') {
-    //     this.delta.y = before.height + delta.y - result.height;
-    //   }
-
-    // }
-
-    // node.perform('move-to-container');
+    // after move to container. point needs reset
+    // this.moveToContainer();
   },
 
   onMouseMove() {
-    let { node: { frame }, mouse: { absolute, isLeftButton } } = this;
-
+    let { mouse: { isLeftButton } } = this;
     if(!isLeftButton) {
       return;
     }
-
     this.update();
   },
 
