@@ -1,7 +1,6 @@
 import Tool from '../-base';
 import { assign } from '@ember/polyfills';
 import { round, rotatePosition, rotatedRectBounds } from '../../../util/math';
-import AffineTransform from '../../../util/affine-transform';
 
 const toRect = props => ({
   top: {
@@ -74,8 +73,13 @@ export default Tool.extend({
     return delta;
   },
 
-  // let rotation = ((properties.rotation % 360) + 360) % 360;
-  // let inRange = (base, delta=45) => base - delta <= rotation && rotation < base + delta;
+  pin(pin, frame, properties) {
+    let initial = rotatePosition(pin, properties, properties.rotation);
+    let updated = rotatePosition(pin, frame, properties.rotation);
+    frame.x += (initial.x - updated.x);
+    frame.y += (initial.y - updated.y);
+    return frame;
+  },
 
   update() {
     let { edge, node } = this;
@@ -83,33 +87,30 @@ export default Tool.extend({
     let point = this.rotatedPoint();
     let delta = this.calculateDelta(point);
 
-    let rotation = this.properties.rotation;
-
-    let transform = new AffineTransform();
-    transform.rotateDeg(-rotation);
-    let rotated = transform.transformRect({ x: 0, y: 0, width: this.properties.width, height: this.properties.height });
-    console.log(rotated);
-
-    let rect = toRect(this.properties);
+    let properties = this.properties;
+    let rect = toRect(properties);
+    let pin = { x: 0, y: 0 };
 
     if(edge.vertical === 'top') {
       rect.top.y += delta.y;
     } else if(edge.vertical === 'bottom') {
       rect.bottom.y += delta.y;
+      pin.y = properties.height;
     }
 
     if(edge.horizontal === 'left') {
       rect.top.x += delta.x;
     } else if(edge.horizontal === 'right') {
       rect.bottom.x += delta.x;
+      pin.x = properties.width;
     }
 
-    // transform = new AffineTransform();
-    // transform.rotateDeg(rotation);
-    // let properties = transform.transformRect(fromRect(rect));
+    let frame = fromRect(rect);
+    this.pin(pin, frame, properties);
 
-    let properties = fromRect(rect);
-    node.update(properties);
+    //
+
+    node.update(frame);
 
     // let aspect = this.aspectForEdge(edge);
 
