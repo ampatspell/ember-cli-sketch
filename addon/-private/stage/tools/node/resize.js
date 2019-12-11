@@ -74,8 +74,9 @@ export default Tool.extend({
   },
 
   pin(pin, frame, properties) {
-    let initial = rotatePosition(pin, properties, properties.rotation);
-    let updated = rotatePosition(pin, frame, properties.rotation);
+    let { rotation } = properties;
+    let initial = rotatePosition(pin, properties, rotation);
+    let updated = rotatePosition(pin, frame, rotation);
     frame.x += (initial.x - updated.x);
     frame.y += (initial.y - updated.y);
     return frame;
