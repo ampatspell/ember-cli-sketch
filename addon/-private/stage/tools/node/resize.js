@@ -59,7 +59,10 @@ export default Tool.extend({
   },
 
   moveToContainer() {
-    this.node.perform('move-to-container');
+    if(!this.node.perform('move-to-container')) {
+      return;
+    }
+    this.setup();
   },
 
   rotatedPoint() {
@@ -78,11 +81,24 @@ export default Tool.extend({
   },
 
   pin(pin, frame, properties) {
-    // pin should be { x: true, y: false } -- true means max
-
     let { rotation } = properties;
-    let initial = rotatePosition(pin, properties, rotation);
-    let updated = rotatePosition(pin, frame, rotation);
+
+    let dim = (o, s) => {
+      let value = pin[o];
+      if(value === 'min') {
+        return 0;
+      } else if(value === 'max') {
+        return properties[s];
+      }
+    }
+
+    let pos = {
+      x: dim('x', 'width'),
+      y: dim('y', 'height')
+    };
+
+    let initial = rotatePosition(pos, properties, rotation);
+    let updated = rotatePosition(pos, frame, rotation);
     frame.x += (initial.x - updated.x);
     frame.y += (initial.y - updated.y);
     return frame;
@@ -120,7 +136,7 @@ export default Tool.extend({
     let delta = this.calculateDelta(point);
 
     let properties = assign({}, this.properties);
-    let pin = { x: 0, y: 0 };
+    let pin = { x: 'min', y: 'min' };
     let attributes = node.attributes;
 
     if(edge.vertical === 'top') {
@@ -128,7 +144,7 @@ export default Tool.extend({
       properties.y -= clamped - properties.height;
       properties.height = clamped;
     } else if(edge.vertical === 'bottom') {
-      pin.y = properties.height;
+      pin.y = 'max';
       let clamped = attributes.clamp('height', properties.height + delta.y);
       properties.height = clamped;
     }
@@ -138,7 +154,7 @@ export default Tool.extend({
       properties.x -= clamped - properties.width;
       properties.width = clamped;
     } else if(edge.horizontal === 'right') {
-      pin.x = properties.width;
+      pin.x = 'max';
       let clamped = attributes.clamp('width', properties.width + delta.x);
       properties.width = clamped;
     }
@@ -150,6 +166,7 @@ export default Tool.extend({
 
     node.update(properties);
 
+    // TODO: children delta
     // delta since previous child update
     // node.nodes.all.forEach(node => node.update(children, { delta: true }));
 
@@ -157,8 +174,7 @@ export default Tool.extend({
       this.updateAspect();
     }
 
-    // after move to container. point needs reset
-    // this.moveToContainer();
+    this.moveToContainer();
   },
 
   onMouseMove() {
@@ -179,13 +195,19 @@ export default Tool.extend({
     }
   },
 
+  setup() {
+    let { node } = this;
+    let properties = node.frame.properties;
+    this.setProperties({ properties });
+    let point = this.rotatedPoint();
+    this.setProperties({ point });
+  },
+
   activate({ node }) {
     this.selection.removeExcept(node);
     let edge = node.edge.serialized;
-    let properties = node.frame.properties;
-    this.setProperties({ node, edge, properties });
-    let point = this.rotatedPoint();
-    this.setProperties({ point });
+    this.setProperties({ node, edge });
+    this.setup();
   },
 
   deactivate() {
