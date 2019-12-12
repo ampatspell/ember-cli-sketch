@@ -27,30 +27,15 @@ export default Tool.extend({
   node: null,
   edge: null,
 
-  aspectForEdge(edge) {
+  calculateAspect() {
     let { node, node: { attributes: { aspect } } } = this;
-
     if(aspect.free) {
       return;
     }
-
-    let middle = edge.vertical === 'middle' || edge.horizontal === 'middle';
-
     let shift = this.get('keyboard.isShift');
     if(shift) {
-      middle = !middle;
-    }
-
-    let { locked } = aspect;
-
-    if(shift) {
-      locked = false;
-    }
-
-    if(!locked && middle) {
       return;
     }
-
     return node.aspect;
   },
 
@@ -101,36 +86,12 @@ export default Tool.extend({
     return frame;
   },
 
-  aspect(aspect, attributes, frame, properties) {
-    if(!aspect) {
-      return;
-    }
-
-    let height;
-    let width;
-
-    // aspect should be based on edge
-    // am i resizing width or height
-
-    if(properties.width !== frame.width) {
-      height = attributes.clamp('height', frame.width / aspect);
-      width = attributes.clamp('width', height * aspect);
-    } else {
-      width = attributes.clamp('width', frame.height * aspect);
-      height = attributes.clamp('height', width / aspect);
-    }
-
-    frame.height = height;
-    frame.width = width;
-
-    return frame;
-  },
-
   update() {
     let { edge, node } = this;
 
     let point = this.rotatedPoint();
     let delta = this.calculateDelta(point);
+    let aspect = this.calculateAspect();
 
     let properties = assign({}, this.properties);
     let pin = { x: 'min', y: 'min' };
@@ -156,11 +117,20 @@ export default Tool.extend({
       properties.width = clamped;
     }
 
-    let aspect = this.aspectForEdge(edge);
-    this.aspect(aspect, attributes, properties, this.properties);
+    if(aspect) {
+      if((edge.horizontal === 'right' || edge.horizontal === 'left') && edge.vertical !== 'middle') {
+        let value = attributes.clamp('height', properties.width / aspect);
+        let diff = properties.height - value;
+        properties.height = value;
+        if(edge.vertical === 'top') {
+          properties.y += diff;
+        }
+      } else {
+        aspect = 0;
+      }
+    }
 
     this.pin(pin, properties, this.properties);
-
     node.update(properties);
 
     // TODO: children delta
