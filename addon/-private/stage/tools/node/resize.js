@@ -59,10 +59,7 @@ export default Tool.extend({
   },
 
   moveToContainer() {
-    if(!this.node.perform('move-to-container')) {
-      return;
-    }
-    this.setup();
+    return this.node.perform('move-to-container');
   },
 
   rotatedPoint() {
@@ -174,7 +171,9 @@ export default Tool.extend({
       this.updateAspect();
     }
 
-    this.moveToContainer();
+    if(this.moveToContainer()) {
+      this.setup();
+    }
   },
 
   onMouseMove() {
