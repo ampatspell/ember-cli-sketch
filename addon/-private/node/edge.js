@@ -37,19 +37,20 @@ const prop = key => readOnly(`serialized.${key}`);
 
 export default EmberObject.extend({
 
-  point: readOnly('node.stage.interactions.mouse.stage'),
+  point: readOnly('node.stage.interactions.mouse.absolute'),
 
-  serialized: computed('point', 'node.frame.hover', function() {
+  serialized: computed('point', 'node.frame.absolute', function() {
     let { point } = this;
     if(!point) {
       return;
     }
-    let { node, node: { frame: { hover } } } = this;
-    if(!hover) {
+    let { node: { frame, frame: { absolute } } } = this;
+    if(!absolute) {
       return;
     }
-    let local = node.frame.convertPoint(point, 'hover');
-    return calculate(local, hover);
+    let rotated = frame.rotatedPosition(point, 'absolute');
+    let local = frame.convertPoint(rotated, 'absolute');
+    return calculate(local, absolute);
   }).readOnly(),
 
   has: bool('serialized'),

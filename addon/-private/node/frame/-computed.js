@@ -39,11 +39,11 @@ export const absolute = (frameKey, parentFrameKey) => computed(frameKey, parentF
   let r = value => round(value, 0);
 
   let result = {
-    x:      r(parent.x + x),
-    y:      r(parent.y + y),
-    width:  r(width),
-    height: r(height),
-    rotation
+    x:        r(parent.x + x),
+    y:        r(parent.y + y),
+    width:    r(width),
+    height:   r(height),
+    rotation: r(rotation)
   };
   return result;
 }).readOnly();

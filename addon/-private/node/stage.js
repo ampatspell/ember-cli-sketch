@@ -68,8 +68,8 @@ export default opts => create(opts).extend({
     return nodes.map(node => actions.perform(node, name, ...args));
   },
 
-  nodesForPosition(position, type) {
-    return this.nodes.nodesForPosition(position, type);
+  nodesForAbsolutePosition(position) {
+    return this.nodes.nodesForAbsolutePosition(position);
   }
 
 });

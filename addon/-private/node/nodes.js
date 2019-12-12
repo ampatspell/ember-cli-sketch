@@ -29,12 +29,13 @@ export default EmberObject.extend({
 
   containers: typed('containers'),
 
-  nodesForPosition(position, type) {
+  nodesForAbsolutePosition(position) {
     return this.selectable.reduce((nodes, node) => {
-      if(node.frame.containsPosition(position, type)) {
+      let rotated = node.frame.rotatedPosition(position, 'absolute');
+      if(node.frame.containsPosition(rotated, 'absolute')) {
         nodes.push(node);
       }
-      nodes.push(...node.nodes.nodesForPosition(position, type));
+      nodes.push(...node.nodes.nodesForAbsolutePosition(position));
       return nodes;
     }, A());
   },

@@ -1,5 +1,24 @@
 import Tool from '../-base';
 import { assign } from '@ember/polyfills';
+import { round, rotatePosition, rotatedRectBounds } from '../../../util/math';
+
+const toRect = props => ({
+  top: {
+    x: props.x,
+    y: props.y
+  },
+  bottom: {
+    x: props.x + props.width,
+    y: props.y + props.height
+  }
+});
+
+const fromRect = rect => ({
+  x:      rect.top.x,
+  y:      rect.top.y,
+  width:  rect.bottom.x - rect.top.x,
+  height: rect.bottom.y - rect.top.y
+});
 
 export default Tool.extend({
 
@@ -7,32 +26,16 @@ export default Tool.extend({
 
   node: null,
   edge: null,
-  delta: null,
 
-  aspectForEdge(edge) {
+  calculateAspect() {
     let { node, node: { attributes: { aspect } } } = this;
-
     if(aspect.free) {
       return;
     }
-
-    let middle = edge.vertical === 'middle' || edge.horizontal === 'middle';
-
     let shift = this.get('keyboard.isShift');
     if(shift) {
-      middle = !middle;
-    }
-
-    let { locked } = aspect;
-
-    if(shift) {
-      locked = false;
-    }
-
-    if(!locked && middle) {
       return;
     }
-
     return node.aspect;
   },
 
@@ -40,113 +43,115 @@ export default Tool.extend({
     this.node.perform('aspect-update');
   },
 
-  update({ delta }) {
-    delta = this.zoomedDelta(delta);
+  moveToContainer() {
+    return this.node.perform('move-to-container');
+  },
 
-    delta = {
-      x: this.delta.x + delta.x,
-      y: this.delta.y + delta.y
+  rotatedPoint() {
+    let properties = this.properties;
+    let rotation = -properties.rotation;
+    return rotatePosition(this.mouse.absolute, properties, rotation);
+  },
+
+  calculateDelta(target) {
+    let source = this.point;
+    let delta = {
+      x: target.x - source.x,
+      y: target.y - source.y
     };
+    return delta;
+  },
 
-    let { node, edge } = this;
+  pin(pin, frame, properties) {
+    let { rotation } = properties;
 
-    let aspect = this.aspectForEdge(edge);
-
-    let before = node.frame.properties;
-    let frame = assign({}, node.frame.properties);
-    let children = {};
-    let attributes = node.attributes;
-
-    if(edge.vertical === 'bottom') {
-      let value = attributes.clampDelta('height', delta.y);
-      frame.height += value;
-    } else if(edge.vertical === 'top') {
-      let value = attributes.clampDelta('height', -delta.y);
-      frame.y += -value;
-      frame.height += value;
-      children.y = value;
+    let dim = (o, s) => {
+      let value = pin[o];
+      if(value === 'min') {
+        return 0;
+      } else if(value === 'max') {
+        return properties[s];
+      }
     }
 
-    if(edge.horizontal === 'right') {
-      let value = attributes.clampDelta('width', delta.x);
-      frame.width += value;
-    } else if(edge.horizontal === 'left') {
-      let value = attributes.clampDelta('width', -delta.x);
-      frame.x += -value;
-      frame.width += value;
-      children.x = value;
+    let pos = {
+      x: dim('x', 'width'),
+      y: dim('y', 'height')
+    };
+
+    let initial = rotatePosition(pos, properties, rotation);
+    let updated = rotatePosition(pos, frame, rotation);
+    frame.x += (initial.x - updated.x);
+    frame.y += (initial.y - updated.y);
+    return frame;
+  },
+
+  update() {
+    let { edge, node } = this;
+
+    let point = this.rotatedPoint();
+    let delta = this.calculateDelta(point);
+    let aspect = this.calculateAspect();
+
+    let properties = assign({}, this.properties);
+    let pin = { x: 'min', y: 'min' };
+    let attributes = node.attributes;
+
+    if(edge.vertical === 'top') {
+      let clamped = attributes.clamp('height', properties.height - delta.y);
+      properties.y -= clamped - properties.height;
+      properties.height = clamped;
+    } else if(edge.vertical === 'bottom') {
+      pin.y = 'max';
+      let clamped = attributes.clamp('height', properties.height + delta.y);
+      properties.height = clamped;
+    }
+
+    if(edge.horizontal === 'left') {
+      let clamped = attributes.clamp('width', properties.width - delta.x);
+      properties.x -= clamped - properties.width;
+      properties.width = clamped;
+    } else if(edge.horizontal === 'right') {
+      pin.x = 'max';
+      let clamped = attributes.clamp('width', properties.width + delta.x);
+      properties.width = clamped;
     }
 
     if(aspect) {
-      let height;
-      let width;
-
-      if(before.width !== frame.width) {
-        height = attributes.clamp('height', frame.width / aspect);
-        width = attributes.clamp('width', height * aspect);
-      } else if(before.height !== frame.height) {
-        width = attributes.clamp('width', frame.height * aspect);
-        height = attributes.clamp('height', width / aspect);
-      }
-
-      if(width && height) {
-        frame.height = height;
-        frame.width = width;
+      if((edge.horizontal === 'right' || edge.horizontal === 'left') && edge.vertical !== 'middle') {
+        let value = attributes.clamp('height', properties.width / aspect);
+        let diff = properties.height - value;
+        properties.height = value;
+        if(edge.vertical === 'top') {
+          properties.y += diff;
+        }
+      } else {
+        aspect = 0;
       }
     }
 
-    node.update(frame);
-    node.nodes.all.forEach(node => node.update(children, { delta: true }));
+    this.pin(pin, properties, this.properties);
+    node.update(properties);
 
-    let after = node.frame.properties;
-    frame = {};
-
-    if(edge.horizontal === 'left') {
-      frame.x = (before.x + before.width) - (after.x + after.width);
-    } else if(edge.horizontal === 'middle') {
-      frame.x = ((before.x + before.width) - (after.x + after.width)) / 2;
-    }
-
-    if(edge.vertical === 'top') {
-      frame.y = (before.y + before.height) - (after.y + after.height);
-    } else if(edge.vertical === 'middle') {
-      frame.y = ((before.y + before.height) - (after.y + after.height)) / 2;
-    }
-
-    node.update(frame, { delta: true });
+    // TODO: children delta
+    // delta since previous child update
+    // node.nodes.all.forEach(node => node.update(children, { delta: true }));
 
     if(!aspect) {
       this.updateAspect();
-
-      let result = node.frame.properties;
-
-      if(edge.horizontal === 'right') {
-        this.delta.x = before.width + delta.x - result.width;
-      } else if(edge.horizontal === 'left') {
-        this.delta.x = before.x + delta.x - result.x;
-      }
-
-      if(edge.vertical === 'top') {
-        this.delta.y = before.y + delta.y - result.y;
-      } else if(edge.vertical === 'bottom') {
-        this.delta.y = before.height + delta.y - result.height;
-      }
-
-    } else {
-      this.delta = { x: 0, y: 0 };
     }
 
-    node.perform('move-to-container');
+    if(this.moveToContainer()) {
+      this.setup();
+    }
   },
 
-  onMouseMove({ delta }) {
+  onMouseMove() {
     let { mouse: { isLeftButton } } = this;
-
     if(!isLeftButton) {
       return;
     }
-
-    this.update({ delta });
+    this.update();
   },
 
   onMouseUp() {
@@ -159,11 +164,19 @@ export default Tool.extend({
     }
   },
 
+  setup() {
+    let { node } = this;
+    let properties = node.frame.properties;
+    this.setProperties({ properties });
+    let point = this.rotatedPoint();
+    this.setProperties({ point });
+  },
+
   activate({ node }) {
     this.selection.removeExcept(node);
     let edge = node.edge.serialized;
-    let delta = { x: 0, y: 0 };
-    this.setProperties({ node, edge, delta });
+    this.setProperties({ node, edge });
+    this.setup();
   },
 
   deactivate() {
@@ -171,7 +184,7 @@ export default Tool.extend({
   },
 
   reset() {
-    this.setProperties({ node: null, edge: null, delta: null });
+    this.setProperties({ node: null, edge: null });
   }
 
 });

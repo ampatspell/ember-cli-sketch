@@ -3,6 +3,7 @@ import { readOnly } from '@ember/object/computed';
 import { assert } from '@ember/debug';
 import { assign } from '@ember/polyfills';
 import { factory } from '../../util/computed';
+import { round, pi, rotatePosition } from '../../util/math';
 
 export const frame = type => factory((factory, node) => factory.frame(type, node));
 
@@ -67,6 +68,12 @@ export default EmberObject.extend({
     let frame = this[frameKey];
     assert(`frame ${frameKey} not declared for ${this}`, !!frame);
     return frame;
+  },
+
+  rotatedPosition({ x, y }, frameKey) {
+    let frame = this._frame(frameKey);
+    let rotation = -frame.rotation;
+    return rotatePosition({ x, y }, frame, rotation);
   },
 
   // point is inside this frame
