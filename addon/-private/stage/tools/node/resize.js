@@ -1,24 +1,6 @@
 import Tool from '../-base';
 import { assign } from '@ember/polyfills';
-import { round, rotatePosition, rotatedRectBounds } from '../../../util/math';
-
-const toRect = props => ({
-  top: {
-    x: props.x,
-    y: props.y
-  },
-  bottom: {
-    x: props.x + props.width,
-    y: props.y + props.height
-  }
-});
-
-const fromRect = rect => ({
-  x:      rect.top.x,
-  y:      rect.top.y,
-  width:  rect.bottom.x - rect.top.x,
-  height: rect.bottom.y - rect.top.y
-});
+import { rotatePosition } from '../../../util/math';
 
 export default Tool.extend({
 

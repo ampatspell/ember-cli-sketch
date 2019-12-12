@@ -3,7 +3,7 @@ import { readOnly } from '@ember/object/computed';
 import { assert } from '@ember/debug';
 import { assign } from '@ember/polyfills';
 import { factory } from '../../util/computed';
-import { round, pi, rotatePosition } from '../../util/math';
+import { rotatePosition } from '../../util/math';
 
 export const frame = type => factory((factory, node) => factory.frame(type, node));
 
