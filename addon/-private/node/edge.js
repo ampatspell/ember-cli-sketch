@@ -1,10 +1,10 @@
 import EmberObject, { computed } from '@ember/object';
 import { readOnly, bool } from '@ember/object/computed';
 
-const offset = 10;
-
-const calculate = (local, bounds) => {
+const calculate = (local, bounds, zoom) => {
   let edge = {};
+
+  let offset = 15 / zoom;
 
   if(local.x > -offset && local.x < offset) {
     edge.horizontal = 'left';
@@ -38,19 +38,20 @@ const prop = key => readOnly(`serialized.${key}`);
 export default EmberObject.extend({
 
   point: readOnly('node.stage.interactions.mouse.absolute'),
+  zoom: readOnly('node.stage.zoom'),
 
-  serialized: computed('point', 'node.frame.absolute', function() {
+  serialized: computed('point', 'node.frame.absolute', 'zoom', function() {
     let { point } = this;
     if(!point) {
       return;
     }
-    let { node: { frame, frame: { absolute } } } = this;
+    let { zoom, node: { frame, frame: { absolute } } } = this;
     if(!absolute) {
       return;
     }
     let rotated = frame.rotatedPosition(point, 'absolute');
     let local = frame.convertPoint(rotated, 'absolute');
-    return calculate(local, absolute);
+    return calculate(local, absolute, zoom);
   }).readOnly(),
 
   has: bool('serialized'),

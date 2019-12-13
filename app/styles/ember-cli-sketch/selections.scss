@@ -32,15 +32,6 @@
     &.disabled {
       opacity: 0.2;
     }
-    &:before {
-      content: '';
-      position: absolute;
-      $o: -3px;
-      top: $o;
-      left: $o;
-      bottom: $o;
-      right: $o;
-    }
   }
   > .top {
     top: -6px;
