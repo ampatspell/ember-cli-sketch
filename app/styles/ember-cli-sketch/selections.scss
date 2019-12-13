@@ -19,8 +19,9 @@
     border: 1px solid fade-out(#000, 0.5);
     background: fade-out(#fff, 0.2);
     box-shadow: 0 1px 2px fade-out(#000, 0.7);
-    width: 11px;
-    height: 11px;
+    $s: 11px;
+    width: $s;
+    height: $s;
     transition:
       border-color 0.2s ease-in-out,
       background-color 0.2s ease-in-out;
@@ -30,6 +31,15 @@
     }
     &.disabled {
       opacity: 0.2;
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      $o: -3px;
+      top: $o;
+      left: $o;
+      bottom: $o;
+      right: $o;
     }
   }
   > .top {
