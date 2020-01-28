@@ -266,6 +266,11 @@
           {{ui-block/slider min=0 max=96 step=1 value=node.model.fontSize update=(action "updateNodeProperty" node "fontSize")}}
         {{/if}}
 
+        {{#if node.model.hasLineHeight}}
+          <div class="label" role="button" {{action "updateNodeProperty" node "lineHeight" 1}}>line height:</div>
+          {{ui-block/input value=node.model.lineHeight update=(action "updateNodeProperty" node "lineHeight")}}
+        {{/if}}
+
         {{#if node.model.hasFontStyle}}
           <div class="label">Font style: {{node.model.fontStyle}}</div>
           <div class="row">

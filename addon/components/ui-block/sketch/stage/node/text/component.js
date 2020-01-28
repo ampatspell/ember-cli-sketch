@@ -38,13 +38,15 @@ export default Component.extend({
 
   text: readOnly('model.text'),
 
-  style: style('model.{fill,color,opacity,fontFamily,fontWeight,fontSize,padding}', 'zoom', function() {
-    let { model: { fill: background, color, opacity, fontFamily, fontWeight, fontSize, padding }, zoom } = this;
+  style: style('model.{fill,color,opacity,fontFamily,fontWeight,fontSize,lineHeight,padding}', 'zoom', function() {
+    let { model: { fill: background, color, opacity, fontFamily, fontWeight, fontSize, lineHeight, padding }, zoom } = this;
+    console.log(lineHeight);
     return {
       background,
       opacity,
       color,
       fontWeight,
+      lineHeight: lineHeight ? px(lineHeight, zoom) : 1,
       fontFamily: `"${fontFamily}"`,
       fontSize: px(fontSize, zoom),
       padding: px(padding, zoom)

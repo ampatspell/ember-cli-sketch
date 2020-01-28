@@ -25,6 +25,7 @@ export default Base.extend({
   fontFamily: attr('fontFamily', { type: 'string', initial: 'Ubuntu Mono' }),
   fontWeight: attr('fontWeight', { type: 'number', initial: 400 }),
   fontSize:   attr('fontSize', { type: 'number', initial: 16, min: 10, max: 96 }),
+  lineHeight: attr('lineHeight', { type: 'number', initial: 0, min: 0, max: 500, decimals: 1 }),
   fontStyle:  attr('fontStyle', { type: 'string', initial: 'normal' }),
   padding:    attr('padding', { type: 'number', initial: 0, min: 0 }),
 
@@ -38,6 +39,7 @@ export default Base.extend({
   hasText: true,
   hasFontFamily: true,
   hasFontWeight: true,
+  hasLineHeight: true,
   hasFontSize: true,
   hasFontStyle: true,
   hasAlign: true,
