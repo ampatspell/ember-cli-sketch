@@ -40,7 +40,6 @@ export default Component.extend({
 
   style: style('model.{fill,color,opacity,fontFamily,fontWeight,fontSize,lineHeight,padding}', 'zoom', function() {
     let { model: { fill: background, color, opacity, fontFamily, fontWeight, fontSize, lineHeight, padding }, zoom } = this;
-    console.log(lineHeight);
     return {
       background,
       opacity,
