@@ -12,6 +12,7 @@ export default Base.extend({
   height:     height(),
   rotation:   rotation(),
   aspect:     aspect({ initial: 2/3, locked: true }),
+  fit:        attr('fit', { type: 'boolean', initial: false }),
 
   visible:    visible(),
   selectable: selectable(),
@@ -26,6 +27,7 @@ export default Base.extend({
     };
   }).cached(model => model.url),
 
+  hasFit: true,
   hasAspect: true,
   hasRotation: true,
   hasOpacity: true,

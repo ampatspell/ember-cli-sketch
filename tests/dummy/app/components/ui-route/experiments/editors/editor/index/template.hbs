@@ -306,6 +306,14 @@
           <div class="label" role="button" {{action "updateNodeProperty" node "url" ""}}>URL:</div>
           {{ui-block/input value=node.model.url update=(action "updateNodeProperty" node "url")}}
         {{/if}}
+
+        {{#if node.model.hasFit}}
+          <div class="label">Fit: {{node.model.fit}}</div>
+          <div class="row">
+            {{ui-block/button value="Fit" action=(action "updateNodeProperty" node "fit" true)}}
+            {{ui-block/button value="Free" action=(action "updateNodeProperty" node "fit" false)}}
+          </div>
+        {{/if}}
       </div>
     </div>
   {{else}}
