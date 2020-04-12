@@ -13,8 +13,12 @@ const registerHash = (app, hash, prefix) => {
 }
 
 export const register = (app, opts) => {
-  let { factory, interactions, actions, tools, fonts } = opts;
+  let { factory, strings, interactions, actions, tools, fonts } = opts;
   assert(`opts.factory is required`, !!factory);
+
+  if(strings) {
+    app.register('sketch:strings', strings);
+  }
 
   interactions = registerHash(app, interactions, 'sketch:stage/interactions/handlers');
   actions      = registerHash(app, actions,      'sketch:actions');
