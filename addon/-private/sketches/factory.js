@@ -166,6 +166,10 @@ export default EmberObject.extend({
 
   task(owner, opts) {
     return this._create('task', { owner, opts });
+  },
+
+  strings(stage) {
+    return this._create('strings', { stage });
   }
 
 });

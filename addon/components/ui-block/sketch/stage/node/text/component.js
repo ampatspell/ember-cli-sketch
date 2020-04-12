@@ -29,6 +29,8 @@ export default Component.extend({
     };
   }),
 
+  strings: readOnly('model.node.stage.strings'),
+
   isLoading: readOnly('loader.isLoading'),
   isEditing: editing('model'),
 

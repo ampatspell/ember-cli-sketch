@@ -39,6 +39,7 @@ import Hover from 'ember-cli-sketch/-private/stage/hover';
 import Selection from 'ember-cli-sketch/-private/stage/selection';
 import Cursor from 'ember-cli-sketch/-private/stage/cursor';
 import StageGuidelines from 'ember-cli-sketch/-private/stage/guidelines';
+import Strings from 'ember-cli-sketch/-private/stage/strings';
 
 import Tools from 'ember-cli-sketch/-private/stage/tools';
 import ToolSelection from 'ember-cli-sketch/-private/stage/tools/selection';
@@ -114,5 +115,6 @@ export default {
     container.register('sketch:stage/interactions/handlers', Handlers);
     container.register('sketch:stage/interactions/handlers/tools', HandlerTools);
     container.register('sketch:task', Task);
+    container.register('sketch:strings', Strings);
   }
 }
